@@ -1,4 +1,4 @@
-html3text==2020.1.16
+html2text==2020.1.16
 # Skype SDK
 SkPy==0.10.4
 
