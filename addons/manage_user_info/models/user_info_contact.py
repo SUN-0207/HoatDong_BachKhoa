@@ -32,9 +32,14 @@ class UserInfoContact(models.Model):
   native_address = fields.Char(string="Native Address")
   native_address_specific = fields.Char(string="Native Address Specific")
 
+
+  _sql_constraints = [
+    ('unique_student_id','UNIQUE (student_id)', 'Student ID must be unique!')
+    ]
+
   @api.constrains('student_id')
   def _validate_name(self):
-    pattern = r'^0?\d{6}$'
+    pattern = r'^0?\d{7}$'
     for record in self:
       if not re.match(pattern, record.student_id):
         raise ValidationError("Invalid student ID.")
@@ -72,3 +77,4 @@ class UserInfoContact(models.Model):
       for district_data in data:
         if(district_data['province_code'] == self.province):
           self.district.append((district_data['code'], district_data['name']))
+
