@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="action_user_infor" model="ir.actions.act_window">
+    <field name="name">User Information</field>
+    <field name="res_model">user.info</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+</odoo>

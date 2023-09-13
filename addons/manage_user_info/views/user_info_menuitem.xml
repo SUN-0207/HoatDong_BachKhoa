@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <menuitem name="Manage Information" id="manage_base_menu" />
+  <menuitem name="Manage User" id="user_info_menu" parent="manage_base_menu" />
+  <menuitem name="Manage Department" id="user_info_department_menu" parent="manage_base_menu" />
+  <menuitem name="Manage Major" id="user_info_major_menu" parent="manage_base_menu" />
+  <menuitem name="Manage Class" id="user_info_class_menu" parent="manage_base_menu" />
+
+</odoo>

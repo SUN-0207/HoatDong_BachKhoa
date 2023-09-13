@@ -7,11 +7,11 @@
     'website': "https://www.odoo.com",
     "depends": ['base_setup'],
     "data": [
-        'views/user_class_views.xml',
-        'views/user_department_views.xml',
-        'views/user_major_views.xml',
-        'views/user_menuitem.xml',
-        'views/user_views.xml'
+        'views/user_info_class_views.xml',
+        'views/user_info_department_views.xml',
+        'views/user_info_major_views.xml',
+        'views/user_info_menuitem.xml',
+        'views/user_info_views.xml'
     ],
     'license': 'LGPL-3',
     'installable': True,
