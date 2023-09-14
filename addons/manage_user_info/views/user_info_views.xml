@@ -14,12 +14,55 @@
       <field name="model">user.info</field>
       <field name="arch" type="xml">
         <form>
-          <group>
-            <field name="user_id" />
-            <field name="sur_name" />
-            <field name="first_name" />
-            <field name="email" />
-          </group>
+          <sheet>
+           <group>
+            <group>
+              <group>
+                <field name="user_id" />
+                <field name="sur_name" />
+                <field name="first_name" />
+                <field name="email" />
+              </group>
+              <group>
+                <field name="gender" widget='option'/>
+                <field name="birth_date"/>
+                <field name="nation"/>
+                <field name="religion"/>
+              </group>
+            </group>
+
+            <group>
+              <field name="student_id"/>
+              <field name="phone_number"/>
+              <field name="personal_email"/>
+              <field name="national_id"/>
+            </group>
+              
+            <group>
+              <group>
+                <field name="native_address"/>
+                <field name="native_address_specific"/>
+              </group>
+              <group>
+                <field name="permanent_address"/>
+                <field name="permanent_address_specific"/>
+              </group>
+            </group>
+             
+            <group>
+              <group>
+                <field name="place_union"/>
+                <field name="date_at_union"/>
+              </group>
+              <group>
+                <field name="place_communist_party"/>
+                <field name="date_at_student_association"/>
+              </group>
+            </group>
+
+                
+            </group>
+          </sheet>
         </form>
       </field>
     </record>
@@ -33,6 +76,7 @@
           <field name="sur_name"/>
           <field name="first_name"/>
           <field name="email"/>
+          <field name="phone_number"></field>
         </tree>
       </field>
     </record>

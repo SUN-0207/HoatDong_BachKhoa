@@ -3,7 +3,7 @@
     "description": """Manage User Informantion""",
     "summary": "Manage User Informantion",
     "category": "Manage Info",
-    "version": "16.0.1",
+    "version": "16.0.2",
     'author': 'TST',
     'website': "https://www.odoo.com",
     "depends": ['base_setup'],
