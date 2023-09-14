@@ -1,10 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+  <data>
 
-  <record id="action_user_infor" model="ir.actions.act_window">
-    <field name="name">User Information</field>
-    <field name="res_model">user.info</field>
-    <field name="view_mode">tree,form</field>
-  </record>
+    <record id="user_infor_action" model="ir.actions.act_window">
+      <field name="name">User Information</field>
+      <field name="res_model">user.info</field>
+      <field name="view_mode">tree,form</field>
+    </record>
 
+    <!-- Form View -->
+    <record id="user_infor_view_form" model="ir.ui.view">
+      <field name="name">User Info Form</field>
+      <field name="model">user.info</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="user_id" />
+            <field name="sur_name" />
+            <field name="first_name" />
+            <field name="email" />
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="user_info_view_tree" model="ir.ui.view">
+      <field name="name">User Info List</field>
+      <field name="model">user.info</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="sur_name"/>
+          <field name="first_name"/>
+          <field name="email"/>
+        </tree>
+      </field>
+    </record>
+
+  </data>
 </odoo>
