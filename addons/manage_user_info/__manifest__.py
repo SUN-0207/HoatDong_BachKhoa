@@ -1,7 +1,7 @@
 {
     "name": "Manage User Informantion",
     "description": """Manage User Informantion""",
-    "summary": "Manage User Informantion",
+    "summary": "Manage User Informantion v1.3",
     "category": "Manage Info",
     "version": "16.0.1",
     'author': 'TST',
@@ -10,9 +10,9 @@
     "data": [
         'views/user_info_menuitem.xml',
         'views/user_info_views.xml',
-        'views/user_info_class_views.xml',
-        'views/user_info_department_views.xml',
-        'views/user_info_major_views.xml',
+        # 'views/user_info_class_views.xml',
+        # 'views/user_info_department_views.xml',
+        # 'views/user_info_major_views.xml',
     ],
     'license': 'LGPL-3',
     'installable': True,
