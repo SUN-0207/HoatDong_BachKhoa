@@ -7,4 +7,34 @@
     <field name="view_mode">tree,form</field>
   </record>
 
+  <data>
+    <!-- Form View -->
+    <record id="user_info_class_form" model="ir.ui.view">
+      <field name="name">user.info.class.form</field>
+      <field name="model">user.info.class</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="name" />
+            <field name="major_id" />
+            <field name="department_id" />
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="user_info_class_tree" model="ir.ui.view">
+      <field name="name">user.info.class.tree</field>
+      <field name="model">user.info.class</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="major_id"/>
+          <field name="department_id"/>
+        </tree>
+      </field>
+    </record>
+  </data>
+
 </odoo>
