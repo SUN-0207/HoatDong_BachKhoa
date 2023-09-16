@@ -2,8 +2,6 @@
 <odoo>
   <menuitem name="Information" id="manage_base_menu" />
   <menuitem name="Manage User" id="user_info_menu" parent="manage_base_menu" action="user_infor_action" />
-  <menuitem name="Mange User Information" id="user_info_contact_menu" parent="manage_base_menu" action="user_infor_contact_action" />
-
   <menuitem name="Manage Department" id="user_info_department_menu" parent="manage_base_menu" action="user_info_department_action"/>
   <menuitem name="Manage Major" id="user_info_major_menu" parent="manage_base_menu" action="user_info_major_action"/>
   <menuitem name="Manage Class" id="user_info_class_menu" parent="manage_base_menu" action="user_info_class_action"/> 

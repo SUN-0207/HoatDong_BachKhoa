@@ -11,7 +11,6 @@
         'views/user_info_department_views.xml',
         'views/user_info_class_views.xml',
         'views/user_info_major_views.xml',
-        'views/user_info_contact.xml',
         'views/user_info_views.xml',
         'views/user_info_menuitem.xml',
     ],
