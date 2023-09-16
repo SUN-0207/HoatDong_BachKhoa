@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+acl_user_info,library.user.info_default,model_user_info,group_hcmut_user,1,0,0,0
+acl_user_info_falcutian,user.info_falcutian,model_user_info,group_hcmut_falcutian,1,1,0,0
+acl_user_info_admin,user.info_admin,model_user_info,group_hcmut_admin,1,1,1,1
