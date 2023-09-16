@@ -17,7 +17,7 @@
           <group>
             <field name="name" />
             <field name="major_id" />
-            <field name="department_id" />
+            <!-- <field name="department_id" /> -->
           </group>
         </form>
       </field>
@@ -30,8 +30,10 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
-          <field name="major_id"/>
-          <field name="department_id"/>
+          <!-- <field name="major_id"/> -->
+          <field name="major_id" widget="many2one" options="{'no-open': True}" context="{'default-major-id': major_id}" />
+          <!-- <field name="department_id"/> -->
+          
         </tree>
       </field>
     </record>

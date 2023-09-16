@@ -10,7 +10,7 @@ class UserInfo(models.Model):
   # user_info_major_id = fields.Many2one('user.info.major',string='Major', required=True, ondelete='cascade')
   # user_info_department_id = fields.Many2one('user.info.department',string='Department', required=True, ondelete='cascade')
   # user_info_contact_id = fields.Many2one('user.info.contact',string='Personal Contact', required=True, ondelete='cascade')
-  # user_info_class_id = fields.Many2one('user.info.class',string='Class', required=True, ondelete='cascade')
+  user_info_class_id = fields.Many2one('user.info.class',string='Class', required=True, ondelete='cascade')
   
   @api.depends('name')
   def _compute_name_parts(self):

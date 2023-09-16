@@ -5,6 +5,12 @@
     <field name="res_model">user.info</field>
     <field name="view_mode">tree,form</field>
   </record>
+  <!-- <act_window 
+    id="user_info_action"
+    name="User Info"
+    res_model="ir.actions.act_window"
+    limit="20"
+  /> -->
 
   <data>
     <!-- Form View -->
@@ -13,12 +19,25 @@
       <field name="model">user.info</field>
       <field name="arch" type="xml">
         <form>
-          <group>
-            <field name="user_id" />
-            <field name="sur_name" />
-            <field name="first_name" />
-            <field name="email" />
-          </group>
+          <sheet>
+            <group>
+              <field name="user_id" />
+              <field name="sur_name" />
+              <field name="first_name" />
+              <field name="email" />
+              <field name="user_info_class_id"/>
+              <!-- <field name="user_info_major_id"/> -->
+              <!-- <field name="user_info_department_id"/> -->
+              <!-- <field name="user_info_class_id" widget="many2one">
+                <notebook>
+                  <page string="Class Info">
+                    <field name="name"></field>
+                    <field name="major_id"></field>
+                  </page>
+                </notebook>
+              </field> -->
+            </group>
+        </sheet>
         </form>
       </field>
     </record>
@@ -32,6 +51,9 @@
           <field name="sur_name"/>
           <field name="first_name"/>
           <field name="email"/>
+          <field name="user_info_class_id"/>
+          <!-- <field name="user_info_major_id"/> -->
+          <!-- <field name="user_info_department_id"/> -->
         </tree>
       </field>
     </record>

@@ -9,14 +9,14 @@
 
   <data>
     <!-- Form View -->
-    <record id="user_info_class_form" model="ir.ui.view">
+    <record id="user_info_major_form" model="ir.ui.view">
       <field name="name">user.info.major.form</field>
       <field name="model">user.info.major</field>
       <field name="arch" type="xml">
         <form>
           <group>
             <field name="name" />
-            <field name="department_id" />
+            <field name="department_id"/>
           </group>
         </form>
       </field>

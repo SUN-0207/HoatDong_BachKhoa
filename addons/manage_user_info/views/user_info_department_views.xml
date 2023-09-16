@@ -23,7 +23,7 @@
     </record>
 
     <!-- Tree(list) View -->
-    <record id="user_info_class_tree" model="ir.ui.view">
+    <record id="user_info_department_tree" model="ir.ui.view">
       <field name="name">user.info.department.tree</field>
       <field name="model">user.info.department</field>
       <field name="arch" type="xml">
