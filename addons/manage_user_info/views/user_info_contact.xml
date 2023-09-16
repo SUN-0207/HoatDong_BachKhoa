@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="user_infor_contact_action" model="ir.actions.act_window">
+      <field name="name">Manage User Information Contact</field>
+      <field name="res_model">user.info.contact</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Form View -->
+    <record id="user_infor_contact_view_form" model="ir.ui.view">
+      <field name="name">User Info Form</field>
+      <field name="model">user.info.contact</field>
+      <field name="arch" type="xml">
+        <form string="Info">
+          <sheet>
+            <group>
+
+              <group>
+                <group>
+                  <field name="name" />
+                  <field name="gender"/>
+                  <field name="birth_date"/>
+                </group>
+                <group>
+                  <field name="email"/>
+                  <field name="personal_email"/>
+                  <field name="religion"/>
+                </group>
+              </group>
+              <group>
+                <group>
+                  <field name="student_id"/>
+                </group>
+              </group>
+              <group>
+                <group>
+                  <field name="province" />
+                  <field name="district" />
+
+                </group>
+              </group>
+            </group>
+          </sheet>
+          </form>
+      </field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="user_info_contact_view_tree" model="ir.ui.view">
+      <field name="name">User Info List</field>
+      <field name="model">user.info.contact</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="student_id"></field>
+          <field name="name"></field>
+          <field name="email"/>
+        </tree>
+      </field>
+    </record>
+
+  </data>
+</odoo>
