@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+  <record id="user_info_action" model="ir.actions.act_window">
+    <field name="name">User Information</field>
+    <field name="res_model">user.info</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <!-- <act_window 
+    id="user_info_action"
+    name="User Info"
+    res_model="ir.actions.act_window"
+    limit="20"
+  /> -->
+
   <data>
-
-    <record id="user_infor_action" model="ir.actions.act_window">
-      <field name="name">User Information</field>
-      <field name="res_model">user.info</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-
     <!-- Form View -->
     <record id="user_infor_view_form" model="ir.ui.view">
-      <field name="name">User Info Form</field>
+      <field name="name">user.info.form</field>
       <field name="model">user.info</field>
       <field name="arch" type="xml">
         <form>
@@ -64,7 +69,7 @@
 
     <!-- Tree(list) View -->
     <record id="user_info_view_tree" model="ir.ui.view">
-      <field name="name">User Info List</field>
+      <field name="name">user.info.tree</field>
       <field name="model">user.info</field>
       <field name="arch" type="xml">
         <tree>

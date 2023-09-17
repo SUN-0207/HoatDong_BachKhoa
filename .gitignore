@@ -3,3 +3,5 @@ box/packages/*
 *.py[co]
 __pycache__/
 .idea
+addons/code_backend_theme/__pycache__/__init__.cpython-311.pyc
+addons/code_backend_theme/__pycache__/__init__.cpython-311.pyc
