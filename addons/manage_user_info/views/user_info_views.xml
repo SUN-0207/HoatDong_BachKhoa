@@ -14,7 +14,7 @@
 
   <data>
     <!-- Form View -->
-    <record id="user_infor_view_form" model="ir.ui.view">
+    <record id="user_info_view_form" model="ir.ui.view">
       <field name="name">user.info.form</field>
       <field name="model">user.info</field>
       <field name="arch" type="xml">
