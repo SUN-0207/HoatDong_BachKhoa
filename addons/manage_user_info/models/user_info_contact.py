@@ -1,12 +1,8 @@
 from odoo import models, fields, api
-import json
 import requests
 import re
 from odoo.exceptions import ValidationError
 
-import logging
-
-_logger = logging.getLogger(__name__)
 
 class UserInfoContact(models.Model):
   _name = 'user.info.contact'
@@ -31,6 +27,10 @@ class UserInfoContact(models.Model):
   date_at_student_association = fields.Date(string="Date at Student Association")
   native_address = fields.Char(string="Native Address")
   native_address_specific = fields.Char(string="Native Address Specific")
+  
+  province_id = fields.Many2one('user.province.info', 'Province')
+  district_id = fields.Many2one('user.district.info', 'District')
+  ward_id = fields.Many2one('user.ward.info', 'Ward')
 
   @api.constrains('student_id')
   def _validate_name(self):
@@ -39,36 +39,4 @@ class UserInfoContact(models.Model):
       if not re.match(pattern, record.student_id):
         raise ValidationError("Invalid student ID.")
 
-  province = fields.Selection(
-        selection='_get_province_data',
-        string='Province',
-  )
-  district = fields.Selection(
-      selection=[],
-      string='District'
-  )
-
-  @api.model
-  def _get_province_data(self):
-        options = []
-        response = requests.get("https://provinces.open-api.vn/api/p/")
-        response.raise_for_status()
-        data = response.json()
-
-        for province_data in data:
-            options.append((province_data['code'], province_data['name']))
-        return options
-
-  @api.onchange('province')
-  def _onchange_province(self):
-    if self.province:
-      self.district = []
-
-      response = requests.get("https://provinces.open-api.vn/api/d")
-      response.raise_for_status()
-      data = response.json()
-      _logger.info(data)
-      _logger.info(self.province)
-      for district_data in data:
-        if(district_data['province_code'] == self.province):
-          self.district.append((district_data['code'], district_data['name']))
+      
