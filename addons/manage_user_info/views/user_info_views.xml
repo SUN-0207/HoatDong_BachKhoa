@@ -14,12 +14,50 @@
       <field name="model">user.info</field>
       <field name="arch" type="xml">
         <form>
-          <group>
-            <field name="user_id" />
-            <field name="sur_name" />
-            <field name="first_name" />
-            <field name="email" />
-          </group>
+          <sheet>
+              <group>
+                <group string="Avatar">
+                  <field name="avatar" widget="image" options="{'size': (128, 128)}"/>
+                  <field name="user_id" />
+                  <field name="name" />
+                  <field name="gender"/>
+                </group>
+                <group string="Basic" >
+                  <field name="student_id"/>
+                  <field name="birth_date"/>
+                  <field name="phone_number"/>
+                  <field name="personal_email"/>
+                  <field name="religion"/>
+                </group>
+              </group>
+              <group>
+                <group string="National Info">
+                  <field name="national_id"/>
+                  <field name="native_address" />
+                  <field name="native_address_specific" />
+
+                </group>
+                <group>
+                  <group string="Permanent address">
+                    <field name="permanent_address" />
+                    <field name="permanent_address_specific" />  
+                  </group>
+                </group>
+              </group>
+              <group >
+                <group string="Communist Party">
+                  <field name="date_communist_party" />
+                  <field name="place_communist_party" />
+                </group>
+                <group string="Youth Union">
+                  <field name="date_at_union" />
+                  <field name="place_union" />
+                </group>
+                <group string="Student Association">
+                  <field name="date_at_student_association" />
+                </group>
+              </group>
+          </sheet>
         </form>
       </field>
     </record>
@@ -30,9 +68,10 @@
       <field name="model">user.info</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="sur_name"/>
-          <field name="first_name"/>
-          <field name="email"/>
+          <field name="user_id" />
+          <field name="student_id"/>
+          <field name="name" />
+          <field name="email" />
         </tree>
       </field>
     </record>
