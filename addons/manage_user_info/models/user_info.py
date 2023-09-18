@@ -4,7 +4,7 @@ class UserInfo(models.Model):
   _name = 'user.info'
   _description = 'User Info'
   
-  user_id = fields.Many2one('res.users',string="User", required=True, ondelete='cascade', delegate=True, default=lambda self: self.env.uid)
+  user_id = fields.Many2one('res.users',string="User", required=True, ondelete='cascade', delegate=True)
   
   avatar = fields.Binary(related='user_id.image_128', string='Avatar', readonly=True)
   first_name = fields.Char('Firts Name',compute='_compute_name_parts', store=True)

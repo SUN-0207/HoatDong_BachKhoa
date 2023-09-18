@@ -2,19 +2,6 @@
 <odoo>
   <data>
 
-    <!-- <record id="view_user_filter" model="ir.ui.view">
-      <field name="name">user.info.view.search</field>
-      <field name="model">user.info</field>
-      <field name="arch" type="xml">
-        <search string="Search Course">
-          <field name="name"/>
-        </search> 
-        <searchpanel>
-          <field name="user_info_class_id" icon="fa-users" />
-      </searchpanel>
-      </field>
-    </record> -->
-
     <record id="user_info_action" model="ir.actions.act_window">
       <field name="name">User Information</field>
       <field name="res_model">user.info</field>
@@ -56,9 +43,9 @@
                 </group>
               </group>
               <group string="Address">
-                <field name="province_id" />
-                <field name="district_id" domain="[('province_id', '=', province_id)]"/>
-                <field name="ward_id" domain="[('district_id', '=', district_id)]"/>
+                <field name="province_id" widget="selection"/>
+                <field name="district_id" widget="selection" domain="[('province_id', '=', province_id)]"/>
+                <field name="ward_id" widget="selection" domain="[('district_id', '=', district_id)]"/>
               </group>
             </group>
             <group >
@@ -73,8 +60,8 @@
               <group string="Student Association">
                 <field name="date_at_student_association" />
                 <field name="user_info_department_id" />
-                <field name="user_info_major_id" domain="[('department_id', '=', user_info_department_id)]"/>
-                <field name="user_info_class_id" domain="[('major_id', '=', user_info_major_id)]"/>
+                <field name="user_info_major_id" widget="selection" domain="[('department_id', '=', user_info_department_id)]"/>
+                <field name="user_info_class_id" widget="selection" domain="[('major_id', '=', user_info_major_id)]"/>
               </group>
             </group>
           </sheet>
