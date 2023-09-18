@@ -1,1 +1,0 @@
-please active dev mode in odoo and change to super_user to see the addons
