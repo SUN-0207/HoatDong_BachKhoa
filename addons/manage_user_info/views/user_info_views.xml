@@ -2,40 +2,97 @@
 <odoo>
   <data>
 
-    <record id="user_infor_action" model="ir.actions.act_window">
+    <!-- <record id="view_user_filter" model="ir.ui.view">
+      <field name="name">user.info.view.search</field>
+      <field name="model">user.info</field>
+      <field name="arch" type="xml">
+        <search string="Search Course">
+          <field name="name"/>
+        </search> 
+        <searchpanel>
+          <field name="user_info_class_id" icon="fa-users" />
+      </searchpanel>
+      </field>
+    </record> -->
+
+    <record id="user_info_action" model="ir.actions.act_window">
       <field name="name">User Information</field>
       <field name="res_model">user.info</field>
       <field name="view_mode">tree,form</field>
     </record>
 
     <!-- Form View -->
-    <record id="user_infor_view_form" model="ir.ui.view">
-      <field name="name">User Info Form</field>
+    <record id="user_info_view_form" model="ir.ui.view">
+      <field name="name">user.info.form</field>
       <field name="model">user.info</field>
       <field name="arch" type="xml">
         <form>
-          <group>
-            <field name="user_id" />
-            <field name="sur_name" />
-            <field name="first_name" />
-            <field name="email" />
-          </group>
+          <sheet>
+            <group>
+              <group string="Avatar">
+                <field name="avatar" widget="image" options="{'size': (128, 128)}"/>
+                <field name="user_id" />
+                <field name="name" />
+                <field name="gender"/>
+              </group>
+              <group string="Basic">
+                <field name="student_id"/>
+                <field name="birth_date"/>
+                <field name="phone_number"/>
+                <field name="personal_email"/>
+                <field name="religion"/>
+              </group>
+            </group>
+            <group>
+              <group string="National Info">
+                <field name="national_id"/>
+                <field name="native_address" />
+                <field name="native_address_specific" />
+              </group>
+              <group>
+                <group string="Permanent address">
+                  <field name="permanent_address" />
+                  <field name="permanent_address_specific" />
+                </group>
+              </group>
+              <group string="Address">
+                <field name="province_id" />
+                <field name="district_id" domain="[('province_id', '=', province_id)]"/>
+                <field name="ward_id" domain="[('district_id', '=', district_id)]"/>
+              </group>
+            </group>
+            <group >
+              <group string="Communist Party">
+                <field name="date_communist_party" />
+                <field name="place_communist_party" />
+              </group>
+              <group string="Youth Union">
+                <field name="date_at_union" />
+                <field name="place_union" />
+              </group>
+              <group string="Student Association">
+                <field name="date_at_student_association" />
+                <field name="user_info_department_id" />
+                <field name="user_info_major_id" domain="[('department_id', '=', user_info_department_id)]"/>
+                <field name="user_info_class_id" domain="[('major_id', '=', user_info_major_id)]"/>
+              </group>
+            </group>
+          </sheet>
         </form>
       </field>
     </record>
 
     <!-- Tree(list) View -->
     <record id="user_info_view_tree" model="ir.ui.view">
-      <field name="name">User Info List</field>
+      <field name="name">user.info.tree</field>
       <field name="model">user.info</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="sur_name"/>
-          <field name="first_name"/>
-          <field name="email"/>
+          <field name="name"/>
+          <field name="student_id"/>
+          <field name="email" />
         </tree>
       </field>
     </record>
-
   </data>
 </odoo>

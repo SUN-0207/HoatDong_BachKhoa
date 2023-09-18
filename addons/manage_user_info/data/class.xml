@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- CS  -->
+    <record id="mt20kh1_class" model="user.info.class">
+        <field name="name">MT20KH9</field>
+        <field name="major_id" ref="computer_science_major"/>
+    </record>
+   
+    <record id="mt20kh2_class" model="user.info.class">
+        <field name="name">MT20KH2</field>
+        <field name="major_id" ref="computer_science_major"/>
+    </record>
+   
+    <record id="mt20kh3_class" model="user.info.class">
+        <field name="name">MT20KH3</field>
+        <field name="major_id" ref="computer_science_major"/>
+    </record>
+   
+    <record id="mt20kh4_class" model="user.info.class">
+        <field name="name">MT20KH4</field>
+        <field name="major_id" ref="computer_science_major"/>
+    </record>
+
+    <!-- CE  -->
+    <record id="mt20kt1_class" model="user.info.class">
+        <field name="name">MT20KT1</field>
+        <field name="major_id" ref="computer_engineering_major"/>
+    </record>
+   
+    <record id="mt20kt2_class" model="user.info.class">
+        <field name="name">MT20KT2</field>
+        <field name="major_id" ref="computer_engineering_major"/>
+    </record>
+   
+    <record id="mt20kt3_class" model="user.info.class">
+        <field name="name">MT20KT3</field>
+        <field name="major_id" ref="computer_engineering_major"/>
+    </record>
+   
+    <record id="mt20kt4_class" model="user.info.class">
+        <field name="name">MT20KT4</field>
+        <field name="major_id" ref="computer_engineering_major"/>
+    </record>
+ 
+</odoo>

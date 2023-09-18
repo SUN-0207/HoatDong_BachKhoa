@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="cse_department" model="user.info.department">
+        <field name="name">Computer Science and Engineering Faculty</field>
+        <field name="code">CSE</field>
+    </record>
+    
+</odoo>

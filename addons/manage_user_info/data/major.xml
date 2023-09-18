@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="computer_science_major" model="user.info.major">
+        <field name="name">Computer Science</field>
+        <field name="department_id" ref="cse_department"/>
+    </record>
+
+    <record id="computer_engineering_major" model="user.info.major">
+        <field name="name">Computer Engineering</field>
+        <field name="department_id" ref="cse_department"/>
+    </record>
+
+</odoo>

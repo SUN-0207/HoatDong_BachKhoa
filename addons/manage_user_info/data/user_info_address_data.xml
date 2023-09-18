@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="ir_cron_import_location_data" model="ir.cron">
+    <field name="name">Import Location Data</field>
+    <field name="interval_number">1</field>
+    <field name="interval_type">days</field>
+    <field name="numbercall">-1</field>
+    <field name="doall" eval="False"/>
+    <field name="model_id" ref="model_user_ward_info"/>
+    <field name="code">model.import_location_data()</field>
+    <field name="state">code</field>
+  </record>
+</odoo>
