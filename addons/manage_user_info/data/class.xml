@@ -42,5 +42,4 @@
         <field name="major_id" ref="computer_engineering_major"/>
     </record>
  
-
 </odoo>

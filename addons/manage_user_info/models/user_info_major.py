@@ -7,7 +7,7 @@ class UserInfoMajor(models.Model):
 
  name = fields.Char('Major', required=True)
 
- department_id = fields.Many2one('user.info.department', string='Department', domain="[('name', '=', department_id)]")
+ department_id = fields.Many2one('user.info.department', string='Department')
  class_ids = fields.One2many('user.info.class', 'major_id', string='Class')
 
  _sql_constraints = [

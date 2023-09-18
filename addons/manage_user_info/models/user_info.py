@@ -11,18 +11,13 @@ class UserInfo(models.Model):
   sur_name = fields.Char('Sur Name',compute='_compute_name_parts', store=True)
 
   user_info_contact_id = fields.Many2one('user.info.contact', ondelete='cascade', delegate=True)
-  # user_info_major_id = fields.Many2one('user.info.major',string='Major', required=True, ondelete='cascade')
-  # user_info_department_id = fields.Many2one('user.info.department',string='Department', required=True, ondelete='cascade')
   user_info_class_id = fields.Many2one('user.info.class',string='Class', required=True, ondelete='cascade')
-<<<<<<< HEAD
+  user_info_major_id = fields.Many2one('user.info.major',string='Major', required=True, ondelete='cascade')
+  user_info_department_id = fields.Many2one('user.info.department',string='Department', required=True, ondelete='cascade')
    
   ### For filtering in future
   # is_student = fields.Boolean('Student', default=False)
   # is_department = fields.Boolean('Department', default=False)
-=======
-  user_info_major_id = fields.Many2one('user.info.major',string='Major', required=True, ondelete='cascade')
-  user_info_department_id = fields.Many2one('user.info.department',string='Department', required=True, ondelete='cascade')
->>>>>>> tieu/Module_Manage_User_Info
 
   @api.depends('name')
   def _compute_name_parts(self):
