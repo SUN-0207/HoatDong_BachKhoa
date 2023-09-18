@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="user_1" model="res.users">
+            <field name="id" ref="contact_1"/>
+            <field name="name">Test account</field>
+        </record>
+        <record id="test_user_1" model="user.info">
+            <field name="user_info_contact_id" ref="user_1"/>
+            <field name="user_info_contact_id" ref="contact_1"/>
+        </record>
+    
+    </data>
+
+
+</odoo>

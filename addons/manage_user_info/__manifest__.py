@@ -10,11 +10,19 @@
     "data": [
         'data/user_info_address_data.xml',
         'views/user_info_views.xml',
+        'views/user_account_info_views.xml',
         'views/user_info_department_views.xml',
         'views/user_info_class_views.xml',
         'views/user_info_major_views.xml',
         'views/user_info_menuitem.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            '/manage_user_info/static/src/css/invalid.css',
+            '/manage_user_info/static/src/js/invalid_field.js',
+        ],
+    },
+   
     'license': 'LGPL-3',
     'installable': True,
     'application': True,
