@@ -14,10 +14,15 @@ class UserInfo(models.Model):
   # user_info_major_id = fields.Many2one('user.info.major',string='Major', required=True, ondelete='cascade')
   # user_info_department_id = fields.Many2one('user.info.department',string='Department', required=True, ondelete='cascade')
   user_info_class_id = fields.Many2one('user.info.class',string='Class', required=True, ondelete='cascade')
+<<<<<<< HEAD
    
   ### For filtering in future
   # is_student = fields.Boolean('Student', default=False)
   # is_department = fields.Boolean('Department', default=False)
+=======
+  user_info_major_id = fields.Many2one('user.info.major',string='Major', required=True, ondelete='cascade')
+  user_info_department_id = fields.Many2one('user.info.department',string='Department', required=True, ondelete='cascade')
+>>>>>>> tieu/Module_Manage_User_Info
 
   @api.depends('name')
   def _compute_name_parts(self):

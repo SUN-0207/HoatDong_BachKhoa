@@ -8,12 +8,19 @@
     'website': "https://www.odoo.com",
     "depends": ['base_setup'],
     "data": [
+<<<<<<< HEAD
         'data/user_info_address_data.xml',
         'views/user_info_views.xml',
         'views/user_account_info_views.xml',
+=======
+        'data/department.xml',
+        'data/major.xml',
+        'data/class.xml',
+>>>>>>> tieu/Module_Manage_User_Info
         'views/user_info_department_views.xml',
-        'views/user_info_class_views.xml',
         'views/user_info_major_views.xml',
+        'views/user_info_class_views.xml',
+        'views/user_info_views.xml',
         'views/user_info_menuitem.xml',
     ],
     'assets': {

@@ -31,12 +31,29 @@
       <field name="arch" type="xml">
         <form>
           <sheet>
+<<<<<<< HEAD
             <group>
               <group string="Avatar">
                 <field name="avatar" widget="image" options="{'size': (128, 128)}"/>
                 <field name="user_id" />
                 <field name="name" />
                 <field name="gender"/>
+=======
+              <group>
+                <group string="Avatar">
+                  <field name="avatar" widget="image" options="{'size': (128, 128)}"/>
+                  <field name="user_id" />
+                  <field name="name"/>
+                  <field name="gender"/>
+                </group>
+                <group string="Basic" >
+                  <field name="student_id"/>
+                  <field name="birth_date"/>
+                  <field name="phone_number"/>
+                  <field name="personal_email"/>
+                  <field name="religion"/>
+                </group>
+>>>>>>> tieu/Module_Manage_User_Info
               </group>
               <group string="Basic">
                 <field name="student_id"/>
@@ -59,10 +76,28 @@
                   <field name="permanent_address_specific" />
                 </group>
               </group>
+<<<<<<< HEAD
               <group string="Address">
                 <field name="province_id" />
                 <field name="district_id" domain="[('province_id', '=', province_id)]"/>
                 <field name="ward_id" domain="[('district_id', '=', district_id)]"/>
+=======
+              <group >
+                <group string="Communist Party">
+                  <field name="date_communist_party" />
+                  <field name="place_communist_party" />
+                </group>
+                <group string="Youth Union">
+                  <field name="date_at_union" />
+                  <field name="place_union" />
+                </group>
+                <group string="Student Association">
+                  <field name="date_at_student_association" />
+                  <field name="user_info_department_id"/>
+                  <field name="user_info_major_id"/>
+                  <field name="user_info_class_id"/>
+                </group>
+>>>>>>> tieu/Module_Manage_User_Info
               </group>
             </group>
             <group >
@@ -142,8 +177,9 @@
       <field name="arch" type="xml">
         <tree>
           <field name="user_id" />
+          <field name="name"/>
           <field name="student_id"/>
-          <field name="name" />
+          <field name="user_info_class_id" />
           <field name="email" />
         </tree>
       </field>
