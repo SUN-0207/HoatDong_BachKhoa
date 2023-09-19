@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <menuitem name="Manage Information" id="manage_base_menu" />
-  <menuitem name="Manage User" id="user_info_menu" parent="manage_base_menu" action="user_info_action" groups="manage_user_info.group_hcmut_admin"/>
-  <menuitem name="User Info" id="account_info_menu" parent="manage_base_menu" action="account_info_action" groups="manage_user_info.group_hcmut_user"/>
-  <menuitem name="Manage Department" id="user_info_department_menu" parent="manage_base_menu" action="user_info_department_action" groups="manage_user_info.group_hcmut_admin"/>
-  <menuitem name="Manage Major" id="user_info_major_menu" parent="manage_base_menu" action="user_info_major_action" groups="manage_user_info.group_hcmut_admin"/>
-  <menuitem name="Manage Class" id="user_info_class_menu" parent="manage_base_menu" action="user_info_class_action" groups="manage_user_info.group_hcmut_admin"/>
+  <menuitem name="Manage Users" id="user_info_menu" parent="manage_base_menu" action="user_info_action" groups="group_hcmut_admin"/>
+  <menuitem name="Personal Info" id="personal_info_menu" parent="manage_base_menu" action="personal_info_action" groups="group_hcmut_user"/>
+  <menuitem name="Manage Departments" id="user_info_department_menu" parent="manage_base_menu" action="user_info_department_action" groups="group_hcmut_admin"/>
+  <menuitem name="Manage Majors" id="user_info_major_menu" parent="manage_base_menu" action="user_info_major_action" groups="group_hcmut_admin"/>
+  <menuitem name="Manage Classs" id="user_info_class_menu" parent="manage_base_menu" action="user_info_class_action" groups="group_hcmut_admin"/>
 </odoo>

@@ -8,10 +8,10 @@ class UserInfoContact(models.Model):
   _name = 'user.info.contact'
   _description = 'User Info Contact'
   
-  student_id = fields.Char(string="Student ID", required=True)
+  student_id = fields.Char(string="Student ID")
   phone_number = fields.Char(string="Phone number")
-  gender = fields.Selection([('male', 'Male'),('female', 'Female')], required=True)
-  birth_date = fields.Date(string="Birth Day", required=True)
+  gender = fields.Selection([('male', 'Male'),('female', 'Female')])
+  birth_date = fields.Date(string="Birth Day")
   nation = fields.Char(string="Nation")
   personal_email = fields.Char(string="Personal Email")
   religion = fields.Char(string="Religion")
@@ -33,15 +33,15 @@ class UserInfoContact(models.Model):
   ward_id = fields.Many2one('user.ward.info', 'Ward')
 
 
-  _sql_constraints = [
-    ('unique_student_id','UNIQUE (student_id)', 'Student ID must be unique!')
-    ]
+  # _sql_constraints = [
+  #   ('unique_student_id','UNIQUE (student_id)', 'Student ID must be unique!')
+  #   ]
 
-  @api.constrains('student_id')
-  def _validate_name(self):
-    pattern = r'^0?\d{7}$'
-    for record in self:
-      if not re.match(pattern, record.student_id):
-        raise ValidationError("Invalid student ID.")
+  # @api.constrains('student_id')
+  # def _validate_name(self):
+  #   pattern = r'^0?\d{7}$'
+  #   for record in self:
+  #     if not re.match(pattern, record.student_id):
+  #       raise ValidationError("Invalid student ID.")
 
       
