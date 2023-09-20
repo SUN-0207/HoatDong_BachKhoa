@@ -3,5 +3,10 @@ box/packages/*
 *.py[co]
 __pycache__/
 .idea
+.DS_Store
+.vscode/
+.idea/
+web/static/lib/*
+*.pyc binary
 addons/code_backend_theme/__pycache__/__init__.cpython-311.pyc
-addons/code_backend_theme/__pycache__/__init__.cpython-311.pyc
+addons/code_backend_theme/__pycache__/hooks.cpython-311.pyc
