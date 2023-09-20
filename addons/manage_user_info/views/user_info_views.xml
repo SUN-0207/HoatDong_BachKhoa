@@ -21,10 +21,9 @@
                 <field name="user_id" invisible="1"/>
                 <field name="first_name" />
                 <field name="sur_name" />
-                <field name="gender"/>
               </group>
               <group string="Basic">
-                <field name="student_id"/>
+                <field name="gender"/>
                 <field name="birth_date"/>
                 <field name="phone_number"/>
                 <field name="personal_email"/>
@@ -34,20 +33,23 @@
             <group>
               <group string="National Info">
                 <field name="national_id"/>
-                <field name="native_address" />
+                <field name="province_id_native" />
+                <field name="district_id_native" domain="[('province_id', '=', province_id_native)]"/>
+                <field name="ward_id_native" domain="[('district_id', '=', district_id_native)]"/>
                 <field name="native_address_specific" />
               </group>
-              <group>
                 <group string="Permanent address">
-                  <field name="permanent_address" />
+                  <field name="province_id_permanent" />
+                  <field name="district_id_permanent" domain="[('province_id', '=', province_id_permanent)]"/>
+                  <field name="ward_id_permanent" domain="[('district_id', '=', district_id_permanent)]"/>
                   <field name="permanent_address_specific" />
-                </group>
               </group>
-              <group string="Address">
-                <field name="province_id" widget="selection"/>
-                <field name="district_id" widget="selection" domain="[('province_id', '=', province_id)]"/>
-                <field name="ward_id" widget="selection" domain="[('district_id', '=', district_id)]"/>
-              </group>
+            </group>
+            <group string="Student info">
+              <field name="student_id"/>
+              <field name="user_info_department_id" widget="selection" />
+              <field name="user_info_major_id" widget="selection" domain="[('department_id', '=', user_info_department_id)]"/>
+              <field name="user_info_class_id" widget="selection" domain="[('major_id', '=', user_info_major_id)]"/>
             </group>
             <group >
               <group string="Communist Party">
@@ -60,9 +62,6 @@
               </group>
               <group string="Student Association">
                 <field name="date_at_student_association" />
-                <field name="user_info_department_id" widget="selection" />
-                <field name="user_info_major_id" widget="selection" domain="[('department_id', '=', user_info_department_id)]"/>
-                <field name="user_info_class_id" widget="selection" domain="[('major_id', '=', user_info_major_id)]"/>
               </group>
             </group>
           </sheet>
@@ -76,8 +75,7 @@
       <field name="model">user.info</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="sur_name"/>
-          <field name="first_name"/>
+          <field name="name"/>
           <field name="email" />
           <field name="user_info_department_id" />
           <field name="user_info_major_id" />

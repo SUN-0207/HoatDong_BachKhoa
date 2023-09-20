@@ -5,7 +5,7 @@ class UserInfoClass(models.Model):
  _name = 'user.info.class'
  _description = 'User Info Class'
 
- name = fields.Char('Class', required=True)
+ name = fields.Char('Class', required=True, translate=True)
  major_id = fields.Many2one('user.info.major', string='Major')
 
 _sql_constraints = [
