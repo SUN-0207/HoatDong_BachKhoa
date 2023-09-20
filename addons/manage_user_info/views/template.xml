@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <template id="assets_backend" inherit_id="web.assets_backend">
-            <xpath expr="." position="inside">
-                <script type="text/javascript" src="/manage_user_info/static/src/js/invalid_field.js"></script>
-                <link rel="stylesheet" type="text/css" href="/manage_user_info/static/src/css/invalid.css"/>
-            </xpath>
-        </template>
+    <template id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/manage_user_info/static/src/js/invalid_field.js"></script>
+            <link rel="stylesheet" type="text/css" href="/manage_user_info/static/src/css/invalid.css"/>
+        </xpath>
+    </template>
 </odoo>

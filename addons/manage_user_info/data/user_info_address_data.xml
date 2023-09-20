@@ -10,4 +10,11 @@
     <field name="code">model.import_location_data()</field>
     <field name="state">code</field>
   </record>
+
+  <record id="account_info_action" model="ir.actions.server">
+    <field name="name">Student Information</field>
+    <field name="model_id" ref="model_user_info"/>
+    <field name="state">code</field>
+    <field name="code">action=model.open_current_user_info()</field>
+  </record>
 </odoo>

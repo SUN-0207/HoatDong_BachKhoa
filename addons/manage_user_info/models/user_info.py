@@ -42,6 +42,26 @@ class UserInfo(models.Model):
   user_info_department_id = fields.Many2one('user.info.department',string='Department')
   user_info_major_id = fields.Many2one('user.info.major',string='Major')
   user_info_class_id = fields.Many2one('user.info.class',string='Class')
+  
+  def open_current_user_info(self):
+    view_id = self.env.ref('manage_user_info.user_info_view_form') 
+    
+    current_user_info = self.env['user.info'].search([('user_id', '=', self.env.uid)],limit=1)
+    
+    if not current_user_info:
+      current_user_info = self.env['user.info'].create({
+        'user_id': self.env.uid
+      })
+      
+    return {
+        'name': 'Personal Information',
+        'type': 'ir.actions.act_window',
+        'view_mode': 'form',
+        'res_model': 'user.info',  
+        'res_id': current_user_info.id,
+        'view_id': view_id.id,
+        'target': 'current',
+    }
    
   @api.depends('name')
   def _compute_name_parts(self):
@@ -54,7 +74,7 @@ class UserInfo(models.Model):
 class ResUsers(models.Model):
   _inherit = ['res.users']
   
-  user_info_id = fields.One2many('user.info', 'user_id', string='User Info')
+  user_info_id = fields.One2many('user.info', 'user_id', string='User Info', ondelete='set null')
 
   
   
