@@ -5,7 +5,7 @@ class UserInfoDepartment(models.Model):
  _name = 'user.info.department'
  _description = 'User Info Department'
  
- name = fields.Char('Department', required=True)
+ name = fields.Char('Department', required=True, translate=True)
  code = fields.Char('Department code', required=True)
  
  major_ids = fields.One2many('user.info.major', 'department_id', string='Major')
