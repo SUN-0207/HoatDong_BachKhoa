@@ -3,10 +3,6 @@ access_user_info_user,user.info,model_user_info,group_hcmut_user,1,1,1,0
 access_user_info_falcutian,user.info,model_user_info,group_hcmut_falcutian,1,1,0,0
 access_user_info_admin,user.info,model_user_info,group_hcmut_admin,1,1,1,1
 
-access_user_info_contact_user,user.info.contact,model_user_info_contact,group_hcmut_user,1,1,1,1
-access_user_info_contact_falcutian,user.info.contact,model_user_info_contact,group_hcmut_falcutian,1,1,1,1
-access_user_info_contact_admin,user.info.contact,model_user_info_contact,group_hcmut_admin,1,1,1,1
-
 access_user_info_address_province_user,user.province.info,model_user_province_info,group_hcmut_user,1,0,0,0
 access_user_info_address_province_falcutian,user.province.info,model_user_province_info,group_hcmut_falcutian,1,0,0,0
 access_user_info_address_province_admin,user.province.info,model_user_province_info,group_hcmut_admin,1,1,0,0
