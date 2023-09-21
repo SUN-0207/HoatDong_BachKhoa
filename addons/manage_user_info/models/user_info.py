@@ -12,13 +12,13 @@ class UserInfo(models.Model):
   
   name= fields.Char(related='user_id.name', string="Name")
   email= fields.Char(related='user_id.email', string="Email")
-  avatar = fields.Binary(related='user_id.image_128', string='Avatar', readonly=True)
+  avatar = fields.Binary(string='Avatar')
   first_name = fields.Char('First Name',compute='_compute_name_parts', store=True)
   sur_name = fields.Char('Sur Name',compute='_compute_name_parts', store=True)
 
   
   phone_number = fields.Char(string="Phone number")
-  gender = fields.Selection([('male', 'Male'),('female', 'Female')])
+  gender = fields.Selection([('male', 'Male'),('female', 'Female')], required=True)
   birth_date = fields.Date(string="Birth Day")
   nation = fields.Char(string="Nation", translate=True)
   personal_email = fields.Char(string="Personal Email")
