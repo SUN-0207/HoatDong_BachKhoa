@@ -16,21 +16,24 @@
         <form >
           <sheet>
             <group string="Basic">
-              
-                <!-- <field name="avatar" widget="image" options="{'size': (128, 128)}" class="oe_avatar"/> -->
+              <group>
+                <field name="avatar" widget="image" options="{'size': (128, 128)}" class="oe_avatar"/>
+              </group>
+              <group>
                 <field name="user_id" invisible="1"/>
                 <field name="first_name" />
                 <field name="sur_name" />
-                <group >
-                  <field name="gender" widget='selection' />
-                  <field name="birth_date" />
-                  <field name="phone_number" />
-                </group>
-                <group >
-                  <field name="personal_email"/>
-                  <field name="religion" />
-                  <field name="ethnicity" />
-                </group>
+              </group>
+              <group >
+                <field name="gender" widget='selection' />
+                <field name="birth_date" />
+                <field name="phone_number" />
+              </group>
+              <group >
+                <field name="personal_email"/>
+                <field name="religion" />
+                <field name="ethnicity" />
+              </group>
               
             </group>
             <group>

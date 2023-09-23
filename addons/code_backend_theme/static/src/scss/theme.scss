@@ -1696,3 +1696,8 @@ div.dropdown-menu.bootstrap-datetimepicker-widget {
     font-weight: 400;
     font-size: small !important;
   }
+
+.o_input:focus {
+    border: none;
+    outline: solid 2px #4a9aff;
+}
