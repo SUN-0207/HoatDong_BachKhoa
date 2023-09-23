@@ -39,13 +39,13 @@
             <group>
               <group string="National Info">
                 <field name="national_id"/>
-                <field name="province_id_native" widget='selection' />
+                <field name="province_id_native" widget='selection' options="{'no_quick_create': True, 'no_create_edit': True, 'no_open':True}"/>
                 <field name="district_id_native" domain="[('province_id', '=', province_id_native)]" widget='selection'/>
                 <field name="ward_id_native" domain="[('district_id', '=', district_id_native)]" widget='selection'/>
                 <field name="native_address_specific" />
               </group>
                 <group string="Permanent address">
-                  <field name="province_id_permanent" />
+                  <field name="province_id_permanent" options="{'no_quick_create': True, 'no_create_edit': True, 'no_open':True}"/>
                   <field name="district_id_permanent" domain="[('province_id', '=', province_id_permanent)]" widget='selection'/>
                   <field name="ward_id_permanent" domain="[('district_id', '=', district_id_permanent)]" widget='selection'/>
                   <field name="permanent_address_specific" widget='selection'/>

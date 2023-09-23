@@ -155,7 +155,7 @@ height:3.4rem !important;
     color: #555b6d;
 }
 .o_cp_bottom_left .o_form_button_cancel {
-    margin-right: 5px !important;
+    margin: 5px !important;
     padding: 6px 8px !important;
     color: #fff !important;
     background-color: #f46a6a !important;
@@ -1700,4 +1700,5 @@ div.dropdown-menu.bootstrap-datetimepicker-widget {
 .o_input:focus {
     border: none;
     outline: solid 2px #4a9aff;
+    transition:cubic-bezier(0.075, 0.82, 0.165, 1)
 }
