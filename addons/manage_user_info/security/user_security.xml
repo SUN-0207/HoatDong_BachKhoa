@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-  <data noupdate="1">
-
     <record id="group_hcmut_user" model="res.groups">
       <field name="name">User</field>
       <field name="category_id" ref="base.module_category_hcmut"/>
@@ -20,6 +18,14 @@
       <field name="category_id" ref="base.module_category_hcmut"/>
       <field name="implied_ids" eval="[(4, ref('group_hcmut_falcutian'))]"/>
       <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+
+  <data noupdate="1">
+
+    <record id="restrict_menu_user" model="ir.rule">
+      <field name="name">Restrict Menu from Users</field>
+      <field ref="model_ir_ui_menu" name="model_id"/>
+      <field name="domain_force">[('restrict_user_ids','not in',user.id)]</field>
     </record>
 
   </data>
