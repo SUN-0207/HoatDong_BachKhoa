@@ -15,21 +15,23 @@
       <field name="arch" type="xml">
         <form >
           <sheet>
-            <field name="avatar" widget="image" options="{'size': (128, 128)}" class="oe_avatar"/>
-            <group>
-              <group string="Basic">
+            <group string="Basic">
+              
+                <!-- <field name="avatar" widget="image" options="{'size': (128, 128)}" class="oe_avatar"/> -->
                 <field name="user_id" invisible="1"/>
                 <field name="first_name" />
                 <field name="sur_name" />
-              </group>
-              <group >
-                <field name="gender" widget='selection' />
-                <field name="birth_date" />
-                <field name="phone_number" />
-                <field name="personal_email"/>
-                <field name="religion" />
-                <field name="ethnicity" />
-              </group>
+                <group >
+                  <field name="gender" widget='selection' />
+                  <field name="birth_date" />
+                  <field name="phone_number" />
+                </group>
+                <group >
+                  <field name="personal_email"/>
+                  <field name="religion" />
+                  <field name="ethnicity" />
+                </group>
+              
             </group>
             <group>
               <group string="National Info">
