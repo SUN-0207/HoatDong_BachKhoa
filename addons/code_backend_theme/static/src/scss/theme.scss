@@ -1,8 +1,34 @@
 //Top Bar
 @font-face {
     font-family: 'Be Vietnam Pro' !important;
-    src: url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@200;300;400;500;600;700;800;900&display=swap');
+    src: url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@200&display=swap') format("truetype");
+    font-weight: 200 !important;
 }
+
+@font-face {
+    font-family: 'Be Vietnam Pro' !important;
+    src: url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300&display=swap') format("truetype");
+    font-weight: 300 !important;
+}
+
+@font-face {
+    font-family: 'Be Vietnam Pro' !important;
+    src: url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400&display=swap') format("truetype");
+    font-weight: 400 !important;
+}
+
+@font-face {
+    font-family: 'Be Vietnam Pro' !important;
+    src: url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500&display=swap') format("truetype");
+    font-weight: 500 !important;
+}
+
+@font-face {
+    font-family: 'Be Vietnam Pro' !important;
+    src: url('"https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@700&display=swap') format("truetype");
+    font-weight: 700 !important;
+}
+
 body {
     font-family: 'Be Vietnam Pro', sans-serif !important;
     background-color: #f8f8fb;
@@ -84,11 +110,11 @@ a.btn {
 }
 
 .o_MessagingMenu_counter {
-    background-color: #556ee6;
+    background-color: #1d2962;
     color: #fff !important;
 }
 .o_mail_systray_item .o_notification_counter {
-    background: #556ee6 !important;
+    background: #1d2962 !important;
 }
 
 .o_control_panel {
@@ -129,7 +155,7 @@ height:3.4rem !important;
     color: #555b6d;
 }
 .o_cp_bottom_left .o_form_button_cancel {
-    margin-right: 5px !important;
+    margin: 5px !important;
     padding: 6px 8px !important;
     color: #fff !important;
     background-color: #f46a6a !important;
@@ -310,15 +336,15 @@ button[name="action_uninstall"]:focus {
 }
 
 .o_statusbar_status .o_arrow_button.btn-secondary {
-    border: solid 1px #556ee6 !important;
-    color: #556ee6 !important;
+    border: solid 1px #1d2962 !important;
+    color: #1d2962 !important;
     background-color: #fff !important;
 }
 .o_statusbar_status .o_arrow_button.btn-secondary:hover:after {
     border-color: #fff !important;
 }
 .o_statusbar_status .o_arrow_button.btn-primary {
-    border: solid 1px #556ee6 !important;
+    border: solid 1px #1d2962 !important;
     color: #fff !important;
 }
 .o_cp_bottom_right .btn-secondary {
@@ -520,8 +546,8 @@ th.o_list_record_selector {
 
 .custom-control-input:checked ~ .custom-control-label::before {
     color: #ffffff;
-    background-color: #556ee6;
-    border-color: #556ee6;
+    background-color: #1d2962;
+    border-color: #1d2962;
 }
 .custom-control.custom-checkbox .custom-control-input:not(:checked):not(:indeterminate) ~ .custom-control-label:before {
     background: none;
@@ -723,7 +749,7 @@ i.o_PartnerImStatusIcon_outerBackground.fa.fa-circle.fa-stack-1x {
     color: #fff !important;
 }
 .o_ChatWindowHeader {
-    background-color: #556ee6;
+    background-color: #1d2962;
     color: white !important;
 }
 //Chatter mini ends
@@ -779,9 +805,17 @@ a#openSidebar {
 // TAbs End
 
 //font color
+.o_form_view .o_horizontal_separator:not(:empty) {
+    box-shadow:none;
+  }
+
 .o_horizontal_separator {
-    color: #495057 !important;
+    font-size: medium;
+    color: #023e8a !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
 }
+
 .btn-link {
     font-weight: 400;
     color: $primary_accent !important;
@@ -796,7 +830,7 @@ a#openSidebar {
 input {
     display: block;
     width: 100%;
-    //height: 40px !important;
+    height: 35px !important;
     //padding: 10px 20px;
     font-size: 13px;
     font-weight: 400;
@@ -808,7 +842,7 @@ input {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    border-radius: .25rem;
+    border-radius: .30rem;
     -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
     transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
@@ -818,16 +852,16 @@ input {
 }
 select {
     width: 100%;
-    height: 40px !important;
+    height: 35px !important;
     padding: 10px 20px;
     font-size: 13px;
     font-weight: 400;
     line-height: 1.5;
-    color: #495057;
+    color: #3a4249;
     background-color: #fff;
     background-clip: padding-box;
     border: 1px solid #ced4da !important;
-    border-radius: .25rem;
+    border-radius: .30rem;
     -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
     transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
@@ -856,10 +890,10 @@ select {
 }
 .o_form_view .oe_button_box .btn.oe_stat_button > .o_stat_info .o_stat_value,
 .o_form_view .oe_button_box .btn.oe_stat_button > span .o_stat_value {
-    color: #556ee6;
+    color: #1d2962;
 }
 .o_form_view .oe_button_box .oe_stat_button .o_button_icon {
-    color: #556ee6;
+    color: #1d2962;
 }
 //form end
 
@@ -1275,7 +1309,7 @@ select, input {
 
 //badges starts
 .badge-primary {
-    background-color: #556ee6 !important;
+    background-color: #1d2962 !important;
 }
 .badge-secondary {
     background-color: #74788d;
@@ -1376,7 +1410,7 @@ div.o_boolean_toggle.custom-control.custom-checkbox > label.custom-control-label
     top: 1px;
 }
 .o_kanban_view.o_kanban_dashboard.o_hr_recruitment_kanban .ribbon span {
-    background-color: #556ee6;
+    background-color: #1d2962;
 }
 .o_kanban_view.o_kanban_dashboard.o_hr_recruitment_kanban.o_kanban_ungrouped .o_kanban_record:not(.o_kanban_ghost) {
     height: 197px;
@@ -1401,7 +1435,7 @@ div.o_boolean_toggle.custom-control.custom-checkbox > label.custom-control-label
 
 //progress starts
 .oe_kanban_content .progress .progress-bar {
-    background-color: #556ee6;
+    background-color: #1d2962;
 }
 .progress-bar.bg-muted-full {
     background-color: #dee2e6;
@@ -1634,22 +1668,37 @@ div.dropdown-menu.bootstrap-datetimepicker-widget {
     color: $f_color !important;
 }
 .o_content .o_expense_purple {
-    color: #556ee6;
+    color: #1d2962;
 }
 .row.o_recruitment_kanban_boxes .custom-checkbox input:checked + label::after {
     display:none
 }
 
-//new fix
+//form new fix
 .o_form_view .oe_button_box + .oe_title, .o_form_view .oe_button_box + .oe_avatar + .oe_title {
     width: 100% !important;
 }
 .form-check-input {
-    //width: 1em;
-    //max-height: 1em;
+    width: 1em;
+    max-height: 1em;
     box-sizing: border-box;
 }
 .o_facet_values {
      border: none !important;
 }
 
+.o_form_view .o_input {
+    padding: 4px 10px;
+    border-radius: 2rem;
+}
+
+.o_form_view .o_group .o_wrap_label .o_form_label {
+    font-weight: 400;
+    font-size: small !important;
+  }
+
+.o_input:focus {
+    border: none;
+    outline: solid 2px #4a9aff;
+    transition:cubic-bezier(0.075, 0.82, 0.165, 1)
+}
