@@ -1,5 +1,6 @@
 from odoo import models, fields,api
 
+from . import common_constants
 class UserInfo(models.Model):
   _name = 'user.info'
   _description = 'User Info'
@@ -11,17 +12,19 @@ class UserInfo(models.Model):
   
   name= fields.Char(related='user_id.name', string="Name")
   email= fields.Char(related='user_id.email', string="Email")
-  avatar = fields.Binary(related='user_id.image_128', string='Avatar', readonly=True)
+  avatar = fields.Binary(string='Avatar')
   first_name = fields.Char('First Name',compute='_compute_name_parts', store=True)
   sur_name = fields.Char('Sur Name',compute='_compute_name_parts', store=True)
 
-  student_id = fields.Char(string="Student ID")
+  
   phone_number = fields.Char(string="Phone number")
-  gender = fields.Selection([('male', 'Male'),('female', 'Female')])
+  gender = fields.Selection([('male', 'Male'),('female', 'Female')], required=True)
   birth_date = fields.Date(string="Birth Day")
   nation = fields.Char(string="Nation", translate=True)
   personal_email = fields.Char(string="Personal Email")
-  religion = fields.Char(string="Religion", translate=True)
+  religion = fields.Selection(common_constants.RELIGION, string="Religion")
+
+  ethnicity = fields.Selection(common_constants.ETHNICITY, string='Ethnicity')
   national_id = fields.Char(string="National Id")
 
   date_communist_party= fields.Date(string="Date At Communist Party")
@@ -32,20 +35,19 @@ class UserInfo(models.Model):
   
   native_address = fields.Char(string="Native Address", translate=True)
   native_address_specific = fields.Char(string="Native Address Specific", translate=True)
-  native_address_specific = fields.Char(string="Native Address Specific", translate=True)
-  province_id_native = fields.Many2one('user.province.info', 'Province (Native)')
-  district_id_native = fields.Many2one('user.district.info', 'District (Native)', domain="[('province_id', '=', province_id_native)]")
-  ward_id_native = fields.Many2one('user.ward.info', 'Ward (Native)', domain="[('district_id', '=', district_id_native)]")
+  province_id_native = fields.Many2one('user.province.info', 'Province (Native)', widget='selection')
+  district_id_native = fields.Many2one('user.district.info', 'District (Native)', domain="[('province_id', '=', province_id_native)]", widget='selection')
+  ward_id_native = fields.Many2one('user.ward.info', 'Ward (Native)', domain="[('district_id', '=', district_id_native)]", widget='selection')
   
   permanent_address = fields.Char(string="Permanent Address", translate=True)
   permanent_address_specific = fields.Char(string="Permanent Address Specific", translate=True)
-  permanent_address_specific = fields.Char(string="Permanent Address Specific", translate=True)
-  province_id_permanent = fields.Many2one('user.province.info', 'Province (Permanent)')
-  district_id_permanent = fields.Many2one('user.district.info', 'District (Permanent)', domain="[('province_id', '=', province_id_permanent)]")
-  ward_id_permanent = fields.Many2one('user.ward.info', 'Ward (Permanent)', domain="[('district_id', '=', district_id_permanent)]")
+  province_id_permanent = fields.Many2one('user.province.info', 'Province (Permanent)', widget='selection')
+  district_id_permanent = fields.Many2one('user.district.info', 'District (Permanent)', domain="[('province_id', '=', province_id_permanent)]", widget='selection')
+  ward_id_permanent = fields.Many2one('user.ward.info', 'Ward (Permanent)', domain="[('district_id', '=', district_id_permanent)]", widget='selection')
 
-  user_info_department_id = fields.Many2one('user.info.department',string='Department')
-  user_info_major_id = fields.Many2one('user.info.major',string='Major')
+  student_id = fields.Char(string="Student ID")
+  user_info_department_id = fields.Many2one('user.info.department',string='Department', widget='selection')
+  user_info_major_id = fields.Many2one('user.info.major',string='Major', widget='selection')
   user_info_class_id = fields.Many2one('user.info.class',string='Class')
   
   def open_current_user_info(self):
@@ -80,6 +82,7 @@ class ResUsers(models.Model):
   _inherit = ['res.users']
   
   user_info_id = fields.One2many('user.info', 'user_id', string='User Info', ondelete='set null')
+
 
   
   
