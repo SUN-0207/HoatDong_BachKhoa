@@ -29,20 +29,17 @@
       <field name="model">user.info</field>
       <field name="arch" type="xml">
         <form >
-          <!-- <header>
-            <button type="action"
-            string="New User"
-            confirm="Do you want to create a new user?"/>
-          </header> -->
           <sheet>
-            <group>
-              <field name="avatar" widget="image" options="{'size': (128, 128)}" class="oe_avatar"/>
+            <group string="Basic">
+              <group>
+                <field name="avatar" widget="image" options="{'size': (128, 128)}" class="oe_avatar"/>
+              </group>
               <group>
                 <field name="user_id" invisible="1"/>
                 <field name="first_name" placeholder="'Nguyễn Văn A' thì điền 'Nguyễn Văn'" />
                 <field name="sur_name" placeholder="'Nguyễn Văn A' thì điền 'A'" />
                 <field name="gender" required="1" placeholder="Vui lòng chọn"/>
-                <field name="birth_date"  required="1"  placeholder="Vui lòng chọn"/>
+                <field name="birth_date" required="1" placeholder="Vui lòng chọn"/>
               </group>
               <group >
                 <field name="phone_number" required="1" widget="phone" placeholder="Vui lòng điền"/>
@@ -59,69 +56,38 @@
                 <field name="religion" placeholder="Vui lòng chọn" />
                 <field name="ethnicity" placeholder="Vui lòng chọn"/>
               </group>
+
             </group>
             <group>
               <group string="National Info">
-                <field name="national_id"  required="1" placeholder="Vui lòng điền"/>
+                <field name="national_id" required="1" placeholder="Vui lòng điền"/>
                 <field name="province_id_native" widget="selection" placeholder="Vui lòng chọn"/>
-                <field name="district_id_native" 
-                    widget="selection" 
-                    domain="[('province_id', '=', province_id_native)]" 
-                    placeholder="Vui lòng chọn"
-                />
-                <field name="ward_id_native" 
-                    widget="selection"
-                    domain="[('district_id', '=', district_id_native)]" 
-                    placeholder="Vui lòng chọn"
-                />
+                <field name="district_id_native" widget="selection" domain="[('province_id', '=', province_id_native)]" placeholder="Vui lòng chọn" />
+                <field name="ward_id_native" widget="selection" domain="[('district_id', '=', district_id_native)]" placeholder="Vui lòng chọn" />
                 <field name="native_address_specific" placeholder="Số nhà, Tên đường"/>
               </group>
               <group string="Permanent address">
                 <field name="province_id_permanent" placeholder="Vui lòng chọn"/>
-                <field name="district_id_permanent" 
-                  widget='selection'
-                  domain="[('province_id', '=', province_id_permanent)]" 
-                  placeholder="Vui lòng chọn"
-                />
-                <field name="ward_id_permanent" 
-                  widget='selection'
-                  domain="[('district_id', '=', district_id_permanent)]" 
-                  placeholder="Vui lòng chọn"
-                />
+                <field name="district_id_permanent" widget='selection' domain="[('province_id', '=', province_id_permanent)]" placeholder="Vui lòng chọn" />
+                <field name="ward_id_permanent" widget='selection' domain="[('district_id', '=', district_id_permanent)]" placeholder="Vui lòng chọn" />
                 <field name="permanent_address_specific" placeholder="Số nhà, Tên đường"/>
               </group>
             </group>
             <group >
               <!-- <field name="role" invisible="[('role', '=', 'admin')]]"/> -->
-              <group string="Student info" >
-                <field name="student_id"  required="1"  placeholder="Vui lòng điền"/>
-                <field name="year_in"  />
-                <field name="user_info_department_id" widget="selection"  required="1" placeholder="Vui lòng chọn"/>
-                <field name="user_info_major_id" 
-                  widget='selection'
-                  domain="[('department_id', '=', user_info_department_id)]" 
-                  required="1" 
-                  placeholder="Vui lòng chọn"
-                />
-                <field name="user_info_class_id" 
-                  placeholder="Vui lòng chọn"
-                  widget='selection'
-                  domain="[
-                  
-                  ('major_id', '=', user_info_major_id), 
-                  ]" 
-                  required="1" 
-                />
+              <group string="Student info">
+                <field name="student_id" required="1" placeholder="Vui lòng điền"/>
+                <field name="year_in" />
+                <field name="user_info_department_id" widget="selection" required="1" placeholder="Vui lòng chọn"/>
+                <field name="user_info_major_id" widget='selection' domain="[('department_id', '=', user_info_department_id)]" required="1" placeholder="Vui lòng chọn" />
+                <field name="user_info_class_id" placeholder="Vui lòng chọn" widget='selection' domain="[('major_id', '=', user_info_major_id),]" required="1" />
                 <!-- default cua year_in la "" nen filter sai chua sua('year', '=', 'year_in') -->
               </group>
-              <!-- <group string="Teacher info" >
+              <!-- <group string="Teacher info">
                  
                 <field name="teacher_id"/>
                 <field name="user_info_department_id" widget="selection" />
-                <field name="user_info_major_id" 
-                  widget='selection'
-                  domain="[('department_id', '=', user_info_department_id)]" 
-                />
+                <field name="user_info_major_id" widget='selection' domain="[('department_id', '=', user_info_department_id)]" />
               </group> -->
             </group>
             <group>

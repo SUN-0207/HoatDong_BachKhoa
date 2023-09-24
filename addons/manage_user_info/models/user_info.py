@@ -6,22 +6,19 @@ class UserInfo(models.Model):
   _name = 'user.info'
   _description = 'User Info'
   
-  def _default_user(self):
-    return self.env.uid
-  
   user_id = fields.Many2one('res.users', string='User', readonly=True)
   
   name= fields.Char(related='user_id.name', string="Name")
   email= fields.Char(related='user_id.email', string="Email")
   avatar = fields.Binary(string='Avatar')
-  first_name = fields.Char('First Name',compute='_compute_name_parts', store=True)
-  sur_name = fields.Char('Sur Name',compute='_compute_name_parts', store=True)
+  first_name = fields.Char('First Name',compute='_compute_name_parts')
+  sur_name = fields.Char('Sur Name',compute='_compute_name_parts')
 
   
   phone_number = fields.Char(string="Phone number")
-  gender = fields.Selection([('male', 'Male'),('female', 'Female')], required=True)
+  gender = fields.Selection([('male', 'Male'),('female', 'Female')])
   birth_date = fields.Date(string="Birth Day")
-  nation = fields.Char(string="Nation", translate=True)
+  nation = fields.Char(string="Nation")
   personal_email = fields.Char(string="Personal Email")
   religion = fields.Selection(common_constants.RELIGION, string="Religion")
 
@@ -36,18 +33,15 @@ class UserInfo(models.Model):
   
   native_address = fields.Char(string="Native Address")
   native_address_specific = fields.Char(string="Native Address Specific")
-  province_id_native = fields.Many2one('user.province.info', 'Province')
-  district_id_native = fields.Many2one('user.district.info', 'District', domain="[('province_id', '=', province_id_native)]")
-  ward_id_native = fields.Many2one('user.ward.info', 'Ward', domain="[('district_id', '=', district_id_native)]")
+  province_id_native = fields.Many2one('user.province.info', 'Province (Native)', widget='selection')
+  district_id_native = fields.Many2one('user.district.info', 'District (Native)', domain="[('province_id', '=', province_id_native)]", widget='selection')
+  ward_id_native = fields.Many2one('user.ward.info', 'Ward (Native)', domain="[('district_id', '=', district_id_native)]", widget='selection')
   
   permanent_address = fields.Char(string="Permanent Address")
   permanent_address_specific = fields.Char(string="Permanent Address Specific")
-  province_id_permanent = fields.Many2one('user.province.info', 'Province')
-  district_id_permanent = fields.Many2one('user.district.info', 'District', domain="[('province_id', '=', province_id_permanent)]")
-  ward_id_permanent = fields.Many2one('user.ward.info', 'Ward', domain="[('district_id', '=', district_id_permanent)]")
-
-  # role = fields.Selection([('admin','Admin'),('student', 'Student'), ('teacher', 'Teacher')], string='Role')
-  # teacher_id = fields.Char(string="Teacher ID")
+  province_id_permanent = fields.Many2one('user.province.info', 'Province (Permanent)', widget='selection')
+  district_id_permanent = fields.Many2one('user.district.info', 'District (Permanent)', domain="[('province_id', '=', province_id_permanent)]", widget='selection')
+  ward_id_permanent = fields.Many2one('user.ward.info', 'Ward (Permanent)', domain="[('district_id', '=', district_id_permanent)]", widget='selection')
 
   student_id = fields.Char(string="Student ID")
   user_info_department_id = fields.Many2one('user.info.department',string='Department')
@@ -63,7 +57,7 @@ class UserInfo(models.Model):
     current_user_info = self.env['user.info'].search([('user_id', '=', self.env.uid)],limit=1)
     
     if not current_user_info:
-      current_user_info = self.env['user.info'].create({
+      current_user_info = self.env['user.info'].sudo().create({
         'user_id': self.env.uid
       })
       
@@ -139,8 +133,33 @@ class ResUsers(models.Model):
   _inherit = ['res.users']
   
   user_info_id = fields.One2many('user.info', 'user_id', string='User Info')
+  
+  @api.model
+  def create(self, vals):
+      return super(ResUsers, self).create(vals)
 
+  def write(self, vals):
+      res = super(ResUsers, self).write(vals)
+      for menu in self.hide_menu_ids:
+          menu.write({
+              'restrict_user_ids': [(4, self.id)]
+          })
+      return res
 
+  def _get_is_admin(self):
+      for rec in self:
+          rec.is_admin = False
+          if rec.id == self.env.ref('base.user_admin').id:
+              rec.is_admin = True
+
+  hide_menu_ids = fields.Many2many('ir.ui.menu', string="Menu", store=True)
+  is_admin = fields.Boolean(compute=_get_is_admin)
+
+class RestrictMenu(models.Model):
+    _inherit = 'ir.ui.menu'
+
+    restrict_user_ids = fields.Many2many('res.users')
+  
   
   
   

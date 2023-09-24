@@ -1,7 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_user_info_user,user.info,model_user_info,group_hcmut_user,1,1,1,0
-access_user_info_falcutian,user.info,model_user_info,group_hcmut_falcutian,1,1,0,0
-access_user_info_admin,user.info,model_user_info,group_hcmut_admin,1,1,1,1
+access_user_info_user,user.info,model_user_info,group_hcmut_user,1,1,0,0
+access_user_info_falcutian,user.info,model_user_info,group_hcmut_falcutian,1,1,0,1
+access_user_info_admin,user.info,model_user_info,group_hcmut_admin,1,1,0,1
 
 access_user_info_address_province_user,user.province.info,model_user_province_info,group_hcmut_user,1,0,0,0
 access_user_info_address_province_falcutian,user.province.info,model_user_province_info,group_hcmut_falcutian,1,0,0,0
@@ -16,13 +16,13 @@ access_user_info_address_ward_falcutian,user.ward.info,model_user_ward_info,grou
 access_user_info_address_ward_admin,user.ward.info,model_user_ward_info,group_hcmut_admin,1,1,0,0
 
 access_user_info_department_user,user.info.department,model_user_info_department,group_hcmut_user,1,0,0,0
-access_user_info_department_falcutian,user.info.department,model_user_info_department,group_hcmut_falcutian,1,0,0,0
-access_user_info_department_admin,user.info.department,model_user_info_department,group_hcmut_admin,1,1,0,0
+access_user_info_department_falcutian,user.info.department,model_user_info_department,group_hcmut_falcutian,1,1,1,1
+access_user_info_department_admin,user.info.department,model_user_info_department,group_hcmut_admin,1,1,1,1
 
 access_user_info_major_user,user.info.major,model_user_info_major,group_hcmut_user,1,0,0,0
-access_user_info_major_falcutian,user.info.major,model_user_info_major,group_hcmut_falcutian,1,0,0,0
-access_user_info_major_admin,user.info.major,model_user_info_major,group_hcmut_admin,1,1,0,0
+access_user_info_major_falcutian,user.info.major,model_user_info_major,group_hcmut_falcutian,1,1,1,1
+access_user_info_major_admin,user.info.major,model_user_info_major,group_hcmut_admin,1,1,1,1
 
 access_user_info_class_user,user.info.class,model_user_info_class,group_hcmut_user,1,0,0,0
-access_user_info_class_falcutian,user.info.class,model_user_info_class,group_hcmut_falcutian,1,0,0,0
-access_user_info_class_admin,user.info.class,model_user_info_class,group_hcmut_admin,1,1,0,0
+access_user_info_class_falcutian,user.info.class,model_user_info_class,group_hcmut_falcutian,1,1,1,1
+access_user_info_class_admin,user.info.class,model_user_info_class,group_hcmut_admin,1,1,1,1

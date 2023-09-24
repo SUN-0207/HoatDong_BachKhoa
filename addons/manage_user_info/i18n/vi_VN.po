@@ -223,7 +223,7 @@ msgstr "Nữ"
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__first_name
 msgid "First Name"
-msgstr "Họ và tên lót"
+msgstr  "Tên"
 
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__gender
@@ -728,7 +728,7 @@ msgstr "Thông tin sinh viên"
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__sur_name
 msgid "Sur Name"
-msgstr "Tên"
+msgstr "Họ và tên lót"
 
 #. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__14
