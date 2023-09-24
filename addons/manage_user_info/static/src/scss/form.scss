@@ -1,0 +1,26 @@
+.o_field_invalid {
+    color: #a94442;
+
+    input {
+        border-color: red !important;
+        background-color: #ffdddd !important;
+        color: #a94442 !important;
+    }
+}
+input.o_input:focus {
+    background-color: #82bac4 !important;
+}
+
+label[for="gender"] :after,
+label[for="birth_date"] :after,
+label[for="phone_number"] :after,
+label[for="personal_email"] :after,
+label[for="national_id"] :after,
+label[for="student_id"] :after,
+label[for="user_info_department_id"] :after,
+label[for="user_info_major_id"] :after,
+label[for="user_info_class_id"] :after
+{
+    content:" *";
+    color: red;
+}

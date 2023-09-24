@@ -6,7 +6,7 @@
     "version": "16.0.2",
     'author': 'TST',
     'website': "https://www.odoo.com",
-    "depends": ['base_setup'],
+    "depends": ['base','base_setup', 'web' ],
     "data": [
         'security/user_security.xml',
         'security/ir.model.access.csv',
@@ -21,7 +21,15 @@
         'views/user_info_views.xml',
         'views/user_info_menuitem.xml',
     ],
-
+    'assets': {
+        'web.assets_backend': [
+            'manage_user_info/static/src/js/*',
+            'manage_user_info/static/src/scss/*'
+        ],
+        'qweb': [
+            'manage_user_info/static/src/xml/*',
+        ],
+    },
     'license': 'LGPL-3',
     'installable': True,
     'application': True,
