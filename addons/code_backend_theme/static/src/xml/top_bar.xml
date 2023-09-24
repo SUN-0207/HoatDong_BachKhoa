@@ -2,48 +2,39 @@
 <templates id="template" xml:space="preserve">
     <t t-inherit="web.NavBar" t-inherit-mode="extension" owl="1">
         <xpath expr="//nav[hasclass('o_main_navbar')]" position="replace">
-      <nav class="o_main_navbar d-flex justify-content-between"
-           t-on-dropdown-item-selected="onNavBarDropdownItemSelection"
-           data-command-category="navbar">
-          <div class="d-flex">
-              <div class="top_heading">
-                <!-- Apps Menu -->
-                  <t t-call="web.NavBar.AppsMenu">
-                 <t t-set="apps" t-value="menuService.getApps()"/>
-                </t>
-                  <!-- App Brand -->
-                  <DropdownItem
-                          t-if="currentApp"
-                          href="getMenuItemHref(currentApp)"
-                          t-esc="currentApp.name"
-                          class="'o_menu_brand d-none d-md-block'"
-                          dataset="{ menuXmlid: currentApp.xmlid, section: currentApp.id }"
-                          onSelected="() => this.onNavBarDropdownItemSelection(currentApp)"
-                  />
-              </div>
+            <nav class="o_main_navbar d-flex justify-content-between" t-on-dropdown-item-selected="onNavBarDropdownItemSelection" data-command-category="navbar">
+                <div class="d-flex">
+                    <div class="top_heading">
+                        <!-- Apps Menu -->
+                        <t t-call="web.NavBar.AppsMenu">
+                            <t t-set="apps" t-value="menuService.getApps()"/>
+                        </t>
+                        <!-- App Brand -->
+                        <DropdownItem t-if="currentApp" href="getMenuItemHref(currentApp)" t-esc="currentApp.name" class="'o_menu_brand d-none d-md-block'" dataset="{ menuXmlid: currentApp.xmlid, section: currentApp.id }" onSelected="() => this.onNavBarDropdownItemSelection(currentApp)" />
+                    </div>
 
-              <!-- Current App Sections -->
-              <div class="d-none d-md-block">
-                  <t t-if="currentAppSections.length"
-                     t-call="web.NavBar.SectionsMenu">
-                    <t t-set="sections" t-value="currentAppSections"/>
-                  </t>
-              </div>
-              <div class="d-xs-block d-sm-block  d-md-none">
-                  <t t-call="web.NavBar.SectionsMenu.MoreDropdown">
-                      <t t-set="sections" t-value="currentAppSections"/>
-                  </t>
-              </div>
-        </div>
-          <!-- Systray -->
-          <div class="o_menu_systray d-flex" role="menu">
-          <t t-foreach="systrayItems" t-as="item" t-key="item_index">
-            <ErrorHandler onError="error => handleItemError(error, item)">
-                <t t-component="item.Component" t-props="item.props"/>
-            </ErrorHandler>
-          </t>
-        </div>
-      </nav>
+                    <!-- Current App Sections -->
+                    <div class="d-none d-md-block">
+                        <t t-if="currentAppSections.length" t-call="web.NavBar.SectionsMenu">
+                            <t t-set="sections" t-value="currentAppSections"/>
+                        </t>
+                    </div>
+
+                    <div class="d-xs-block d-sm-block  d-md-none">
+                        <t t-call="web.NavBar.SectionsMenu.MoreDropdown">
+                            <t t-set="sections" t-value="currentAppSections"/>
+                        </t>
+                    </div>
+                </div>
+                <!-- Systray -->
+                <div class="o_menu_systray d-flex" role="menu">
+                    <t t-foreach="systrayItems" t-as="item" t-key="item_index">
+                        <ErrorHandler onError="error => handleItemError(error, item)">
+                            <t t-component="item.Component" t-props="item.props"/>
+                        </ErrorHandler>
+                    </t>
+                </div>
+            </nav>
             <div class="sidebar_panel" id="sidebar_panel">
                 <div class="sidebar">
                     <div class="sidebar_close">
@@ -51,7 +42,7 @@
                             <img src="/code_backend_theme/static/src/img/icons/close.png"/>
                         </a>
                     </div>
-                     <div class="sidebar_logo">
+                    <div class="sidebar_logo">
                         <img src="/code_backend_theme/static/src/img/BK_logo.png" class="logo_img"/>
                         <img src="/code_backend_theme/static/src/img/Doan_logo.png" class="logo_img"/>
                         <img src="/code_backend_theme/static/src/img/HSV_logo.png" class="logo_img"/>
@@ -60,22 +51,19 @@
                     <ul class="sidebar_menu">
                         <t t-foreach="menuService.getApps()" t-as="app" t-key="app_index">
                             <li data-toggle="tooltip" data-placement="right" t-att-title="app.name">
-                                <a role="menuitem"
-                                   t-attf-href="#menu_id={{app.id}}"
-                                   class="nav-link">
-                                    <img class="sidebar_img"
-                                         t-attf-src="data:image/png;base64,{{app.webIconData}}"/>
+                                <a role="menuitem" t-attf-href="#menu_id={{app.id}}" class="nav-link">
+                                    <img class="sidebar_img" t-attf-src="data:image/png;base64,{{app.webIconData}}"/>
                                     <span class="sidebar_app_name">
                                         <t t-esc="app.name"/>
                                     </span>
-                                 </a>
+                                </a>
                             </li>
                         </t>
                     </ul>
                 </div>
-    </div>
-    </xpath>
-  </t>
+            </div>
+        </xpath>
+    </t>
     <t t-inherit="web.NavBar.AppsMenu" t-inherit-mode="extension" owl="1">
         <xpath expr="//Dropdown" position="replace">
             <li class="dropdown">
@@ -90,8 +78,34 @@
     </t>
 
     <t t-inherit="web.UserMenu" t-inherit-mode="extension" owl="1">
-        <xpath expr="//span[hasclass('oe_topbar_name')]" position="replace">
-            <div class="oe_topbar_name"/>
+        <xpath expr="//Dropdown" position="replace">
+            <Dropdown class="'o_user_menu d-none d-md-block pe-0'" togglerClass="'py-1 py-lg-0'">
+                <t t-set-slot="toggler">
+                    <img class="rounded-circle o_user_avatar h-75 py-1" t-att-src="source" alt="User"/>
+                    <span class="oe_topbar_name d-none d-lg-block ms-1">
+                        <t t-esc="user.name"/>
+                        <t t-if="env.debug" t-esc="' (' + user.db.name + ')'"/>
+                    </span>
+                </t>
+                <t t-foreach="getElements()" t-as="element" t-key="element_index">
+                    <t t-if="!element.hide">
+                        <DropdownItem t-if="element.id == 'logout'" href="element.href" dataset="{ menu: element.id }" onSelected="element.callback">
+                            <t t-out="element.description"/>
+                        </DropdownItem>
+                    </t>
+                </t>
+            </Dropdown>
         </xpath>
     </t>
+
+    <t t-inherit="mail.MessagingMenu" t-inherit-mode="extension" owl="1">
+        <xpath expr="//a[hasclass('o_MessagingMenu_toggler')]" position="replace">
+        </xpath>
+    </t>
+
+    <t t-inherit="mail.ActivityMenuView" t-inherit-mode="extension" owl="1">
+        <xpath expr="//a[hasclass('o_ActivityMenuView_dropdownToggle')]" position="replace">
+        </xpath>
+    </t>
+
 </templates>

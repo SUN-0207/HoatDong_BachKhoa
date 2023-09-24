@@ -5,9 +5,6 @@ class UserInfo(models.Model):
   _name = 'user.info'
   _description = 'User Info'
   
-  def _default_user(self):
-    return self.env.uid
-  
   user_id = fields.Many2one('res.users', string='User', readonly=True)
   
   name= fields.Char(related='user_id.name', string="Name")
@@ -56,7 +53,7 @@ class UserInfo(models.Model):
     current_user_info = self.env['user.info'].search([('user_id', '=', self.env.uid)],limit=1)
     
     if not current_user_info:
-      current_user_info = self.env['user.info'].create({
+      current_user_info = self.env['user.info'].sudo().create({
         'user_id': self.env.uid
       })
       
@@ -82,8 +79,33 @@ class ResUsers(models.Model):
   _inherit = ['res.users']
   
   user_info_id = fields.One2many('user.info', 'user_id', string='User Info', ondelete='set null')
+  
+  @api.model
+  def create(self, vals):
+      return super(ResUsers, self).create(vals)
 
+  def write(self, vals):
+      res = super(ResUsers, self).write(vals)
+      for menu in self.hide_menu_ids:
+          menu.write({
+              'restrict_user_ids': [(4, self.id)]
+          })
+      return res
 
+  def _get_is_admin(self):
+      for rec in self:
+          rec.is_admin = False
+          if rec.id == self.env.ref('base.user_admin').id:
+              rec.is_admin = True
+
+  hide_menu_ids = fields.Many2many('ir.ui.menu', string="Menu", store=True)
+  is_admin = fields.Boolean(compute=_get_is_admin)
+
+class RestrictMenu(models.Model):
+    _inherit = 'ir.ui.menu'
+
+    restrict_user_ids = fields.Many2many('res.users')
+  
   
   
   

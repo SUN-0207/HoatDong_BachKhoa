@@ -14,6 +14,7 @@
         'data/department.xml',
         'data/major.xml',
         'data/class.xml',
+        'views/res_users.xml',
         'views/user_info_department_views.xml',
         'views/user_info_major_views.xml',
         'views/user_info_class_views.xml',
