@@ -1,57 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
     <record id="cse_department" model="user.info.department">
-        <field name="name">KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH</field>
+        <field name="name">Khoa Khoa Học Và Kỹ Thuật Máy Tính</field>
         <field name="code">CSE</field>
     </record>
     <record id="dee_department" model="user.info.department">
-        <field name="name">KHOA ĐIỆN - ĐIỆN TỬ</field>
+        <field name="name">Khoa Điện - Điện Tử</field>
         <field name="code">DEE</field>
     </record>
     <record id="dce_department" model="user.info.department">
-        <field name="name">KHOA KỸ THUẬT XÂY DỰNG</field>
+        <field name="name">Khoa Kỹ Thuật Xây Dựng</field>
         <field name="code">DCE</field>
     </record>
     <record id="fme_department" model="user.info.department">
-        <field name="name">KHOA CƠ KHÍ</field>
+        <field name="name">Khoa Cơ Khí</field>
         <field name="code">FME</field>
     </record>
     <record id="dch_department" model="user.info.department">
-        <field name="name">KHOA KỸ THUẬT HOÁ HỌC</field>
+        <field name="name">Khoa Kỹ Thuật Hoá Học</field>
         <field name="code">DCH</field>
     </record>
     <record id="fmt_department" model="user.info.department">
-        <field name="name">KHOA CÔNG NGHỆ VẬT LIỆU</field>
+        <field name="name">Khoa Công Nghệ Vật Liệu</field>
         <field name="code">FMT</field>
     </record>
     <record id="dte_department" model="user.info.department">
-        <field name="name">KHOA KỸ THUẬT GIAO THÔNG</field>
+        <field name="name">Khoa Kỹ Thuật Giao Thông</field>
         <field name="code">DTE</field>
     </record>
     <record id="sim_department" model="user.info.department">
-        <field name="name">KHOA QUẢN LÝ CÔNG NGHIỆP</field>
+        <field name="name">Khoa Quản Lý Công Nghiệp</field>
         <field name="code">SIM</field>
     </record>
     <record id="geopet_department" model="user.info.department">
-        <field name="name">KHOA KỸ THUẬT VÀ ĐỊA CHẤT DẦU KHÍ</field>
+        <field name="name">Khoa Kỹ Thuật Và Địa Chất Dầu Khí</field>
         <field name="code">GEOPET</field>
     </record>
     <record id="fe_department" model="user.info.department">
-        <field name="name">KHOA MÔI TRƯỜNG VÀ TÀI NGUYÊN</field>
+        <field name="name">Khoa Môi Trường Và Tài Nguyên</field>
         <field name="code">FE</field>
     </record>
     <record id="imtc_department" model="user.info.department">
-        <field name="name">TRUNG TÂM BẢO DƯỠNG CÔNG NGHIỆP</field>
+        <field name="name">Trung Tâm Bảo Dưỡng Công Nghiệp</field>
         <field name="code">IMTC</field>
     </record>
     <record id="oisp_department" model="user.info.department">
-        <field name="name">VĂN PHÒNG ĐÀO TẠO QUỐC TẾ</field>
+        <field name="name">Văn Phòng Đào Tạo Quốc Tế</field>
         <field name="code">OISP</field>
     </record>
     <record id="pfiev_department" model="user.info.department">
-        <field name="name">CT KỸ SƯ CHẤT LƯỢNG CAO PFIEV</field>
+        <field name="name">CT Kỹ Sư Chất Lượng Cao PFIEV</field>
         <field name="code">PFIEV</field>
     </record>
-    
 </odoo>

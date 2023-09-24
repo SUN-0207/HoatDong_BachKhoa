@@ -21,6 +21,16 @@
         <field name="major_id" ref="computer_science_major"/>
     </record>
 
+    <record id="mt19kh1_class" model="user.info.class">
+        <field name="name">MT19KH1</field>
+        <field name="major_id" ref="computer_science_major"/>
+    </record>
+   
+    <record id="mt19kh2_class" model="user.info.class">
+        <field name="name">MT19KH2</field>
+        <field name="major_id" ref="computer_science_major"/>
+    </record>
+
     <!-- CE  -->
     <record id="mt20kt1_class" model="user.info.class">
         <field name="name">MT20KT1</field>
