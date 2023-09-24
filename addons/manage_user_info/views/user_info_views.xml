@@ -48,7 +48,7 @@
                   <field name="province_id_permanent" options="{'no_quick_create': True, 'no_create_edit': True, 'no_open':True}"/>
                   <field name="district_id_permanent" domain="[('province_id', '=', province_id_permanent)]" widget='selection'/>
                   <field name="ward_id_permanent" domain="[('district_id', '=', district_id_permanent)]" widget='selection'/>
-                  <field name="permanent_address_specific" widget='selection'/>
+                  <field name="permanent_address_specific"/>
               </group>
             </group>
             <group string="Student info">
