@@ -1,0 +1,5 @@
+<template id="custom_form_view" inherit_id="base.view_form">
+    <xpath expr="//field[@name='personal_email']" position="attributes">
+        <attribute name="class">valid</attribute>
+    </xpath>
+</template>

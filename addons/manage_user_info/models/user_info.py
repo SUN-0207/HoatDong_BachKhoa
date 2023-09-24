@@ -51,9 +51,11 @@ class UserInfo(models.Model):
 
   student_id = fields.Char(string="Student ID")
   user_info_department_id = fields.Many2one('user.info.department',string='Department')
+  year_in = fields.Char(string="Year in", compute="_compute_year_in")
   user_info_major_id = fields.Many2one('user.info.major',string='Major')
   user_info_class_id = fields.Many2one('user.info.class',string='Class')
 
+  personal_email_valid = fields.Boolean(string='Invalid Email',default=True)
   
   def open_current_user_info(self):
     view_id = self.env.ref('manage_user_info.user_info_view_form') 
@@ -87,13 +89,12 @@ class UserInfo(models.Model):
   def _validate_email(self):
     pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
     if self.personal_email and not re.match(pattern, self.personal_email):
-        return {
-          'warning': {
-          'title': 'Invalid Input',
-          'message': 'Invalid email address!',
-          }
+      return {
+        'warning': {
+        'title': 'Invalid Input',
+        'message': 'Invalid Email',
         }
-
+      }
 
   @api.onchange('student_id')
   def _onchange_number_field(self):
@@ -109,9 +110,30 @@ class UserInfo(models.Model):
       return {
         'warning': {
         'title': 'Invalid Input',
-        'message': 'Invalid student ID. Student ID must be a 7-digit number.',
+        'message': 'Invalid student ID. Student ID must be a 7-digit number.'
         }
       }
+  
+  @api.depends('student_id')
+  def _compute_year_in(self):
+    for record in self:
+        if record.student_id:
+            year_prefix = record.student_id[:2]
+            record.year_in = str(int(year_prefix) + 2000)
+        else:
+          record.year_in=""
+
+  @api.onchange('phone_number')
+  def _onchange_phone_field(self):
+    pattern = r'^0?\d{10}$'
+    if self.phone_number and not re.match(pattern, self.phone_number):
+      return {
+        'warning': {
+        'title': 'Invalid Input',
+        'message': 'Invalid phone number'
+        }
+      }
+  
     
 class ResUsers(models.Model):
   _inherit = ['res.users']
