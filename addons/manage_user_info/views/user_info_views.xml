@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <data>
-    <record id="user_info_search" model="ir.ui.view">
+    <!-- <record id="user_info_search" model="ir.ui.view">
       <field name="name">user.info.search</field>
       <field name="model">user.info</field>
       <field name="arch" type="xml">
         <search position="inside">
-
           <searchpanel>
             <field name="user_info_department_id" icon="fa fa-building" enable_counters="1" select="multi"/>
             <field name="user_info_major_id" icon="fa fa-graduation-cap" enable_counters="1" select="multi"/>
@@ -14,8 +13,7 @@
           </searchpanel>
         </search>
       </field>
-    </record>
-
+    </record> -->
 
     <record id="user_info_action" model="ir.actions.act_window">
       <field name="name">User Information</field>
@@ -38,21 +36,12 @@
                 <field name="user_id" invisible="1"/>
                 <field name="first_name" placeholder="'Nguyễn Văn A' thì điền 'Nguyễn Văn'" />
                 <field name="sur_name" placeholder="'Nguyễn Văn A' thì điền 'A'" />
-                <field name="gender" required="1" placeholder="Vui lòng chọn"/>
+                <field name="gender" widget="selection" required="1" placeholder="Vui lòng chọn"/>
                 <field name="birth_date" required="1" placeholder="Vui lòng chọn"/>
               </group>
               <group >
                 <field name="phone_number" required="1" widget="phone" placeholder="Vui lòng điền"/>
                 <field name="personal_email" required="1" widget="email" placeholder="Vui lòng điền"/>
-                <!-- <div class="o-row" style="display: inline-block;">  
-                  <label for="phone_number" name="Phone" class="required"/>  
-                </div>
-                <div class="o-row" style="display: inline-block;">
-                  <label for="personal_email" name="Personal Email" class="required"/> 
-                  
-                  <label for="personal_email_valid" attrs="{'invisible': [('personal_email_valid', '=', True)]}" name="Invalid Email">Invalid Email</label>
-                  <field name="personal_email_valid" invisible="1" />
-                </div> -->
                 <field name="religion" placeholder="Vui lòng chọn" />
                 <field name="ethnicity" placeholder="Vui lòng chọn"/>
               </group>
@@ -74,21 +63,13 @@
               </group>
             </group>
             <group >
-              <!-- <field name="role" invisible="[('role', '=', 'admin')]]"/> -->
               <group string="Student info">
                 <field name="student_id" required="1" placeholder="Vui lòng điền"/>
                 <field name="year_in" />
                 <field name="user_info_department_id" widget="selection" required="1" placeholder="Vui lòng chọn"/>
                 <field name="user_info_major_id" widget='selection' domain="[('department_id', '=', user_info_department_id)]" required="1" placeholder="Vui lòng chọn" />
                 <field name="user_info_class_id" placeholder="Vui lòng chọn" widget='selection' domain="[('major_id', '=', user_info_major_id),]" required="1" />
-                <!-- default cua year_in la "" nen filter sai chua sua('year', '=', 'year_in') -->
               </group>
-              <!-- <group string="Teacher info">
-                 
-                <field name="teacher_id"/>
-                <field name="user_info_department_id" widget="selection" />
-                <field name="user_info_major_id" widget='selection' domain="[('department_id', '=', user_info_department_id)]" />
-              </group> -->
             </group>
             <group>
               <group string="Communist Party">
