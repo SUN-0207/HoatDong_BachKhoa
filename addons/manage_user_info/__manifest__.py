@@ -6,7 +6,7 @@
     "version": "16.0.2",
     'author': 'TST',
     'website': "https://www.odoo.com",
-    "depends": ['base_setup'],
+    "depends": ['base_setup','auth_oauth'],
     "data": [
         'security/user_security.xml',
         'security/ir.model.access.csv',

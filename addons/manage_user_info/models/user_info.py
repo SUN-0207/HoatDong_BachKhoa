@@ -82,15 +82,22 @@ class ResUsers(models.Model):
   
   @api.model
   def create(self, vals):
-      return super(ResUsers, self).create(vals)
+    vals.update({
+      'groups_id': [(6, 0, [1, 13, 7, 14])],
+      'hide_menu_ids': [(6, 0, [73, 5])],
+      'lang': 'vi_VN',
+      'tz': 'Asia/Ho_Chi_Minh'
+    })
+    return super(ResUsers, self).create(vals)
 
   def write(self, vals):
-      res = super(ResUsers, self).write(vals)
-      for menu in self.hide_menu_ids:
-          menu.write({
-              'restrict_user_ids': [(4, self.id)]
-          })
-      return res
+    print(vals,'write')
+    res = super(ResUsers, self).write(vals)
+    for menu in self.hide_menu_ids:
+        menu.write({
+            'restrict_user_ids': [(4, self.id)]
+        })
+    return res
 
   def _get_is_admin(self):
       for rec in self:
@@ -105,6 +112,30 @@ class RestrictMenu(models.Model):
     _inherit = 'ir.ui.menu'
 
     restrict_user_ids = fields.Many2many('res.users')
+    
+class OAuthConfigSettings(models.TransientModel):
+    _inherit = 'res.config.settings'
+
+    oauth_client_id = fields.Char("57505462055-ehit1cdp8rji767v6gdmd5r0bl5dpcaa.apps.googleusercontent.com")
+    oauth_client_secret = fields.Char("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")
+
+    def get_values(self):
+        res = super(OAuthConfigSettings, self).get_values()
+        res.update({
+            'auth_oauth_google_enabled': True,
+            'auth_oauth_google_client_id': "57505462055-ehit1cdp8rji767v6gdmd5r0bl5dpcaa.apps.googleusercontent.com",
+        })
+        oauth_provider = self.env['auth.oauth.provider'].search([('name', '=', 'Google OAuth2')], limit=1)
+        odoo_provider = self.env['auth.oauth.provider'].search([('name', '=', 'Odoo.com Accounts')], limit=1)
+        oauth_provider.update({
+            'client_id': "57505462055-ehit1cdp8rji767v6gdmd5r0bl5dpcaa.apps.googleusercontent.com",
+            'enabled': True,
+        })
+        odoo_provider.update({
+            'enabled': False,
+        })
+        return res
+      
   
   
   
