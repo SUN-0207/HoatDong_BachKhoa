@@ -43,7 +43,7 @@ msgstr ""
 #. module: manage_user_info
 #: model_terms:ir.ui.view,arch_db:manage_user_info.user_info_view_form
 msgid "Basic"
-msgstr ""
+msgstr "Thông tin cá nhân"
 
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__birth_date
