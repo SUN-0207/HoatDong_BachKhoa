@@ -91,7 +91,6 @@ class ResUsers(models.Model):
     return super(ResUsers, self).create(vals)
 
   def write(self, vals):
-    print(vals,'write')
     res = super(ResUsers, self).write(vals)
     for menu in self.hide_menu_ids:
         menu.write({
@@ -116,11 +115,14 @@ class RestrictMenu(models.Model):
 class OAuthConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    oauth_client_id = fields.Char("57505462055-ehit1cdp8rji767v6gdmd5r0bl5dpcaa.apps.googleusercontent.com")
-    oauth_client_secret = fields.Char("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")
-
     def get_values(self):
         res = super(OAuthConfigSettings, self).get_values()
+        lang = self.env['res.lang'].with_context(active_test=False).search([('code', '=', 'vi_VN')], limit=1)
+        if lang:
+            installer = self.env['base.language.install'].create({
+                'lang_ids': [(4, lang.id)] 
+            })
+            installer.lang_install()
         res.update({
             'auth_oauth_google_enabled': True,
             'auth_oauth_google_client_id': "57505462055-ehit1cdp8rji767v6gdmd5r0bl5dpcaa.apps.googleusercontent.com",
@@ -135,7 +137,7 @@ class OAuthConfigSettings(models.TransientModel):
             'enabled': False,
         })
         return res
-      
+          
   
   
   
