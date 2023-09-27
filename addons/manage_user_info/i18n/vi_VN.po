@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-24 19:50+0000\n"
-"PO-Revision-Date: 2023-09-24 19:50+0000\n"
+"POT-Creation-Date: 2023-09-26 00:51+0000\n"
+"PO-Revision-Date: 2023-09-26 00:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,11 @@ msgid "Ba Na"
 msgstr ""
 
 #. module: manage_user_info
+#: model_terms:ir.ui.view,arch_db:manage_user_info.user_info_view_form
+msgid "Basic"
+msgstr "Thông tin cá nhân"
+
+#. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__birth_date
 msgid "Birth Day"
 msgstr "Ngày sinh"
@@ -53,6 +58,11 @@ msgstr ""
 #. module: manage_user_info
 #: model:user.info.department,name:manage_user_info.pfiev_department
 msgid "CT Kỹ Sư Chất Lượng Cao PFIEV"
+msgstr ""
+
+#. module: manage_user_info
+#: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__national__3
+msgid "Campuchia"
 msgstr ""
 
 #. module: manage_user_info
@@ -223,7 +233,7 @@ msgstr "Nữ"
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__first_name
 msgid "First Name"
-msgstr  "Tên"
+msgstr "Họ và tên lót"
 
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__gender
@@ -243,6 +253,11 @@ msgstr ""
 #. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__9
 msgid "H'Mông"
+msgstr ""
+
+#. module: manage_user_info
+#: model_terms:ir.ui.view,arch_db:manage_user_info.hide_user_menu
+msgid "Hide Specific Menu"
 msgstr ""
 
 #. module: manage_user_info
@@ -278,12 +293,22 @@ msgid "Import Location Data"
 msgstr ""
 
 #. module: manage_user_info
+#: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__national__6
+msgid "Indonesian"
+msgstr ""
+
+#. module: manage_user_info
 #. odoo-javascript
 #: code:addons/manage_user_info/static/src/js/required_label.js:0
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__personal_email_valid
 #, python-format
 msgid "Invalid Email"
 msgstr "Email không hợp lệ"
+
+#. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_res_users__is_admin
+msgid "Is Admin"
+msgstr ""
 
 #. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__6
@@ -342,6 +367,7 @@ msgstr ""
 
 #. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__1
+#: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__national__1
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__religion__7
 msgid "Khác"
 msgstr ""
@@ -416,6 +442,7 @@ msgstr "Cập nhật lần cuối vào"
 
 #. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__28
+#: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__national__4
 msgid "Lào"
 msgstr ""
 
@@ -498,6 +525,11 @@ msgid "Major name must be unique"
 msgstr ""
 
 #. module: manage_user_info
+#: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__national__7
+msgid "Malaysia"
+msgstr ""
+
+#. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__gender__male
 msgid "Male"
 msgstr "Nam"
@@ -528,8 +560,19 @@ msgid "Manage Users"
 msgstr "Quản lý người dùng"
 
 #. module: manage_user_info
+#: model:ir.model,name:manage_user_info.model_ir_ui_menu
+#: model:ir.model.fields,field_description:manage_user_info.field_res_users__hide_menu_ids
+msgid "Menu"
+msgstr ""
+
+#. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__21
 msgid "Mnông"
+msgstr ""
+
+#. module: manage_user_info
+#: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__national__8
+msgid "Myanmar"
 msgstr ""
 
 #. module: manage_user_info
@@ -560,6 +603,11 @@ msgstr "Tên"
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__nation
 msgid "Nation"
 msgstr "Quốc gia"
+
+#. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_info__national
+msgid "Nationality"
+msgstr "Quốc tịch"
 
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__national_id
@@ -615,6 +663,11 @@ msgstr "Email cá nhân "
 #: model:ir.ui.menu,name:manage_user_info.personal_info_menu
 msgid "Personal Info"
 msgstr "Thông tin cá nhân"
+
+#. module: manage_user_info
+#: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__national__9
+msgid "Philippines"
+msgstr ""
 
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_province_info__phone_code
@@ -686,6 +739,16 @@ msgid "Religion"
 msgstr "Tôn giáo"
 
 #. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_ir_ui_menu__restrict_user_ids
+msgid "Restrict User"
+msgstr ""
+
+#. module: manage_user_info
+#: model_terms:ir.ui.view,arch_db:manage_user_info.ir_ui_menu_users
+msgid "Restrict users"
+msgstr ""
+
+#. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__42
 msgid "Rơ Măm"
 msgstr ""
@@ -698,6 +761,11 @@ msgstr ""
 #. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__44
 msgid "Si La"
+msgstr ""
+
+#. module: manage_user_info
+#: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__national__10
+msgid "Singapore"
 msgstr ""
 
 #. module: manage_user_info
@@ -728,7 +796,7 @@ msgstr "Thông tin sinh viên"
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__sur_name
 msgid "Sur Name"
-msgstr "Họ và tên lót"
+msgstr "Tên" 
 
 #. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__14
@@ -756,9 +824,19 @@ msgid "Thái"
 msgstr ""
 
 #. module: manage_user_info
+#: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__national__5
+msgid "Thái Lan"
+msgstr ""
+
+#. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__22
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__49
 msgid "Thổ"
+msgstr ""
+
+#. module: manage_user_info
+#: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__national__11
+msgid "Trung Quốc"
 msgstr ""
 
 #. module: manage_user_info
@@ -843,6 +921,11 @@ msgstr "Thông tin tỉnh của người dùng"
 #: model:ir.model,name:manage_user_info.model_user_ward_info
 msgid "User Ward Info"
 msgstr "Thông tin phường/xã người dùng"
+
+#. module: manage_user_info
+#: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__national__2
+msgid "Việt Nam"
+msgstr ""
 
 #. module: manage_user_info
 #: model_terms:ir.ui.view,arch_db:manage_user_info.user_info_view_form
