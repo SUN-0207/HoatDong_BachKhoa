@@ -11,16 +11,20 @@ input.o_input:focus {
     background-color: #82bac4 !important;
 }
 
-label[for="gender"] :after,
-label[for="birth_date"] :after,
-label[for="phone_number"] :after,
-label[for="personal_email"] :after,
-label[for="national_id"] :after,
-label[for="student_id"] :after,
-label[for="user_info_department_id"] :after,
-label[for="user_info_major_id"] :after,
-label[for="user_info_class_id"] :after
+label[for="first_name"],
+label[for="sur_name"] ,
+label[for="gender"],
+label[for="birth_date"] ,
+label[for="phone_number"] ,
+label[for="personal_email"],
+label[for="national_id"] ,
+label[for="student_id"] ,
+label[for="user_info_department_id"] ,
+label[for="user_info_major_id"] ,
+label[for="user_info_class_id"] 
 {
-    content:" *" !important;
-    color: red !important;
+    &::after{
+        content:" *" !important;
+        color: red !important;
+    } 
 }
