@@ -49,35 +49,39 @@ class UserWardInfo(models.Model):
       response = requests.get(f"https://provinces.open-api.vn/api/p/{province_data['code']}?depth=3")
       response.raise_for_status()
       data = response.json()
-            
-      # Create Province
-      province = self.env['user.province.info'].create({
-          'name': province_data['name'],
-          'code': province_data['code'],
-          'division_type': province_data['division_type'],
-          'codename': province_data['codename'],
-          'phone_code': province_data['phone_code'],
-      })
       
-      # Create Districts
-      for district_data in data['districts']:
-          district = self.env['user.district.info'].create({
-              'name': district_data['name'],
-              'code': district_data['code'],
-              'division_type': district_data['division_type'],
-              'codename': district_data['codename'],
-              'province_id': province.id,
-          })
+      province_code = province_data['code']
+      existing_province = self.env['user.province.info'].search([('code', '=', province_code)], limit=1)
+      
+      if not existing_province:      
+        # Create Province
+        province = self.env['user.province.info'].create({
+            'name': province_data['name'],
+            'code': province_data['code'],
+            'division_type': province_data['division_type'],
+            'codename': province_data['codename'],
+            'phone_code': province_data['phone_code'],
+        })
+        
+        # Create Districts
+        for district_data in data['districts']:
+            district = self.env['user.district.info'].create({
+                'name': district_data['name'],
+                'code': district_data['code'],
+                'division_type': district_data['division_type'],
+                'codename': district_data['codename'],
+                'province_id': province.id,
+            })
 
-          # Create Wards
-          for ward_data in district_data['wards']:
-              self.env['user.ward.info'].create({
-                  'name': ward_data['name'],
-                  'code': ward_data['code'],
-                  'division_type': ward_data['division_type'],
-                  'codename': ward_data['codename'],
-                  'district_id': district.id,
-              })
+            # Create Wards
+            for ward_data in district_data['wards']:
+                self.env['user.ward.info'].create({
+                    'name': ward_data['name'],
+                    'code': ward_data['code'],
+                    'division_type': ward_data['division_type'],
+                    'codename': ward_data['codename'],
+                    'district_id': district.id,
+                })
     
     _logger.info("Finished import_location_data function")
     print("Finished import_location_data function")
