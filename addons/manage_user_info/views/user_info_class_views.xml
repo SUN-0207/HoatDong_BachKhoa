@@ -17,7 +17,7 @@
           <group>
             <field name="name" />
             <field name="major_id" />
-            <!-- <field name="department_id" /> -->
+            <field name="year" invisible="1"/>
           </group>
         </form>
       </field>
@@ -33,7 +33,7 @@
           <!-- <field name="major_id"/> -->
           <field name="major_id" widget="many2one" options="{'no-open': True}"/>
           <!-- <field name="department_id"/> -->
-          
+          <field name="year" />
         </tree>
       </field>
     </record>
