@@ -21,6 +21,6 @@ label[for="user_info_department_id"] :after,
 label[for="user_info_major_id"] :after,
 label[for="user_info_class_id"] :after
 {
-    content:" *";
-    color: red;
+    content:" *" !important;
+    color: red !important;
 }
