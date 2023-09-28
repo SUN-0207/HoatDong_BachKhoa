@@ -32,24 +32,17 @@
               <group >
                 <field name="avatar" widget="image" options="{'size': (128, 128)}" class="oe_avatar" />
               </group>
-              <group>
-                <group>
-                  <field name="user_id" invisible="1"/>
-                  <field name="first_name" placeholder="'Nguyễn Văn A' thì điền 'Nguyễn Văn'" groups="manage_user_info.group_hcmut_user,manage_user_info.group_hcmut_falcutian"/>
-                  <field name="sur_name" placeholder="'Nguyễn Văn A' thì điền 'A'" groups="manage_user_info.group_hcmut_user,manage_user_info.group_hcmut_falcutian"/>
-                  <field name="name" groups="base.user_admin" />
-                </group>
-                <group >
-                  <field name="gender" required="1" placeholder="Vui lòng chọn" groups="manage_user_info.group_hcmut_user,manage_user_info.group_hcmut_falcutian"/>
-                  <field name="birth_date" required="1" placeholder="Vui lòng chọn" groups="manage_user_info.group_hcmut_user,manage_user_info.group_hcmut_falcutian"/>
-                </group>
+              <group >
+                <field name="user_id" invisible="1"/>
+                <field name="first_name" placeholder="'Nguyễn Văn A' thì điền 'Nguyễn Văn'" groups="manage_user_info.group_hcmut_user,manage_user_info.group_hcmut_falcutian"/>
+                <field name="sur_name" placeholder="'Nguyễn Văn A' thì điền 'A'" groups="manage_user_info.group_hcmut_user,manage_user_info.group_hcmut_falcutian"/>
+                <field name="name" groups="base.user_admin" />
+                <field name="gender" required="1" placeholder="Vui lòng chọn" groups="manage_user_info.group_hcmut_user,manage_user_info.group_hcmut_falcutian"/>
+                <field name="birth_date" required="1" placeholder="Vui lòng chọn" groups="manage_user_info.group_hcmut_user,manage_user_info.group_hcmut_falcutian"/>
               </group>
-              
               <group groups="manage_user_info.group_hcmut_user,manage_user_info.group_hcmut_falcutian">
                 <field name="phone_number" required="1" placeholder="Vui lòng điền"/>
                 <field name="personal_email" required="1" placeholder="Vui lòng điền"/>
-              </group>
-              <group>
                 <field name="religion" placeholder="Vui lòng chọn" />
                 <field name="ethnicity" placeholder="Vui lòng chọn"/>
               </group>
@@ -91,7 +84,7 @@
                 <field name="permanent_address_specific" placeholder="Số nhà, Tên đường"/>
               </group>
             </group>
-            <!-- <group > -->
+            <group >
               <group string="Student info">
                 <field name="student_id" required="1" placeholder="Vui lòng điền" groups="manage_user_info.group_hcmut_user"/>
                 <field name="falcutian_id" required="1" placeholder="Vui lòng điền" groups="manage_user_info.group_hcmut_falcutian"/>
@@ -111,7 +104,7 @@
                   groups="manage_user_info.group_hcmut_user"
                 />
               </group>
-            <!-- </group> -->
+            </group>
             <group>
               <group string="Communist Party">
                 <field name="date_communist_party" placeholder="Vui lòng chọn" groups="manage_user_info.group_hcmut_user,manage_user_info.group_hcmut_falcutian"/>
