@@ -51,12 +51,10 @@
     padding-top: 20px;
     text-align: center;
     padding-bottom: 20px;
-    display: flex;
-    justify-content: space-around;
 }
 
 .sidebar_panel .sidebar .sidebar_logo img {
-    height: 50px;
+    max-width: 50px;
 }
 
 .sidebar_panel .sidebar .sidebar_head {
