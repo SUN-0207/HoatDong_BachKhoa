@@ -65,17 +65,3 @@ ETHNICITY = [
     ('54', 'Xơ Đăng'),
     ('55', 'Ô Đu'),
 ]
-
-NATIONAL = [
-  ('1', 'Khác'),
-  ('2', 'Việt Nam'),
-  ('3', 'Campuchia'),
-  ('4', 'Lào'),
-  ('5', 'Thái Lan'),
-  ('6', 'Indonesian'),
-  ('7', 'Malaysia'),
-  ('8', 'Myanmar'),
-  ('9', 'Philippines'),
-  ('10', 'Singapore'),
-  ('11', 'Trung Quốc'),
-]
