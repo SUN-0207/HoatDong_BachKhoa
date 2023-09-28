@@ -10,7 +10,7 @@
   <record id="group_hcmut_falcutian" model="res.groups">
     <field name="name">Falcutian</field>
     <field name="category_id" ref="base.module_category_hcmut"/>
-    <field name="implied_ids" eval="[(4, ref('group_hcmut_user'))]"/>
+    <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
   </record>
 
   <record id="group_hcmut_admin" model="res.groups">
