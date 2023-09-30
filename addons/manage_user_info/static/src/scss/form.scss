@@ -7,9 +7,6 @@
         color: #a94442 !important;
     }
 }
-input.o_input:focus {
-    background-color: #82bac4 !important;
-}
 
 label[for="gender"] :after,
 label[for="birth_date"] :after,
@@ -23,4 +20,27 @@ label[for="user_info_class_id"] :after
 {
     content:" *";
     color: red;
+}
+
+.form-column {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-column .form-column-3 {
+    width: 33.33%;
+}
+
+.form-column .avatar {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.form-column .avatar .o_cell { //left aligned t avatar
+    display: flex;
+}
+
+.form-column .user-name {
+    width: 70%;
 }
