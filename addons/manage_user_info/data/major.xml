@@ -1,14 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- #region Department CSE -->
     <record id="computer_science_major" model="user.info.major">
-        <field name="name">Computer Science</field>
+        <field name="name">Khoa học máy tính</field>
         <field name="department_id" ref="cse_department"/>
     </record>
 
+    <record id="computer_science_major_oisp" model="user.info.major">
+        <field name="name">Khoa học máy tính (CT Chất lượng cao)</field>
+        <field name="department_id" ref="oisp_department"/>
+    </record>
+    
     <record id="computer_engineering_major" model="user.info.major">
-        <field name="name">Computer Engineering</field>
+        <field name="name">Kỹ thuật máy tính</field>
         <field name="department_id" ref="cse_department"/>
     </record>
 
-</odoo>
+    <record id="computer_engineering_major_oisp" model="user.info.major">
+        <field name="name">Kỹ thuật máy tính (CT Chất lượng cao)</field>
+        <field name="department_id" ref="oisp_department"/>
+    </record>
+    <!-- #endregion -->
+
+    <!-- #region Department DEE -->
+    <record id="dien_major" model="user.info.major">
+        <field name="name">Kỹ thuật Điện</field>
+        <field name="department_id" ref="dee_department"/>
+    </record>
+
+    <record id="dien_tu_vien_thong_major" model="user.info.major">
+        <field name="name">Kỹ thuật Điện tử-viễn thông</field>
+        <field name="department_id" ref="dee_department"/>
+    </record>
+
+    <record id="dieu_khien_tu_dong_hoa_major" model="user.info.major">
+        <field name="name">Kỹ thuật điều khiển-tự động hóa</field>
+        <field name="department_id" ref="dee_department"/>
+    </record>
+
+    <record id="dien_dien_tu_ct_tien_tien_major" model="user.info.major">
+        <field name="name">Điện - Điện tử (CT Tiên tiến)</field>
+        <field name="department_id" ref="dee_department"/>
+    </record>
+    <!-- #endregion -->
+
+    <!-- #region Department DCE -->
+    <!-- Công nghệ kỹ thuật vật liệu xây dựng -->
+    <record id="cong_nghe_ky_thuat_vat_lieu_xay_dung_major" model="user.info.major">
+        <field name="name">Công nghệ kỹ thuật vật liệu xây dựng</field>
+        <field name="department_id" ref="dce_department"/>
+    </record>
+
+    <!-- Kiến trúc -->
+    <record id="kien_truc_major" model="user.info.major">
+        <field name="name">Kiến trúc</field>
+        <field name="department_id" ref="dce_department"/>
+    </record>
+
+    <!-- KT cơ sở hạ tầng -->
+    <record id="kt_co_so_ha_tang_major" model="user.info.major">
+        <field name="name">KT cơ sở hạ tầng</field>
+        <field name="department_id" ref="dce_department"/>
+    </record>
+
+    <!-- KT xây dựng công trình biển -->
+    <record id="kt_xay_dung_cong_trinh_bien_major" model="user.info.major">
+        <field name="name">KT xây dựng công trình biển</field>
+        <field name="department_id" ref="dce_department"/>
+    </record>
+
+    <!-- KT xây dựng công trình thủy -->
+    <record id="kt_xay_dung_cong_trinh_thuy_major" model="user.info.major">
+        <field name="name">KT xây dựng công trình thủy</field>
+        <field name="department_id" ref="dce_department"/>
+    </record>
+
+    <!-- Kỹ thuật xây dựng -->
+    <record id="ky_thuat_xay_dung_major" model="user.info.major">
+        <field name="name">Kỹ thuật xây dựng</field>
+        <field name="department_id" ref="dce_department"/>
+    </record>
+
+    <!-- KT trắc địa-bản đồ -->
+    <record id="kt_trac_dia_ban_do_major" model="user.info.major">
+        <field name="name">KT trắc địa-bản đồ</field>
+        <field name="department_id" ref="dce_department"/>
+    </record>
+
+    <!-- KT xây dựng công trình giao thông -->
+    <record id="kt_xay_dung_cong_trinh_giao_thong_major" model="user.info.major">
+        <field name="name">KT xây dựng công trình giao thông</field>
+        <field name="department_id" ref="dce_department"/>
+    </record>
+    <!-- #endregion -->
+
+    <!-- #region Department FME -->
+    <!-- Công nghệ Dệt may -->
+    <record id="cong_nghe_det_may_major" model="user.info.major">
+        <field name="name">Công nghệ Dệt may</field>
+        <field name="department_id" ref="fme_department"/>
+    </record>
+
+    <!-- Kỹ thuật cơ khí -->
+    <record id="ky_thuat_co_khi_major" model="user.info.major">
+        <field name="name">Kỹ thuật cơ khí</field>
+        <field name="department_id" ref="fme_department"/>
+    </record>
+
+    <!-- Kỹ thuật dệt -->
+    <record id="ky_thuat_det_major" model="user.info.major">
+        <field name="name">Kỹ thuật dệt</field>
+        <field name="department_id" ref="fme_department"/>
+    </record>
+
+    <!-- Kỹ thuật hệ thống công nghiệp -->
+    <record id="ky_thuat_he_thong_cong_nghiep_major" model="user.info.major">
+        <field name="name">Kỹ thuật hệ thống công nghiệp</field>
+        <field name="department_id" ref="fme_department"/>
+    </record>
+
+    <!-- Logistics và Quản lý chuỗi cung ứng -->
+    <record id="logistics_quan_ly_chuoi_cung_ung_major" model="user.info.major">
+        <field name="name">Logistics và Quản lý chuỗi cung ứng</field>
+        <field name="department_id" ref="fme_department"/>
+    </record>
+
+    <!-- Kỹ thuật nhiệt -->
+    <record id="ky_thuat_nhiet_major" model="user.info.major">
+        <field name="name">Kỹ thuật nhiệt</field>
+        <field name="department_id" ref="fme_department"/>
+    </record>
+
+    <!-- Kỹ thuật Cơ - điện tử -->
+    <record id="ky_thuat_co_dien_tu_major" model="user.info.major">
+        <field name="name">Kỹ thuật Cơ - điện tử</field>
+        <field name="department_id" ref="fme_department"/>
+    </record>
+
+    <record id="co_khi_major_oisp" model="user.info.major">
+        <field name="name">Kỹ thuật cơ khí (CT Chất lượng cao)</field>
+        <field name="department_id" ref="fme_department"/>
+    </record>
+    <!-- #endregion -->
+
+    <!-- #region Department DCH -->
+    <!-- Công nghệ sinh học -->
+    <record id="cong_nghe_sinh_hoc_major" model="user.info.major">
+        <field name="name">Công nghệ sinh học</field>
+        <field name="department_id" ref="dch_department"/>
+    </record>
+
+    <!-- Công nghệ thực phẩm -->
+    <record id="cong_nghe_thuc_pham_major" model="user.info.major">
+        <field name="name">Công nghệ thực phẩm</field>
+        <field name="department_id" ref="dch_department"/>
+    </record>
+
+    <!-- Kỹ thuật hóa học -->
+    <record id="ky_thuat_hoa_hoc_major" model="user.info.major">
+        <field name="name">Kỹ thuật hóa học</field>
+        <field name="department_id" ref="dch_department"/>
+    </record>
+    <!-- #endregion -->
+
+/</odoo>

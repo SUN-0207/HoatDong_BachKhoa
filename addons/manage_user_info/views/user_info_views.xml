@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <data>
-    <!-- <record id="user_info_search" model="ir.ui.view">
+    <record id="user_info_search" model="ir.ui.view">
       <field name="name">user.info.search</field>
       <field name="model">user.info</field>
       <field name="arch" type="xml">
@@ -13,7 +13,7 @@
           </searchpanel>
         </search>
       </field>
-    </record> -->
+    </record>
 
     <record id="user_info_action" model="ir.actions.act_window">
       <field name="name">User Information</field>
@@ -27,6 +27,23 @@
       <field name="model">user.info</field>
       <field name="arch" type="xml">
         <form >
+          <header >
+            <button name="button_draft" 
+              type="object" 
+              class="btn btn-primary" 
+              string="Draft" 
+              groups="manage_user_info.group_hcmut_admin"
+            />
+            <button name="button_done" 
+              type="object" 
+              class="btn btn-primary" 
+              string="Done" 
+              groups="manage_user_info.group_hcmut_admin"
+            />
+            <field name="states" widget="statusbar" 
+            statusbar_visible="draft,done"
+            />
+          </header>
           <sheet>
             <group class="form-column">
               <group>
@@ -35,16 +52,16 @@
                 </group>
                 <group class="user-name">
                   <field name="user_id" invisible="1"/>
-                  <field name="first_name" placeholder="'Nguyễn Văn A' thì điền 'Nguyễn Văn'" />
-                  <field name="sur_name" placeholder="'Nguyễn Văn A' thì điền 'A'" />
+                  <field name="first_name" required="1" placeholder="'Nguyễn Văn A' thì điền 'Nguyễn Văn'" attrs="{'readonly': [('states','=','done')]}"/>
+                  <field name="sur_name" required="1" placeholder="'Nguyễn Văn A' thì điền 'A'" attrs="{'readonly': [('states','=','done')]}"/>
                   <field name="gender" required="1" placeholder="Vui lòng chọn"/>
-                  <field name="birth_date" required="1" placeholder="Vui lòng chọn"/>
+                  <field name="birth_date" required="1" placeholder="Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy"/>
                 </group>
               </group>
 
               <group >
                 <field name="phone_number" required="1" widget="phone" placeholder="Vui lòng điền"/>
-                <field name="personal_email" required="1" widget="email" placeholder="Vui lòng điền"/>
+                <field name="personal_email" required="1" widget="email" placeholder="Vui lòng điền gmail cá nhân (@gmail.com)"/>
                 <field name="religion" placeholder="Vui lòng chọn" />
                 <field name="ethnicity" placeholder="Vui lòng chọn"/>
               </group>
@@ -52,12 +69,24 @@
 
             <group class="form-column">
               <group string="Student info">
-                <field name="student_id" required="1" placeholder="Vui lòng điền"/>
-                <field name="year_in" />
-                <field name="user_info_department_id" required="1" placeholder="Vui lòng chọn"/>
-                <field name="user_info_major_id" domain="[('department_id', '=', user_info_department_id)]" required="1" placeholder="Vui lòng chọn" />
-                <field name="user_info_class_id" placeholder="Vui lòng chọn" domain="[('major_id', '=', user_info_major_id),]" required="1" />
-              </group>
+                <field name="student_id" required="1" placeholder="Vui lòng điền" attrs="{'readonly': [('states','=','done')]}"/>
+                <field name="user_info_department_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                <field name="user_info_major_id" 
+                  required="1" 
+                  placeholder="Vui lòng chọn"  
+                  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" 
+                  attrs="{'readonly': [('states','=','done')]}"
+                />
+                <field name="user_info_class_id" 
+                  placeholder="Vui lòng chọn" 
+                  required="1" 
+                  attrs="{
+                    'invisible': [('user_info_major_id', '=', False),('student_id', '=', False)],
+                    'readonly': [('states','=','done')]
+                  }"
+                  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" 
+                  />
+                </group>
 
               <group string="Identity">
                 <field name="national_id" required="1" placeholder="Vui lòng điền"/>
@@ -81,14 +110,14 @@
 
             <group class="form-column">
               <group class="form-column-3" string="Youth Union">
-                <field name="date_at_union" placeholder="Vui lòng chọn"/>
+                <field name="date_at_union" placeholder="Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy"/>
                 <field name="place_union" placeholder="Vui lòng điền"/>
               </group>
               <group class="form-column-3" string="Student Association">
-                <field name="date_at_student_association" placeholder="Vui lòng chọn"/>
+                <field name="date_at_student_association" placeholder="Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy" />
               </group>
               <group class="form-column-3" string="Communist Party">
-                <field name="date_communist_party" placeholder="Vui lòng chọn"/>
+                <field name="date_communist_party" placeholder="Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy"/>
                 <field name="place_communist_party" placeholder="Vui lòng điền"/>
               </group>
             </group>
@@ -105,11 +134,11 @@
         <tree >
           <field name="name"/>
           <field name="email" />
-          <field name="student_id" />
+          <field name="student_id" optional="show"/>
           <field name="phone_number" optional="hide"/>
           <field name="user_info_department_id" optional="show"/>
           <field name="user_info_major_id" optional="show"/>
-          <field name="user_info_class_id" />
+          <field name="user_info_class_id"  optional="show" />
         </tree>
       </field>
     </record>

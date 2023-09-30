@@ -6,15 +6,26 @@ class UserInfo(models.Model):
   _name = 'user.info'
   _description = 'User Info'
   
+  states = fields.Selection(selection=[
+       ('draft', 'Draft'),
+       ('done', 'Done'),
+    ], 
+    string='Status', 
+    required=True, 
+    readonly=True, 
+    copy=False,
+    tracking=True, 
+    default='draft',
+  )
+
   user_id = fields.Many2one('res.users', string='User', readonly=True)
   
-  name= fields.Char(related='user_id.name', string="Name")
+  name = fields.Char(related='user_id.name', string="Name", store=True, compute='_compute_name_parts')
+  first_name = fields.Char('First Name', inverse='_inverse_name', store=True)
+  sur_name = fields.Char('Sur Name', inverse='_inverse_name', store=True)
   email= fields.Char(related='user_id.email', string="Email")
   avatar = fields.Binary(string='Avatar')
-  first_name = fields.Char('First Name',compute='_compute_name_parts')
-  sur_name = fields.Char('Sur Name',compute='_compute_name_parts')
 
-  
   phone_number = fields.Char(string="Phone number")
   gender = fields.Selection([('male', 'Male'),('female', 'Female')])
   birth_date = fields.Date(string="Birth Day")
@@ -46,13 +57,23 @@ class UserInfo(models.Model):
   ward_id_permanent = fields.Many2one('user.ward.info', 'Ward (Permanent)', domain="[('district_id', '=', district_id_permanent)]", widget='selection')
 
   student_id = fields.Char(string="Student ID")
-  user_info_department_id = fields.Many2one('user.info.department',string='Department')
-  year_in = fields.Char(string="Year in", compute="_compute_year_in")
-  user_info_major_id = fields.Many2one('user.info.major',string='Major')
-  user_info_class_id = fields.Many2one('user.info.class',string='Class')
-
-  personal_email_valid = fields.Boolean(string='Invalid Email',default=True)
+  user_info_department_id = fields.Many2one('user.info.department', string='Department', readonly=True, store=True, compute='_compute_user_info_department')
+  user_info_major_id = fields.Many2one('user.info.major',string='Major', store=True)
+  user_info_class_id = fields.Many2one('user.info.class',string='Class', 
+    domain=lambda self: self._compute_user_info_class_domain(),
+    store=True
+  )
   
+  def button_draft(self):
+       self.write({
+           'states': "draft"
+       })
+  
+  def button_done(self):
+       self.write({
+           'states': "done"
+       })
+
   def open_current_user_info(self):
     view_id = self.env.ref('manage_user_info.user_info_view_form') 
     
@@ -81,9 +102,44 @@ class UserInfo(models.Model):
         user.first_name = name_parts[0]
         user.sur_name = " ".join(name_parts[1:]) 
   
+  @api.onchange('first_name', 'sur_name')
+  def _inverse_name(self):
+    for user in self:
+        if user.first_name or user.sur_name:
+            name_parts = []
+            if user.first_name:
+                name_parts.append(user.first_name)
+            if user.sur_name:
+                name_parts.append(user.sur_name)
+            user.name = " ".join(name_parts)
+        else:
+            user.name = False
+  
+  @api.onchange('province_id_native')
+  def on_province_native_change(self):
+    if self.province_id_native:
+      self.district_id_native = False
+      self.ward_id_native = False
+  
+  @api.onchange('district_id_native')
+  def on_district_native_change(self):
+    if self.district_id_native:
+      self.ward_id_native = False
+  
+  @api.onchange('province_id_permanent')
+  def on_province_permanent_change(self):
+    if self.province_id_permanent:
+      self.district_id_permanent = False
+      self.ward_id_permanent= False
+  
+  @api.onchange('district_id_permanent')
+  def on_district_permanent_change(self):
+    if self.district_id_permanent:
+      self.ward_id_native = False
+
   @api.onchange('personal_email')
   def _validate_email(self):
-    pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    pattern = r".*@gmail\.com$"
     if self.personal_email and not re.match(pattern, self.personal_email):
       return {
         'warning': {
@@ -91,33 +147,6 @@ class UserInfo(models.Model):
         'message': 'Invalid Email',
         }
       }
-
-  @api.onchange('student_id')
-  def _onchange_number_field(self):
-    pattern = r'^0?\d{7}$'
-    if self.student_id and not self.student_id.isdigit():
-      return {
-        'warning': {
-        'title': 'Invalid Input',
-        'message': 'Only numbers are allowed in the Number Field.',
-        }
-      }
-    if self.student_id and not re.match(pattern, self.student_id):
-      return {
-        'warning': {
-        'title': 'Invalid Input',
-        'message': 'Invalid student ID. Student ID must be a 7-digit number.'
-        }
-      }
-  
-  @api.depends('student_id')
-  def _compute_year_in(self):
-    for record in self:
-        if record.student_id:
-            year_prefix = record.student_id[:2]
-            record.year_in = str(int(year_prefix) + 2000)
-        else:
-          record.year_in=""
 
   @api.onchange('phone_number')
   def _onchange_phone_field(self):
@@ -130,6 +159,39 @@ class UserInfo(models.Model):
         }
       }
   
+  @api.onchange('student_id', 'user_info_major_id')
+  def _compute_user_info_class_domain(self):
+    pattern = r'^0?\d{7}$'
+    year = ""
+    if self.student_id:
+        if not self.student_id.isdigit() or not re.match(pattern, self.student_id):
+            return {
+                'warning': {
+                    'title': 'Invalid Input',
+                    'message': 'Invalid student ID. Student ID must be a 7-digit number.',
+                }
+            }
+        year_prefix = self.student_id[:2]
+        year = str(int(year_prefix) + 2000)
+
+    domain = []
+    if self.user_info_major_id:
+        domain = [('major_id', '=', self.user_info_major_id.id)]
+    if self.student_id and year != "":
+        domain.append(('year', '=', year))
+
+    self.user_info_class_id = False
+    return {
+        'domain': {'user_info_class_id': domain} if domain else {},
+    }
+
+  @api.depends('user_info_major_id', 'student_id')
+  def _compute_user_info_department(self):
+    for record in self:
+        if record.user_info_major_id:
+            record.user_info_department_id = record.user_info_major_id.department_id
+        else:
+            record.user_info_department_id = False
     
 class ResUsers(models.Model):
   _inherit = ['res.users']
