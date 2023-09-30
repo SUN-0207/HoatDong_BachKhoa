@@ -24,8 +24,6 @@ class UserInfo(models.Model):
 
   ethnicity = fields.Selection(common_constants.ETHNICITY, string='Ethnicity')
   national_id = fields.Char(string="National Id")
-  national_id_date = fields.Date(string="Created date Nation ID")
-  national_id_place = fields.Char(string="Created palce Nation ID")
 
   date_communist_party= fields.Date(string="Date At Communist Party")
   place_communist_party = fields.Char(string="Place Communist Party")
