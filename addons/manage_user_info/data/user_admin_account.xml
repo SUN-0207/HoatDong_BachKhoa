@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="admin_cse" model="user.department.admin">
+    <field name="name">Admin CSE</field>
+    <field name="email">dtn-ktmt@hcmut.edu.vn</field>
+    <field name="department_id" ref="cse_department"/>
+  </record>
+
+  <record id="super_admin_1" model="user.super.admin">
+    <field name="name">Super Admin</field>
+    <field name="email">cuthanhson27@gmail.com</field>
+  </record>
+
+</odoo>

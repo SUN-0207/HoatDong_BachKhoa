@@ -12,6 +12,19 @@ class UserInfoClass(models.Model):
     _sql_constraints = [
         ('unique_class_name','UNIQUE (name)', 'Class name must be unique!')
         ]
+    
+    def open_list_class_info(self):
+        action = {
+            'name': 'User Class Information',
+            'type': 'ir.actions.act_window',
+            'view_mode': 'tree,form',
+            'res_model': 'user.info.class',  
+        }
+        if self.env.user.manage_department_id:
+            action.update({
+                'domain': [('major_id','in',self.env.user.manage_department_id.major_ids.ids)]
+            })
+        return action 
 
     @api.depends('name')
     def _compute_year_in(self):

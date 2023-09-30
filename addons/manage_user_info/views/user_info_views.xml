@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <data>
-    <!-- <record id="user_info_search" model="ir.ui.view">
+    <record id="user_info_search" model="ir.ui.view">
       <field name="name">user.info.search</field>
       <field name="model">user.info</field>
       <field name="arch" type="xml">
@@ -13,12 +13,6 @@
           </searchpanel>
         </search>
       </field>
-    </record> -->
-
-    <record id="user_info_action" model="ir.actions.act_window">
-      <field name="name">User Information</field>
-      <field name="res_model">user.info</field>
-      <field name="view_mode">tree,form</field>
     </record>
 
     <!-- Form View -->
