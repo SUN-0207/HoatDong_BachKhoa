@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-  <record id='user_info_major_action' model='ir.actions.act_window'>
+  <!-- <record id='user_info_major_action' model='ir.actions.act_window'>
     <field name="name">User Major Information</field>
     <field name="res_model">user.info.major</field>
     <field name="view_mode">tree,form</field>
-  </record>
+  </record> -->
 
   <data>
     <!-- Form View -->

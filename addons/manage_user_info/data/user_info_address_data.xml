@@ -12,9 +12,31 @@
   </record>
 
   <record id="account_info_action" model="ir.actions.server">
-    <field name="name">Student Information</field>
+    <field name="name">Personal Information</field>
     <field name="model_id" ref="model_user_info"/>
     <field name="state">code</field>
     <field name="code">action=model.open_current_user_info()</field>
   </record>
+
+  <record id="user_info_action" model="ir.actions.server">
+    <field name="name">Users Information</field>
+    <field name="model_id" ref="model_user_info"/>
+    <field name="state">code</field>
+    <field name="code">action=model.open_list_user_info()</field>
+  </record>
+
+  <record id="user_info_major_action" model="ir.actions.server">
+    <field name="name">User Major Information</field>
+    <field name="model_id" ref="model_user_info_major"/>
+    <field name="state">code</field>
+    <field name="code">action=model.open_list_major_info()</field>
+  </record>
+
+  <record id="user_info_class_action" model="ir.actions.server">
+    <field name="name">User Class Information</field>
+    <field name="model_id" ref="model_user_info_class"/>
+    <field name="state">code</field>
+    <field name="code">action=model.open_list_class_info()</field>
+  </record>
+
 </odoo>

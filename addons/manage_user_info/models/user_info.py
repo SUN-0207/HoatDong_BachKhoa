@@ -35,8 +35,6 @@ class UserInfo(models.Model):
 
   ethnicity = fields.Selection(common_constants.ETHNICITY, string='Ethnicity')
   national_id = fields.Char(string="National Id")
-  national_id_date = fields.Date(string="Created date Nation ID")
-  national_id_place = fields.Char(string="Created palce Nation ID")
 
   date_communist_party= fields.Date(string="Date At Communist Party")
   place_communist_party = fields.Char(string="Place Communist Party")
@@ -93,6 +91,19 @@ class UserInfo(models.Model):
         'view_id': view_id.id,
         'target': 'current',
     }
+  
+  def open_list_user_info(self):
+    action = {
+      'name': 'User Information',
+      'type': 'ir.actions.act_window',
+      'view_mode': 'tree,form',
+      'res_model': 'user.info',  
+    }
+    if self.env.user.manage_department_id:
+      action.update({
+        'domain': [('user_info_department_id','=',self.env.user.manage_department_id.id)]
+      })
+    return action    
    
   @api.depends('name')
   def _compute_name_parts(self):
@@ -197,15 +208,46 @@ class ResUsers(models.Model):
   _inherit = ['res.users']
   
   user_info_id = fields.One2many('user.info', 'user_id', string='User Info')
+  manage_department_id = fields.Many2one('user.info.department')
   
   @api.model
   def create(self, vals):
-    vals.update({
-      'groups_id': [(6, 0, [1, 13, 7, 14])],
-      'hide_menu_ids': [(6, 0, [73, 5])],
-      'lang': 'vi_VN',
-      'tz': 'Asia/Ho_Chi_Minh'
-    })
+    # department: 15, super: 16, techinical: 17, user:14
+    login_email = vals['login']
+    pattern = r'^[A-Za-z0-9._%+-]+@hcmut\.edu\.vn$'
+    
+    group_user_id = self.env['res.groups'].search([('name','=','User')]).id  
+    group_department_admin_id = self.env['res.groups'].search([('name','=','Department Admin')]).id
+    group_super_admin_id = self.env['res.groups'].search([('name','=','Super Admin')]).id
+    
+    super_admin = self.env['user.super.admin'].search([('email', '=', login_email)], limit=1)
+    department_admin = self.env['user.department.admin'].search([('email', '=', login_email)], limit=1)
+    
+    if not re.match(pattern, login_email):
+      raise ValueError("Invalid email address. Email must end with @hcmut.edu.vn")
+    elif super_admin:
+      vals.update({
+        'groups_id': [(6, 0, [1, group_super_admin_id])],
+        'hide_menu_ids': [(6, 0, [73, 5])],
+        'lang': 'vi_VN',
+        'tz': 'Asia/Ho_Chi_Minh'
+      })
+    elif department_admin:
+      vals.update({
+        'groups_id': [(6, 0, [1, group_department_admin_id])],
+        'hide_menu_ids': [(6, 0, [73, 5])],
+        'lang': 'vi_VN',
+        'tz': 'Asia/Ho_Chi_Minh',
+        'manage_department_id': department_admin.id
+      })
+    else:  
+      vals.update({
+        'groups_id': [(6, 0, [1, group_user_id])],
+        'hide_menu_ids': [(6, 0, [73, 5])],
+        'lang': 'vi_VN',
+        'tz': 'Asia/Ho_Chi_Minh'
+      })
+    print(vals)
     return super(ResUsers, self).create(vals)
 
   def write(self, vals):

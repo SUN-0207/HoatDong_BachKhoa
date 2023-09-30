@@ -1,28 +1,41 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_user_info_user,user.info,model_user_info,group_hcmut_user,1,1,0,0
-access_user_info_falcutian,user.info,model_user_info,group_hcmut_falcutian,1,1,0,1
-access_user_info_admin,user.info,model_user_info,group_hcmut_admin,1,1,1,1
+access_user_info_department_admin,user.info,model_user_info,group_hcmut_department_admin,1,1,0,1
+access_user_info_super_admin,user.info,model_user_info,group_hcmut_super_admin,1,1,1,1
+access_user_info_technical_admin,user.info,model_user_info,group_hcmut_technical_admin,1,1,1,1
 
 access_user_info_address_province_user,user.province.info,model_user_province_info,group_hcmut_user,1,0,0,0
-access_user_info_address_province_falcutian,user.province.info,model_user_province_info,group_hcmut_falcutian,1,0,0,0
-access_user_info_address_province_admin,user.province.info,model_user_province_info,group_hcmut_admin,1,1,0,0
+access_user_info_address_province_department_admin,user.province.info,model_user_province_info,group_hcmut_department_admin,1,0,0,0
+access_user_info_address_province_super_admin,user.province.info,model_user_province_info,group_hcmut_super_admin,1,1,0,0
+access_user_info_address_province_technical_admin,user.province.info,model_user_province_info,group_hcmut_technical_admin,1,1,1,1
 
 access_user_info_address_district_user,user.district.info,model_user_district_info,group_hcmut_user,1,0,0,0
-access_user_info_address_district_falcutian,user.district.info,model_user_district_info,group_hcmut_falcutian,1,0,0,0
-access_user_info_address_district_admin,user.district.info,model_user_district_info,group_hcmut_admin,1,1,0,0
+access_user_info_address_district_department_admin,user.district.info,model_user_district_info,group_hcmut_department_admin,1,0,0,0
+access_user_info_address_district_super_admin,user.district.info,model_user_district_info,group_hcmut_super_admin,1,1,0,0
+access_user_info_address_district_technical_admin,user.district.info,model_user_district_info,group_hcmut_technical_admin,1,1,1,1
 
 access_user_info_address_ward_user,user.ward.info,model_user_ward_info,group_hcmut_user,1,0,0,0
-access_user_info_address_ward_falcutian,user.ward.info,model_user_ward_info,group_hcmut_falcutian,1,0,0,0
-access_user_info_address_ward_admin,user.ward.info,model_user_ward_info,group_hcmut_admin,1,1,0,0
+access_user_info_address_ward_department_admin,user.ward.info,model_user_ward_info,group_hcmut_department_admin,1,0,0,0
+access_user_info_address_ward_super_admin,user.ward.info,model_user_ward_info,group_hcmut_super_admin,1,1,0,0
+access_user_info_address_ward_technical_admin,user.ward.info,model_user_ward_info,group_hcmut_technical_admin,1,1,1,1
 
 access_user_info_department_user,user.info.department,model_user_info_department,group_hcmut_user,1,0,0,0
-access_user_info_department_falcutian,user.info.department,model_user_info_department,group_hcmut_falcutian,1,1,1,1
-access_user_info_department_admin,user.info.department,model_user_info_department,group_hcmut_admin,1,1,1,1
+access_user_info_department_department_admin,user.info.department,model_user_info_department,group_hcmut_department_admin,1,1,1,1
+access_user_info_department_super_admin,user.info.department,model_user_info_department,group_hcmut_super_admin,1,1,1,1
+access_user_info_department_technical_admin,user.info.department,model_user_info_department,group_hcmut_technical_admin,1,1,1,1
 
 access_user_info_major_user,user.info.major,model_user_info_major,group_hcmut_user,1,0,0,0
-access_user_info_major_falcutian,user.info.major,model_user_info_major,group_hcmut_falcutian,1,1,1,1
-access_user_info_major_admin,user.info.major,model_user_info_major,group_hcmut_admin,1,1,1,1
+access_user_info_major_department_admin,user.info.major,model_user_info_major,group_hcmut_department_admin,1,1,1,1
+access_user_info_major_super_admin,user.info.major,model_user_info_major,group_hcmut_super_admin,1,1,1,1
+access_user_info_major_technical_admin,user.info.major,model_user_info_major,group_hcmut_technical_admin,1,1,1,1
 
 access_user_info_class_user,user.info.class,model_user_info_class,group_hcmut_user,1,0,0,0
-access_user_info_class_falcutian,user.info.class,model_user_info_class,group_hcmut_falcutian,1,1,1,1
-access_user_info_class_admin,user.info.class,model_user_info_class,group_hcmut_admin,1,1,1,1
+access_user_info_class_department_admin,user.info.class,model_user_info_class,group_hcmut_department_admin,1,1,1,1
+access_user_info_class_super_admin,user.info.class,model_user_info_class,group_hcmut_super_admin,1,1,1,1
+access_user_info_class_technical_admin,user.info.class,model_user_info_class,group_hcmut_technical_admin,1,1,1,1
+
+access_user_department_admin,user.department.admin,model_user_department_admin,group_hcmut_super_admin,1,1,1,1
+
+access_user_super_admin,user.super.admin,model_user_super_admin,group_hcmut_technical_admin,1,1,1,1
+
+
