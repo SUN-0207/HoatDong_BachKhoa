@@ -1702,3 +1702,11 @@ div.dropdown-menu.bootstrap-datetimepicker-widget {
     outline: solid 2px #4a9aff;
     transition:cubic-bezier(0.075, 0.82, 0.165, 1)
 }
+
+.o_cp_pager {
+    display: none !important;
+}
+
+div.o_cell.o_wrap_label {
+    height: 50px !important;
+}
