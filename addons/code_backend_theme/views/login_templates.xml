@@ -29,17 +29,5 @@
             <label for="password" class="form-label">Mật khẩu</label>
         </xpath>
 
-        <xpath expr="//button[contains(text(), 'Log in')]" position="replace">
-            <button type="submit" class="btn btn-primary">
-                Đăng nhập
-            </button>
-        </xpath>
-
-        <xpath expr="//button[contains(text(), 'Log in as superuser')]" position="replace">
-            <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-sm" style="display: none;">
-                Log in as superuser
-            </button>
-        </xpath>
-
     </template>
 </odoo>
