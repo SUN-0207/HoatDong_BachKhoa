@@ -148,10 +148,14 @@ form label {
 }
 
 // hide logo image login p
-.card-body div:first-child {
-    display: none;
-}
+// .card-body div:first-child {
+//     display: none;
+// }
 
 div.justify-content-between.mt-2.d-flex.small, em.d-block.text-center.text-muted.small.my-1 {
     display: none !important;
+}
+
+.login_img {
+    margin-bottom: 1.5rem;
 }
