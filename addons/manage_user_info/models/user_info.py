@@ -1,4 +1,4 @@
-from odoo import models, fields,api
+from odoo import models, fields,api, _
 from odoo.exceptions import ValidationError
 import re
 from . import common_constants
@@ -46,15 +46,15 @@ class UserInfo(models.Model):
   
   native_address = fields.Char(string="Native Address")
   native_address_specific = fields.Char(string="Native Address Specific")
-  province_id_native = fields.Many2one('user.province.info', 'Province (Native)', widget='selection')
-  district_id_native = fields.Many2one('user.district.info', 'District (Native)', domain="[('province_id', '=', province_id_native)]", widget='selection')
-  ward_id_native = fields.Many2one('user.ward.info', 'Ward (Native)', domain="[('district_id', '=', district_id_native)]", widget='selection')
+  province_id_native = fields.Many2one('user.province.info', 'Province (Native)')
+  district_id_native = fields.Many2one('user.district.info', 'District (Native)', domain="[('province_id', '=', province_id_native)]")
+  ward_id_native = fields.Many2one('user.ward.info', 'Ward (Native)', domain="[('district_id', '=', district_id_native)]")
   
   permanent_address = fields.Char(string="Permanent Address")
   permanent_address_specific = fields.Char(string="Permanent Address Specific")
-  province_id_permanent = fields.Many2one('user.province.info', 'Province (Permanent)', widget='selection')
-  district_id_permanent = fields.Many2one('user.district.info', 'District (Permanent)', domain="[('province_id', '=', province_id_permanent)]", widget='selection')
-  ward_id_permanent = fields.Many2one('user.ward.info', 'Ward (Permanent)', domain="[('district_id', '=', district_id_permanent)]", widget='selection')
+  province_id_permanent = fields.Many2one('user.province.info', 'Province (Permanent)')
+  district_id_permanent = fields.Many2one('user.district.info', 'District (Permanent)', domain="[('province_id', '=', province_id_permanent)]")
+  ward_id_permanent = fields.Many2one('user.ward.info', 'Ward (Permanent)', domain="[('district_id', '=', district_id_permanent)]")
 
   student_id = fields.Char(string="Student ID")
   user_info_department_id = fields.Many2one('user.info.department', string='Department', readonly=True, store=True, compute='_compute_user_info_department')
@@ -65,14 +65,35 @@ class UserInfo(models.Model):
   )
   
   def button_draft(self):
-       self.write({
-           'states': "draft"
-       })
+    self.write({'states': 'draft'})
   
   def button_done(self):
-       self.write({
-           'states': "done"
-       })
+    self.write({'states': 'done'})
+
+  @api.model
+  def create(self, vals):
+    vals['states'] = 'draft'
+    return super(UserInfo, self).create(vals)
+
+  def write(self, vals):
+    if 'states' not in vals:
+      vals['states'] = 'done'
+    return super(UserInfo, self).write(vals)
+
+  @api.onchange('phone_number', 'national_id')
+  def _validate_number_char_field(self):
+        pattern = r'^0?\d{10}$'
+        print("check")
+        if self.phone_number and not re.match(pattern, self.phone_number):
+            raise ValidationError(_('Invalid phone'))
+        if self.national_id and not re.match(pattern, self.national_id):
+            raise ValidationError(_('Invalid nation id'))
+
+  @api.onchange('personal_email')
+  def _validate_email(self):
+    pattern = r".*@gmail\.com$"
+    if self.personal_email and not re.match(pattern, self.personal_email):
+      raise ValidationError(_('Invalid personal email'))
 
   def open_current_user_info(self):
     view_id = self.env.ref('manage_user_info.user_info_view_form') 
@@ -107,10 +128,10 @@ class UserInfo(models.Model):
       })
     return action    
    
-  @api.depends('name')
+  @api.depends('user_id.name')
   def _compute_name_parts(self):
     for user in self:
-      if user.name:
+      if user.user_id.name:
         name_parts = user.name.split(" ")
         user.first_name = name_parts[0]
         user.sur_name = " ".join(name_parts[1:]) 
@@ -149,28 +170,6 @@ class UserInfo(models.Model):
   def on_district_permanent_change(self):
     if self.district_id_permanent:
       self.ward_id_native = False
-
-  @api.onchange('personal_email')
-  def _validate_email(self):
-    pattern = r".*@gmail\.com$"
-    if self.personal_email and not re.match(pattern, self.personal_email):
-      return {
-        'warning': {
-        'title': 'Invalid Input',
-        'message': 'Invalid Email',
-        }
-      }
-
-  @api.onchange('phone_number')
-  def _onchange_phone_field(self):
-    pattern = r'^0?\d{10}$'
-    if self.phone_number and not re.match(pattern, self.phone_number):
-      return {
-        'warning': {
-        'title': 'Invalid Input',
-        'message': 'Invalid phone number'
-        }
-      }
   
   @api.onchange('student_id', 'user_info_major_id')
   def _compute_user_info_class_domain(self):
@@ -178,12 +177,7 @@ class UserInfo(models.Model):
     year = ""
     if self.student_id:
         if not self.student_id.isdigit() or not re.match(pattern, self.student_id):
-            return {
-                'warning': {
-                    'title': 'Invalid Input',
-                    'message': 'Invalid student ID. Student ID must be a 7-digit number.',
-                }
-            }
+            raise ValidationError(_('Invalid student ID. Student ID must be a 7-digit number.'))
         year_prefix = self.student_id[:2]
         year = str(int(year_prefix) + 2000)
 

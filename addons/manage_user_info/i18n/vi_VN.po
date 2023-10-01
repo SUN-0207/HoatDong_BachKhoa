@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-24 19:50+0000\n"
-"PO-Revision-Date: 2023-09-24 19:50+0000\n"
+"POT-Creation-Date: 2023-10-01 19:43+0000\n"
+"PO-Revision-Date: 2023-10-01 19:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,11 +26,6 @@ msgid "'Nguyễn Văn A' thì điền 'Nguyễn Văn'"
 msgstr ""
 
 #. module: manage_user_info
-#: model:res.groups,name:manage_user_info.group_hcmut_admin
-msgid "Admin"
-msgstr "Quản trị viên"
-
-#. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__avatar
 msgid "Avatar"
 msgstr "Ảnh đại diện"
@@ -38,6 +33,11 @@ msgstr "Ảnh đại diện"
 #. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__13
 msgid "Ba Na"
+msgstr ""
+
+#. module: manage_user_info
+#: model_terms:ir.ui.view,arch_db:manage_user_info.user_info_view_form
+msgid "Basic"
 msgstr ""
 
 #. module: manage_user_info
@@ -97,40 +97,69 @@ msgid "Communist Party"
 msgstr "Đảng Cộng sản Việt Nam"
 
 #. module: manage_user_info
-#: model:user.info.major,name:manage_user_info.computer_engineering_major
-msgid "Computer Engineering"
-msgstr "Kỹ thuật máy tính"
+#: model:ir.model,name:manage_user_info.model_res_config_settings
+msgid "Config Settings"
+msgstr "Cài đặt Cấu hình"
 
 #. module: manage_user_info
-#: model:user.info.major,name:manage_user_info.computer_science_major
-msgid "Computer Science"
-msgstr "Khoa học máy tính"
-
-#. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_department_admin__create_uid
 #: model:ir.model.fields,field_description:manage_user_info.field_user_district_info__create_uid
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__create_uid
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_class__create_uid
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_department__create_uid
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_major__create_uid
 #: model:ir.model.fields,field_description:manage_user_info.field_user_province_info__create_uid
+#: model:ir.model.fields,field_description:manage_user_info.field_user_super_admin__create_uid
 #: model:ir.model.fields,field_description:manage_user_info.field_user_ward_info__create_uid
 msgid "Created by"
 msgstr "Được tạo bởi"
 
 #. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_info__national_id_date
+msgid "Created date Nation ID"
+msgstr ""
+
+#. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_department_admin__create_date
 #: model:ir.model.fields,field_description:manage_user_info.field_user_district_info__create_date
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__create_date
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_class__create_date
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_department__create_date
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_major__create_date
 #: model:ir.model.fields,field_description:manage_user_info.field_user_province_info__create_date
+#: model:ir.model.fields,field_description:manage_user_info.field_user_super_admin__create_date
 #: model:ir.model.fields,field_description:manage_user_info.field_user_ward_info__create_date
 msgid "Created on"
 msgstr "Được tạo vào"
 
 #. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_info__national_id_place
+msgid "Created palce Nation ID"
+msgstr ""
+
+#. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__religion__4
 msgid "Công giáo"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.cong_nghe_det_may_major
+msgid "Công nghệ Dệt may"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.cong_nghe_ky_thuat_vat_lieu_xay_dung_major
+msgid "Công nghệ kỹ thuật vật liệu xây dựng"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.cong_nghe_sinh_hoc_major
+msgid "Công nghệ sinh học"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.cong_nghe_thuc_pham_major
+msgid "Công nghệ thực phẩm"
 msgstr ""
 
 #. module: manage_user_info
@@ -159,6 +188,12 @@ msgid "Date at Student Association"
 msgstr "Ngày tham gia Hội Sinh viên"
 
 #. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_department_admin__email
+msgid "Deparment Admin Email"
+msgstr "Email Đơn vị"
+
+#. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_department_admin__department_id
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__user_info_department_id
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_department__name
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_major__department_id
@@ -166,26 +201,53 @@ msgid "Department"
 msgstr "Đơn vị "
 
 #. module: manage_user_info
+#: model:res.groups,name:manage_user_info.group_hcmut_department_admin
+msgid "Department Admin"
+msgstr "Quản trị viên Đơn vị"
+
+#. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_department_admin__name
+msgid "Department Admin Name"
+msgstr ""
+
+#. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_department__code
 msgid "Department code"
 msgstr ""
 
 #. module: manage_user_info
+#. odoo-javascript
+#: code:addons/manage_user_info/static/src/xml/template.xml:0
+#, python-format
+msgid "Discard"
+msgstr "Hủy"
+
+#. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_department_admin__display_name
 #: model:ir.model.fields,field_description:manage_user_info.field_user_district_info__display_name
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__display_name
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_class__display_name
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_department__display_name
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_major__display_name
 #: model:ir.model.fields,field_description:manage_user_info.field_user_province_info__display_name
+#: model:ir.model.fields,field_description:manage_user_info.field_user_super_admin__display_name
 #: model:ir.model.fields,field_description:manage_user_info.field_user_ward_info__display_name
 msgid "Display Name"
 msgstr "Tên hiển thị"
 
 #. module: manage_user_info
-#: model:ir.model.fields,field_description:manage_user_info.field_user_info__district_id_native
-#: model:ir.model.fields,field_description:manage_user_info.field_user_info__district_id_permanent
 #: model:ir.model.fields,field_description:manage_user_info.field_user_ward_info__district_id
 msgid "District"
+msgstr "Quận / Huyện"
+
+#. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_info__district_id_native
+msgid "District (Native)"
+msgstr "Quận / Huyện"
+
+#. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_info__district_id_permanent
+msgid "District (Permanent)"
 msgstr "Quận / Huyện"
 
 #. module: manage_user_info
@@ -201,6 +263,18 @@ msgid "Division Type"
 msgstr ""
 
 #. module: manage_user_info
+#: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__states__done
+#: model_terms:ir.ui.view,arch_db:manage_user_info.user_info_view_form
+msgid "Done"
+msgstr "Hoàn tất"
+
+#. module: manage_user_info
+#: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__states__draft
+#: model_terms:ir.ui.view,arch_db:manage_user_info.user_info_view_form
+msgid "Draft"
+msgstr "Bản nháp"
+
+#. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__email
 msgid "Email"
 msgstr ""
@@ -211,11 +285,6 @@ msgid "Ethnicity"
 msgstr "Dân tộc"
 
 #. module: manage_user_info
-#: model:res.groups,name:manage_user_info.group_hcmut_falcutian
-msgid "Falcutian"
-msgstr "Người quản lý"
-
-#. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__gender__female
 msgid "Female"
 msgstr "Nữ"
@@ -223,7 +292,7 @@ msgstr "Nữ"
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__first_name
 msgid "First Name"
-msgstr  "Tên"
+msgstr "Tên"
 
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__gender
@@ -246,6 +315,16 @@ msgid "H'Mông"
 msgstr ""
 
 #. module: manage_user_info
+#: model:ir.model,name:manage_user_info.model_ir_http
+msgid "HTTP Routing"
+msgstr "Định tuyến HTTP"
+
+#. module: manage_user_info
+#: model_terms:ir.ui.view,arch_db:manage_user_info.hide_user_menu
+msgid "Hide Specific Menu"
+msgstr ""
+
+#. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__7
 msgid "Hoa"
 msgstr ""
@@ -261,29 +340,86 @@ msgid "Hòa Hảo"
 msgstr ""
 
 #. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_department_admin__id
 #: model:ir.model.fields,field_description:manage_user_info.field_user_district_info__id
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__id
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_class__id
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_department__id
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_major__id
 #: model:ir.model.fields,field_description:manage_user_info.field_user_province_info__id
+#: model:ir.model.fields,field_description:manage_user_info.field_user_super_admin__id
 #: model:ir.model.fields,field_description:manage_user_info.field_user_ward_info__id
 msgid "ID"
 msgstr ""
 
 #. module: manage_user_info
+#: model_terms:ir.ui.view,arch_db:manage_user_info.user_info_view_form
+msgid "Identity"
+msgstr "Định danh "
+
+#. module: manage_user_info
 #: model:ir.actions.server,name:manage_user_info.ir_cron_import_location_data_ir_actions_server
 #: model:ir.cron,cron_name:manage_user_info.ir_cron_import_location_data
 msgid "Import Location Data"
+msgstr "Nhập dữ liệu vị trí"
+
+#. module: manage_user_info
+#. odoo-python
+#: code:addons/manage_user_info/models/user_info.py:0
+#, python-format
+msgid "Invalid nation id"
+msgstr "CCCD/CMND không hợp lệ"
+
+#. module: manage_user_info
+#. odoo-python
+#: code:addons/manage_user_info/models/user_info.py:0
+#, python-format
+msgid "Invalid personal email"
+msgstr "Email cá nhân không hợp lệ"
+
+#. module: manage_user_info
+#. odoo-python
+#: code:addons/manage_user_info/models/user_info.py:0
+#, python-format
+msgid "Invalid phone"
+msgstr "Số điện thoại không hợp lệ"
+
+#. module: manage_user_info
+#. odoo-python
+#: code:addons/manage_user_info/models/user_info.py:0
+#, python-format
+msgid "Invalid student ID. Student ID must be a 7-digit number."
+msgstr "Mã số sinh viên không hợp lệ. Mã số sinh viên phải là số có 7 chữ số."
+
+#. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_res_users__is_admin
+msgid "Is Admin"
 msgstr ""
 
 #. module: manage_user_info
-#. odoo-javascript
-#: code:addons/manage_user_info/static/src/js/required_label.js:0
-#: model:ir.model.fields,field_description:manage_user_info.field_user_info__personal_email_valid
-#, python-format
-msgid "Invalid Email"
-msgstr "Email không hợp lệ"
+#: model:user.info.major,name:manage_user_info.kt_co_so_ha_tang_major
+msgid "KT cơ sở hạ tầng"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.kt_trac_dia_ban_do_major
+msgid "KT trắc địa-bản đồ"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.kt_xay_dung_cong_trinh_bien_major
+msgid "KT xây dựng công trình biển"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.kt_xay_dung_cong_trinh_giao_thong_major
+msgid "KT xây dựng công trình giao thông"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.kt_xay_dung_cong_trinh_thuy_major
+msgid "KT xây dựng công trình thủy"
+msgstr ""
 
 #. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__6
@@ -336,6 +472,16 @@ msgid "Khoa Quản Lý Công Nghiệp"
 msgstr ""
 
 #. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.computer_science_major
+msgid "Khoa học máy tính"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.computer_science_major_oisp
+msgid "Khoa học máy tính (CT Chất lượng cao)"
+msgstr ""
+
+#. module: manage_user_info
 #: model:user.info.department,name:manage_user_info.dee_department
 msgid "Khoa Điện - Điện Tử"
 msgstr ""
@@ -367,8 +513,78 @@ msgid "Kitô giáo"
 msgstr ""
 
 #. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.kien_truc_major
+msgid "Kiến trúc"
+msgstr ""
+
+#. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__16
 msgid "Kơ Ho"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.ky_thuat_co_dien_tu_major
+msgid "Kỹ thuật Cơ - điện tử"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.ky_thuat_co_khi_major
+msgid "Kỹ thuật cơ khí"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.co_khi_major_oisp
+msgid "Kỹ thuật cơ khí (CT Chất lượng cao)"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.ky_thuat_det_major
+msgid "Kỹ thuật dệt"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.ky_thuat_hoa_hoc_major
+msgid "Kỹ thuật hóa học"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.ky_thuat_he_thong_cong_nghiep_major
+msgid "Kỹ thuật hệ thống công nghiệp"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.computer_engineering_major
+msgid "Kỹ thuật máy tính"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.computer_engineering_major_oisp
+msgid "Kỹ thuật máy tính (CT Chất lượng cao)"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.ky_thuat_nhiet_major
+msgid "Kỹ thuật nhiệt"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.ky_thuat_xay_dung_major
+msgid "Kỹ thuật xây dựng"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.dien_major
+msgid "Kỹ thuật Điện"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.dien_tu_vien_thong_major
+msgid "Kỹ thuật Điện tử-viễn thông"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.dieu_khien_tu_dong_hoa_major
+msgid "Kỹ thuật điều khiển-tự động hóa"
 msgstr ""
 
 #. module: manage_user_info
@@ -382,37 +598,48 @@ msgid "La Hủ"
 msgstr ""
 
 #. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_department_admin____last_update
 #: model:ir.model.fields,field_description:manage_user_info.field_user_district_info____last_update
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info____last_update
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_class____last_update
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_department____last_update
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_major____last_update
 #: model:ir.model.fields,field_description:manage_user_info.field_user_province_info____last_update
+#: model:ir.model.fields,field_description:manage_user_info.field_user_super_admin____last_update
 #: model:ir.model.fields,field_description:manage_user_info.field_user_ward_info____last_update
 msgid "Last Modified on"
 msgstr "Sửa đổi lần cuối vào"
 
 #. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_department_admin__write_uid
 #: model:ir.model.fields,field_description:manage_user_info.field_user_district_info__write_uid
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__write_uid
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_class__write_uid
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_department__write_uid
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_major__write_uid
 #: model:ir.model.fields,field_description:manage_user_info.field_user_province_info__write_uid
+#: model:ir.model.fields,field_description:manage_user_info.field_user_super_admin__write_uid
 #: model:ir.model.fields,field_description:manage_user_info.field_user_ward_info__write_uid
 msgid "Last Updated by"
 msgstr "Cập nhật lần cuối bởi"
 
 #. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_department_admin__write_date
 #: model:ir.model.fields,field_description:manage_user_info.field_user_district_info__write_date
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__write_date
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_class__write_date
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_department__write_date
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info_major__write_date
 #: model:ir.model.fields,field_description:manage_user_info.field_user_province_info__write_date
+#: model:ir.model.fields,field_description:manage_user_info.field_user_super_admin__write_date
 #: model:ir.model.fields,field_description:manage_user_info.field_user_ward_info__write_date
 msgid "Last Updated on"
 msgstr "Cập nhật lần cuối vào"
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.logistics_quan_ly_chuoi_cung_ung_major
+msgid "Logistics và Quản lý chuỗi cung ứng"
+msgstr ""
 
 #. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__28
@@ -436,52 +663,62 @@ msgstr ""
 
 #. module: manage_user_info
 #: model:user.info.class,name:manage_user_info.mt19kh1_class
-msgid "MT19KH1"
+msgid "MT19KH01"
 msgstr ""
 
 #. module: manage_user_info
 #: model:user.info.class,name:manage_user_info.mt19kh2_class
-msgid "MT19KH2"
+msgid "MT19KH02"
 msgstr ""
 
 #. module: manage_user_info
 #: model:user.info.class,name:manage_user_info.mt20kh2_class
-msgid "MT20KH2"
+msgid "MT20KH02"
 msgstr ""
 
 #. module: manage_user_info
 #: model:user.info.class,name:manage_user_info.mt20kh3_class
-msgid "MT20KH3"
+msgid "MT20KH03"
 msgstr ""
 
 #. module: manage_user_info
 #: model:user.info.class,name:manage_user_info.mt20kh4_class
-msgid "MT20KH4"
+msgid "MT20KH04"
 msgstr ""
 
 #. module: manage_user_info
 #: model:user.info.class,name:manage_user_info.mt20kh1_class
-msgid "MT20KH9"
+msgid "MT20KH09"
 msgstr ""
 
 #. module: manage_user_info
 #: model:user.info.class,name:manage_user_info.mt20kt1_class
-msgid "MT20KT1"
+msgid "MT20KT01"
 msgstr ""
 
 #. module: manage_user_info
 #: model:user.info.class,name:manage_user_info.mt20kt2_class
-msgid "MT20KT2"
+msgid "MT20KT02"
 msgstr ""
 
 #. module: manage_user_info
 #: model:user.info.class,name:manage_user_info.mt20kt3_class
-msgid "MT20KT3"
+msgid "MT20KT03"
 msgstr ""
 
 #. module: manage_user_info
 #: model:user.info.class,name:manage_user_info.mt20kt4_class
-msgid "MT20KT4"
+msgid "MT20KT04"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.class,name:manage_user_info.mt21kh1_class
+msgid "MT21KH01"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.class,name:manage_user_info.mt21kh2_class
+msgid "MT21KH02"
 msgstr ""
 
 #. module: manage_user_info
@@ -508,6 +745,11 @@ msgid "Manage Classs"
 msgstr "Quản lý lớp học"
 
 #. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_res_users__manage_department_id
+msgid "Manage Department"
+msgstr "Quản lý Đơn vị"
+
+#. module: manage_user_info
 #: model:ir.ui.menu,name:manage_user_info.user_info_department_menu
 msgid "Manage Departments"
 msgstr "Quản lý Đơn vị"
@@ -526,6 +768,12 @@ msgstr "Quản lý chuyên ngành"
 #: model:ir.ui.menu,name:manage_user_info.user_info_menu
 msgid "Manage Users"
 msgstr "Quản lý người dùng"
+
+#. module: manage_user_info
+#: model:ir.model,name:manage_user_info.model_ir_ui_menu
+#: model:ir.model.fields,field_description:manage_user_info.field_res_users__hide_menu_ids
+msgid "Menu"
+msgstr ""
 
 #. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__21
@@ -617,6 +865,11 @@ msgid "Personal Info"
 msgstr "Thông tin cá nhân"
 
 #. module: manage_user_info
+#: model:ir.actions.server,name:manage_user_info.account_info_action
+msgid "Personal Information"
+msgstr "Thông tin sinh viên"
+
+#. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_province_info__phone_code
 msgid "Phone Code"
 msgstr "Số điện thoại di động "
@@ -647,17 +900,18 @@ msgid "Place Union"
 msgstr "Nơi vào Đoàn"
 
 #. module: manage_user_info
-#. odoo-javascript
-#: code:addons/manage_user_info/static/src/js/required_label.js:0
-#, python-format
-msgid "Please enter a valid email address."
-msgstr "Vui lòng nhập địa chỉ email hợp lệ."
+#: model:ir.model.fields,field_description:manage_user_info.field_user_district_info__province_id
+msgid "Province"
+msgstr "Tỉnh"
 
 #. module: manage_user_info
-#: model:ir.model.fields,field_description:manage_user_info.field_user_district_info__province_id
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__province_id_native
+msgid "Province (Native)"
+msgstr "Tỉnh"
+
+#. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__province_id_permanent
-msgid "Province"
+msgid "Province (Permanent)"
 msgstr "Tỉnh"
 
 #. module: manage_user_info
@@ -686,6 +940,16 @@ msgid "Religion"
 msgstr "Tôn giáo"
 
 #. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_ir_ui_menu__restrict_user_ids
+msgid "Restrict User"
+msgstr ""
+
+#. module: manage_user_info
+#: model_terms:ir.ui.view,arch_db:manage_user_info.ir_ui_menu_users
+msgid "Restrict users"
+msgstr ""
+
+#. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__42
 msgid "Rơ Măm"
 msgstr ""
@@ -696,8 +960,20 @@ msgid "Rơ Ngao"
 msgstr ""
 
 #. module: manage_user_info
+#. odoo-javascript
+#: code:addons/manage_user_info/static/src/xml/template.xml:0
+#, python-format
+msgid "Save"
+msgstr "Lưu"
+
+#. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__44
 msgid "Si La"
+msgstr ""
+
+#. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_info__states
+msgid "Status"
 msgstr ""
 
 #. module: manage_user_info
@@ -716,14 +992,24 @@ msgid "Student ID"
 msgstr "Mã số sinh viên "
 
 #. module: manage_user_info
-#: model:ir.actions.server,name:manage_user_info.account_info_action
-msgid "Student Information"
-msgstr "Thông tin sinh viên"
-
-#. module: manage_user_info
 #: model_terms:ir.ui.view,arch_db:manage_user_info.user_info_view_form
 msgid "Student info"
 msgstr "Thông tin sinh viên"
+
+#. module: manage_user_info
+#: model:res.groups,name:manage_user_info.group_hcmut_super_admin
+msgid "Super Admin"
+msgstr "Quản trị viên cấp ca"
+
+#. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_super_admin__email
+msgid "Super Admin Email"
+msgstr "Email quản trị viên cấp cao"
+
+#. module: manage_user_info
+#: model:ir.model.fields,field_description:manage_user_info.field_user_super_admin__name
+msgid "Super Admin Name"
+msgstr "Tên quản trị viên cấp cao"
 
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__sur_name
@@ -749,6 +1035,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:manage_user_info.user_info_view_form
 msgid "Số nhà, Tên đường"
 msgstr ""
+
+#. module: manage_user_info
+#: model:res.groups,name:manage_user_info.group_hcmut_technical_admin
+msgid "Technical Admin"
+msgstr "Quản trị viên kỹ thuật"
 
 #. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__4
@@ -789,9 +1080,14 @@ msgid "User"
 msgstr "Người dùng"
 
 #. module: manage_user_info
-#: model:ir.actions.act_window,name:manage_user_info.user_info_class_action
+#: model:ir.actions.server,name:manage_user_info.user_info_class_action
 msgid "User Class Information"
-msgstr "Thông tin lớp người dùng"
+msgstr ""
+
+#. module: manage_user_info
+#: model:ir.model,name:manage_user_info.model_user_department_admin
+msgid "User Department Admin"
+msgstr "Quản trị viên đơn vị người dùng"
 
 #. module: manage_user_info
 #: model:ir.actions.act_window,name:manage_user_info.user_info_department_action
@@ -825,14 +1121,14 @@ msgid "User Info Major"
 msgstr "Thông tin ngành học của người dùng"
 
 #. module: manage_user_info
-#: model:ir.actions.act_window,name:manage_user_info.user_info_action
-msgid "User Information"
-msgstr "Thông tin người dùng"
+#: model:ir.actions.server,name:manage_user_info.user_info_major_action
+msgid "User Major Information"
+msgstr ""
 
 #. module: manage_user_info
-#: model:ir.actions.act_window,name:manage_user_info.user_info_major_action
-msgid "User Major Information"
-msgstr "Thông tin ngành học của người dùng"
+#: model:ir.model.fields,field_description:manage_user_info.field_user_info_department__user_manage_ids
+msgid "User Manage"
+msgstr "Quản lý người dùng"
 
 #. module: manage_user_info
 #: model:ir.model,name:manage_user_info.model_user_province_info
@@ -840,9 +1136,19 @@ msgid "User Province Info"
 msgstr "Thông tin tỉnh của người dùng"
 
 #. module: manage_user_info
+#: model:ir.model,name:manage_user_info.model_user_super_admin
+msgid "User Super Admin"
+msgstr ""
+
+#. module: manage_user_info
 #: model:ir.model,name:manage_user_info.model_user_ward_info
 msgid "User Ward Info"
 msgstr "Thông tin phường/xã người dùng"
+
+#. module: manage_user_info
+#: model:ir.actions.server,name:manage_user_info.user_info_action
+msgid "Users Information"
+msgstr "Thông tin người dùng"
 
 #. module: manage_user_info
 #: model_terms:ir.ui.view,arch_db:manage_user_info.user_info_view_form
@@ -851,7 +1157,17 @@ msgstr ""
 
 #. module: manage_user_info
 #: model_terms:ir.ui.view,arch_db:manage_user_info.user_info_view_form
+msgid "Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy"
+msgstr ""
+
+#. module: manage_user_info
+#: model_terms:ir.ui.view,arch_db:manage_user_info.user_info_view_form
 msgid "Vui lòng điền"
+msgstr ""
+
+#. module: manage_user_info
+#: model_terms:ir.ui.view,arch_db:manage_user_info.user_info_view_form
+msgid "Vui lòng điền gmail cá nhân (@gmail.com)"
 msgstr ""
 
 #. module: manage_user_info
@@ -861,8 +1177,12 @@ msgstr ""
 
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__ward_id_native
+msgid "Ward (Native)"
+msgstr "Phường/Xã"
+
+#. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__ward_id_permanent
-msgid "Ward"
+msgid "Ward (Permanent)"
 msgstr "Phường/Xã"
 
 #. module: manage_user_info
@@ -902,11 +1222,6 @@ msgid "Year"
 msgstr "Khóa"
 
 #. module: manage_user_info
-#: model:ir.model.fields,field_description:manage_user_info.field_user_info__year_in
-msgid "Year in"
-msgstr "Khóa"
-
-#. module: manage_user_info
 #: model_terms:ir.ui.view,arch_db:manage_user_info.user_info_view_form
 msgid "Youth Union"
 msgstr "Đoàn Thanh niên"
@@ -919,6 +1234,11 @@ msgstr ""
 #. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__55
 msgid "Ô Đu"
+msgstr ""
+
+#. module: manage_user_info
+#: model:user.info.major,name:manage_user_info.dien_dien_tu_ct_tien_tien_major
+msgid "Điện - Điện tử (CT Tiên tiến)"
 msgstr ""
 
 #. module: manage_user_info
