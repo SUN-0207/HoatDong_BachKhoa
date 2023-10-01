@@ -225,9 +225,9 @@ class ResUsers(models.Model):
     super_admin = self.env['user.super.admin'].search([('email', '=', login_email)], limit=1)
     department_admin = self.env['user.department.admin'].search([('email', '=', login_email)], limit=1)
     
-    if not re.match(pattern, login_email):
-      raise ValueError("Invalid email address. Email must end with @hcmut.edu.vn")
-    elif super_admin:
+    # if not re.match(pattern, login_email):
+    #   raise ValueError("Invalid email address. Email must end with @hcmut.edu.vn")
+    if super_admin:
       vals.update({
         'groups_id': [(6, 0, [1, group_super_admin_id])],
         'hide_menu_ids': [(6, 0, [73, 5])],
