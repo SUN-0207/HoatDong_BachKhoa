@@ -1,5 +1,8 @@
 #wrapwrap > main {
     background: #f8f8fb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 // .navbar {
 //     background: #fff !important;
@@ -122,7 +125,7 @@ a:hover {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    border-radius: .25rem;
+    border-radius: 2rem;
     -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
     transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
@@ -142,4 +145,17 @@ form label {
 }
 .oe_login_form a.btn.btn-secondary i.fa.fa-database {
     margin-left: 5px;
+}
+
+// hide logo image login p
+// .card-body div:first-child {
+//     display: none;
+// }
+
+div.justify-content-between.mt-2.d-flex.small, em.d-block.text-center.text-muted.small.my-1 {
+    display: none !important;
+}
+
+.login_img {
+    margin-bottom: 1.5rem;
 }
