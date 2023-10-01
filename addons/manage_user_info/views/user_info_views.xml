@@ -39,7 +39,7 @@
             />
           </header>
           <sheet>
-            <group string="Basic">
+            <group string="Basic" class="form-column">
               <group>
                 <group class="avatar">
                   <field name="avatar" widget="image" options="{'size': (128, 192)}" class="oe_avatar"/>
