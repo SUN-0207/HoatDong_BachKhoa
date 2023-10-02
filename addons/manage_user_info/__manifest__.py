@@ -23,12 +23,10 @@
         'views/user_info_menuitem.xml',
     ],
     'assets': {
-        'web.assets_backend': [
-            'manage_user_info/static/src/js/*',
-            'manage_user_info/static/src/scss/*'
-        ],
-        'qweb': [
-            'manage_user_info/static/src/xml/*',
+       'web.assets_backend': [
+            'manage_user_info/static/src/xml/template.xml',
+            'manage_user_info/static/src/scss/form.scss',
+            'manage_user_info/static/src/scss/indicator_button.scss',
         ],
     },
     'license': 'LGPL-3',

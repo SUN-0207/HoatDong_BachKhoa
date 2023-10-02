@@ -8,15 +8,16 @@
     }
 }
 
-label[for="gender"] :after,
-label[for="birth_date"] :after,
-label[for="phone_number"] :after,
-label[for="personal_email"] :after,
-label[for="national_id"] :after,
-label[for="student_id"] :after,
-label[for="user_info_department_id"] :after,
-label[for="user_info_major_id"] :after,
-label[for="user_info_class_id"] :after
+label[for="first_name"]::after,
+label[for="sur_name"]::after,
+label[for="gender"]::after,
+label[for="birth_date"]::after,
+label[for="phone_number"]::after,
+label[for="personal_email"]::after,
+label[for="national_id"]::after,
+label[for="student_id"]::after,
+label[for="user_info_major_id"]::after,
+label[for="user_info_class_id"]::after
 {
     content:" *";
     color: red;

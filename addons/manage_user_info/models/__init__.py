@@ -1,3 +1,4 @@
+from . import ir_http
 from . import user_info
 from . import user_info_class
 from . import user_info_department

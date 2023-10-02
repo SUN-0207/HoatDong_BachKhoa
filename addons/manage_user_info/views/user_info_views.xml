@@ -26,13 +26,13 @@
               type="object" 
               class="btn btn-primary" 
               string="Draft" 
-              groups="manage_user_info.group_hcmut_admin"
+              groups="manage_user_info.group_hcmut_department_admin,manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin"
             />
             <button name="button_done" 
               type="object" 
               class="btn btn-primary" 
               string="Done" 
-              groups="manage_user_info.group_hcmut_admin"
+              groups="manage_user_info.group_hcmut_department_admin,manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin"
             />
             <field name="states" widget="statusbar" 
             statusbar_visible="draft,done"
@@ -53,8 +53,8 @@
                 </group>
               </group>
               <group >
-                <field name="phone_number" required="1" widget="phone" placeholder="Vui lòng điền"/>
-                <field name="personal_email" required="1" widget="email" placeholder="Vui lòng điền gmail cá nhân (@gmail.com)"/>
+                <field name="phone_number" required="1"  placeholder="Vui lòng điền"/>
+                <field name="personal_email" required="1"  placeholder="Vui lòng điền gmail cá nhân (@gmail.com)"/>
                 <field name="religion" placeholder="Vui lòng chọn" />
                 <field name="ethnicity" placeholder="Vui lòng chọn"/>
               </group>
@@ -89,15 +89,15 @@
               </group>
 
               <group string="National Info">
-                <field name="province_id_native" widget="selection" placeholder="Vui lòng chọn"/>
-                <field name="district_id_native" widget="selection" domain="[('province_id', '=', province_id_native)]" placeholder="Vui lòng chọn" />
-                <field name="ward_id_native" widget="selection" domain="[('district_id', '=', district_id_native)]" placeholder="Vui lòng chọn" />
+                <field name="province_id_native"  placeholder="Vui lòng chọn"/>
+                <field name="district_id_native"  domain="[('province_id', '=', province_id_native)]" placeholder="Vui lòng chọn" />
+                <field name="ward_id_native"  domain="[('district_id', '=', district_id_native)]" placeholder="Vui lòng chọn" />
                 <field name="native_address_specific" placeholder="Số nhà, Tên đường"/>
               </group>
               <group string="Permanent address">
                 <field name="province_id_permanent" placeholder="Vui lòng chọn"/>
-                <field name="district_id_permanent" widget='selection' domain="[('province_id', '=', province_id_permanent)]" placeholder="Vui lòng chọn" />
-                <field name="ward_id_permanent" widget='selection' domain="[('district_id', '=', district_id_permanent)]" placeholder="Vui lòng chọn" />
+                <field name="district_id_permanent"  domain="[('province_id', '=', province_id_permanent)]" placeholder="Vui lòng chọn" />
+                <field name="ward_id_permanent"  domain="[('district_id', '=', district_id_permanent)]" placeholder="Vui lòng chọn" />
                 <field name="permanent_address_specific" placeholder="Số nhà, Tên đường"/>
               </group>
             </group>
