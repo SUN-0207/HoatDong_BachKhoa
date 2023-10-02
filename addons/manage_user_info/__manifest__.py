@@ -20,6 +20,8 @@
         'views/user_info_major_views.xml',
         'views/user_info_class_views.xml',
         'views/user_info_views.xml',
+        'views/user_department_admin_views.xml',
+        'views/user_super_admin_views.xml',
         'views/user_info_menuitem.xml',
     ],
     'assets': {

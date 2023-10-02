@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id='user_super_admin_action' model='ir.actions.act_window'>
+    <field name="name">User Super Admin Information</field>
+    <field name="res_model">user.super.admin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <data>
+    <!-- Form View -->
+    <record id="user_super_admin_form" model="ir.ui.view">
+      <field name="name">user.super.admin.form</field>
+      <field name="model">user.super.admin</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="name" />
+            <field name="email" />
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="user_super_admin_tree" model="ir.ui.view">
+      <field name="name">user.super.admin.tree</field>
+      <field name="model">user.super.admin</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+          <field name="email" />
+        </tree>
+      </field>
+    </record>
+  </data>
+
+</odoo>
