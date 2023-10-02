@@ -1,11 +1,22 @@
 RELIGION = [
   ('1', 'Không'),
-  ('2', 'Phật giáo '),
-  ('3', 'Kitô giáo'),
-  ('4', 'Công giáo'),
-  ('5', 'Hòa Hảo'),
-  ('6', 'Cao Đài '),
-  ('7', 'Khác'),
+  ('2', 'Phật giáo'),
+  ('3', 'Công giáo'),
+  ('4', 'Tin lành'),
+  ('5', 'Cao đài'),
+  ('6', 'Phật giáo Hòa Hảo'),
+  ('7', 'Hồi giáo'),
+  ('8', 'Tôn giáo Baha\'i'),
+  ('9', 'Tịnh độ Cư sỹ Phật hội'),
+  ('10', 'Cơ đốc Phục lâm'),
+  ('11', 'Phật giáo Tứ Ân Hiếu Nghĩa'),
+  ('12', 'Minh Sư đạo'),
+  ('13', 'Minh lý đạo - Tam Tông Miếu'),
+  ('14', 'Bà-la-môn giáo'),
+  ('15', 'Mặc môn'),
+  ('16', 'Phật giáo Hiếu Nghĩa Tà Lơn'),
+  ('17', 'Bửu Sơn Kỳ Hương'),
+  ('18', 'Khác'),
 ]
 
 ETHNICITY = [

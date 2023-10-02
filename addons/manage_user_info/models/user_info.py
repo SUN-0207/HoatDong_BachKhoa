@@ -86,8 +86,8 @@ class UserInfo(models.Model):
         print("check")
         if self.phone_number and not re.match(pattern, self.phone_number):
             raise ValidationError(_('Invalid phone'))
-        if self.national_id and not re.match(pattern, self.national_id):
-            raise ValidationError(_('Invalid nation id'))
+        # if self.national_id and (not re.match(pattern, self.national_id) or not re.match(pattern1, self.national_id)):
+        #     raise ValidationError(_('Invalid nation id'))
 
   @api.onchange('personal_email')
   def _validate_email(self):

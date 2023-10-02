@@ -117,7 +117,7 @@ msgstr "Được tạo bởi"
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__national_id_date
 msgid "Created date Nation ID"
-msgstr ""
+msgstr "Ngày cấp"
 
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_department_admin__create_date
@@ -135,7 +135,7 @@ msgstr "Được tạo vào"
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__national_id_place
 msgid "Created palce Nation ID"
-msgstr ""
+msgstr "Nơi cấp"
 
 #. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__religion__4
@@ -827,7 +827,7 @@ msgstr "Nguyên quán"
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__native_address_specific
 msgid "Native Address Specific"
-msgstr "Địa chỉ nguyên quán cụ thể"
+msgstr "Địa chỉ nguyên quán"
 
 #. module: manage_user_info
 #: model:ir.model.fields.selection,name:manage_user_info.selection__user_info__ethnicity__37
@@ -847,7 +847,7 @@ msgstr "Thường trú "
 #. module: manage_user_info
 #: model:ir.model.fields,field_description:manage_user_info.field_user_info__permanent_address_specific
 msgid "Permanent Address Specific"
-msgstr "Địa chỉ thường trú cụ thể"
+msgstr "Địa chỉ thường trú"
 
 #. module: manage_user_info
 #: model_terms:ir.ui.view,arch_db:manage_user_info.user_info_view_form
