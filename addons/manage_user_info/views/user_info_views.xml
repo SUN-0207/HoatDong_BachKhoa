@@ -104,15 +104,31 @@
 
             <group class="form-column">
               <group class="form-column-3" string="Youth Union">
-                <field name="date_at_union" placeholder="Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy"/>
-                <field name="place_union" placeholder="Vui lòng điền"/>
+                <field name="joined_union" />
+                <field name="date_at_union" placeholder="Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy"
+                  attrs="{'invisible': [('joined_union', '=', False)]}"
+                />
+                <field name="place_union" placeholder="Vui lòng điền"
+                  attrs="{'invisible': [('joined_union', '=', False)]}"
+                />
               </group>
               <group class="form-column-3" string="Student Association">
-                <field name="date_at_student_association" placeholder="Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy" />
+                <field name="joined_student_association" />
+                <field name="date_at_student_association" placeholder="Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy" 
+                  attrs="{'invisible': [('joined_student_association', '=', False)]}"
+                />
               </group>
               <group class="form-column-3" string="Communist Party">
-                <field name="date_communist_party" placeholder="Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy"/>
-                <field name="place_communist_party" placeholder="Vui lòng điền"/>
+                <field name="joined_communist_party" />
+                <field name="re_date_communist_party" placeholder="Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy"  
+                  attrs="{'invisible': [('joined_communist_party', '=', False)]}" 
+                />
+                <field name="offical_date_communist_party" placeholder="Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy"  
+                  attrs="{'invisible': [('joined_communist_party', '=', False)]}" 
+                />
+                <field name="place_communist_party" placeholder="Vui lòng điền" 
+                  attrs="{'invisible': [('joined_communist_party', '=', False)]}"
+                />
               </group>
             </group>
           </sheet>

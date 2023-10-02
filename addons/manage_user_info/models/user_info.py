@@ -38,10 +38,16 @@ class UserInfo(models.Model):
   national_id_date = fields.Date(string="Created date Nation ID")
   national_id_place = fields.Char(string="Created palce Nation ID")
 
-  date_communist_party= fields.Date(string="Date At Communist Party")
+  joined_communist_party = fields.Boolean(default=False, string="Joined Communist Party?")
+  re_date_communist_party= fields.Date(string="Re Date At Communist Party")
+  offical_date_communist_party= fields.Date(string="Offical Date At Communist Party")
   place_communist_party = fields.Char(string="Place Communist Party")
+  
+  joined_union = fields.Boolean(default=False, string="Joined Union?")
   date_at_union = fields.Date(string="Date At Union")
   place_union = fields.Char(string="Place Union")
+  
+  joined_student_association = fields.Boolean(default=False, string="Joined Student Association?")
   date_at_student_association = fields.Date(string="Date at Student Association")
   
   native_address = fields.Char(string="Native Address")
@@ -86,8 +92,8 @@ class UserInfo(models.Model):
         print("check")
         if self.phone_number and not re.match(pattern, self.phone_number):
             raise ValidationError(_('Invalid phone'))
-        # if self.national_id and (not re.match(pattern, self.national_id) or not re.match(pattern1, self.national_id)):
-        #     raise ValidationError(_('Invalid nation id'))
+        if self.national_id and not self.national_id.isdigit():
+            raise ValidationError(_('Invalid nation id'))
 
   @api.onchange('personal_email')
   def _validate_email(self):
