@@ -220,7 +220,6 @@ class ResUsers(models.Model):
   
   @api.model
   def create(self, vals):
-    # department: 15, super: 16, techinical: 17, user:14
     login_email = vals['login']
     pattern = r'^[A-Za-z0-9._%+-]+@hcmut\.edu\.vn$'
     
@@ -255,6 +254,7 @@ class ResUsers(models.Model):
         'lang': 'vi_VN',
         'tz': 'Asia/Ho_Chi_Minh'
       })
+    print(vals)
     return super(ResUsers, self).create(vals)
 
   def write(self, vals):
@@ -263,25 +263,31 @@ class ResUsers(models.Model):
     super_admin = self.env['user.super.admin'].sudo().search([('email', '=', self.login)], limit=1)
     department_admin = self.env['user.department.admin'].sudo().search([('email', '=', self.login)], limit=1)
     
+    group_user_id = self.env['res.groups'].sudo().search([('name','=','User')])
+    group_department_admin_id = self.env['res.groups'].sudo().search([('name','=','Department Admin')])
+    group_super_admin_id = self.env['res.groups'].sudo().search([('name','=','Super Admin')])
+    
     pattern = r'^[A-Za-z0-9._%+-]+@hcmut\.edu\.vn$'
     
+    # print(group_user_id.id,group_department_admin_id.ids,group_super_admin_id)
+    
     if super_admin:
-      if 16 not in self.groups_id.ids:
+      if group_super_admin_id.id not in self.groups_id.ids:
         self.write({
-          'groups_id': [(6, 0, [1, 16])]
+          'groups_id': [(6, 0, [1, group_super_admin_id.id])]
         })
     elif department_admin:
-      if (15 not in self.groups_id.ids) or (self.manage_department_id.name != department_admin.department_id.name):
+      if (group_department_admin_id.id not in self.groups_id.ids) or (self.manage_department_id.name != department_admin.department_id.name):
         self.write({
-          'groups_id': [(6, 0, [1, 15])],
+          'groups_id': [(6, 0, [1, group_department_admin_id.id])],
           'manage_department_id': department_admin.department_id
         })
     else:
       if not re.match(pattern, self.login):
         raise ValueError("Invalid email address. Email must end with @hcmut.edu.vn")
-      if 14 not in self.groups_id.ids:
+      if group_user_id.id not in self.groups_id.ids:
         self.write({
-          'groups_id': [(6, 0, [1, 14])]
+          'groups_id': [(6, 0, [1, group_user_id.id])]
         })
     
     for menu in self.hide_menu_ids:
