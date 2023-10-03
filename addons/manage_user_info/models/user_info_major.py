@@ -5,7 +5,7 @@ class UserInfoMajor(models.Model):
    _name = 'user.info.major'
    _description = 'User Info Major'
 
-   name = fields.Char('Major', required=True, translate=True)
+   name = fields.Char('Major', required=True)
 
    department_id = fields.Many2one('user.info.department', string='Department')
    year_ids = fields.One2many('user.info.year', 'major_id', string='Year')

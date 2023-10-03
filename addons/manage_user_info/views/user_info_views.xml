@@ -56,7 +56,6 @@
                   />
                   <field name="gender" required="1" 
                     placeholder="Vui lòng chọn"  
-                    options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" 
                   />
                   <field name="birth_date" required="1" placeholder="Theo định dạng dd/mm/yyyy"/>
                 </group>
@@ -64,8 +63,8 @@
               <group >
                 <field name="phone_number" required="1"  placeholder="Vui lòng điền"/>
                 <field name="personal_email" required="1"  placeholder="Vui lòng điền gmail cá nhân (@gmail.com)"/>
-                <field name="religion" placeholder="Vui lòng chọn"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
-                <field name="ethnicity" placeholder="Vui lòng chọn"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
+                <field name="religion" placeholder="Vui lòng chọn"   />
+                <field name="ethnicity" placeholder="Vui lòng chọn" />
               </group>
 
             </group>
@@ -73,6 +72,7 @@
             <group class="form-column">
               <group string="Student info">
                 <field name="user_info_department_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                <field name="user_info_academy_year" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
                 <field name="user_info_major_id" 
                   required="1" 
                   placeholder="Vui lòng chọn"  
@@ -88,13 +88,6 @@
                     'readonly': [('states','=','done')]
                   }"
                   options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" 
-                  />
-                <field name="user_info_academy_year" required="1" placeholder="Vui lòng chọn" 
-                    attrs="{
-                      'invisible': [('user_info_major_id', '=', False),('student_id', '=', False)],
-                      'readonly': [('states','=','done')]
-                    }"
-                    options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" 
                   />
               </group>
               <group string="Identity">

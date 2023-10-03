@@ -1,20 +1,20 @@
 <odoo>
-    <record id="year_k18" model="user.info.year">
+    <record id="K18" model="user.info.year">
         <field name="name">2018</field>
     </record>
-    <record id="year_k19" model="user.info.year">
+    <record id="K19" model="user.info.year">
         <field name="name">2019</field>
     </record>
-    <record id="year_k20" model="user.info.year">
+    <record id="K20" model="user.info.year">
         <field name="name">2020</field>
     </record>
-    <record id="year_k21" model="user.info.year">
+    <record id="K21" model="user.info.year">
         <field name="name">2021</field>
     </record>
-    <record id="year_k22" model="user.info.year">
+    <record id="K22" model="user.info.year">
         <field name="name">2022</field>
     </record>
-    <record id="year_k23" model="user.info.year">
+    <record id="K23" model="user.info.year">
         <field name="name">2023</field>
     </record>
 </odoo>

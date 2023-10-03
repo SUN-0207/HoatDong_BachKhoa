@@ -20,9 +20,9 @@ class UserInfo(models.Model):
 
   user_id = fields.Many2one('res.users', string='User', readonly=True)
   
-  name = fields.Char(related='user_id.name', string="Name", store=True, compute='_compute_name_parts')
-  first_name = fields.Char('First Name', inverse='_inverse_name', store=True)
-  sur_name = fields.Char('Sur Name', inverse='_inverse_name', store=True)
+  name = fields.Char(related='user_id.name', string="Name", store=True)
+  first_name = fields.Char('First Name', compute='_compute_name_parts', inverse='_inverse_name', store=True)
+  sur_name = fields.Char('Sur Name', compute='_compute_name_parts', inverse='_inverse_name', store=True)
   email= fields.Char(related='user_id.email', string="Email")
   avatar = fields.Binary(string='Avatar')
 
@@ -90,9 +90,10 @@ class UserInfo(models.Model):
   @api.onchange('phone_number', 'national_id')
   def _validate_number_char_field(self):
         pattern = r'^0?\d{10}$'
+        national_id_pattern = r'^\d{9}$|^\d{12}$'
         if self.phone_number and not re.match(pattern, self.phone_number):
             raise ValidationError(_('Invalid phone'))
-        if self.national_id and not self.national_id.isdigit():
+        if self.national_id and not re.match(national_id_pattern, self.national_id):
             raise ValidationError(_('Invalid nation id'))
 
   @api.onchange('personal_email')
@@ -134,7 +135,7 @@ class UserInfo(models.Model):
       })
     return action    
    
-  @api.depends('user_id.name')
+  @api.depends('name')
   def _compute_name_parts(self):
     for user in self:
       if user.user_id.name:
@@ -142,7 +143,6 @@ class UserInfo(models.Model):
         user.first_name = name_parts[0]
         user.sur_name = " ".join(name_parts[1:]) 
   
-  @api.onchange('first_name', 'sur_name')
   def _inverse_name(self):
     for user in self:
         if user.first_name or user.sur_name:
@@ -182,16 +182,18 @@ class UserInfo(models.Model):
     pattern = r'^0?\d{7}$'
     year = ""
     if self.student_id :
-        if not self.student_id.isdigit() or not re.match(pattern, self.student_id):
-            raise ValidationError(_('Invalid student ID. Student ID must be a 7-digit number.'))
-        year_prefix = self.student_id[:2]
-        year = str(int(year_prefix) + 2000)
-        
+      if not self.student_id.isdigit() or not re.match(pattern, self.student_id):
+        raise ValidationError(_('Invalid student ID. Student ID must be a 7-digit number.'))
+      year_prefix = self.student_id[:2]
+      year = str(int(year_prefix) + 2000)
+
     domain = []
     if self.user_info_major_id:
-        domain = [('major_id', '=', self.user_info_major_id.id)]
+      domain = [('major_id', '=', self.user_info_major_id.id)]
     if self.student_id and year != "":
-        domain.append(('year_id.name', '=', year))
+      domain.append(('year_id.name', '=', year))
+      self.user_info_academy_year = self.env['user.info.year'].search([('name', '=', year)], limit=1)
+
     self.user_info_class_id = False
     return {
         'domain': {'user_info_class_id': domain} if domain else {},
@@ -199,10 +201,8 @@ class UserInfo(models.Model):
 
   @api.onchange('user_info_class_id')
   def _onchange_class(self):
-    if self.user_info_class_id and self.user_info_class_id != False:
-      self.user_info_academy_year = self.user_info_class_id.year_id.id
-    else: 
-      self.user_info_academy_year = False
+    if self.user_info_class_id:
+        self.user_info_academy_year = self.user_info_class_id.year_id    
 
   @api.depends('user_info_major_id')
   def _compute_user_info_department(self):
