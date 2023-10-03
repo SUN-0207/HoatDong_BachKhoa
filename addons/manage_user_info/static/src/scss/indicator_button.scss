@@ -7,10 +7,6 @@
 
         &.o_form_button_save {
             background-color: $primary;
-
-            &:hover {
-                filter: brightness(0.9);
-            }
         }
 
         &.o_form_button_cancel {
