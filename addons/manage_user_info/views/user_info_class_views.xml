@@ -17,9 +17,18 @@
           <group>
             <field name="name" />
             <field name="major_id" />
-            <field name="year" invisible="1"/>
+            <field name="year_id" />
           </group>
         </form>
+        <notebook>
+          <page name="student_ids" string="Students">
+            <field name="student_ids">
+              <tree>
+                <field name="name" />
+              </tree>
+            </field>
+          </page>
+        </notebook>
       </field>
     </record>
 
@@ -30,10 +39,9 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
-          <!-- <field name="major_id"/> -->
-          <field name="major_id" widget="many2one" options="{'no-open': True}"/>
-          <!-- <field name="department_id"/> -->
-          <field name="year" />
+          <field name="student_count"/>
+          <field name="major_id" widget="many2one" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
+          <field name="year_id" />
         </tree>
       </field>
     </record>

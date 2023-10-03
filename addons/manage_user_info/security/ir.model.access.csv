@@ -29,6 +29,11 @@ access_user_info_major_department_admin,user.info.major,model_user_info_major,gr
 access_user_info_major_super_admin,user.info.major,model_user_info_major,group_hcmut_super_admin,1,1,1,1
 access_user_info_major_technical_admin,user.info.major,model_user_info_major,group_hcmut_technical_admin,1,1,1,1
 
+access_user_info_year_user,user.info.year,model_user_info_year,group_hcmut_user,1,0,0,0
+access_user_info_year_department_admin,user.info.year,model_user_info_year,group_hcmut_department_admin,1,1,0,0
+access_user_info_year_super_admin,user.info.year,model_user_info_year,group_hcmut_super_admin,1,1,1,1
+access_user_info_year_technical_admin,user.info.year,model_user_info_year,group_hcmut_technical_admin,1,1,1,1
+
 access_user_info_class_user,user.info.class,model_user_info_class,group_hcmut_user,1,0,0,0
 access_user_info_class_department_admin,user.info.class,model_user_info_class,group_hcmut_department_admin,1,1,0,0
 access_user_info_class_super_admin,user.info.class,model_user_info_class,group_hcmut_super_admin,1,1,1,1

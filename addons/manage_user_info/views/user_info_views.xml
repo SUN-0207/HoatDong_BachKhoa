@@ -46,31 +46,40 @@
                 </group>
                 <group class="user-name">
                   <field name="user_id" invisible="1"/>
-                  <field name="first_name" required="1" placeholder="'Nguyễn Văn A' thì điền 'Nguyễn Văn'" attrs="{'readonly': [('states','=','done')]}"/>
-                  <field name="sur_name" required="1" placeholder="'Nguyễn Văn A' thì điền 'A'" attrs="{'readonly': [('states','=','done')]}"/>
-                  <field name="gender" required="1" placeholder="Vui lòng chọn"/>
-                  <field name="birth_date" required="1" placeholder="Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy"/>
+                  <field name="first_name" required="1" 
+                    attrs="{'readonly': [('states','=','done')]}"
+                    placeholder="'Nguyễn Văn A' thì điền 'Nguyễn Văn'" 
+                  />
+                  <field name="sur_name" required="1" 
+                    placeholder="'Nguyễn Văn A' thì điền 'A'" 
+                    attrs="{'readonly': [('states','=','done')]}"
+                  />
+                  <field name="gender" required="1" 
+                    placeholder="Vui lòng chọn"  
+                  />
+                  <field name="birth_date" required="1" placeholder="Theo định dạng dd/mm/yyyy"/>
                 </group>
               </group>
               <group >
                 <field name="phone_number" required="1"  placeholder="Vui lòng điền"/>
                 <field name="personal_email" required="1"  placeholder="Vui lòng điền gmail cá nhân (@gmail.com)"/>
-                <field name="religion" placeholder="Vui lòng chọn" />
-                <field name="ethnicity" placeholder="Vui lòng chọn"/>
+                <field name="religion" placeholder="Vui lòng chọn"   />
+                <field name="ethnicity" placeholder="Vui lòng chọn" />
               </group>
 
             </group>
 
             <group class="form-column">
               <group string="Student info">
-                <field name="student_id" required="1" placeholder="Vui lòng điền" attrs="{'readonly': [('states','=','done')]}"/>
                 <field name="user_info_department_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                <field name="user_info_academy_year" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
                 <field name="user_info_major_id" 
                   required="1" 
                   placeholder="Vui lòng chọn"  
                   options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" 
                   attrs="{'readonly': [('states','=','done')]}"
                 />
+                <field name="student_id" required="1" placeholder="Vui lòng điền" attrs="{'readonly': [('states','=','done')]}"/>
                 <field name="user_info_class_id" 
                   placeholder="Vui lòng chọn" 
                   required="1" 
@@ -80,39 +89,70 @@
                   }"
                   options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" 
                   />
-                </group>
-
+              </group>
               <group string="Identity">
                 <field name="national_id" required="1" placeholder="Vui lòng điền"/>
-                <field name="national_id_date" />
-                <field name="national_id_place" />
+                <field name="national_id_date"  placeholder="Theo định dạng dd/mm/yyyy" />
+                <field name="national_id_place" placeholder="Vui lòng điền" />
               </group>
 
               <group string="National Info">
                 <field name="province_id_native"  placeholder="Vui lòng chọn"/>
-                <field name="district_id_native"  domain="[('province_id', '=', province_id_native)]" placeholder="Vui lòng chọn" />
-                <field name="ward_id_native"  domain="[('district_id', '=', district_id_native)]" placeholder="Vui lòng chọn" />
+                <field name="district_id_native"  
+                  placeholder="Vui lòng chọn" 
+                  domain="[('province_id', '=', province_id_native)]" 
+                  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" 
+                />
+                <field name="ward_id_native"  
+                  domain="[('district_id', '=', district_id_native)]" 
+                  placeholder="Vui lòng chọn" 
+                  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" 
+                />
                 <field name="native_address_specific" placeholder="Số nhà, Tên đường"/>
               </group>
               <group string="Permanent address">
                 <field name="province_id_permanent" placeholder="Vui lòng chọn"/>
-                <field name="district_id_permanent"  domain="[('province_id', '=', province_id_permanent)]" placeholder="Vui lòng chọn" />
-                <field name="ward_id_permanent"  domain="[('district_id', '=', district_id_permanent)]" placeholder="Vui lòng chọn" />
+                <field name="district_id_permanent"  
+                  domain="[('province_id', '=', province_id_permanent)]" 
+                  placeholder="Vui lòng chọn" 
+                  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" 
+                />
+                <field name="ward_id_permanent"  
+                  domain="[('district_id', '=', district_id_permanent)]" 
+                  placeholder="Vui lòng chọn"  
+                  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" 
+                />
                 <field name="permanent_address_specific" placeholder="Số nhà, Tên đường"/>
               </group>
             </group>
 
             <group class="form-column">
               <group class="form-column-3" string="Youth Union">
-                <field name="date_at_union" placeholder="Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy"/>
-                <field name="place_union" placeholder="Vui lòng điền"/>
+                <field name="joined_union" />
+                <field name="date_at_union"  placeholder="Theo định dạng dd/mm/yyyy"
+                  attrs="{'invisible': [('joined_union', '=', False)]}"
+                />
+                <field name="place_union" placeholder="Vui lòng điền"
+                  attrs="{'invisible': [('joined_union', '=', False)]}"
+                />
               </group>
               <group class="form-column-3" string="Student Association">
-                <field name="date_at_student_association" placeholder="Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy" />
+                <field name="joined_student_association" />
+                <field name="date_at_student_association"  placeholder="Theo định dạng dd/mm/yyyy"
+                  attrs="{'invisible': [('joined_student_association', '=', False)]}"
+                />
               </group>
               <group class="form-column-3" string="Communist Party">
-                <field name="date_communist_party" placeholder="Vui lòng chọn hoặc điền theo định dạng dd/mm/yyyy"/>
-                <field name="place_communist_party" placeholder="Vui lòng điền"/>
+                <field name="joined_communist_party" />
+                <field name="re_date_communist_party"  placeholder="Theo định dạng dd/mm/yyyy"
+                  attrs="{'invisible': [('joined_communist_party', '=', False)]}" 
+                />
+                <field name="offical_date_communist_party"  placeholder="Theo định dạng dd/mm/yyyy"
+                  attrs="{'invisible': [('joined_communist_party', '=', False)]}" 
+                />
+                <field name="place_communist_party" placeholder="Vui lòng điền" 
+                  attrs="{'invisible': [('joined_communist_party', '=', False)]}"
+                />
               </group>
             </group>
           </sheet>

@@ -20,9 +20,9 @@ class UserInfo(models.Model):
 
   user_id = fields.Many2one('res.users', string='User', readonly=True)
   
-  name = fields.Char(related='user_id.name', string="Name", store=True, compute='_compute_name_parts')
-  first_name = fields.Char('First Name', inverse='_inverse_name', store=True)
-  sur_name = fields.Char('Sur Name', inverse='_inverse_name', store=True)
+  name = fields.Char(related='user_id.name', string="Name", store=True)
+  first_name = fields.Char('First Name', compute='_compute_name_parts', inverse='_inverse_name', store=True)
+  sur_name = fields.Char('Sur Name', compute='_compute_name_parts', inverse='_inverse_name', store=True)
   email= fields.Char(related='user_id.email', string="Email")
   avatar = fields.Binary(string='Avatar')
 
@@ -38,10 +38,16 @@ class UserInfo(models.Model):
   national_id_date = fields.Date(string="Created date Nation ID")
   national_id_place = fields.Char(string="Created palce Nation ID")
 
-  date_communist_party= fields.Date(string="Date At Communist Party")
+  joined_communist_party = fields.Boolean(default=False, string="Joined Communist Party?")
+  re_date_communist_party= fields.Date(string="Re Date At Communist Party")
+  offical_date_communist_party= fields.Date(string="Offical Date At Communist Party")
   place_communist_party = fields.Char(string="Place Communist Party")
+  
+  joined_union = fields.Boolean(default=False, string="Joined Union?")
   date_at_union = fields.Date(string="Date At Union")
   place_union = fields.Char(string="Place Union")
+  
+  joined_student_association = fields.Boolean(default=False, string="Joined Student Association?")
   date_at_student_association = fields.Date(string="Date at Student Association")
   
   native_address = fields.Char(string="Native Address")
@@ -56,9 +62,10 @@ class UserInfo(models.Model):
   district_id_permanent = fields.Many2one('user.district.info', 'District (Permanent)', domain="[('province_id', '=', province_id_permanent)]")
   ward_id_permanent = fields.Many2one('user.ward.info', 'Ward (Permanent)', domain="[('district_id', '=', district_id_permanent)]")
 
-  student_id = fields.Char(string="Student ID")
   user_info_department_id = fields.Many2one('user.info.department', string='Department', readonly=True, store=True, compute='_compute_user_info_department')
   user_info_major_id = fields.Many2one('user.info.major',string='Major', store=True)
+  user_info_academy_year = fields.Many2one('user.info.year', string='Academy Year', store=True)
+  student_id = fields.Char(string="Student ID")
   user_info_class_id = fields.Many2one('user.info.class',string='Class', 
     domain=lambda self: self._compute_user_info_class_domain(),
     store=True
@@ -83,11 +90,11 @@ class UserInfo(models.Model):
   @api.onchange('phone_number', 'national_id')
   def _validate_number_char_field(self):
         pattern = r'^0?\d{10}$'
-        print("check")
+        national_id_pattern = r'^\d{9}$|^\d{12}$'
         if self.phone_number and not re.match(pattern, self.phone_number):
             raise ValidationError(_('Invalid phone'))
-        # if self.national_id and (not re.match(pattern, self.national_id) or not re.match(pattern1, self.national_id)):
-        #     raise ValidationError(_('Invalid nation id'))
+        if self.national_id and not re.match(national_id_pattern, self.national_id):
+            raise ValidationError(_('Invalid nation id'))
 
   @api.onchange('personal_email')
   def _validate_email(self):
@@ -128,7 +135,7 @@ class UserInfo(models.Model):
       })
     return action    
    
-  @api.depends('user_id.name')
+  @api.depends('name')
   def _compute_name_parts(self):
     for user in self:
       if user.user_id.name:
@@ -136,7 +143,6 @@ class UserInfo(models.Model):
         user.first_name = name_parts[0]
         user.sur_name = " ".join(name_parts[1:]) 
   
-  @api.onchange('first_name', 'sur_name')
   def _inverse_name(self):
     for user in self:
         if user.first_name or user.sur_name:
@@ -175,24 +181,30 @@ class UserInfo(models.Model):
   def _compute_user_info_class_domain(self):
     pattern = r'^0?\d{7}$'
     year = ""
-    if self.student_id:
-        if not self.student_id.isdigit() or not re.match(pattern, self.student_id):
-            raise ValidationError(_('Invalid student ID. Student ID must be a 7-digit number.'))
-        year_prefix = self.student_id[:2]
-        year = str(int(year_prefix) + 2000)
+    if self.student_id :
+      if not self.student_id.isdigit() or not re.match(pattern, self.student_id):
+        raise ValidationError(_('Invalid student ID. Student ID must be a 7-digit number.'))
+      year_prefix = self.student_id[:2]
+      year = str(int(year_prefix) + 2000)
 
     domain = []
     if self.user_info_major_id:
-        domain = [('major_id', '=', self.user_info_major_id.id)]
+      domain = [('major_id', '=', self.user_info_major_id.id)]
     if self.student_id and year != "":
-        domain.append(('year', '=', year))
+      domain.append(('year_id.name', '=', year))
+      self.user_info_academy_year = self.env['user.info.year'].search([('name', '=', year)], limit=1)
 
     self.user_info_class_id = False
     return {
         'domain': {'user_info_class_id': domain} if domain else {},
     }
 
-  @api.depends('user_info_major_id', 'student_id')
+  @api.onchange('user_info_class_id')
+  def _onchange_class(self):
+    if self.user_info_class_id:
+        self.user_info_academy_year = self.user_info_class_id.year_id    
+
+  @api.depends('user_info_major_id')
   def _compute_user_info_department(self):
     for record in self:
         if record.user_info_major_id:
