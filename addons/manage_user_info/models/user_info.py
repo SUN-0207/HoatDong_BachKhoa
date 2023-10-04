@@ -231,6 +231,7 @@ class ResUsers(models.Model):
   
   @api.model
   def create(self, vals):
+    print("Create")
     login_email = vals['login']
     pattern = r'^[A-Za-z0-9._%+-]+@hcmut\.edu\.vn$'
     
@@ -254,7 +255,7 @@ class ResUsers(models.Model):
         'hide_menu_ids': [(6, 0, [73, 5])],
         'lang': 'vi_VN',
         'tz': 'Asia/Ho_Chi_Minh',
-        'manage_department_id': department_admin.department_id
+        'manage_department_id': department_admin.department_id.id
       })
     else:  
       if not re.match(pattern, login_email):
@@ -274,32 +275,40 @@ class ResUsers(models.Model):
     super_admin = self.env['user.super.admin'].sudo().search([('email', '=', self.login)], limit=1)
     department_admin = self.env['user.department.admin'].sudo().search([('email', '=', self.login)], limit=1)
     
-    group_user_id = self.env['res.groups'].sudo().search([('name','=','User')])
-    group_department_admin_id = self.env['res.groups'].sudo().search([('name','=','Department Admin')])
-    group_super_admin_id = self.env['res.groups'].sudo().search([('name','=','Super Admin')])
-    
+    group_ids = self.env['res.groups'].sudo().search([])
+
+    group_super_admin = 0
+    group_department_admin = 0
+    group_user = 0
+    for group_id in group_ids:
+      if group_id.name == "Super Admin":
+        group_super_admin = group_id.id
+      elif group_id.name == "Department Admin":
+        group_department_admin = group_id.id
+      elif group_id.name == "User":
+        group_user = group_id.id
+    print("Update")
+    print(group_super_admin,group_department_admin,group_user)
     pattern = r'^[A-Za-z0-9._%+-]+@hcmut\.edu\.vn$'
-    
-    # print(group_user_id.id,group_department_admin_id.ids,group_super_admin_id)
-    
     if super_admin:
-      if group_super_admin_id.id not in self.groups_id.ids:
+      if group_super_admin != 0 and group_super_admin not in self.groups_id.ids:
         self.write({
-          'groups_id': [(6, 0, [1, group_super_admin_id.id])]
+          'groups_id': [(6, 0, [1, group_super_admin])]
         })
     elif department_admin:
-      if (group_department_admin_id.id not in self.groups_id.ids) or (self.manage_department_id.name != department_admin.department_id.name):
+      if (group_department_admin != 0 and group_department_admin not in self.groups_id.ids) or (self.manage_department_id.name != department_admin.department_id.name):
         self.write({
-          'groups_id': [(6, 0, [1, group_department_admin_id.id])],
-          'manage_department_id': department_admin.department_id
+          'groups_id': [(6, 0, [1, group_department_admin])],
+          'manage_department_id': department_admin.department_id.id
         })
     else:
-      if not re.match(pattern, self.login):
-        raise ValueError("Invalid email address. Email must end with @hcmut.edu.vn")
-      if group_user_id.id not in self.groups_id.ids:
-        self.write({
-          'groups_id': [(6, 0, [1, group_user_id.id])]
-        })
+      if not self.is_admin:
+        if not re.match(pattern, self.login):
+          raise ValueError("Invalid email address. Email must end with @hcmut.edu.vn")
+        if group_user != 0 and group_user not in self.groups_id.ids:
+          self.write({
+            'groups_id': [(6, 0, [1, group_user])]
+          })
     
     for menu in self.hide_menu_ids:
         menu.write({

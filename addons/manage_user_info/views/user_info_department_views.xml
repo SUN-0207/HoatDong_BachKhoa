@@ -18,16 +18,16 @@
             <field name="name" />
             <field name="code" />
           </group>
+          <notebook>
+            <page name="majors_ids" string="Majors">
+              <field name="major_ids" >
+                <tree>
+                    <field name="name" />
+                </tree>
+              </field>
+            </page>
+          </notebook>
         </form>
-        <notebook>
-          <page name="major_ids" string="Majors">
-            <field name="major_ids" widget="one2many_list">
-              <tree>
-                  <field name="name" />
-              </tree>
-          </field>
-          </page>
-        </notebook>
       </field>
     </record>
 
