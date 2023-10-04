@@ -1396,6 +1396,11 @@ select, input {
     top: auto !important;
     bottom: 30px !important;
     right: 30px !important;
+    
+}
+
+.o_notification_fade-enter-active {
+    border-radius: .6rem;
 }
 
 //alert ends
