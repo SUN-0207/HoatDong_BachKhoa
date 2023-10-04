@@ -9,7 +9,7 @@ class UserInfoClass(models.Model):
     
     major_id = fields.Many2one('user.info.major', string='Major')
     year_id = fields.Many2one('user.info.year', string='Year', compute="_compute_year_in", store=True)
-    student_ids = fields.One2many('user.info', 'user_id', string='Students')
+    student_ids = fields.One2many('user.info', 'user_info_class_id', string='Students')
     student_count = fields.Integer('Student Count', compute="_compute_student_count", store=True, default=0)
 
     @api.depends('student_ids')

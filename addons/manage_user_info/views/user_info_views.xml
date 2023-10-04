@@ -82,13 +82,25 @@
                 <field name="student_id" required="1" placeholder="Vui lòng điền" attrs="{'readonly': [('states','=','done')]}"/>
                 <field name="user_info_class_id" 
                   placeholder="Vui lòng chọn" 
-                  required="1" 
+                 
                   attrs="{
                     'invisible': [('user_info_major_id', '=', False),('student_id', '=', False)],
                     'readonly': [('states','=','done')]
                   }"
-                  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" 
+                  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                  domain="['|',
+                  ('year_id', '=', user_info_academy_year), ('major_id', '=', user_info_major_id)]" 
                   />
+                  <!--
+                  domain="[
+                          '&amp;',
+                            '&amp;', ('major_id', '=', 1), ('major_id', '=', user_info_major_id),
+                            '&amp;', ('year_id', '=', 1), ('year_id', '=', user_info_academy_year)
+                          '|',
+                            '&amp;', ('major_id', '=', 1), ('major_id', '=', user_info_major_id),
+                            '&amp;', ('year_id', '=', 1), ('year_id', '=', user_info_academy_year)
+                   domain="['|', ('major_id', '=', False), ('major_id', '=', user_info_major_id), 
+                  '|', ('year_id', '=', False), ('year_id', '=', user_info_academy_year)]" -->
               </group>
               <group string="Identity">
                 <field name="national_id" required="1" placeholder="Vui lòng điền"/>

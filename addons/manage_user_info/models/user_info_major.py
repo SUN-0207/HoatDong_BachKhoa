@@ -9,7 +9,8 @@ class UserInfoMajor(models.Model):
 
    department_id = fields.Many2one('user.info.department', string='Department')
    year_ids = fields.One2many('user.info.year', 'major_id', string='Year')
-   
+   class_ids = fields.One2many('user.info.class', 'major_id', string="Classes")
+
    def open_list_major_info(self):
       action = {
          'name': 'User Major Information',
