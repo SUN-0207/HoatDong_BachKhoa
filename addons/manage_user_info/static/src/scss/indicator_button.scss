@@ -73,3 +73,8 @@
         color: #f1b44c !important;
     }
 }
+
+.o_control_panel li.breadcrumb-item:nth-child(1) {
+    display: flex;
+    align-items: center;
+}

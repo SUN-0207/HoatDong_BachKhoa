@@ -14,6 +14,7 @@
             <span class="discard_button" >Discard</span>
         </xpath>
 
+        <!-- "Unable to save waring" -->
         <xpath expr="//span[contains(@class, 'text-danger')]" position="replace">
             <div
                 t-if="!props.model.root.isVirtual and indicatorMode === 'invalid'"
