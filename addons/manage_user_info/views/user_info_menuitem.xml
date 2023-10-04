@@ -5,6 +5,7 @@
   <menuitem name="Personal Info" id="personal_info_menu" parent="manage_base_menu" action="account_info_action" groups="group_hcmut_user"/>
   <menuitem name="Manage Departments" id="user_info_department_menu" parent="manage_base_menu" action="user_info_department_action" groups="group_hcmut_super_admin"/>
   <menuitem name="Manage Majors" id="user_info_major_menu" parent="manage_base_menu" action="user_info_major_action" groups="group_hcmut_department_admin"/>
+  <menuitem name="Manage Years" id="user_info_year_menu" parent="manage_base_menu" action="user_info_year_action" groups="group_hcmut_super_admin"/>
   <menuitem name="Manage Classs" id="user_info_class_menu" parent="manage_base_menu" action="user_info_class_action" groups="group_hcmut_department_admin"/>
   <menuitem name="Manage Department Admin" id="user_department_admin_menu" parent="manage_base_menu" action="user_department_admin_action" groups="group_hcmut_super_admin"/>
   <menuitem name="Manage Super Admin" id="user_super_admin_menu" parent="manage_base_menu" action="user_super_admin_action" groups="group_hcmut_technical_admin"/>

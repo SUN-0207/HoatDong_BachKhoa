@@ -1718,3 +1718,9 @@ div.o_cell.o_wrap_label {
         color: #959595 !important;
     }
 }
+
+// tree
+// hide FILTER and GROUP button in tree view
+.o_filter_menu > button:nth-child(1), div.o-dropdown:nth-child(2) > button:nth-child(1) {
+    display: none;
+}
