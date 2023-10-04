@@ -59,3 +59,17 @@
         }
     }
 }
+
+.saving-warning {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+
+    p {
+        margin: 0;
+    }
+
+    .fa-warning {
+        color: #f1b44c !important;
+    }
+}
