@@ -13,5 +13,17 @@
         <xpath expr="//button/i[(hasclass('fa-undo'))]" position="replace">
             <span class="discard_button" >Discard</span>
         </xpath>
+
+        <!-- "Unable to save waring" -->
+        <xpath expr="//span[contains(@class, 'text-danger')]" position="replace">
+            <div
+                t-if="!props.model.root.isVirtual and indicatorMode === 'invalid'"
+                data-tooltip="Correct issues to save, or discard changes"
+                class="saving-warning"
+            >
+                <i class="fa fa-warning" />
+                <p class="text-danger small ms-2">Unable to save</p>
+            </div>
+        </xpath>
     </t>
 </templates>

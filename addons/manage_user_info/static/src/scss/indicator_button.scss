@@ -59,3 +59,22 @@
         }
     }
 }
+
+.saving-warning {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+
+    p {
+        margin: 0;
+    }
+
+    .fa-warning {
+        color: #f1b44c !important;
+    }
+}
+
+.o_control_panel li.breadcrumb-item:nth-child(1) {
+    display: flex;
+    align-items: center;
+}

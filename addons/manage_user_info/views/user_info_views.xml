@@ -109,7 +109,7 @@
               </group>
 
               <group string="National Info">
-                <field name="province_id_native"  placeholder="Vui lòng chọn"/>
+                <field name="province_id_native"  placeholder="Vui lòng chọn" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="district_id_native"  
                   placeholder="Vui lòng chọn" 
                   domain="[('province_id', '=', province_id_native)]" 
@@ -123,7 +123,7 @@
                 <field name="native_address_specific" placeholder="Số nhà, Tên đường"/>
               </group>
               <group string="Permanent address">
-                <field name="province_id_permanent" placeholder="Vui lòng chọn"/>
+                <field name="province_id_permanent" placeholder="Vui lòng chọn" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="district_id_permanent"  
                   domain="[('province_id', '=', province_id_permanent)]" 
                   placeholder="Vui lòng chọn" 
