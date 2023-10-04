@@ -1392,10 +1392,11 @@ select, input {
     background-color: #fde1e1 !important;
     border-color: #fcd2d2 !important;
 }
-// .o_notification_manager {
-//     top: auto !important;
-//     bottom: 30px !important;
-// }
+.o_notification_manager {
+    top: auto !important;
+    bottom: 30px !important;
+    right: 30px !important;
+}
 
 //alert ends
 
