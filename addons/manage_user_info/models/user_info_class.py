@@ -23,7 +23,7 @@ class UserInfoClass(models.Model):
     
     def open_list_class_info(self):
         action = {
-            'name': 'User Class Information',
+            'name': 'Thôn tin Lớp học',
             'type': 'ir.actions.act_window',
             'view_mode': 'tree,form',
             'res_model': 'user.info.class',  

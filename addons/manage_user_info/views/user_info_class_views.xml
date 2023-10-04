@@ -16,7 +16,7 @@
         <form>
           <group>
             <field name="name" />
-            <field name="major_id" />
+            <field name="major_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
             <field name="year_id" />
           </group>
         </form>

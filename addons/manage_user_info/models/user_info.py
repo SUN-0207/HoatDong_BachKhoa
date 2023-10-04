@@ -130,7 +130,7 @@ class UserInfo(models.Model):
   
   def open_list_user_info(self):
     action = {
-      'name': 'User Information',
+      'name': 'Thông tin Sinh viên',
       'type': 'ir.actions.act_window',
       'view_mode': 'tree,form',
       'res_model': 'user.info',  

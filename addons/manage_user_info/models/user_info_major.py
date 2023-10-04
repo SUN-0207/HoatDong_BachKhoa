@@ -13,7 +13,7 @@ class UserInfoMajor(models.Model):
 
    def open_list_major_info(self):
       action = {
-         'name': 'User Major Information',
+         'name': 'Thông tin Ngành học',
          'type': 'ir.actions.act_window',
          'view_mode': 'tree,form',
          'res_model': 'user.info.major',  
