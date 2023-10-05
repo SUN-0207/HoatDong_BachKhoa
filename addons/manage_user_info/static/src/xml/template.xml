@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Save and Discard Button-->
+<templates>
+    <t
+        t-name="web_save_discard_button.FormStatusIndicator"
+        t-inherit="web.FormStatusIndicator"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//button/i[(hasclass('fa-cloud-upload'))]" position="replace">
+            <span class="save_button" >Save</span>
+        </xpath>
+        <xpath expr="//button/i[(hasclass('fa-undo'))]" position="replace">
+            <span class="discard_button" >Discard</span>
+        </xpath>
+
+        <!-- "Unable to save waring" -->
+        <xpath expr="//span[contains(@class, 'text-danger')]" position="replace">
+            <div
+                t-if="!props.model.root.isVirtual and indicatorMode === 'invalid'"
+                data-tooltip="Correct issues to save, or discard changes"
+                class="saving-warning"
+            >
+                <i class="fa fa-warning" />
+                <p class="text-danger small ms-2">Unable to save</p>
+            </div>
+        </xpath>
+    </t>
+</templates>

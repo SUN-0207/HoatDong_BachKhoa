@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- <record id='user_info_class_action' model='ir.actions.act_window'>
+    <field name="name">User Class Information</field>
+    <field name="res_model">user.info.class</field>
+    <field name="view_mode">tree,form</field>
+  </record> -->
+
+  <data>
+    <!-- Form View -->
+    <record id="user_info_class_form" model="ir.ui.view">
+      <field name="name">user.info.class.form</field>
+      <field name="model">user.info.class</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="name" />
+            <field name="major_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+            <field name="year_id" />
+          </group>
+        </form>
+        <!-- <notebook>
+          <page name="student_ids" string="Students">
+            <field name="student_ids">
+              <tree>
+                <field name="name" />
+              </tree>
+            </field>
+          </page>
+        </notebook> -->
+      </field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="user_info_class_tree" model="ir.ui.view">
+      <field name="name">user.info.class.tree</field>
+      <field name="model">user.info.class</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <!-- <field name="student_count"/> -->
+          <field name="major_id" widget="many2one" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
+          <field name="year_id" />
+        </tree>
+      </field>
+    </record>
+  </data>
+
+</odoo>

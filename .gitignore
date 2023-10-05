@@ -2,3 +2,13 @@ odoo/
 box/packages/*
 *.py[co]
 __pycache__/
+.idea
+.vscode/
+*.pyc binary
+.DS_Store
+*.log
+logs/
+*.log.*
+log/
+*.pyc
+*.pyo

@@ -32,6 +32,7 @@
     'website': "https://www.cybrosys.com",
     "depends": ['base', 'web', 'mail'],
     "data": [
+        'views/login_templates.xml',
         'views/layout.xml',
         'views/icons.xml',
     ],
