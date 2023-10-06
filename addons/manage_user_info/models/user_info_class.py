@@ -38,7 +38,7 @@ class UserInfoClass(models.Model):
         }
         if self.env.user.manage_department_id:
             action.update({
-                'domain': [('major_id','in',self.env.user.manage_department_id.major_ids.ids)]
+                'domain': [('major_id','in',self.env.user.manage_department_id.major_ids.ids),('is_year_active','=', True)]
             })
         return action 
 
