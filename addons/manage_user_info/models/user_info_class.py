@@ -7,11 +7,18 @@ class UserInfoClass(models.Model):
     
     name = fields.Char('Class', required=True)
     
-    major_id = fields.Many2one('user.info.major', string='Major')
-    year_id = fields.Many2one('user.info.year', string='Year', compute="_compute_year_in", store=True)
     student_ids = fields.One2many('user.info', 'user_info_class_id', string='Students')
     student_count = fields.Integer('Student Count', compute="_compute_student_count", store=True, default=0)
+    
+    major_id = fields.Many2one('user.info.major', string='Major')
+    year_id = fields.Many2one('user.info.year', string='Year', compute="_compute_year_in", store=True)
+    is_year_active = fields.Boolean(string="Check year active", readonly=True, compute="_check_year_active")
 
+    @api.depends('year_id')
+    def _check_year_active(self):
+        for record in self:
+            record.is_year_active = record.year_id.is_enable
+    
     @api.depends('student_ids')
     def _compute_student_count(self):
         for rec in self:
@@ -23,7 +30,7 @@ class UserInfoClass(models.Model):
     
     def open_list_class_info(self):
         action = {
-            'name': 'Thôn tin Lớp học',
+            'name': 'Thông tin Lớp học',
             'type': 'ir.actions.act_window',
             'view_mode': 'tree,form',
             'res_model': 'user.info.class',  
@@ -34,7 +41,7 @@ class UserInfoClass(models.Model):
             })
         return action 
 
-    @api.depends('name')
+    @api.onchange('name')
     def _compute_year_in(self):
         for record in self:
             if record.name:
