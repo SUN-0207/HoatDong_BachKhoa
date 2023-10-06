@@ -82,7 +82,7 @@ class UserInfo(models.Model):
   @api.onchange('student_id', 'user_info_major_id')
   def _compute_user_info_class_domain(self):
     pattern = r'^0?\d{7}$'
-    domain = []
+    domain = [('is_year_active', '=', True)]
     year = ""
     if self.student_id :
       if not self.student_id.isdigit() or not re.match(pattern, self.student_id):
@@ -93,12 +93,12 @@ class UserInfo(models.Model):
         self.user_info_class_id = self.env['user.info.class']
       self.user_info_academy_year = self.env['user.info.year'].search([('name', '=', year)], limit=1)
     if self.user_info_major_id:
-        domain = [('major_id', '=', self.user_info_major_id.id)]
+        domain.append(('major_id', '=', self.user_info_major_id.id))
     if self.user_info_academy_year:
       if self.user_info_academy_year.is_enable:
         domain.append(('year_id', '=', self.user_info_academy_year.id))
       else:
-        domain.append(('year_id', '=', 0))
+        domain = [('year_id', '=', 0)]
     
     print('###################################',domain)
     self.user_info_class_id = False

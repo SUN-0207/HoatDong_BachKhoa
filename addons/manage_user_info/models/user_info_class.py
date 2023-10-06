@@ -11,7 +11,7 @@ class UserInfoClass(models.Model):
     student_count = fields.Integer('Student Count', compute="_compute_student_count", store=True, default=0)
     
     major_id = fields.Many2one('user.info.major', string='Major')
-    year_id = fields.Many2one('user.info.year', string='Year', compute="_compute_year_in")
+    year_id = fields.Many2one('user.info.year', string='Year', compute="_compute_year_in", store=True)
     is_year_active = fields.Boolean(string="Is Year Active", compute="_check_year_active", default=True, store=True)
 
     @api.depends('year_id.is_enable')
