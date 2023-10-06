@@ -87,9 +87,6 @@
                     'readonly': [('states','=','done')]
                   }"
                   options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
-                  domain="[
-                    ('year_id', '=', user_info_academy_year),  ('major_id', '=', user_info_major_id)
-                 ]"
                 />
               </group>
               <group string="Identity">

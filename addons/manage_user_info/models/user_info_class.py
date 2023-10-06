@@ -11,10 +11,10 @@ class UserInfoClass(models.Model):
     student_count = fields.Integer('Student Count', compute="_compute_student_count", store=True, default=0)
     
     major_id = fields.Many2one('user.info.major', string='Major')
-    year_id = fields.Many2one('user.info.year', string='Year', compute="_compute_year_in", store=True)
-    is_year_active = fields.Boolean(string="Check year active", readonly=True, compute="_check_year_active")
+    year_id = fields.Many2one('user.info.year', string='Year', compute="_compute_year_in")
+    is_year_active = fields.Boolean(string="Is Year Active", compute="_check_year_active", default=True, store=True)
 
-    @api.depends('year_id')
+    @api.depends('year_id.is_enable')
     def _check_year_active(self):
         for record in self:
             record.is_year_active = record.year_id.is_enable
@@ -34,6 +34,7 @@ class UserInfoClass(models.Model):
             'type': 'ir.actions.act_window',
             'view_mode': 'tree,form',
             'res_model': 'user.info.class',  
+            'domain': [('is_year_active','=', True)]
         }
         if self.env.user.manage_department_id:
             action.update({

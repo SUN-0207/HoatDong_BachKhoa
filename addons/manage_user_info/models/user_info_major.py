@@ -7,16 +7,8 @@ class UserInfoMajor(models.Model):
 
    name = fields.Char('Major', required=True)
 
-   department_id = fields.Many2one('user.info.department', string='Department', readonly=True)
-   year_ids = fields.One2many('user.info.year', 'major_id', string='Year')
+   department_id = fields.Many2one('user.info.department', string='Department')
    class_ids = fields.One2many('user.info.class', 'major_id', string="Classes")
-   # is_year_active = fields.Boolean(string="Check year active", readonly=True, compute="_check_year_active")
-
-   # @api.depend('year_ids')
-   # def _check_year_active(self):
-   #    for record in self:
-   #       record.is_year_active = record.year_ids.is_enable
-
 
    def open_list_major_info(self):
       action = {
