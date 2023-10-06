@@ -12,6 +12,7 @@ class UserInfoClass(models.Model):
     
     major_id = fields.Many2one('user.info.major', string='Major')
     year_id = fields.Many2one('user.info.year', string='Year', compute="_compute_year_in", store=True)
+    year = fields.Many2one('user.info.year', string='Year', compute="_compute_year_in", store=True)
     is_year_active = fields.Boolean(string="Is Year Active", compute="_check_year_active", default=True, store=True)
 
     @api.depends('year_id.is_enable')
@@ -42,11 +43,11 @@ class UserInfoClass(models.Model):
             })
         return action 
 
-    @api.onchange('name')
+    @api.depends('name')
     def _compute_year_in(self):
         for record in self:
             if record.name:
                 year_prefix = record.name[2:4]
                 year_name = str(int(year_prefix) + 2000)
                 year = self.env['user.info.year'].search([('name', '=', year_name)], limit=1)
-                record.year_id = year.id if year else False
+                record.year_id = year if year else False
