@@ -6,7 +6,11 @@
     'author': 'TST',
     'website': "https://www.odoo.com",
     "depends": ['base','base_setup'],
-    "data": [],
+    "data": [
+        'security/ir.model.access.csv',
+        'views/activity_activity_views.xml',
+        'views/activity_menuitem.xml'
+    ],
     'license': 'LGPL-3',
     'installable': True,
     'application': True,
