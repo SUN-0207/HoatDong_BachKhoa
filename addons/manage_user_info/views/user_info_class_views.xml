@@ -20,7 +20,7 @@
             <field name="year_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
           </group>
           <notebook>
-            <page name="student_ids" string="Students">
+            <page name="student_ids" string="Sinh viên">
               <field name="student_ids">
                 <tree>
                   <field name="name" />
@@ -41,9 +41,9 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
-          <field name="student_count" string="Student Count"/>
-          <field name="major_id" widget="many2one" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" string="Major"/>
-          <field name="year_id" widget="many2one" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" string="Year" />
+          <field name="student_count" />
+          <field name="major_id" widget="many2one" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
+          <field name="year_id" widget="many2one" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
         </tree>
       </field>
     </record>

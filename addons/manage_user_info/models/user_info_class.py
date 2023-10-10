@@ -5,15 +5,15 @@ class UserInfoClass(models.Model):
     _name = 'user.info.class'
     _description = 'User Info Class'
     
-    name = fields.Char('Class', required=True)
+    name = fields.Char('Lớp', required=True)
     
-    student_ids = fields.One2many('user.info', 'user_info_class_id', string='Students')
-    student_count = fields.Integer('Student Count', compute="_compute_student_count", store=True, default=0)
+    student_ids = fields.One2many('user.info', 'user_info_class_id', string='Sinh viên')
+    student_count = fields.Integer('Tổng số Sinh viên', compute="_compute_student_count", store=True, default=0)
     
-    major_id = fields.Many2one('user.info.major', string='Major')
-    year_id = fields.Many2one('user.info.year', string='Year', compute="_compute_year_in", store=True)
-    year = fields.Many2one('user.info.year', string='Year', compute="_compute_year_in", store=True)
-    is_year_active = fields.Boolean(string="Is Year Active", compute="_check_year_active", default=True, store=True)
+    major_id = fields.Many2one('user.info.major', string='Ngành')
+    year_id = fields.Many2one('user.info.year', string='Niên khoá', compute="_compute_year_in", store=True)
+    year = fields.Many2one('user.info.year', string='Niên khoá', compute="_compute_year_in", store=True)
+    is_year_active = fields.Boolean(string="Hiển thị Niên khoá", compute="_check_year_active", default=True, store=True)
 
     @api.depends('year_id.is_enable')
     def _check_year_active(self):
