@@ -72,35 +72,27 @@
             <group class="form-column">
               <group string="Student info">
                 <field name="user_info_department_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                <field name="user_info_academy_year" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
                 <field name="user_info_major_id" 
                   required="1" 
                   placeholder="Vui lòng chọn"  
                   options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" 
                   attrs="{'readonly': [('states','=','done')]}"
                 />
+                <field name="user_info_academy_year" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
                 <field name="student_id" required="1" placeholder="Vui lòng điền" attrs="{'readonly': [('states','=','done')]}"/>
-                <field name="user_info_class_id" 
+                <field name="user_info_class_id"  required="1" 
                   placeholder="Vui lòng chọn" 
-                 
                   attrs="{
                     'invisible': [('user_info_major_id', '=', False),('student_id', '=', False)],
                     'readonly': [('states','=','done')]
                   }"
                   options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
-                  domain="['|',
-                  ('year_id', '=', user_info_academy_year), ('major_id', '=', user_info_major_id)]" 
-                  />
-                  <!--
                   domain="[
-                          '&amp;',
-                            '&amp;', ('major_id', '=', 1), ('major_id', '=', user_info_major_id),
-                            '&amp;', ('year_id', '=', 1), ('year_id', '=', user_info_academy_year)
-                          '|',
-                            '&amp;', ('major_id', '=', 1), ('major_id', '=', user_info_major_id),
-                            '&amp;', ('year_id', '=', 1), ('year_id', '=', user_info_academy_year)
-                   domain="['|', ('major_id', '=', False), ('major_id', '=', user_info_major_id), 
-                  '|', ('year_id', '=', False), ('year_id', '=', user_info_academy_year)]" -->
+                     ('major_id', '=', user_info_major_id), 
+                     ('year_id', '=', user_info_academy_year),
+                     ('is_year_active', '=', 'True')
+                  ]"
+                />
               </group>
               <group string="Identity">
                 <field name="national_id" required="1" placeholder="Vui lòng điền"/>

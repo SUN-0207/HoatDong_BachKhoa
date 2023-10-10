@@ -64,11 +64,62 @@ class UserInfo(models.Model):
 
   user_info_department_id = fields.Many2one('user.info.department', string='Department', readonly=True, store=True, compute='_compute_user_info_department')
   user_info_major_id = fields.Many2one('user.info.major',string='Major', store=True)
-  user_info_academy_year = fields.Many2one('user.info.year', string='Academy Year', store=True, compute='_compute_user_info_academy_year')
+  user_info_academy_year = fields.Many2one('user.info.year', string='Academy Year', store=True, compute="_compute_user_info_academy_year")
   student_id = fields.Char(string="Student ID")
   user_info_class_id = fields.Many2one('user.info.class',string='Class', 
+    domain=lambda self: self._compute_user_info_class_domain(),
     store=True
   )
+
+  @api.depends('user_info_major_id')
+  def _compute_user_info_department(self):
+    for record in self:
+        if record.user_info_major_id:
+            record.user_info_department_id = record.user_info_major_id.department_id
+        else:
+            record.user_info_department_id = False
+
+  @api.onchange('student_id', 'user_info_major_id')
+  def _compute_user_info_class_domain(self):
+    pattern = r'^0?\d{7}$'
+    domain = [('is_year_active', '=', True)]
+    year = ""
+    if self.student_id :
+      if not self.student_id.isdigit() or not re.match(pattern, self.student_id):
+            raise ValidationError(_('Invalid student ID. Student ID must be a 7-digit number.'))
+      year_prefix = self.student_id[:2]
+      year = str(int(year_prefix) + 2000)
+      if self.user_info_class_id and self.user_info_class_id.year_id.name != year:
+        self.user_info_class_id = self.env['user.info.class']
+      self.user_info_academy_year = self.env['user.info.year'].search([('name', '=', year)], limit=1)
+    if self.user_info_major_id:
+        domain.append(('major_id', '=', self.user_info_major_id.id))
+    if self.user_info_academy_year:
+      if self.user_info_academy_year.is_enable:
+        domain.append(('year_id', '=', self.user_info_academy_year.id))
+      else:
+        domain = [('year_id', '=', 0)]
+    
+    print('###################################',domain)
+    self.user_info_class_id = False
+    return {
+        'domain': {'user_info_class_id': domain} if domain else {},
+    }
+
+  @api.depends('user_info_class_id', 'student_id')
+  def _compute_user_info_academy_year(self):
+    for record in self:
+      year = ""
+      if record.user_info_class_id:
+        record.user_info_academy_year = record.user_info_class_id.year_id 
+      elif record.student_id :
+        year_prefix = record.student_id[:2]
+        year = str(int(year_prefix) + 2000)
+        if record.user_info_class_id and record.user_info_class_id.year_id.name != year:
+          record.user_info_class_id = self.env['user.info.class']
+        record.user_info_academy_year = self.env['user.info.year'].search([('name', '=', year)], limit=1)
+      else:
+        record.user_info_academy_year= False
 
   def button_draft(self):
     self.write({'states': 'draft'})
@@ -100,13 +151,6 @@ class UserInfo(models.Model):
     pattern = r".*@gmail\.com$"
     if self.personal_email and not re.match(pattern, self.personal_email):
       raise ValidationError(_('Invalid personal email'))
-
-  @api.onchange('student_id')
-  def _compute_user_info_class_domain(self):
-    pattern = r'^0?\d{7}$'
-    if self.student_id :
-      if not self.student_id.isdigit() or not re.match(pattern, self.student_id):
-        raise ValidationError(_('Invalid student ID. Student ID must be a 7-digit number.'))
 
   def open_current_user_info(self):
     view_id = self.env.ref('manage_user_info.user_info_view_form') 
@@ -182,47 +226,7 @@ class UserInfo(models.Model):
   def on_district_permanent_change(self):
     if self.district_id_permanent:
       self.ward_id_native = False
-  
-  @api.depends('user_info_major_id')
-  def _compute_user_info_department(self):
-    for record in self:
-        if record.user_info_major_id:
-            record.user_info_department_id = record.user_info_major_id.department_id
-            # domain = [('major_id', '=', record.user_info_major_id)]
-            # record.user_info_class_id = self.env['user.info.class'].filtered_domain(domain)
-            # record.student_id = False  #Some logic bug that cause this error so I decied to ignore it (cache or something idk)
-            # record.user_info_class_id = False #########Set false is false bigger =))
-        else:
-            record.user_info_department_id = False
-
-  @api.depends('user_info_class_id', 'student_id')
-  def _compute_user_info_academy_year(self):
-    for record in self:
-      year = ""
-      if record.user_info_class_id:
-        record.user_info_academy_year = record.user_info_class_id.year_id 
-      elif record.student_id :
-        year_prefix = record.student_id[:2]
-        year = str(int(year_prefix) + 2000)
-        if record.user_info_class_id and record.user_info_class_id.year_id.name != year:
-          record.user_info_class_id = self.env['user.info.class']
-        record.user_info_academy_year = self.env['user.info.year'].search([('name', '=', year)], limit=1)
-      else:
-        record.user_info_academy_year= False
-      
-      
-      # if record.user_info_class_id and not record.student_id:
-      #       record.user_info_academy_year = record.user_info_class_id.year_id
-      # elif record.student_id and not record.user_info_class_id:
-      #       year_prefix = record.student_id[:2]
-      #       year = str(int(year_prefix) + 2000)
-      #       record.user_info_academy_year = self.env['user.info.year'].search([('name', '=', year)], limit=1)
-      # else:
-      #       year_prefix = record.student_id[:2]
-      #       year = str(int(year_prefix) + 2000)
-      # if year != record.user_info_academy_year.name:
-      #           record.user_info_academy_year = self.env['user.info.year'].search([('name', '=', year)], limit=1)
-
+   
 class ResUsers(models.Model):
   _inherit = ['res.users']
   

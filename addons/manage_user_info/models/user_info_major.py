@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 
 class UserInfoMajor(models.Model):
@@ -8,7 +8,6 @@ class UserInfoMajor(models.Model):
    name = fields.Char('Major', required=True)
 
    department_id = fields.Many2one('user.info.department', string='Department')
-   year_ids = fields.One2many('user.info.year', 'major_id', string='Year')
    class_ids = fields.One2many('user.info.class', 'major_id', string="Classes")
 
    def open_list_major_info(self):
