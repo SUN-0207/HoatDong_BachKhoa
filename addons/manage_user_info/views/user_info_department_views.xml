@@ -2,7 +2,7 @@
 <odoo>
 
   <record id='user_info_department_action' model='ir.actions.act_window'>
-    <field name="name">User Department Information</field>
+    <field name="name">Thông tin Đơn vị</field>
     <field name="res_model">user.info.department</field>
     <field name="view_mode">tree,form</field>
   </record>
@@ -19,7 +19,7 @@
             <field name="code" />
           </group>
           <notebook>
-            <page name="majors_ids" string="Majors">
+            <page name="majors_ids" string="Ngành">
               <field name="major_ids" >
                 <tree>
                     <field name="name" />

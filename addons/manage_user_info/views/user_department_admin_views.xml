@@ -2,7 +2,7 @@
 <odoo>
 
   <record id='user_department_admin_action' model='ir.actions.act_window'>
-    <field name="name">User Department Admin Information</field>
+    <field name="name">Thông tin Quản lý Đơn vị</field>
     <field name="res_model">user.department.admin</field>
     <field name="view_mode">tree,form</field>
   </record>

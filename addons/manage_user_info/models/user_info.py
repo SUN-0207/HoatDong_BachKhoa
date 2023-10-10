@@ -7,8 +7,8 @@ class UserInfo(models.Model):
   _description = 'User Info'
   
   states = fields.Selection(selection=[
-       ('draft', 'Draft'),
-       ('done', 'Done'),
+       ('draft', 'Bản nháp'),
+       ('done', 'Hoàn tất'),
     ], 
     string='Status', 
     required=True, 
@@ -21,52 +21,52 @@ class UserInfo(models.Model):
   user_id = fields.Many2one('res.users', string='User', readonly=True)
   
   name = fields.Char(related='user_id.name', string="Name", store=True)
-  first_name = fields.Char('First Name', compute='_compute_name_parts', inverse='_inverse_name', store=True)
-  sur_name = fields.Char('Sur Name', compute='_compute_name_parts', inverse='_inverse_name', store=True)
+  first_name = fields.Char('Tên', compute='_compute_name_parts', inverse='_inverse_name', store=True)
+  sur_name = fields.Char('Họ và tên lót', compute='_compute_name_parts', inverse='_inverse_name', store=True)
   email= fields.Char(related='user_id.email', string="Email")
-  avatar = fields.Binary(string='Avatar')
+  avatar = fields.Binary(string='Ảnh đại diện')
 
-  phone_number = fields.Char(string="Phone number")
-  gender = fields.Selection([('male', 'Male'),('female', 'Female')])
-  birth_date = fields.Date(string="Birth Day")
+  phone_number = fields.Char(string="Số điện thoại di động")
+  gender = fields.Selection([('male', 'Nam'),('female', 'Nữ')],string='Giới tính')
+  birth_date = fields.Date(string="Ngày sinh")
   nation = fields.Char(string="Nation")
-  personal_email = fields.Char(string="Personal Email")
-  religion = fields.Selection(common_constants.RELIGION, string="Religion")
+  personal_email = fields.Char(string="Email cá nhân")
+  religion = fields.Selection(common_constants.RELIGION, string="Tôn giáo")
 
-  ethnicity = fields.Selection(common_constants.ETHNICITY, string='Ethnicity')
-  national_id = fields.Char(string="National Id")
-  national_id_date = fields.Date(string="Created date Nation ID")
-  national_id_place = fields.Char(string="Created palce Nation ID")
+  ethnicity = fields.Selection(common_constants.ETHNICITY, string='Dân tộc')
+  national_id = fields.Char(string="Số CMND/CCCD")
+  national_id_date = fields.Date(string="Ngày cấp")
+  national_id_place = fields.Char(string="Nơi cấp")
 
-  joined_communist_party = fields.Boolean(default=False, string="Joined Communist Party?")
-  re_date_communist_party= fields.Date(string="Re Date At Communist Party")
-  offical_date_communist_party= fields.Date(string="Offical Date At Communist Party")
-  place_communist_party = fields.Char(string="Place Communist Party")
+  joined_communist_party = fields.Boolean(default=False, string="Đã kết nạp Đảng")
+  re_date_communist_party= fields.Date(string="Ngày kết nạp dự bị")
+  offical_date_communist_party= fields.Date(string="Ngày kết nạp chính thức")
+  place_communist_party = fields.Char(string="Địa điểm")
   
-  joined_union = fields.Boolean(default=False, string="Joined Union?")
-  date_at_union = fields.Date(string="Date At Union")
-  place_union = fields.Char(string="Place Union")
+  joined_union = fields.Boolean(default=False, string="Đã kết nạp Đoàn")
+  date_at_union = fields.Date(string="Ngày kết nạp Đoàn")
+  place_union = fields.Char(string="Địa điểm")
   
-  joined_student_association = fields.Boolean(default=False, string="Joined Student Association?")
-  date_at_student_association = fields.Date(string="Date at Student Association")
+  joined_student_association = fields.Boolean(default=False, string="Đã kết nạp Hội")
+  date_at_student_association = fields.Date(string="Ngày kết nạp Hội")
   
   native_address = fields.Char(string="Native Address")
-  native_address_specific = fields.Char(string="Native Address Specific")
-  province_id_native = fields.Many2one('user.province.info', 'Province (Native)')
-  district_id_native = fields.Many2one('user.district.info', 'District (Native)', domain="[('province_id', '=', province_id_native)]")
-  ward_id_native = fields.Many2one('user.ward.info', 'Ward (Native)', domain="[('district_id', '=', district_id_native)]")
+  native_address_specific = fields.Char(string="Địa chỉ cụ thể")
+  province_id_native = fields.Many2one('user.province.info', 'Tỉnh/Thành phố')
+  district_id_native = fields.Many2one('user.district.info', 'Quận/Huyện', domain="[('province_id', '=', province_id_native)]")
+  ward_id_native = fields.Many2one('user.ward.info', 'Phường/Xã', domain="[('district_id', '=', district_id_native)]")
   
   permanent_address = fields.Char(string="Permanent Address")
-  permanent_address_specific = fields.Char(string="Permanent Address Specific")
-  province_id_permanent = fields.Many2one('user.province.info', 'Province (Permanent)')
-  district_id_permanent = fields.Many2one('user.district.info', 'District (Permanent)', domain="[('province_id', '=', province_id_permanent)]")
-  ward_id_permanent = fields.Many2one('user.ward.info', 'Ward (Permanent)', domain="[('district_id', '=', district_id_permanent)]")
+  permanent_address_specific = fields.Char(string="Địa chỉ cụ thể")
+  province_id_permanent = fields.Many2one('user.province.info', 'Tỉnh/Thành phố')
+  district_id_permanent = fields.Many2one('user.district.info', 'Quận/Huyện', domain="[('province_id', '=', province_id_permanent)]")
+  ward_id_permanent = fields.Many2one('user.ward.info', 'Phường/Xã', domain="[('district_id', '=', district_id_permanent)]")
 
-  user_info_department_id = fields.Many2one('user.info.department', string='Department', readonly=True, store=True, compute='_compute_user_info_department')
-  user_info_major_id = fields.Many2one('user.info.major',string='Major', store=True)
-  user_info_academy_year = fields.Many2one('user.info.year', string='Academy Year', store=True, compute="_compute_user_info_academy_year")
-  student_id = fields.Char(string="Student ID")
-  user_info_class_id = fields.Many2one('user.info.class',string='Class', 
+  user_info_department_id = fields.Many2one('user.info.department', string='Đơn vị', readonly=True, store=True, compute='_compute_user_info_department')
+  user_info_major_id = fields.Many2one('user.info.major',string='Ngành', store=True)
+  user_info_academy_year = fields.Many2one('user.info.year', string='Niên khoá', store=True, compute="_compute_user_info_academy_year")
+  student_id = fields.Char(string="MSSV")
+  user_info_class_id = fields.Many2one('user.info.class',string='Lớp', 
     domain=lambda self: self._compute_user_info_class_domain(),
     store=True
   )

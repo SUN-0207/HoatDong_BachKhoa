@@ -5,10 +5,10 @@ class UserInfoMajor(models.Model):
    _name = 'user.info.major'
    _description = 'User Info Major'
 
-   name = fields.Char('Major', required=True)
+   name = fields.Char('Ngành', required=True)
 
-   department_id = fields.Many2one('user.info.department', string='Department')
-   class_ids = fields.One2many('user.info.class', 'major_id', string="Classes")
+   department_id = fields.Many2one('user.info.department', string='Đơn vị')
+   class_ids = fields.One2many('user.info.class', 'major_id', string="Lớp")
 
    def open_list_major_info(self):
       action = {
