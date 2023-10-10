@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_activity_activity,access_activity_activity,model_activity_activity,base.group_user,1,1,1,1
+access_activity_category,access_activity_category,model_activity_category,base.group_user,1,1,1,1
+access_activity_registration,access_activity_registration,model_activity_registration,base.group_user,1,1,1,1
