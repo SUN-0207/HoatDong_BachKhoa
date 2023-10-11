@@ -2,7 +2,7 @@
 <odoo>
 
   <record id='user_super_admin_action' model='ir.actions.act_window'>
-    <field name="name">User Super Admin Information</field>
+    <field name="name">Thông tin Quản trị Hệ thống</field>
     <field name="res_model">user.super.admin</field>
     <field name="view_mode">tree,form</field>
   </record>
