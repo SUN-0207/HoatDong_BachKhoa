@@ -100,7 +100,6 @@ class UserInfo(models.Model):
       else:
         domain = [('year_id', '=', 0)]
     
-    print('###################################',domain)
     self.user_info_class_id = False
     return {
         'domain': {'user_info_class_id': domain} if domain else {},
@@ -169,7 +168,7 @@ class UserInfo(models.Model):
         'res_model': 'user.info',  
         'res_id': current_user_info.id,
         'view_id': view_id.id,
-        'target': 'current',
+        'target': 'main',
     }
   
   def open_list_user_info(self):
@@ -178,6 +177,7 @@ class UserInfo(models.Model):
       'type': 'ir.actions.act_window',
       'view_mode': 'tree,form',
       'res_model': 'user.info',  
+      'limit': 15,
     }
     if self.env.user.manage_department_id:
       action.update({

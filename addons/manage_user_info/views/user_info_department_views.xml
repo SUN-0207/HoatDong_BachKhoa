@@ -5,6 +5,7 @@
     <field name="name">Thông tin Đơn vị</field>
     <field name="res_model">user.info.department</field>
     <field name="view_mode">tree,form</field>
+    <field name="limit">15</field>
   </record>
 
   <data>
@@ -20,9 +21,9 @@
           </group>
           <notebook>
             <page name="majors_ids" string="Ngành">
-              <field name="major_ids" >
+              <field name="major_ids">
                 <tree>
-                    <field name="name" />
+                  <field name="name" />
                 </tree>
               </field>
             </page>

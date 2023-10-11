@@ -15,7 +15,8 @@ class UserInfoMajor(models.Model):
          'name': 'Thông tin Ngành học',
          'type': 'ir.actions.act_window',
          'view_mode': 'tree,form',
-         'res_model': 'user.info.major',  
+         'res_model': 'user.info.major', 
+         'limit': 15,
       }
       if self.env.user.manage_department_id:
          action.update({

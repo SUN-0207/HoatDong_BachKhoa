@@ -2,7 +2,7 @@
 <odoo>
 
   <record id='user_info_year_action' model='ir.actions.act_window'>
-    <field name="name">User Years Information</field>
+    <field name="name">Thông tin Niên khoá</field>
     <field name="res_model">user.info.year</field>
     <field name="view_mode">tree,form</field>
   </record>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="MYSITE_layout" inherit_id="website.layout" name="MYSITE layout" priority="17">
+    <xpath expr="//head//link" position="after">
+      <link rel="shortcut icon" href="/code_backend_theme/static/src/img/BK_logo.png" type="image/x-icon"/>
+    </xpath>
+  </template>
+</odoo>

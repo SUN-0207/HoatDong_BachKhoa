@@ -35,7 +35,8 @@ class UserInfoClass(models.Model):
             'type': 'ir.actions.act_window',
             'view_mode': 'tree,form',
             'res_model': 'user.info.class',  
-            'domain': [('is_year_active','=', True)]
+            'domain': [('is_year_active','=', True)],
+            'limit': 15,
         }
         if self.env.user.manage_department_id:
             action.update({
