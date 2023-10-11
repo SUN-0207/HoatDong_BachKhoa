@@ -39,6 +39,14 @@
             />
           </header>
           <sheet>
+            <div class="user-info-remind" groups="manage_user_info.group_hcmut_user">
+              <p style="color:gray;margin-bottom:5px;">Lưu ý:</p>
+              <p style="margin-bottom:0;">
+                Các thông tin có chữ 
+                <span>IN ĐẬM</span>
+                sẽ không thể cập nhật hay chỉnh sửa sau lần chỉnh sửa đầu tiên. Nếu muốn sửa lại thông tin đã khoá, cần xin phép cấp quyền và được duyệt từ Admin.
+              </p>
+            </div>
             <group string="Basic" class="form-column">
               <group>
                 <group class="avatar">

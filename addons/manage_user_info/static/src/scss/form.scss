@@ -49,3 +49,28 @@ label[for="user_info_class_id"]::after
 .form-column .user-name {
     width: 70%;
 }
+
+div.user-info-remind {
+    display: flex;
+    flex-direction: column;
+    border: 1.5px #d6990a4a solid;
+    border-radius: .6rem;
+    padding: 1.2rem;
+    background-color: #fff9eb;
+
+    p {
+        span {
+            font-weight:700 !important;
+            color:#023e8a;
+        }
+    }
+}
+
+label.o_form_label[for="sur_name"],
+label.o_form_label[for="first_name"],
+label.o_form_label[for="user_info_major_id"],
+label.o_form_label[for="student_id"],
+label.o_form_label[for="user_info_class_id"]
+{
+    font-weight:700 !important;
+}
