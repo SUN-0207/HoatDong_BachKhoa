@@ -347,12 +347,12 @@ class OAuthConfigSettings(models.TransientModel):
             installer.lang_install()
         res.update({
             'auth_oauth_google_enabled': True,
-            'auth_oauth_google_client_id': "57505462055-ehit1cdp8rji767v6gdmd5r0bl5dpcaa.apps.googleusercontent.com",
+            'auth_oauth_google_client_id': "851307936783-vd6m4djqivgrt3kimt70hu5f9323amgd.apps.googleusercontent.com",
         })
         oauth_provider = self.env['auth.oauth.provider'].search([('name', '=', 'Google OAuth2')], limit=1)
         odoo_provider = self.env['auth.oauth.provider'].search([('name', '=', 'Odoo.com Accounts')], limit=1)
         oauth_provider.update({
-            'client_id': "57505462055-ehit1cdp8rji767v6gdmd5r0bl5dpcaa.apps.googleusercontent.com",
+            'client_id': "851307936783-vd6m4djqivgrt3kimt70hu5f9323amgd.apps.googleusercontent.com",
             'enabled': True,
         })
         odoo_provider.update({
