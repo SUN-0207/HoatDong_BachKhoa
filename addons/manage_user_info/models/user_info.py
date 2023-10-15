@@ -20,32 +20,32 @@ class UserInfo(models.Model):
 
   user_id = fields.Many2one('res.users', string='User', readonly=True)
   
-  name = fields.Char(related='user_id.name', string="Name", store=True)
+  name = fields.Char(compute='_compute_name_parts', string="Name", store=True)
   first_name = fields.Char('Tên', compute='_compute_name_parts', inverse='_inverse_name', store=True)
   sur_name = fields.Char('Họ và tên lót', compute='_compute_name_parts', inverse='_inverse_name', store=True)
   email= fields.Char(related='user_id.email', string="Email")
-  avatar = fields.Binary(string='Ảnh đại diện')
+  avatar = fields.Binary(string='Ảnh chân dung')
 
   phone_number = fields.Char(string="Số điện thoại di động")
   gender = fields.Selection([('male', 'Nam'),('female', 'Nữ')],string='Giới tính')
   birth_date = fields.Date(string="Ngày sinh")
   nation = fields.Char(string="Nation")
   personal_email = fields.Char(string="Email cá nhân")
-  religion = fields.Selection(common_constants.RELIGION, string="Tôn giáo")
+  religion = fields.Char(string="Tôn giáo")
 
-  ethnicity = fields.Selection(common_constants.ETHNICITY, string='Dân tộc')
+  ethnicity = fields.Char(string='Dân tộc')
   national_id = fields.Char(string="Số CMND/CCCD")
   national_id_date = fields.Date(string="Ngày cấp")
-  national_id_place = fields.Char(string="Nơi cấp")
+  national_id_place = fields.Selection(selection='_get_national_id_place_options', string='Nơi cấp')
 
   joined_communist_party = fields.Boolean(default=False, string="Đã kết nạp Đảng")
-  re_date_communist_party= fields.Date(string="Ngày kết nạp dự bị")
-  offical_date_communist_party= fields.Date(string="Ngày kết nạp chính thức")
-  place_communist_party = fields.Char(string="Địa điểm")
+  re_date_communist_party= fields.Date(string="Ngày vào Đảng (dự bị)")
+  offical_date_communist_party= fields.Date(string="Ngày vào Đảng (chính thức)")
+  place_communist_party = fields.Char(string="Nơi vào Đảng")
   
   joined_union = fields.Boolean(default=False, string="Đã kết nạp Đoàn")
   date_at_union = fields.Date(string="Ngày kết nạp Đoàn")
-  place_union = fields.Char(string="Địa điểm")
+  place_union = fields.Char(string="Nơi kết nạp Đoàn")
   
   joined_student_association = fields.Boolean(default=False, string="Đã kết nạp Hội")
   date_at_student_association = fields.Date(string="Ngày kết nạp Hội")
@@ -184,23 +184,31 @@ class UserInfo(models.Model):
         'domain': [('user_info_department_id','=',self.env.user.manage_department_id.id)]
       })
     return action    
+  
+  def _get_national_id_place_options(self):
+    options = [('ccs','Cục Cảnh sát quản lí hành chính về trật tự xã hội')]
+    provinces = self.env['user.province.info'].search([])
+    for province in provinces:
+      options.append((province.codename,province.name))
+    return options
    
-  @api.depends('name')
+  @api.depends('user_id.name')
   def _compute_name_parts(self):
     for user in self:
       if user.user_id.name:
-        name_parts = user.name.split(" ")
+        name_parts = user.user_id.name.split(" ")
         user.first_name = name_parts[0]
         user.sur_name = " ".join(name_parts[1:]) 
+        user.name = user.sur_name + " " + user.first_name
   
   def _inverse_name(self):
     for user in self:
         if user.first_name or user.sur_name:
             name_parts = []
-            if user.first_name:
-                name_parts.append(user.first_name)
             if user.sur_name:
                 name_parts.append(user.sur_name)
+            if user.first_name:
+                name_parts.append(user.first_name)
             user.name = " ".join(name_parts)
         else:
             user.name = False
@@ -238,6 +246,7 @@ class ResUsers(models.Model):
     print("Create")
     login_email = vals['login']
     pattern = r'^[A-Za-z0-9._%+-]+@hcmut\.edu\.vn$'
+    print(login_email)
     
     group_user_id = self.env['res.groups'].search([('name','=','User')]).id  
     group_department_admin_id = self.env['res.groups'].search([('name','=','Department Admin')]).id
@@ -263,7 +272,7 @@ class ResUsers(models.Model):
       })
     else:  
       if not re.match(pattern, login_email):
-        raise ValueError("Invalid email address. Email must end with @hcmut.edu.vn")
+        raise ValueError("Invalid email. Email must end with @hcmut.edu.vn")
       vals.update({
         'groups_id': [(6, 0, [1, group_user_id])],
         'hide_menu_ids': [(6, 0, [73, 5])],
@@ -276,6 +285,8 @@ class ResUsers(models.Model):
   def write(self, vals):
     res = super(ResUsers, self).write(vals)
     
+    if(self.login == 'admin' or self.login == 'default'):
+      return res
     super_admin = self.env['user.super.admin'].sudo().search([('email', '=', self.login)], limit=1)
     department_admin = self.env['user.department.admin'].sudo().search([('email', '=', self.login)], limit=1)
     
@@ -293,6 +304,7 @@ class ResUsers(models.Model):
         group_user = group_id.id
     print("Update")
     print(group_super_admin,group_department_admin,group_user)
+    print(self.login)
     pattern = r'^[A-Za-z0-9._%+-]+@hcmut\.edu\.vn$'
     if super_admin:
       if group_super_admin != 0 and group_super_admin not in self.groups_id.ids:
