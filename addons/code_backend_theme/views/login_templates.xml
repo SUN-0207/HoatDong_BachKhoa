@@ -7,6 +7,9 @@
             <div class="login_img">
                 <img src="/code_backend_theme/static/src/img/LOGIN_IMG.png" style="width:100%; border-radius:.5rem;"/>
             </div>
+            <!-- <div>
+                <span>Sinh viên đăng nhập hệ thống bằng tài khoản mail hcmut</span>
+            </div> -->
         </xpath>
 
         <xpath expr="//div[@class='card-body']//div[last()]" position="replace">
@@ -21,12 +24,20 @@
     </template>
 
     <template id="custom_login_page" inherit_id="web.login" name="Customized Login Page">
-        <xpath expr="//div[@class='mb-3 field-login']/label[@for='login']" position="replace">
-            <label for="login" class="form-label">Tài khoản</label>
+        <xpath expr="//div[@class='mb-3 field-login']" position="replace">
+            <!-- Hide email div -->
         </xpath>
 
         <xpath expr="//div[@class='mb-3']/label[@for='password']" position="replace">
-            <label for="password" class="form-label">Mật khẩu</label>
+            <!-- Hide password label -->
+        </xpath>
+        
+        <xpath expr="//div[@class='mb-3']/input[@name='password']" position="replace">
+            <!-- Hide password input field -->
+        </xpath>
+
+        <xpath expr="//button[text()='Log in']" position="attributes">
+            <attribute name="style">display: none;</attribute>
         </xpath>
 
     </template>

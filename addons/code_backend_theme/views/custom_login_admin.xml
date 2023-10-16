@@ -1,36 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+        <template id="custom_login_admin" name="Admin Login">
+            <t t-call="web.login_layout">
+                <form class="oe_login_form admin-login" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = '/web/login' + location.hash">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div id="wrap" class="oe_structure oe_empty">
+                        <div class="mb-3 field-login">
+                            <label for="login" class="form-label">Tài khoản</label>
+                            <input type="text" placeholder="Email" name="login" t-att-value="login" id="login" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off"/>
+                        </div>
     
-    <template id="custom_login_admin" inherit_id="web.login_layout" name="Login Page Admin">
-
-        <xpath expr="//div[@class='card-body']//div[1]" position="replace">
-            <div class="login_img">
-                <img src="/code_backend_theme/static/src/img/LOGIN_IMG.png" style="width:100%; border-radius:.5rem;"/>
-            </div>
-        </xpath>
-
-        <xpath expr="//div[@class='card-body']//div[last()]" position="replace">
-            <!-- to show, replace t-if with:  "not disable_footer"-->
-            <div class="text-center small mt-4 pt-3 login--footer" t-if="disable_footer">
-                <!-- to show, replace t-if witmh:  "not disable_database_manager"-->
-                <t t-if="disable_database_manager">
-                    <a class="pr-2 mr-1" href="/web/database/manager">Manage Databases</a>
-                </t>
-            </div>
-        </xpath>
-
-    </template>
-
-    <template id="custom_login_page" inherit_id="web.login" name="Customized Login Page">
-        <xpath expr="//div[@class='mb-3 field-login']/label[@for='login']" position="replace">
-            <label for="login" class="form-label">Tài khoản</label>
-        </xpath>
-
-        <xpath expr="//div[@class='mb-3']/label[@for='password']" position="replace">
-            <label for="password" class="form-label">Mật khẩu</label>
-        </xpath>
-
-    </template>
-
-    
+                        <div class="mb-3 field-password">
+                            <label for="password" class="form-label">Mật khẩu</label>
+                            <input type="password" placeholder="Password" name="password" id="password" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autocomplete="current-password" t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+                        </div>
+                
+                        <div class="clearfix oe_login_buttons text-center gap-1 d-grid mb-1 {{'pt-2' if form_small else 'pt-3'}}">
+                            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                        </div>
+                    </div>
+                </form>
+            </t>
+        </template>
 </odoo>
