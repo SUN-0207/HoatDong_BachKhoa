@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <template id="custom_login_admin" name="Admin Login">
+            <t t-call="web.login_layout">
+                <form class="oe_login_form admin-login" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = '/web/login' + location.hash">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div id="wrap" class="oe_structure oe_empty">
+                        <div class="mb-3 field-login">
+                            <label for="login" class="form-label">Tài khoản</label>
+                            <input type="text" placeholder="Email" name="login" t-att-value="login" id="login" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off"/>
+                        </div>
+    
+                        <div class="mb-3 field-password">
+                            <label for="password" class="form-label">Mật khẩu</label>
+                            <input type="password" placeholder="Password" name="password" id="password" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autocomplete="current-password" t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+                        </div>
+                
+                        <div class="clearfix oe_login_buttons text-center gap-1 d-grid mb-1 {{'pt-2' if form_small else 'pt-3'}}">
+                            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                        </div>
+                    </div>
+                </form>
+            </t>
+        </template>
+</odoo>
