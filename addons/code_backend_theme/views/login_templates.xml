@@ -34,10 +34,16 @@
         
         <xpath expr="//div[@class='mb-3']/input[@name='password']" position="replace">
             <!-- Hide password input field -->
-        </xpath>
+        </xpath>        
 
         <xpath expr="//button[text()='Log in']" position="attributes">
             <attribute name="style">display: none;</attribute>
+        </xpath>
+
+        <xpath expr="//button[contains(text(), 'Log in as superuser')]" position="replace">
+            <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-sm" style="display: none;">
+                Log in as superuser
+            </button>
         </xpath>
 
     </template>
