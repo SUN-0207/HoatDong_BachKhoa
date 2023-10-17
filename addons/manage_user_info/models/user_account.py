@@ -4,8 +4,8 @@ class UserDepartmentAdmin(models.Model):
 	_name = 'user.department.admin'
 	_description = 'User Department Admin'
 
-	name = fields.Char(string='Tên Quản lý Đơn bị', required=True)
-	email = fields.Char(string='Email Quản lý Đơn bị', required=True)
+	name = fields.Char(string='Tên Quản lý Đơn vị', required=True)
+	email = fields.Char(string='Email Quản lý Đơn vị', required=True)
 	department_id = fields.Many2one('user.info.department', string='Đơn vị', required=True)
 
 class UserSuperAdmin(models.Model):

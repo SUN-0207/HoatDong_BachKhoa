@@ -159,3 +159,25 @@ div.justify-content-between.mt-2.d-flex.small, em.d-block.text-center.text-muted
 .login_img {
     margin-bottom: 1.5rem;
 }
+
+div.o_auth_oauth_providers {
+    a {
+        padding: 1rem !important;
+    }
+}
+
+div.clearfix.oe_login_buttons {
+    padding-top: 0 !important;
+}
+
+form.oe_login_form div.mb-3 {
+    margin: 0 !important;
+}
+
+form.admin-login {
+    button {
+        padding: .6rem !important;
+        margin-top: .5rem !important;
+        border-radius: .4rem !important;
+    }
+}

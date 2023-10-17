@@ -33,6 +33,7 @@
     "depends": ['base', 'web', 'mail'],
     "data": [
         'views/login_templates.xml',
+        'views/custom_login_admin.xml',
         'views/layout.xml',
         'views/icons.xml',
     ],
