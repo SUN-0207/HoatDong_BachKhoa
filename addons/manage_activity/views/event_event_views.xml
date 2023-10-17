@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!-- Form View -->
+    <record id="event_event_form_inherit" model="ir.ui.view">
+      <field name="name">event.event.form.inherit</field>
+      <field name="model">event.event</field>
+      <field name="inherit_id" ref="event.view_event_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='tag_ids']" position="after">
+          <field name="maxSocialPoint" />
+        </xpath>
+        <xpath expr="//label[@for='date_begin']" position="replace">
+          <label for="date_begin" string="Diễn ra"/>
+        </xpath>
+        <xpath expr="//div[hasclass('oe_chatter')]" position="replace">
+        </xpath>
+        <xpath expr="//field[@name='date_tz']" position="replace">
+          <label for="date_begin_registration" string="Đăng ký"/>
+          <div class="o_row">
+            <field name="date_begin_registration" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'date_end_registration'}"/>
+            <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+            <field name="date_end_registration" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'date_begin'}"/>
+          </div>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

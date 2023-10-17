@@ -5,11 +5,11 @@
     "version": "16.0.2",
     'author': 'TST',
     'website': "https://www.odoo.com",
-    "depends": ['base','base_setup'],
+    "depends": ['base','base_setup','event'],
     "data": [
         'security/ir.model.access.csv',
-        'views/activity_activity_views.xml',
-        'views/activity_menuitem.xml'
+        'views/event_event_views.xml',
+        'views/event_menuitem.xml'
     ],
     'license': 'LGPL-3',
     'installable': True,
