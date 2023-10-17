@@ -74,7 +74,7 @@
                         <img src="/code_backend_theme/static/src/img/Doan_logo.png" class="logo_img"/>
                         <img src="/code_backend_theme/static/src/img/HSV_logo.png" class="logo_img"/>
                     </div>
-                    <h6 class="sidebar_head">MENU</h6>
+                    <h6 class="sidebar_head">DANH MỤC QUẢN LÝ</h6>
                     <ul class="sidebar_menu">
                         <t t-foreach="menuService.getApps()" t-as="app" t-key="app_index">
                             <li data-toggle="tooltip" data-placement="right" t-att-title="app.name">

@@ -1,22 +1,22 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 
 class UserInfoMajor(models.Model):
    _name = 'user.info.major'
    _description = 'User Info Major'
 
-   name = fields.Char('Major', required=True)
+   name = fields.Char('Ngành', required=True)
 
-   department_id = fields.Many2one('user.info.department', string='Department')
-   year_ids = fields.One2many('user.info.year', 'major_id', string='Year')
-   class_ids = fields.One2many('user.info.class', 'major_id', string="Classes")
+   department_id = fields.Many2one('user.info.department', string='Đơn vị')
+   class_ids = fields.One2many('user.info.class', 'major_id', string="Lớp")
 
    def open_list_major_info(self):
       action = {
          'name': 'Thông tin Ngành học',
          'type': 'ir.actions.act_window',
          'view_mode': 'tree,form',
-         'res_model': 'user.info.major',  
+         'res_model': 'user.info.major', 
+         'limit': 15,
       }
       if self.env.user.manage_department_id:
          action.update({

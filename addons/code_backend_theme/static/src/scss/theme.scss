@@ -1710,9 +1710,9 @@ div.dropdown-menu.bootstrap-datetimepicker-widget {
     transition:cubic-bezier(0.075, 0.82, 0.165, 1)
 }
 
-.o_cp_pager {
-    display: none !important;
-}
+// .o_cp_pager {
+//     display: none !important;
+// }
 
 div.o_cell.o_wrap_label {
     height: 50px !important;
@@ -1726,6 +1726,6 @@ div.o_cell.o_wrap_label {
 
 // tree
 // hide FILTER and GROUP button in tree view
-.o_filter_menu > button:nth-child(1), div.o-dropdown:nth-child(2) > button:nth-child(1) {
-    display: none;
-}
+// .o_filter_menu > button:nth-child(1), div.o-dropdown:nth-child(2) > button:nth-child(1) {
+//     display: none;
+// }

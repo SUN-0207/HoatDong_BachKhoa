@@ -2,9 +2,10 @@
 <odoo>
 
   <record id='user_info_department_action' model='ir.actions.act_window'>
-    <field name="name">User Department Information</field>
+    <field name="name">Thông tin Đơn vị</field>
     <field name="res_model">user.info.department</field>
     <field name="view_mode">tree,form</field>
+    <field name="limit">15</field>
   </record>
 
   <data>
@@ -19,10 +20,10 @@
             <field name="code" />
           </group>
           <notebook>
-            <page name="majors_ids" string="Majors">
-              <field name="major_ids" >
+            <page name="majors_ids" string="Ngành">
+              <field name="major_ids">
                 <tree>
-                    <field name="name" />
+                  <field name="name" />
                 </tree>
               </field>
             </page>
@@ -39,6 +40,7 @@
         <tree>
           <field name="name"/>
           <field name="code"/>
+          <field name="major_count"/>
         </tree>
       </field>
     </record>

@@ -19,10 +19,11 @@
             <field name="department_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
           </group>
           <notebook>
-            <page name="classes" string="Classes">
+            <page name="classes" string="Lớp">
               <field name="class_ids" widget="one2many_list">
                 <tree>
                   <field name="name" />
+                  <field name="student_count" />
                 </tree>
               </field>
             </page>
@@ -36,9 +37,9 @@
       <field name="name">user.info.major.tree</field>
       <field name="model">user.info.major</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree >
           <field name="name"/>
-          <field name="department_id" widget="many2one" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" string="Department" />
+          <field name="department_id" widget="many2one" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
         </tree>
       </field>
     </record>

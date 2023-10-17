@@ -7,8 +7,8 @@ class UserInfo(models.Model):
   _description = 'User Info'
   
   states = fields.Selection(selection=[
-       ('draft', 'Draft'),
-       ('done', 'Done'),
+       ('draft', 'Bản nháp'),
+       ('done', 'Hoàn tất'),
     ], 
     string='Status', 
     required=True, 
@@ -21,54 +21,104 @@ class UserInfo(models.Model):
   user_id = fields.Many2one('res.users', string='User', readonly=True)
   
   name = fields.Char(related='user_id.name', string="Name", store=True)
-  first_name = fields.Char('First Name', compute='_compute_name_parts', inverse='_inverse_name', store=True)
-  sur_name = fields.Char('Sur Name', compute='_compute_name_parts', inverse='_inverse_name', store=True)
+  first_name = fields.Char('Tên', compute='_compute_name_parts', inverse='_inverse_name', store=True)
+  sur_name = fields.Char('Họ và tên lót', compute='_compute_name_parts', inverse='_inverse_name', store=True)
   email= fields.Char(related='user_id.email', string="Email")
-  avatar = fields.Binary(string='Avatar')
+  avatar = fields.Binary(string='Ảnh đại diện')
 
-  phone_number = fields.Char(string="Phone number")
-  gender = fields.Selection([('male', 'Male'),('female', 'Female')])
-  birth_date = fields.Date(string="Birth Day")
+  phone_number = fields.Char(string="Số điện thoại di động")
+  gender = fields.Selection([('male', 'Nam'),('female', 'Nữ')],string='Giới tính')
+  birth_date = fields.Date(string="Ngày sinh")
   nation = fields.Char(string="Nation")
-  personal_email = fields.Char(string="Personal Email")
-  religion = fields.Selection(common_constants.RELIGION, string="Religion")
+  personal_email = fields.Char(string="Email cá nhân")
+  religion = fields.Selection(common_constants.RELIGION, string="Tôn giáo")
 
-  ethnicity = fields.Selection(common_constants.ETHNICITY, string='Ethnicity')
-  national_id = fields.Char(string="National Id")
-  national_id_date = fields.Date(string="Created date Nation ID")
-  national_id_place = fields.Char(string="Created palce Nation ID")
+  ethnicity = fields.Selection(common_constants.ETHNICITY, string='Dân tộc')
+  national_id = fields.Char(string="Số CMND/CCCD")
+  national_id_date = fields.Date(string="Ngày cấp")
+  national_id_place = fields.Char(string="Nơi cấp")
 
-  joined_communist_party = fields.Boolean(default=False, string="Joined Communist Party?")
-  re_date_communist_party= fields.Date(string="Re Date At Communist Party")
-  offical_date_communist_party= fields.Date(string="Offical Date At Communist Party")
-  place_communist_party = fields.Char(string="Place Communist Party")
+  joined_communist_party = fields.Boolean(default=False, string="Đã kết nạp Đảng")
+  re_date_communist_party= fields.Date(string="Ngày kết nạp dự bị")
+  offical_date_communist_party= fields.Date(string="Ngày kết nạp chính thức")
+  place_communist_party = fields.Char(string="Địa điểm")
   
-  joined_union = fields.Boolean(default=False, string="Joined Union?")
-  date_at_union = fields.Date(string="Date At Union")
-  place_union = fields.Char(string="Place Union")
+  joined_union = fields.Boolean(default=False, string="Đã kết nạp Đoàn")
+  date_at_union = fields.Date(string="Ngày kết nạp Đoàn")
+  place_union = fields.Char(string="Địa điểm")
   
-  joined_student_association = fields.Boolean(default=False, string="Joined Student Association?")
-  date_at_student_association = fields.Date(string="Date at Student Association")
+  joined_student_association = fields.Boolean(default=False, string="Đã kết nạp Hội")
+  date_at_student_association = fields.Date(string="Ngày kết nạp Hội")
   
   native_address = fields.Char(string="Native Address")
-  native_address_specific = fields.Char(string="Native Address Specific")
-  province_id_native = fields.Many2one('user.province.info', 'Province (Native)')
-  district_id_native = fields.Many2one('user.district.info', 'District (Native)', domain="[('province_id', '=', province_id_native)]")
-  ward_id_native = fields.Many2one('user.ward.info', 'Ward (Native)', domain="[('district_id', '=', district_id_native)]")
+  native_address_specific = fields.Char(string="Địa chỉ cụ thể")
+  province_id_native = fields.Many2one('user.province.info', 'Tỉnh/Thành phố')
+  district_id_native = fields.Many2one('user.district.info', 'Quận/Huyện', domain="[('province_id', '=', province_id_native)]")
+  ward_id_native = fields.Many2one('user.ward.info', 'Phường/Xã', domain="[('district_id', '=', district_id_native)]")
   
   permanent_address = fields.Char(string="Permanent Address")
-  permanent_address_specific = fields.Char(string="Permanent Address Specific")
-  province_id_permanent = fields.Many2one('user.province.info', 'Province (Permanent)')
-  district_id_permanent = fields.Many2one('user.district.info', 'District (Permanent)', domain="[('province_id', '=', province_id_permanent)]")
-  ward_id_permanent = fields.Many2one('user.ward.info', 'Ward (Permanent)', domain="[('district_id', '=', district_id_permanent)]")
+  permanent_address_specific = fields.Char(string="Địa chỉ cụ thể")
+  province_id_permanent = fields.Many2one('user.province.info', 'Tỉnh/Thành phố')
+  district_id_permanent = fields.Many2one('user.district.info', 'Quận/Huyện', domain="[('province_id', '=', province_id_permanent)]")
+  ward_id_permanent = fields.Many2one('user.ward.info', 'Phường/Xã', domain="[('district_id', '=', district_id_permanent)]")
 
-  user_info_department_id = fields.Many2one('user.info.department', string='Department', readonly=True, store=True, compute='_compute_user_info_department')
-  user_info_major_id = fields.Many2one('user.info.major',string='Major', store=True)
-  user_info_academy_year = fields.Many2one('user.info.year', string='Academy Year', store=True, compute='_compute_user_info_academy_year')
-  student_id = fields.Char(string="Student ID")
-  user_info_class_id = fields.Many2one('user.info.class',string='Class', 
+  user_info_department_id = fields.Many2one('user.info.department', string='Đơn vị', readonly=True, store=True, compute='_compute_user_info_department')
+  user_info_major_id = fields.Many2one('user.info.major',string='Ngành', store=True)
+  user_info_academy_year = fields.Many2one('user.info.year', string='Niên khoá', store=True, compute="_compute_user_info_academy_year")
+  student_id = fields.Char(string="MSSV")
+  user_info_class_id = fields.Many2one('user.info.class',string='Lớp', 
+    domain=lambda self: self._compute_user_info_class_domain(),
     store=True
   )
+
+  @api.depends('user_info_major_id')
+  def _compute_user_info_department(self):
+    for record in self:
+        if record.user_info_major_id:
+            record.user_info_department_id = record.user_info_major_id.department_id
+        else:
+            record.user_info_department_id = False
+
+  @api.onchange('student_id', 'user_info_major_id')
+  def _compute_user_info_class_domain(self):
+    pattern = r'^0?\d{7}$'
+    domain = [('is_year_active', '=', True)]
+    year = ""
+    if self.student_id :
+      if not self.student_id.isdigit() or not re.match(pattern, self.student_id):
+            raise ValidationError(_('Invalid student ID. Student ID must be a 7-digit number.'))
+      year_prefix = self.student_id[:2]
+      year = str(int(year_prefix) + 2000)
+      if self.user_info_class_id and self.user_info_class_id.year_id.name != year:
+        self.user_info_class_id = self.env['user.info.class']
+      self.user_info_academy_year = self.env['user.info.year'].search([('name', '=', year)], limit=1)
+    if self.user_info_major_id:
+        domain.append(('major_id', '=', self.user_info_major_id.id))
+    if self.user_info_academy_year:
+      if self.user_info_academy_year.is_enable:
+        domain.append(('year_id', '=', self.user_info_academy_year.id))
+      else:
+        domain = [('year_id', '=', 0)]
+    
+    self.user_info_class_id = False
+    return {
+        'domain': {'user_info_class_id': domain} if domain else {},
+    }
+
+  @api.depends('user_info_class_id', 'student_id')
+  def _compute_user_info_academy_year(self):
+    for record in self:
+      year = ""
+      if record.user_info_class_id:
+        record.user_info_academy_year = record.user_info_class_id.year_id 
+      elif record.student_id :
+        year_prefix = record.student_id[:2]
+        year = str(int(year_prefix) + 2000)
+        if record.user_info_class_id and record.user_info_class_id.year_id.name != year:
+          record.user_info_class_id = self.env['user.info.class']
+        record.user_info_academy_year = self.env['user.info.year'].search([('name', '=', year)], limit=1)
+      else:
+        record.user_info_academy_year= False
 
   def button_draft(self):
     self.write({'states': 'draft'})
@@ -101,13 +151,6 @@ class UserInfo(models.Model):
     if self.personal_email and not re.match(pattern, self.personal_email):
       raise ValidationError(_('Invalid personal email'))
 
-  @api.onchange('student_id')
-  def _compute_user_info_class_domain(self):
-    pattern = r'^0?\d{7}$'
-    if self.student_id :
-      if not self.student_id.isdigit() or not re.match(pattern, self.student_id):
-        raise ValidationError(_('Invalid student ID. Student ID must be a 7-digit number.'))
-
   def open_current_user_info(self):
     view_id = self.env.ref('manage_user_info.user_info_view_form') 
     
@@ -125,7 +168,7 @@ class UserInfo(models.Model):
         'res_model': 'user.info',  
         'res_id': current_user_info.id,
         'view_id': view_id.id,
-        'target': 'current',
+        'target': 'main',
     }
   
   def open_list_user_info(self):
@@ -134,6 +177,7 @@ class UserInfo(models.Model):
       'type': 'ir.actions.act_window',
       'view_mode': 'tree,form',
       'res_model': 'user.info',  
+      'limit': 15,
     }
     if self.env.user.manage_department_id:
       action.update({
@@ -182,47 +226,7 @@ class UserInfo(models.Model):
   def on_district_permanent_change(self):
     if self.district_id_permanent:
       self.ward_id_native = False
-  
-  @api.depends('user_info_major_id')
-  def _compute_user_info_department(self):
-    for record in self:
-        if record.user_info_major_id:
-            record.user_info_department_id = record.user_info_major_id.department_id
-            # domain = [('major_id', '=', record.user_info_major_id)]
-            # record.user_info_class_id = self.env['user.info.class'].filtered_domain(domain)
-            # record.student_id = False  #Some logic bug that cause this error so I decied to ignore it (cache or something idk)
-            # record.user_info_class_id = False #########Set false is false bigger =))
-        else:
-            record.user_info_department_id = False
-
-  @api.depends('user_info_class_id', 'student_id')
-  def _compute_user_info_academy_year(self):
-    for record in self:
-      year = ""
-      if record.user_info_class_id:
-        record.user_info_academy_year = record.user_info_class_id.year_id 
-      elif record.student_id :
-        year_prefix = record.student_id[:2]
-        year = str(int(year_prefix) + 2000)
-        if record.user_info_class_id and record.user_info_class_id.year_id.name != year:
-          record.user_info_class_id = self.env['user.info.class']
-        record.user_info_academy_year = self.env['user.info.year'].search([('name', '=', year)], limit=1)
-      else:
-        record.user_info_academy_year= False
-      
-      
-      # if record.user_info_class_id and not record.student_id:
-      #       record.user_info_academy_year = record.user_info_class_id.year_id
-      # elif record.student_id and not record.user_info_class_id:
-      #       year_prefix = record.student_id[:2]
-      #       year = str(int(year_prefix) + 2000)
-      #       record.user_info_academy_year = self.env['user.info.year'].search([('name', '=', year)], limit=1)
-      # else:
-      #       year_prefix = record.student_id[:2]
-      #       year = str(int(year_prefix) + 2000)
-      # if year != record.user_info_academy_year.name:
-      #           record.user_info_academy_year = self.env['user.info.year'].search([('name', '=', year)], limit=1)
-
+   
 class ResUsers(models.Model):
   _inherit = ['res.users']
   
@@ -343,12 +347,12 @@ class OAuthConfigSettings(models.TransientModel):
             installer.lang_install()
         res.update({
             'auth_oauth_google_enabled': True,
-            'auth_oauth_google_client_id': "57505462055-ehit1cdp8rji767v6gdmd5r0bl5dpcaa.apps.googleusercontent.com",
+            'auth_oauth_google_client_id': "851307936783-vd6m4djqivgrt3kimt70hu5f9323amgd.apps.googleusercontent.com",
         })
         oauth_provider = self.env['auth.oauth.provider'].search([('name', '=', 'Google OAuth2')], limit=1)
         odoo_provider = self.env['auth.oauth.provider'].search([('name', '=', 'Odoo.com Accounts')], limit=1)
         oauth_provider.update({
-            'client_id': "57505462055-ehit1cdp8rji767v6gdmd5r0bl5dpcaa.apps.googleusercontent.com",
+            'client_id': "851307936783-vd6m4djqivgrt3kimt70hu5f9323amgd.apps.googleusercontent.com",
             'enabled': True,
         })
         odoo_provider.update({
