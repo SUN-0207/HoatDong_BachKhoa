@@ -8,15 +8,68 @@
       <field name="model">event.event</field>
       <field name="inherit_id" ref="event.view_event_form" />
       <field name="arch" type="xml">
-        <xpath expr="//field[@name='tag_ids']" position="after">
-          <field name="maxSocialPoint" />
-        </xpath>
+        <!-- Hide fields -->
+          <xpath expr="//field[@name='user_id']" position="replace"></xpath>
+          <xpath expr="//field[@name='address_id']" position="replace"></xpath>
+          <xpath expr="//div[hasclass('oe_chatter')]" position="replace"></xpath>
+          <xpath expr="//field[@name='date_tz']" position="replace"></xpath>
+          <xpath expr="//field[@name='auto_confirm']" position="replace"></xpath>
+        <!-- End Hide fields -->
+        
+        <!-- Change name -->
+        <xpath expr="//label[@for='name']" position="replace">
+          <label for="name" string="Ten hoat dong"/>
+        </xpath> 
         <xpath expr="//label[@for='date_begin']" position="replace">
           <label for="date_begin" string="Diễn ra"/>
+        </xpath> 
+        <xpath expr="//field[@name='event_type_id']" position="replace">
+          <field name="event_type_id" string="Nhom hoat dong" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+        </xpath> 
+        <xpath expr="//field[@name='tag_ids']" position="replace">
+          <field name="tag_ids" string="Ý nghĩa hoạt động" widget="many2many_tags" options="{'color_field': 'color', 'no_quick_create': True}"/>
         </xpath>
-        <xpath expr="//div[hasclass('oe_chatter')]" position="replace">
+        <xpath expr="//label[@for='seats_limited']" position="replace">
+          <label for="seats_limited" string="Dang ky toi da"/>
+        </xpath> 
+        <!-- End Change name -->
+        
+        <!-- Add fields-->
+        <xpath expr="//field[@name='tag_ids']" position="after">
+          <field name="max_social_point" />
+          <field name="max_tranning_point" />
         </xpath>
-        <xpath expr="//field[@name='date_tz']" position="replace">
+        <xpath expr="//div[hasclass('oe_title')]" position="after">
+          <h3>Mo ta hoat dong </h3>
+          <field name="description" widget="html"/>
+        </xpath>
+        <xpath  expr="//notebook" position="before">
+          <div class="o_row">
+            <label for='attach_file' string="Giay to lien quan"/>
+            <field name="attach_file" widget="many2many_binary" />
+          </div>
+        </xpath>
+
+        <!-- End Add fields-->
+        
+
+        <!-- Replace fields-->
+        <!-- <xpath expr="//field[@name='stage_id']" position="replace">
+          <field name="status_activity" widget="statusbar" options="{'clickable': '1'}" />
+        </xpath> -->
+        <xpath expr="//field[@name='organizer_id']" position="replace">
+          <field name="created_by_name" readonly="1" />
+          <field name="activity_manager" widget="many2many_tags" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+          <field name="department_can_register" widget="many2many_tags" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+          <field name="major_can_register" widget="many2many_tags" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+            attrs="{'invisible': [('department_can_register', '=', False)]}"
+            domain="[('department_id', '=', department_can_register)]"
+          />
+          <field name="year_can_register" widget="many2many_tags" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+        </xpath>
+        
+        <xpath expr="//label[@for='date_begin']" position="before">
+          <field name="auto_confirm" string="Tu dong duyet"/>
           <label for="date_begin_registration" string="Đăng ký"/>
           <div class="o_row">
             <field name="date_begin_registration" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'date_end_registration'}"/>
@@ -24,6 +77,8 @@
             <field name="date_end_registration" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'date_begin'}"/>
           </div>
         </xpath>
+        
+        <!-- End Replace fields-->
       </field>
     </record>
 
