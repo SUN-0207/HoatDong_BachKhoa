@@ -1,3 +1,2 @@
-from . import activity_activity
-from . import activity_category
-from . import activity_registration
+from . import event_event
+from . import event_stage
