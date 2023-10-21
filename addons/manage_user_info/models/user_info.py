@@ -1,4 +1,4 @@
-from odoo import models, fields,api, _
+from odoo import models, fields,api, _, Command
 from odoo.exceptions import ValidationError
 import re
 from . import common_constants
@@ -18,34 +18,34 @@ class UserInfo(models.Model):
     default='draft',
   )
 
-  user_id = fields.Many2one('res.users', string='User', readonly=True)
+  user_id = fields.Many2one('res.users', string='User',ondelete='cascade', readonly=True)
   
-  name = fields.Char(related='user_id.name', string="Name", store=True)
+  name = fields.Char(compute='_compute_name_parts', string="Name", store=True)
   first_name = fields.Char('Tên', compute='_compute_name_parts', inverse='_inverse_name', store=True)
   sur_name = fields.Char('Họ và tên lót', compute='_compute_name_parts', inverse='_inverse_name', store=True)
   email= fields.Char(related='user_id.email', string="Email")
-  avatar = fields.Binary(string='Ảnh đại diện')
+  avatar = fields.Binary(string='Ảnh chân dung')
 
   phone_number = fields.Char(string="Số điện thoại di động")
   gender = fields.Selection([('male', 'Nam'),('female', 'Nữ')],string='Giới tính')
   birth_date = fields.Date(string="Ngày sinh")
   nation = fields.Char(string="Nation")
   personal_email = fields.Char(string="Email cá nhân")
-  religion = fields.Selection(common_constants.RELIGION, string="Tôn giáo")
+  religion = fields.Char(string="Tôn giáo")
 
-  ethnicity = fields.Selection(common_constants.ETHNICITY, string='Dân tộc')
+  ethnicity = fields.Char(string='Dân tộc')
   national_id = fields.Char(string="Số CMND/CCCD")
   national_id_date = fields.Date(string="Ngày cấp")
-  national_id_place = fields.Char(string="Nơi cấp")
+  national_id_place = fields.Selection(selection='_get_national_id_place_options', string='Nơi cấp')
 
   joined_communist_party = fields.Boolean(default=False, string="Đã kết nạp Đảng")
-  re_date_communist_party= fields.Date(string="Ngày kết nạp dự bị")
-  offical_date_communist_party= fields.Date(string="Ngày kết nạp chính thức")
-  place_communist_party = fields.Char(string="Địa điểm")
+  re_date_communist_party= fields.Date(string="Ngày vào Đảng (dự bị)")
+  offical_date_communist_party= fields.Date(string="Ngày vào Đảng (chính thức)")
+  place_communist_party = fields.Char(string="Nơi vào Đảng")
   
   joined_union = fields.Boolean(default=False, string="Đã kết nạp Đoàn")
   date_at_union = fields.Date(string="Ngày kết nạp Đoàn")
-  place_union = fields.Char(string="Địa điểm")
+  place_union = fields.Char(string="Nơi kết nạp Đoàn")
   
   joined_student_association = fields.Boolean(default=False, string="Đã kết nạp Hội")
   date_at_student_association = fields.Date(string="Ngày kết nạp Hội")
@@ -184,23 +184,31 @@ class UserInfo(models.Model):
         'domain': [('user_info_department_id','=',self.env.user.manage_department_id.id)]
       })
     return action    
+  
+  def _get_national_id_place_options(self):
+    options = [('ccs','Cục Cảnh sát quản lí hành chính về trật tự xã hội')]
+    provinces = self.env['user.province.info'].search([])
+    for province in provinces:
+      options.append((province.codename,province.name))
+    return options
    
-  @api.depends('name')
+  @api.depends('user_id.name')
   def _compute_name_parts(self):
     for user in self:
       if user.user_id.name:
-        name_parts = user.name.split(" ")
+        name_parts = user.user_id.name.split(" ")
         user.first_name = name_parts[0]
         user.sur_name = " ".join(name_parts[1:]) 
+        user.name = user.sur_name + " " + user.first_name
   
   def _inverse_name(self):
     for user in self:
         if user.first_name or user.sur_name:
             name_parts = []
-            if user.first_name:
-                name_parts.append(user.first_name)
             if user.sur_name:
                 name_parts.append(user.sur_name)
+            if user.first_name:
+                name_parts.append(user.first_name)
             user.name = " ".join(name_parts)
         else:
             user.name = False
@@ -235,90 +243,75 @@ class ResUsers(models.Model):
   
   @api.model
   def create(self, vals):
-    print("Create")
     login_email = vals['login']
     pattern = r'^[A-Za-z0-9._%+-]+@hcmut\.edu\.vn$'
+    print(login_email)
     
-    group_user_id = self.env['res.groups'].search([('name','=','User')]).id  
-    group_department_admin_id = self.env['res.groups'].search([('name','=','Department Admin')]).id
-    group_super_admin_id = self.env['res.groups'].search([('name','=','Super Admin')]).id
+    # Group ID
+    group_user_id = self.env['res.groups'].sudo().search([('name','=','User')], limit=1).id
+    group_department_admin_id = self.env['res.groups'].sudo().search([('name','=','Department Admin')], limit=1).id
+    group_super_admin_id = self.env['res.groups'].sudo().search([('name','=','Super Admin')], limit=1).id
     
+    # Role Admin
     super_admin = self.env['user.super.admin'].search([('email', '=', login_email)], limit=1)
     department_admin = self.env['user.department.admin'].search([('email', '=', login_email)], limit=1)
     
+    # Menu ID
+    discuss_id = self.env.ref('mail.menu_root_discuss').id
+    link_tracker_id = self.env.ref('utm.menu_link_tracker_root').id
+    app_id = self.env.ref('base.menu_management').id
+    
+
     if super_admin:
       vals.update({
-        'groups_id': [(6, 0, [1, group_super_admin_id])],
-        'hide_menu_ids': [(6, 0, [73, 5])],
+        'groups_id': [(6, 0, [group_super_admin_id])],
+        'hide_menu_ids': [(6, 0, [discuss_id, link_tracker_id, app_id])],
         'lang': 'vi_VN',
         'tz': 'Asia/Ho_Chi_Minh'
       })
     elif department_admin:
       vals.update({
-        'groups_id': [(6, 0, [1, group_department_admin_id])],
-        'hide_menu_ids': [(6, 0, [73, 5])],
+        'groups_id': [(6, 0, [group_department_admin_id])],
+        'hide_menu_ids': [(6, 0, [discuss_id, link_tracker_id, app_id])],
         'lang': 'vi_VN',
         'tz': 'Asia/Ho_Chi_Minh',
         'manage_department_id': department_admin.department_id.id
       })
     else:  
       if not re.match(pattern, login_email):
-        raise ValueError("Invalid email address. Email must end with @hcmut.edu.vn")
+        raise ValueError("Invalid email. Email must end with @hcmut.edu.vn")
       vals.update({
-        'groups_id': [(6, 0, [1, group_user_id])],
-        'hide_menu_ids': [(6, 0, [73, 5])],
+        'groups_id': [(6, 0, [group_user_id])],
+        'hide_menu_ids': [(6, 0, [discuss_id, link_tracker_id, app_id])],
         'lang': 'vi_VN',
         'tz': 'Asia/Ho_Chi_Minh'
       })
+    print('===================================')
+    print('Create')
     print(vals)
+    print('===================================')
     return super(ResUsers, self).create(vals)
 
   def write(self, vals):
     res = super(ResUsers, self).write(vals)
+    print(self.login)
+    print('===================================')
+    print('Update')
+    print(vals)
+    print('===================================')
     
-    super_admin = self.env['user.super.admin'].sudo().search([('email', '=', self.login)], limit=1)
-    department_admin = self.env['user.department.admin'].sudo().search([('email', '=', self.login)], limit=1)
-    
-    group_ids = self.env['res.groups'].sudo().search([])
-
-    group_super_admin = 0
-    group_department_admin = 0
-    group_user = 0
-    for group_id in group_ids:
-      if group_id.name == "Super Admin":
-        group_super_admin = group_id.id
-      elif group_id.name == "Department Admin":
-        group_department_admin = group_id.id
-      elif group_id.name == "User":
-        group_user = group_id.id
-    print("Update")
-    print(group_super_admin,group_department_admin,group_user)
-    pattern = r'^[A-Za-z0-9._%+-]+@hcmut\.edu\.vn$'
-    if super_admin:
-      if group_super_admin != 0 and group_super_admin not in self.groups_id.ids:
-        self.write({
-          'groups_id': [(6, 0, [1, group_super_admin])]
-        })
-    elif department_admin:
-      if (group_department_admin != 0 and group_department_admin not in self.groups_id.ids) or (self.manage_department_id.name != department_admin.department_id.name):
-        self.write({
-          'groups_id': [(6, 0, [1, group_department_admin])],
-          'manage_department_id': department_admin.department_id.id
-        })
-    else:
-      if not self.is_admin:
-        if not re.match(pattern, self.login):
-          raise ValueError("Invalid email address. Email must end with @hcmut.edu.vn")
-        if group_user != 0 and group_user not in self.groups_id.ids:
-          self.write({
-            'groups_id': [(6, 0, [1, group_user])]
+    for user in self:
+      for menu in user.hide_menu_ids:
+          menu.write({
+              'restrict_user_ids': [(4, user.id)]
           })
-    
-    for menu in self.hide_menu_ids:
-        menu.write({
-            'restrict_user_ids': [(4, self.id)]
-        })
     return res
+  
+  def unlink(self):
+    for user in self:
+      if user.user_info_id:
+        user.user_info_id.unlink()
+    return super(ResUsers,self).unlink()
 
   def _get_is_admin(self):
       for rec in self:
@@ -338,27 +331,31 @@ class OAuthConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     def get_values(self):
-        res = super(OAuthConfigSettings, self).get_values()
-        lang = self.env['res.lang'].with_context(active_test=False).search([('code', '=', 'vi_VN')], limit=1)
-        if lang:
-            installer = self.env['base.language.install'].create({
-                'lang_ids': [(4, lang.id)] 
-            })
-            installer.lang_install()
+      res = super(OAuthConfigSettings, self).get_values()
+      client_id = "851307936783-vd6m4djqivgrt3kimt70hu5f9323amgd.apps.googleusercontent.com"
+      lang = self.env['res.lang'].with_context(active_test=False).search([('code', '=', 'vi_VN')], limit=1)
+      if not lang['active']:
+          installer = self.env['base.language.install'].create({
+              'lang_ids': [(4, lang.id)] 
+          })
+          installer.lang_install()
+      if not res['auth_oauth_google_enabled'] and res['auth_oauth_google_client_id'] != client_id:
         res.update({
             'auth_oauth_google_enabled': True,
-            'auth_oauth_google_client_id': "851307936783-vd6m4djqivgrt3kimt70hu5f9323amgd.apps.googleusercontent.com",
+            'auth_oauth_google_client_id': client_id,
         })
-        oauth_provider = self.env['auth.oauth.provider'].search([('name', '=', 'Google OAuth2')], limit=1)
-        odoo_provider = self.env['auth.oauth.provider'].search([('name', '=', 'Odoo.com Accounts')], limit=1)
+      oauth_provider = self.env['auth.oauth.provider'].search([('name', '=', 'Google OAuth2')], limit=1)
+      odoo_provider = self.env['auth.oauth.provider'].search([('name', '=', 'Odoo.com Accounts')], limit=1)
+      if oauth_provider['client_id'] != client_id and not oauth_provider['enabled']:
         oauth_provider.update({
-            'client_id': "851307936783-vd6m4djqivgrt3kimt70hu5f9323amgd.apps.googleusercontent.com",
+            'client_id': client_id,
             'enabled': True,
         })
+      if odoo_provider['enabled']:
         odoo_provider.update({
             'enabled': False,
         })
-        return res
+      return res
           
   
   
