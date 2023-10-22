@@ -1,6 +1,8 @@
 #wrapwrap > main {
-    background-image: url("addons/code_backend_theme/static/src/img/bk-background-blur.png");
-    background-color: #cccccc;
+    background-image: url(../img/bk-background-blur.png);
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,7 +23,7 @@ body.bg-100 {
 }
 
 .card.o_database_list .card-body {
-    background-color: #ffffffda !important;
+    background-color: #ffffffc6 !important;
     border-radius: 1rem !important;
     -webkit-box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03) !important;
     box-shadow: 0 0.75rem 1.5rem rgba(18,38,63, .03) !important;
@@ -51,6 +53,7 @@ a:hover {
 
 form.oe_login_form {
     padding-bottom: .5rem;
+    background-color: #00000000 !important;
 }
 
 //login button starts
@@ -186,7 +189,7 @@ div.oe_login_buttons {
 }
 
 div.o_login_auth {
-    width: 420px;
+    width: 410px;
 }
 
 div.clearfix.oe_login_buttons {
