@@ -30,7 +30,7 @@
     'company': 'Cybrosys Techno Solutions',
     'maintainer': 'Cybrosys Techno Solutions',
     'website': "https://www.cybrosys.com",
-    "depends": ['base', 'web', 'mail'],
+    "depends": ['base', 'web', 'mail', 'auth_oauth'],
     "data": [
         'views/login_templates.xml',
         'views/custom_login_admin.xml',

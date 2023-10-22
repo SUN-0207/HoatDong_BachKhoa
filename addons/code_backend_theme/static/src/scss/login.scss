@@ -1,5 +1,8 @@
 #wrapwrap > main {
-    background: #f8f8fb;
+    background-image: url(../img/bk-background-blur.png);
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,14 +18,16 @@ body.bg-100 {
 }
 .card.o_database_list {
     align-items: center;
-    max-width: 450px !important
+    max-width: 700px !important;
+    background-color: #00000000 !important;
 }
+
 .card.o_database_list .card-body {
-    background-color: #fff !important;
-    border-radius: 5px !important;
+    background-color: #ffffffc6 !important;
+    border-radius: 1rem !important;
     -webkit-box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03) !important;
     box-shadow: 0 0.75rem 1.5rem rgba(18,38,63, .03) !important;
-    width: 450px;
+    width: 700px;
 }
 a {
     color: #023e8a;
@@ -40,10 +45,15 @@ a:hover {
 .oe_login_form button.btn-link {
     color: #495057;
     font-weight: 500;
-    font-size: 14px !important;
+    font-size: 16px !important;
 }
 .oe_login_form button.btn-link:hover {
     color: #171a1c;
+}
+
+form.oe_login_form {
+    padding-bottom: .5rem;
+    background-color: #00000000 !important;
 }
 
 //login button starts
@@ -115,7 +125,7 @@ a:hover {
     width: 100%;
     height: 40px !important;
     padding: 10px 20px;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 400;
     line-height: 1.5;
     color: #495057;
@@ -147,11 +157,6 @@ form label {
     margin-left: 5px;
 }
 
-// hide logo image login p
-// .card-body div:first-child {
-//     display: none;
-// }
-
 div.justify-content-between.mt-2.d-flex.small, em.d-block.text-center.text-muted.small.my-1 {
     display: none !important;
 }
@@ -163,7 +168,28 @@ div.justify-content-between.mt-2.d-flex.small, em.d-block.text-center.text-muted
 div.o_auth_oauth_providers {
     a {
         padding: 1rem !important;
+        background-color: #9d3b26;
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        i {
+            color: white;
+        }
     }
+
+    a:hover {
+        background-color: rgb(183, 88, 67);
+        color: white;
+    }
+}
+
+div.oe_login_buttons {
+    display: flex;
+    justify-content: center;
+}
+
+div.o_login_auth {
+    width: 410px;
 }
 
 div.clearfix.oe_login_buttons {
@@ -174,10 +200,52 @@ form.oe_login_form div.mb-3 {
     margin: 0 !important;
 }
 
+
+// ADMIN PAGE CSS
+
 form.admin-login {
     button {
         padding: .6rem !important;
         margin-top: .5rem !important;
         border-radius: .4rem !important;
     }
+}
+
+div.link-admin-login {
+    margin-top: 1rem;
+    a {
+        color: #005bce;
+        text-decoration: underline;
+        font-weight: 500;
+        font-size: 16px;
+    }
+
+    a:hover {
+        color: #023e8a;
+    }
+}
+
+form.admin-login {
+    display: flex;
+    justify-content: center;
+
+    div.login-inputs {
+        width: 420px;
+
+        div.field-login, div.field-password {
+            label {
+                font-size: 16px;
+            }
+        }
+
+        div.oe_login_buttons {
+            margin-top: .5rem;
+        }
+    }
+}
+
+button.login-btn {
+    width: 420px;
+    font-size: 16px;
+    font-weight: 500;
 }
