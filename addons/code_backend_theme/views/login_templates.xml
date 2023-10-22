@@ -37,11 +37,11 @@
             <attribute name="style">display: none;</attribute>
         </xpath>
 
-        <xpath expr="//button[contains(text(), 'Log in as superuser')]" position="replace">
+        <!-- <xpath expr="//button[contains(text(), 'Log in as superuser')]" position="replace">
             <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-sm" style="display: none;">
                 Log in as superuser
             </button>
-        </xpath>
+        </xpath> -->
 
         <xpath expr="//div[@class='o_login_auth']" position="inside">
             
