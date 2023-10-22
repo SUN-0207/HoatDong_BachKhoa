@@ -44,7 +44,7 @@
         </xpath>
 
         <xpath expr="//div[@class='o_login_auth']" position="inside">
-            <div class="o_auth_oauth_providers"></div>
+            
             <div class="link-admin-login">
                 <a href="/web/login/admin">Đăng nhập với tài khoản Quản trị</a>
             </div>
