@@ -33,18 +33,18 @@
             <!-- Hide password input field -->
         </xpath>        
 
-        <xpath expr="//button[text()='Log in']" position="attributes">
+        <xpath expr="//button[@class='btn btn-primary']" position="attributes">
             <attribute name="style">display: none;</attribute>
         </xpath>
 
-        <xpath expr="//button[contains(text(), 'Log in as superuser')]" position="replace">
+        <!-- <xpath expr="//button[contains(text(), 'Log in as superuser')]" position="replace">
             <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-sm" style="display: none;">
                 Log in as superuser
             </button>
-        </xpath>
+        </xpath> -->
 
         <xpath expr="//div[@class='o_login_auth']" position="inside">
-            <div class="o_auth_oauth_providers"></div>
+            
             <div class="link-admin-login">
                 <a href="/web/login/admin">Đăng nhập với tài khoản Quản trị</a>
             </div>
