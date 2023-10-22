@@ -181,6 +181,11 @@ div.o_auth_oauth_providers {
         background-color: rgb(183, 88, 67);
         color: white;
     }
+
+    a:focus {
+        background-color: #9d3b26;
+        color: white;
+    }
 }
 
 div.oe_login_buttons {
@@ -189,7 +194,7 @@ div.oe_login_buttons {
 }
 
 div.o_login_auth {
-    width: 410px;
+    width: 360px;
 }
 
 div.clearfix.oe_login_buttons {
