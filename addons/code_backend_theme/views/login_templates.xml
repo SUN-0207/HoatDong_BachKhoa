@@ -33,11 +33,11 @@
             <!-- Hide password input field -->
         </xpath>        
 
-        <xpath expr="//button[text()='Log in']" position="attributes">
+        <xpath expr="//button[@class='btn btn-primary']" position="attributes">
             <attribute name="style">display: none;</attribute>
         </xpath>
 
-        <xpath expr="//button[@class='btn btn-primary']" position="attributes">
+        <xpath expr="//button[contains(text(), 'Log in as superuser')]" position="replace">
             <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-sm" style="display: none;">
                 Log in as superuser
             </button>
