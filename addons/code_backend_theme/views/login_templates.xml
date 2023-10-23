@@ -5,11 +5,8 @@
 
         <xpath expr="//div[@class='card-body']//div[1]" position="replace">
             <div class="login_img">
-                <img src="/code_backend_theme/static/src/img/LOGIN_IMG.png" style="width:100%; border-radius:.5rem;"/>
+                <img src="/code_backend_theme/static/src/img/login_head.png" style="width:100%; border-radius:.5rem;"/>
             </div>
-            <!-- <div>
-                <span>Sinh viên đăng nhập hệ thống bằng tài khoản mail hcmut</span>
-            </div> -->
         </xpath>
 
         <xpath expr="//div[@class='card-body']//div[last()]" position="replace">
@@ -36,15 +33,23 @@
             <!-- Hide password input field -->
         </xpath>        
 
-        <xpath expr="//button[text()='Log in']" position="attributes">
+        <xpath expr="//button[@class='btn btn-primary']" position="attributes">
             <attribute name="style">display: none;</attribute>
         </xpath>
 
-        <xpath expr="//button[contains(text(), 'Log in as superuser')]" position="replace">
+        <!-- <xpath expr="//button[contains(text(), 'Log in as superuser')]" position="replace">
             <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-sm" style="display: none;">
                 Log in as superuser
             </button>
+        </xpath> -->
+
+        <xpath expr="//div[@class='o_login_auth']" position="inside">
+            
+            <div class="link-admin-login">
+                <a href="/web/login/admin">Đăng nhập với tài khoản Quản trị</a>
+            </div>
         </xpath>
+
 
     </template>
 </odoo>
