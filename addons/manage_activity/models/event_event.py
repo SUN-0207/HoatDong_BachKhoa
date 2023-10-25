@@ -31,12 +31,6 @@ class EventEvent(models.Model):
  
   date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
   date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
-  #Chuan bi lam template (de cho 1 so cai nhu drl vs ctxh) => auto duyet?
-  max_social_point = fields.Integer(string="Số ngày CTXH tối đa")
-  max_tranning_point = fields.Integer(string="ĐRL toi da")
-
-  date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
-  date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
   max_social_point = fields.Char(string="Số ngày CTXH tối đa")
   max_tranning_point = fields.Integer(string="DRL toi da")
 
