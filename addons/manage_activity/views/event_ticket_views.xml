@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+    <!-- EVENT.TICKET -->
+    <record id="event_event_ticket_view_tree_from_event_inherit_department" model="ir.ui.view">
+        <field name="name">event.event.ticket.view.tree.from.event.inherit.department</field>
+        <field name="model">event.event.ticket</field>
+        <field name="priority" eval="20"/>
+        <field name="inherit_id" ref="event.event_event_ticket_view_tree_from_event"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="replace">
+                <tree string="Tickets" editable="bottom">
+                    <field name="name" invisible="1"/>
+                    <field name="description" optional="hide" invisible="1"/>
+                    <field name="start_sale_datetime" optional="show" invisible="1"/>
+                    <field name="end_sale_datetime" optional="show" invisible="1"/>
+                    <field name="event_department_id" />
+                    <field name="seats_max" sum="Total" width="105px" string="Maximum"/>
+                    <field name="seats_reserved" sum="Total" width="105px" string="Confirmed"/>
+                    <field name="seats_unconfirmed" sum="Total" width="110px" string="Unconfirmed"/>
+                </tree>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="event_event_ticket_view_tree_from_event_inherit_year" model="ir.ui.view">
+        <field name="name">event.event.ticket.view.tree.from.event.inherit.year</field>
+        <field name="model">event.event.ticket</field>
+        <field name="priority" eval="20"/>
+        <field name="inherit_id" ref="event.event_event_ticket_view_tree_from_event"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="replace">
+                <tree string="Tickets" editable="bottom">
+                    <field name="name" invisible="1"/>
+                    <field name="description" optional="hide" invisible="1"/>
+                    <field name="start_sale_datetime" optional="show" invisible="1"/>
+                    <field name="end_sale_datetime" optional="show" invisible="1"/>
+                    <field name="event_info_academy_year" />
+                    <field name="seats_max" sum="Total" width="105px" string="Maximum"/>
+                    <field name="seats_reserved" sum="Total" width="105px" string="Confirmed"/>
+                    <field name="seats_unconfirmed" sum="Total" width="110px" string="Unconfirmed"/>
+                </tree>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="event_event_ticket_view_tree_from_event_inherit_major" model="ir.ui.view">
+        <field name="name">event.event.ticket.view.tree.from.event.inherit.major</field>
+        <field name="model">event.event.ticket</field>
+        <field name="priority" eval="20"/>
+        <field name="inherit_id" ref="event.event_event_ticket_view_tree_from_event"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="replace">
+                <tree string="Tickets" editable="bottom">
+                    <field name="name" invisible="1"/>
+                    <field name="description" optional="hide" invisible="1"/>
+                    <field name="start_sale_datetime" optional="show" invisible="1"/>
+                    <field name="end_sale_datetime" optional="show" invisible="1"/>
+                    <field name="event_info_major_id" />
+                    <field name="seats_max" sum="Total" width="105px" string="Maximum"/>
+                    <field name="seats_reserved" sum="Total" width="105px" string="Confirmed"/>
+                    <field name="seats_unconfirmed" sum="Total" width="110px" string="Unconfirmed"/>
+                </tree>
+            </xpath>
+        </field>
+    </record>
+    <!-- <record id="event_event_ticket_view_form_from_event" model="ir.ui.view">
+        <field name="name">event.event.ticket.view.form.from.event</field>
+        <field name="model">event.event.ticket</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <form string="Ticket">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="start_sale_datetime"/>
+                            <field name="end_sale_datetime"/>
+                        </group><group>
+                            <field name="seats_max"/>
+                            <field name="seats_reserved"/>
+                            <field name="seats_unconfirmed"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record> -->
+
+</data></odoo>

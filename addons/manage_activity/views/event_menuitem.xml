@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<odoo><data>
 
   <!-- MAIN MENU -->
   <record model="ir.ui.menu" id="event.event_main_menu">
@@ -11,4 +11,9 @@
     <field name='name'>Quản lý Hoạt động</field>
   </record>
 
-</odoo>
+  <record model="ir.ui.menu" id="event.menu_event_type">
+    <field name='name'>Nhóm hoạt động</field>
+  </record>
+
+
+</data></odoo>

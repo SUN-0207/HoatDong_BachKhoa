@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<odoo><data>
+
+    <!-- EVENT.TYPE VIEWS -->
+    <record model="ir.ui.view" id="view_event_type_form">
+        <field name="name">event.type.view.form.inherit</field>
+        <!-- <field name="name">event.type.view.form.inherit.website</field> -->
+        <field name="model">event.type</field>
+        <field name="inherit_id" ref="event.view_event_type_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="replace">
+            <form string="Nhóm hoạt động">
+               <sheet>
+                    <div class="oe_title" name="event_type_title">
+                        <label for="name" string="Nhóm hoạt động"/>
+                        <h1><field name="name" placeholder="Tên nhóm hoạt động" class="mb-2"/></h1>
+                    </div>
+
+                   <group>
+                       <group>
+                        <field name="max_social_working_day"/>
+                        <field name="max_training_point"/>
+                       </group>
+
+                       <group>
+                        <label for="has_seats_limitation" string="Số lượng sinh viên đăng ký tối đa"/>
+                        <div>
+                           <field name="has_seats_limitation"/>
+                           <span attrs="{'invisible': [('has_seats_limitation', '=', False)], 'required': [('has_seats_limitation', '=', False)]}">
+                               <field name="seats_max" class="oe_inline o_input_9ch"/>
+                               sinh viên
+                           </span>
+                        </div>
+
+                        <label for="auto_confirm" string="Duyệt tự động"/>
+                        <field name="auto_confirm" nolabel="1"/>
+                        </group>
+
+                       <group>
+                        <field name="limited_registration"/>
+                        <field name="max_event_registration" attrs="{'invisible': [('limited_registration', '!=', 'limited')]}"/>
+                       </group>
+
+                   </group>
+                </sheet>
+            </form>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="event_type_view_search" model="ir.ui.view">
+        <field name="name">event.type.search</field>
+        <field name="model">event.type</field>
+        <field name="arch" type="xml">
+            <search string="Nhóm hoạt động">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_event_type">
+        <field name="name">Nhóm hoạt động</field>
+        <field name="res_model">event.type</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create an Event Template
+            </p><p>
+                Event Templates combine configurations you use often and are
+                usually based on the types of events you organize (e.g. "Workshop",
+                "Roadshow", "Online Webinar", etc).
+            </p>
+        </field>
+    </record>
+</data></odoo>

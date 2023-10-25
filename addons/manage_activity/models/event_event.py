@@ -1,44 +1,177 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+from datetime import datetime, timedelta
 class EventEvent(models.Model):
-  _inherit = 'event.event'
+  _name = 'event.event'
+  _inherit = [
+        'event.event',
+        'website.published.multi.mixin',
+        'website.cover_properties.mixin',
+        'website.searchable.mixin',
+    ]
   
+  status_activity = fields.Selection(string="Tình trạng hoạt động",
+    selection=[
+      ('new', 'Mới'),
+      ('open_registration', 'Mở đăng ký'),
+      ('close_registration', 'Đóng đăng ký'),
+      ('inprogress', 'Đang diễn ra'),
+      ('completed', 'Đã kết thúc')],
+
+    copy=False,
+    default='new',
+    store=True,
+    tracking=True, 
+  )
+
   user_id = fields.Many2one('res.users', string='User', readonly=True)
-  activity_manager =  fields.Many2many('user.department.admin', string='Giam sat')
-  created_by_name = fields.Char(string="Hoat dong duoc tao boi ", store=True, default = lambda self: self.env.user.name)
-  
-  #Kanban (cai tron tron goc phai tren)
-  # kanban_state = fields.Selection([('normal', 'In Progress'), ('done', 'Done'), ('blocked', 'Blocked')], default='normal', copy=False)
-  # kanban_state_label = fields.Char(
-  #       string='Kanban State Label', compute='_compute_kanban_state_label',
-  #       store=True, tracking=True)
+  created_by_name = fields.Char(string="Hoạt động được tạo bởi ", store=True, default = lambda self: self.env.user.name)
+  activity_manager =  fields.Many2many('user.department.admin', string='Giám sát')
+  department_response = fields.Many2one('user.info.department' )
+ 
+  date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
+  date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
+  #Chuan bi lam template (de cho 1 so cai nhu drl vs ctxh) => auto duyet?
+  max_social_point = fields.Integer(string="Số ngày CTXH tối đa")
+  max_tranning_point = fields.Integer(string="ĐRL toi da")
 
   date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
   date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
-  #Chuan bi lam template (de cho 1 so cai nhu drl vs ctxh)
   max_social_point = fields.Char(string="Số ngày CTXH tối đa")
   max_tranning_point = fields.Integer(string="DRL toi da")
 
   description = fields.Text(string="Nội dung hoạt động", widget="html" )
   attach_file = fields.Many2many('ir.attachment', string='Attachments', widget='many2many_binary')
 
-  is_for_all_students = fields.Boolean(string="Danh cho toan bo sinh vien", default=True)
-  is_maximize_department = fields.Boolean(string="Gioi han don vi tham gia", default=False)
-  is_maximize_major = fields.Boolean(string="Gioi han chuyen nganh tham gia", default=False)
-  is_maximize_year = fields.Boolean(string="Gioi han khoa tham gia", default=False)
+  is_for_all_students = fields.Boolean(string="Dành cho toàn bộ sinh viên", default=True)
+  is_maximize_department = fields.Boolean(string="Giới hạn đơn vị tham gia", default=False)
+  is_maximize_major = fields.Boolean(string="Giới hạn chuyên ngành tham gia", default=False)
+  is_maximize_year = fields.Boolean(string="Giới hạn khoá tham gia", default=False)
   department_can_register = fields.Many2many('user.info.department', string='Department', default=False)
   major_can_register = fields.Many2many('user.info.major', string='Major')
   year_can_register = fields.Many2many('user.info.year', string='Years')
 
+  @api.model
+  def default_get(self, fields_list):
+        result = super().default_get(fields_list)
+        if 'date_begin_registration' in fields_list and 'date_begin_registration' not in result:
+            now = fields.Datetime.now()
+            # Round the datetime to the nearest half hour (e.g. 08:17 => 08:30 and 08:37 => 09:00)
+            result['date_begin_registration'] = now.replace(second=0, microsecond=0) + timedelta(minutes=-now.minute % 30)
+        if 'date_end_registration' in fields_list and 'date_end_registration' not in result and result.get('date_begin_registration'):
+            result['date_end_registration'] = result['date_begin_registration'] + timedelta(days=1)
+        return result
+
+  @api.model
+  def create(self, vals):
+    if not vals:
+        vals = {}
+    if 'event_type_id' not in vals:
+      vals['stage_id'] = 6
+    else:
+      if vals['event_type_id'] == 3:
+        vals['stage_id'] = 8
+    return super(EventEvent, self).create(vals)
+
+
+  def write(self, vals):
+    self.ensure_one()
+    if 'event_type_id' in vals and vals['event_type_id'] == 3:
+      vals['stage_id'] = 8
+    if 'stage_id' in vals and vals['stage_id'] == 8:
+      vals['is_published'] = True
+    else:
+      vals['is_published'] = False
+    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', vals)
+    return super(EventEvent, self).write(vals)
+
+  def see_info(self):
+    self.ensure_one()
+    return{
+        'name': 'Thông tin hoạt động',
+        'type': 'ir.actions.act_window',
+        'view_mode': 'form',
+        'res_model': 'event.event',
+        'view_id': False,
+        'res_id': self.id,
+        'target': 'new',
+    }
+        
+  def confirm_event(self):
+    self.ensure_one()
+    self.write({'stage_id': 8})
+    return self.notify_success()
+
+  def refuse_event(self):
+    self.ensure_one()
+    self.write({'stage_id': 9})
+    return self.notify_success()
+
+  def notify_success(self):
+    return {
+        'type': 'ir.actions.client',
+        'tag': 'display_notification',
+        'params': {
+            'title': 'Thành công',
+            'message': 'Thao tác của bạn đã được lưu',
+            'type': 'success',  # types: success, warning, danger, info
+            'sticky': False,  # True/False will display for a few seconds if False
+            'next': {'type': 'ir.actions.act_window_close'},
+        },
+    }
+    
+  def action_change_status_new(self):
+    self.write({'status_activity': 'new'})
+    return self.notify_success()
+
+  def action_change_status_open_registration(self):
+        self.write({'status_activity': 'open_registration'})
+        return self.notify_success()
+
+  def action_change_status_close_registration(self):
+      self.write({'status_activity': 'close_registration'})
+      return self.notify_success()
+
+  def action_change_status_inprogress(self):
+        self.write({'status_activity': 'inprogress'})
+        return self.notify_success()
+  def action_change_status_completed(self):
+      self.write({'status_activity': 'completed'})
+      return self.notify_success()
+
+  @api.depends('date_begin_registration', 'date_end_registration', 'date_begin', 'date_end')
+  def _compute_status_activity(self):
+        current_datetime = fields.Datetime.now()
+        for event in self:
+            if current_datetime < event.date_begin_registration:
+                event.status_activity = 'new'
+            elif event.date_begin_registration <= current_datetime <= event.date_end_registration:
+                event.status_activity = 'open_registration'
+            elif event.date_end_registration < current_datetime < event.date_begin:
+                event.status_activity = 'close_registration'
+            elif event.date_begin <= current_datetime <= event.date_end:
+                event.status_activity = 'inprogress'
+            elif current_datetime > event.date_end:
+                event.status_activity = 'completed'
+
   @api.constrains('date_begin_registration', 'date_end_registration', 'date_begin', 'date_end')
   def _check_dates(self):
+        current_date = datetime.today()
         for activity in self:
             if activity.date_begin_registration >= activity.date_end_registration:
-                raise ValidationError('Ngay ket thuc dang ky phai sau ngay dang ky')
+                raise ValidationError('Ngày kết thúc đăng ký phải sau ngày đăng ký')
             if activity.date_begin >= activity.date_end:
-                raise ValidationError('Ngay ket thuc phai sau ngay bat dau')
+                raise ValidationError('Ngày kết thúc phải sau ngày bắt đầu')
             if activity.date_begin_registration >= activity.date_end:
-                raise ValidationError('Ngay bat dau dang ky phai truoc ngay ket thuc')
+                raise ValidationError('Ngày bắt đầu đăng ký phải trước ngày kết thúc')
+            if activity.date_begin < current_date:
+              raise ValidationError('Ngày bắt đầu phải từ ngày hôm nay trở đi')
+            if activity.date_end < current_date:
+              raise ValidationError('Ngày kết thúc phải từ ngày hôm nay trở đi')
+            if activity.date_begin_registration < current_date:
+              raise ValidationError('Ngày bắt đầu đăng ký phải từ ngày hôm nay trở đi')
+            if activity.date_end_registration < current_date:
+              raise ValidationError('Ngày kết thúc đăng ký phải từ ngày hôm nay trở đi')
 
   @api.onchange('is_for_all_students','is_maximize_department')
   def _change_checkbox(self):
@@ -50,13 +183,13 @@ class EventEvent(models.Model):
       if record.is_maximize_department == False:
         if record.is_maximize_major == True:
           record.is_maximize_major = False
-      
 
 class ResUsers(models.Model):
   _inherit = ['res.users']
 
 class UserDepartmentAdmin(models.Model):
   _inherit = ['user.department.admin']
+
 class ActivityDepartment(models.Model):
   name = 'activity.department'
   _inherit = 'user.info.department'

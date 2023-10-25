@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="event_event_kanban_inherit" model="ir.ui.view">
+            <field name="name">event.event.kanban.inherit</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_kanban" />
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="replace">
+                    <!-- Replace the entire kanban view -->
+                    <kanban default_group_by="stage_id" archivable="False" group_edit='False' group_create='False' group_delete='False' quick_create='false'>     
+                        <field name="activity_ids" widget="kanban_activity" ></field>
+                        <field name="user_id"/>
+                        <field name="name"/>
+                        <field name="stage_id" options='{"group_by_tooltip": {"description": "Description"}}' />
+                        <field name="department_can_register"/>
+                        <field name="date_begin_registration"/>
+                        <field name="date_end_registration"/>
+                        <field name="date_begin"/>
+                        <field name="date_end"/>
+                        <field name="activity_ids"/>
+                        <field name="activity_state"/>
+                        <field name="status_activity"/>
+                        <field name="max_social_point"/>
+                        <field name="max_tranning_point"/>
+                        <field name="description"/>
+                        <field name="attach_file"/>
+                        <field name="is_for_all_students"/>
+                        <field name="is_maximize_department"/>
+                        <field name="is_maximize_major"/>
+                        <field name="is_maximize_year"/>
+                        <field name="department_can_register"/>
+                        <field name="major_can_register"/>
+                        <field name="year_can_register"/>
+                        <templates>
+                            <t t-name="kanban-box">
+                                <div t-attf-class="d-flex flex-column p-0 oe_kanban_card ">
+                                    <div class="row">
+                                        <div class="col-8 py-1 px-5 d-flex flex-column justify-content-center pt-3">
+                                            <div class="o_kanban_record_title o_text_overflow" t-att-title="record.name.value">
+                                                <h2><field class="fs-3" readonly="True" name="name" widget="text"/></h2>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 px-4 text-center d-flex flex-column justify-content-center ">
+                                            <span class="fs-6 text-white badge rounded-pill"
+                                                t-att-class="{
+                                                    'bg-info': record.status_activity.value === 'Mới',
+                                                    'bg-success': record.status_activity.value === 'Mở đăng ký',
+                                                    'bg-warning': record.status_activity.value === 'Đóng đăng ký',
+                                                    'bg-success': record.status_activity.value === 'Đang diễn ra',
+                                                    'bg-secondary': record.status_activity.value === 'Đã kết thúc',
+                                                }">
+                                                <t t-esc="record.status_activity.value"/>
+                                            </span>                        
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 py-1 px-5 d-flex flex-column justify-content-center pt-3">
+                                            <label for="department_response" ><strong>Hoạt động của đơn vị: </strong>
+                                                <field name="department_response"/>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 py-1 px-5 d-flex flex-column justify-content-center pt-3">
+                                            <label for="event_type_id" ><strong>Nhóm hoạt động:</strong>
+                                                <field name="event_type_id"/>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="py-1 px-5 flex-row justify-content-center ">
+                                            <strong>Đăng ký: </strong>
+                                            <t t-esc="luxon.DateTime.fromISO(record.date_begin_registration.raw_value).toFormat('HH:mm')"/>
+                                            <span> - </span>
+                                            <t t-esc="luxon.DateTime.fromISO(record.date_begin_registration.raw_value).toFormat('dd/MM/yyyy')"/>
+                                            <span>  </span>
+                                            <i class="fa fa-arrow-right o_event_fontsize_09" />
+                                            <span>  </span>
+                                            <t t-esc="luxon.DateTime.fromISO(record.date_end_registration.raw_value).toFormat('HH:mm')"/>
+                                            <span> - </span>
+                                            <t t-esc="luxon.DateTime.fromISO(record.date_end_registration.raw_value).toFormat('dd/MM/yyyy')"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="py-1 px-5 flex-row justify-content-center ">
+                                            <strong>Diễn ra:  </strong>
+                                            <t t-esc="luxon.DateTime.fromISO(record.date_begin.raw_value).toFormat('HH:mm')"/>
+                                            <span> - </span>
+                                            <t t-esc="luxon.DateTime.fromISO(record.date_begin.raw_value).toFormat('dd/MM/yyyy')"/>
+                                            <span>  </span>
+                                            <i class="fa fa-arrow-right o_event_fontsize_09" />
+                                            <span>  </span>
+                                            <t t-esc="luxon.DateTime.fromISO(record.date_end.raw_value).toFormat('HH:mm')"/>
+                                            <span> - </span>
+                                            <t t-esc="luxon.DateTime.fromISO(record.date_end.raw_value).toFormat('dd/MM/yyyy')"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 py-1 px-5 flex-row justify-content-center ">
+                                            <label for="max_social_point" ><strong>Số ngày CTXH tối đa: </strong>
+                                                <field name="max_social_point"/>
+                                            </label>            
+                                        </div>
+                                         <div class="col-6 py-1 px-5 flex-row justify-content-center ">
+                                             <label for="max_tranning_point" ><strong>DRL tối đa: </strong>
+                                                <field name="max_tranning_point"/>
+                                            </label>            
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 py-1 px-5 flex-row justify-content-center">
+                                            <label><strong>Ý nghĩa hoạt động: </strong> 
+                                                <field name="tag_ids" widget="many2many_tags"></field>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 py-1 px-5 flex-row justify-content-center">
+                                            <span><strong>Đối tượng tham gia: </strong></span>
+                                                <t t-if="record.is_for_all_students.raw_value === false">
+                                                    <br></br>
+                                                </t >
+                                                <span t-if="record.is_for_all_students.raw_value === true" >
+                                                    Dành cho toàn bộ sinh viên
+                                                </span>    
+                                                <span t-if="record.is_maximize_department.raw_value === true" >
+                                                - Dành cho sinh viên các đơn vị
+                                                <field name="department_can_register" widget="many2many_tags"></field>
+                                            </span> 
+                                                <span t-if="record.is_maximize_major.raw_value === true" >
+                                                - Dành cho sinh viên các chuyên ngành
+                                               <field name="major_can_register" widget="many2many_tags"></field>
+                                                 </span> 
+                                                <span t-if="record.is_maximize_year.raw_value === true" >
+                                                    - Dành cho sinh viên các khóa
+                                                    <field name="year_can_register" widget="many2many_tags"></field>
+                                                </span>
+                                        </div>
+                                    </div>
+                                 
+                                    <div class="row">
+                                        <div class="col-12 py-1 px-5 flex-row justify-content-center ">
+                                            <hr />
+                                            <div class="d-grid gap-2 d-md-block">
+                                            <span class="col-1">Duyệt nhanh: </span>
+                                                <button name="confirm_event" type="object" class="col-3 btn btn-success" string="Đồng ý" confirm="Xác nhận đồng ý" attrs="{'invisible': [('stage_id','=',8)]}" />
+                                                <button name="refuse_event" type="object" class="col-3  btn btn-danger" string="Từ chối" confirm="Xác nhận từ chối" attrs="{'invisible': [('stage_id','=',9)]}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-end">
+                                        <div class="col-9 text-end">
+                                            <button name="see_info" type="object" class="btn btn-link" string="Xem thông tin đầy đủ"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </templates>
+                    </kanban>
+                </xpath>                               
+            </field>
+          </record>
+    </data>
+</odoo>
