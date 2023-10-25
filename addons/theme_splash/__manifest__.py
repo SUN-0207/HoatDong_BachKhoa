@@ -59,7 +59,6 @@
              ],
     'assets': {
       'web.assets_frontend': [
-            # 'theme_splash/static/src/css/website_customer_contact.css',
             'theme_splash/static/src/css/style.css',
             'theme_splash/static/src/css/font-awesome.min.css',
         ]
