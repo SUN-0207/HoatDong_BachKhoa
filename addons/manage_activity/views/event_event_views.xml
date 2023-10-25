@@ -115,27 +115,15 @@
                   </group> 
                 </group>
                   <notebook>
-                    <page string="Tickets" name="tickets" attrs="{'invisible': [('is_maximize_department', '=', False)]}" >
+                    <page string="Tickets" name="tickets" attrs="{'invisible': [('is_for_all_students', '=', True)]}" >
                       <field name="event_ticket_ids" context="{
                         'default_event_name': name,
-                        'tree_view_ref': 'event.event_event_ticket_view_tree_from_event_inherit_department',
+                        'tree_view_ref': 'event.event_event_ticket_view_tree_from_event',
                         'form_view_ref': 'event.event_event_ticket_view_form_from_event',
                         'kanban_view_ref': 'event.event_event_ticket_view_kanban_from_event'}" mode="tree,kanban"/>
                     </page>
-                    <page string="Tickets" name="tickets" attrs="{'invisible': [('is_maximize_major', '=', False)]}" >
-                      <field name="event_ticket_ids" context="{
-                        'default_event_name': name,
-                        'tree_view_ref': 'event.event_event_ticket_view_tree_from_event_inherit_major',
-                        'form_view_ref': 'event.event_event_ticket_view_form_from_event',
-                        'kanban_view_ref': 'event.event_event_ticket_view_kanban_from_event'}" mode="tree,kanban"/>
-                    </page>
-                    <page string="Tickets" name="tickets" attrs="{'invisible': [('is_maximize_year', '=', False)]}" >
-                      <field name="event_ticket_ids" context="{
-                        'default_event_name': name,
-                        'tree_view_ref': 'event.event_event_ticket_view_tree_from_event_inherit_year',
-                        'form_view_ref': 'event.event_event_ticket_view_form_from_event',
-                        'kanban_view_ref': 'event.event_event_ticket_view_kanban_from_event'}" mode="tree,kanban"/>
-                    </page>
+                  
+
                     <page string="Communication" name="event_communication" invisible="1">
                         <field name="event_mail_ids">
                             <tree string="Communication" editable="bottom">

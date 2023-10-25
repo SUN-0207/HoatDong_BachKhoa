@@ -144,8 +144,9 @@
                                             <hr />
                                             <div class="d-grid gap-2 d-md-block">
                                             <span class="col-1">Duyệt nhanh: </span>
-                                                <button name="confirm_event" type="object" class="col-3 btn btn-success" string="Đồng ý" confirm="Xác nhận đồng ý" attrs="{'invisible': [('stage_id','=',8)]}" />
-                                                <button name="refuse_event" type="object" class="col-3  btn btn-danger" string="Từ chối" confirm="Xác nhận từ chối" attrs="{'invisible': [('stage_id','=',9)]}"/>
+                                            <field name="stage_name" invisible="1" />
+                                                <button name="confirm_event" type="object" class="col-3 btn btn-success" string="Đồng ý" confirm="Xác nhận đồng ý" attrs="{'invisible': [('stage_name','=','Đã duyệt')]}" />
+                                                <button name="refuse_event" type="object" class="col-3  btn btn-danger" string="Từ chối" confirm="Xác nhận từ chối" attrs="{'invisible': [('stage_name','=', 'Đã huỷ')]}"/>
                                             </div>
                                         </div>
                                     </div>

@@ -9,7 +9,7 @@ class EventEvent(models.Model):
         'website.cover_properties.mixin',
         'website.searchable.mixin',
     ]
-  
+  stage_name = fields.Char(related='stage_id.name')
   status_activity = fields.Selection(string="Tình trạng hoạt động",
     selection=[
       ('new', 'Mới'),
@@ -66,23 +66,28 @@ class EventEvent(models.Model):
   def create(self, vals):
     if not vals:
         vals = {}
-    if 'event_type_id' not in vals:
-      vals['stage_id'] = 6
-    else:
-      if vals['event_type_id'] == 3:
-        vals['stage_id'] = 8
+    # Nay tu dong duyet hoat dong  if 'event_type_id' not in vals:
+    #   vals['stage_id'] = 6
+    #   #self.env['event.stage'].search([('name', '=', 'Chờ duyệt')]).id
+    # else:
+    #   if vals['event_type_id'] == 3:
+    #     vals['stage_id'] = 8
+    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Create event: ', vals)
     return super(EventEvent, self).create(vals)
 
 
   def write(self, vals):
     self.ensure_one()
-    if 'event_type_id' in vals and vals['event_type_id'] == 3:
-      vals['stage_id'] = 8
-    if 'stage_id' in vals and self.env['event.stage'].search([('id', '=', vals['stage_id'])]).name == 'Đã duyệt':
+    # Nay tu dong duyet hoat dong if 'event_type_id' in vals and vals['event_type_id'] == 3:
+    #   vals['stage_id'] = 8
+    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)
+    if self.stage_name == 'Bổ sung' and 'stage_id' not in vals :
+      vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Chờ duyệt')]).id
+    if self.stage_name == 'Đã duyệt' or ('stage_id' in vals and self.env['event.stage'].search([('id', '=', vals['stage_id'])]).name == 'Đã duyệt'):
       vals['is_published'] = True
     else:
       vals['is_published'] = False
-    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', vals)
+    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Update event: ', vals)
     return super(EventEvent, self).write(vals)
 
   def see_info(self):
