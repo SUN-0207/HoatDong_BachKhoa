@@ -78,7 +78,7 @@ class EventEvent(models.Model):
     self.ensure_one()
     if 'event_type_id' in vals and vals['event_type_id'] == 3:
       vals['stage_id'] = 8
-    if 'stage_id' in vals and vals['stage_id'] == 8:
+    if 'stage_id' in vals and self.env['event.stage'].search([('id', '=', vals['stage_id'])]).name == 'Đã duyệt':
       vals['is_published'] = True
     else:
       vals['is_published'] = False
