@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template id="custom_message" inherit_id="website.layout" name="Custom Header and Footer">
-<!--         Adds a custom header to a website by injecting HTML code into the main page. -->
-<!--         It includes a title, stylesheet links, and FontAwesome icons.-->
+        <!--         Adds a custom header to a website by injecting HTML code into the main page. -->
+        <!--         It includes a title, stylesheet links, and FontAwesome icons.-->
         <xpath expr="//div[@id='wrapwrap']/main" position="before">
             <html lang="en">
                 <head>
@@ -17,9 +17,9 @@
                 </head>
             </html>
         </xpath>
-<!--        Header-->
-                <xpath expr="//header" position="replace">
-            <header>
+        <!--        Header-->
+        <xpath expr="//header" position="replace">
+            <header t-if="not no_header">
                 <section class="navigation">
                     <!--Navbar-->
                     <div class="nav-wrapper">
@@ -88,20 +88,6 @@
                                         Contact Us
                                     </a>
                                 </div>
-                                <div>
-                                    <t t-call="website_sale.header_cart_link">
-                                        <t t-set="_icon" t-value="True"/>
-                                        <t t-set="_item_class" t-value="'nav-item mx-lg-3'"/>
-                                        <t t-set="_link_class" t-value="'nav-link'"/>
-                                    </t>
-                                </div>
-                                <div>
-                                    <t t-call="website_sale_wishlist.header_wishlist_link">
-                                        <t t-set="_icon" t-value="True"/>
-                                        <t t-set="_item_class" t-value="'nav-item mr-lg-3'"/>
-                                        <t t-set="_link_class" t-value="'nav-link'"/>
-                                    </t>
-                                </div>
                             </div>
                         </nav>
                     </div>
@@ -112,7 +98,7 @@
         <!--        This is a custom footer template for a website, with three sections for information on About Us,-->
         <!--        Contact Us, and Newsletter Subscription. It also includes social media icons and a copyright notice.-->
         <xpath expr="//footer" position="replace">
-            <footer class="footer ">
+            <footer class="footer " t-if="not no_footer">
                 <div class="container">
                     <div class="row">
                         <div class="col-12 col-lg-4 col-md-12 col-sm-12">

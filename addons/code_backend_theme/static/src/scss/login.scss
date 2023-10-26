@@ -1,4 +1,4 @@
-#wrapwrap > main {
+main:has(.is_custom_login_admin) {
     background-image: url(../img/bk-background-blur.png);
     background-color: #000;
     background-repeat: no-repeat;
@@ -7,9 +7,17 @@
     justify-content: center;
     align-items: center;
 }
-// .navbar {
-//     background: #fff !important;
-// }
+
+main:has(.o_database_list) {
+    background-image: url(../img/bk-background-blur.png);
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 body {
     font-family: 'Be Vietnam Pro', sans-serif !important;
 }

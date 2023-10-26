@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="manage_base_menu" name="Manage Information" web_icon="code_backend_theme,static/src/img/icons/apps.png"/>
+        <menuitem id="manage_base_menu" name="Quản lý Thông tin" web_icon="code_backend_theme,static/src/img/BK_logo.png"/>
+    </data>
+</odoo>

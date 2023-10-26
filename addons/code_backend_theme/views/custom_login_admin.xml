@@ -2,7 +2,11 @@
 <odoo>
         <template id="custom_login_admin" name="Admin Login">
             <t t-call="web.login_layout">
-                <form class="oe_login_form admin-login" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = '/web/login' + location.hash">
+                <xpath expr="//header" position="before">
+                    <t t-set="no_header" t-value="True"/>
+                    <t t-set="no_footer" t-value="True"/>
+                </xpath>
+                <form class="is_custom_login_admin oe_login_form admin-login" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = '/web/login' + location.hash">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                     <div id="wrap" class="login-inputs">
                         <div class="mb-3 field-login">
