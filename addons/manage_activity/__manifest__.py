@@ -28,6 +28,9 @@
        'web.assets_backend': [
             'manage_activity/static/src/scss/kanban.scss',
         ],
+        'web.assets_frontend': [
+            'manage_activity/static/src/js/custom_website_event.js',
+        ],
     },
     'license': 'LGPL-3',
     'installable': True,
