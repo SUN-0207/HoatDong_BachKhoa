@@ -31,12 +31,14 @@ class UserInfo(models.Model):
   birth_date = fields.Date(string="Ngày sinh")
   nation = fields.Char(string="Nation")
   personal_email = fields.Char(string="Email cá nhân")
-  religion = fields.Char(string="Tôn giáo")
+  religion = fields.Many2one('user.religion', string="Tôn giáo")
 
-  ethnicity = fields.Char(string='Dân tộc')
+  ethnicity = fields.Many2one('user.ethnicity', string='Dân tộc')
   national_id = fields.Char(string="Số CMND/CCCD")
   national_id_date = fields.Date(string="Ngày cấp")
-  national_id_place = fields.Selection(selection='_get_national_id_place_options', string='Nơi cấp')
+  # national_id_place = fields.Selection(selection='_get_national_id_place_options', string='Nơi cấp')
+  national_id_place = fields.Many2one('user.national.place', 'Nơi cấp')
+
 
   joined_communist_party = fields.Boolean(default=False, string="Đã kết nạp Đảng")
   re_date_communist_party= fields.Date(string="Ngày vào Đảng (dự bị)")

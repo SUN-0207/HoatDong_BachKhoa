@@ -6,3 +6,4 @@ from . import user_info_major
 from . import user_info_address
 from . import user_account
 from . import user_info_year
+from . import religion_ethnicity

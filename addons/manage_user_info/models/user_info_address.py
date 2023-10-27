@@ -1,5 +1,5 @@
 import requests
-from odoo import models, fields,api
+from odoo import models, fields, api
 
 import logging
 
@@ -85,4 +85,32 @@ class UserWardInfo(models.Model):
     
     _logger.info("Finished import_location_data function")
     print("Finished import_location_data function")
+
+# Noi cap CCCD/CMND
+class UserNationalPlace(models.Model):
+  _name = 'user.national.place'
+  _description = 'User National Info Registration Place'
   
+  name = fields.Char('Name', required=True)
+  codename = fields.Char('Codename', required=True)
+
+  @api.model
+  def init(self):
+    national_places = []
+    national_places.append({'name': 'Cục Cảnh sát quản lí hành chính về trật tự xã hội', 'codename':'ccs'})
+
+    provinces = self.env['user.province.info'].search([])
+    for province in provinces:
+      national_places.append({'name': province['name'], 'codename': province['codename']})
+
+    for place in national_places:
+      codename = place['codename']
+      existing_place = self.env['user.national.place'].search([('codename', '=', codename)], limit=1)
+      if not existing_place:
+        try:
+          self.env['user.national.place'].create({
+            'name': place['name'],
+            'codename': place['codename']
+          })
+        except Exception as e:
+          pass
