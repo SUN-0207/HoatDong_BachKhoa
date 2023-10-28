@@ -3,9 +3,12 @@
     width: 100% !important;
 }
 .o_kanban_renderer {
-    --KanbanRecord-width: 420px  !important;
+    --KanbanRecord-width: 415px  !important;
 }
 
 .o_kanban_record{
     padding-bottom: 15px  !important;
+}
+.badge.bg-light{
+    outline: #ffffff !important;
 }

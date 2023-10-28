@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//kanban" position="replace">
                     <!-- Replace the entire kanban view -->
-                    <kanban default_group_by="stage_id" archivable="False" group_edit='False' group_create='False' group_delete='False' quick_create='false'>     
+                    <kanban records_draggable="false" default_group_by="stage_id" archivable="False" group_edit='False' group_create='False' group_delete='False' quick_create='false'>     
                         <field name="activity_ids" widget="kanban_activity" ></field>
                         <field name="user_id"/>
                         <field name="name"/>
@@ -42,13 +42,13 @@
                                             </div>
                                         </div>
                                         <div class="col-4 px-4 text-center d-flex flex-column justify-content-center ">
-                                            <span class="fs-6 text-white badge rounded-pill"
+                                            <span class="fs-6 badge rounded-pill "
                                                 t-att-class="{
-                                                    'bg-info': record.status_activity.value === 'Mới',
-                                                    'bg-success': record.status_activity.value === 'Mở đăng ký',
-                                                    'bg-warning': record.status_activity.value === 'Đóng đăng ký',
-                                                    'bg-success': record.status_activity.value === 'Đang diễn ra',
-                                                    'bg-secondary': record.status_activity.value === 'Đã kết thúc',
+                                                    ' text-success bg-light border border-success ' : record.status_activity.value === 'Mới',
+                                                    ' text-light bg-info' : record.status_activity.value === 'Mở đăng ký',
+                                                    ' text-light bg-warning' : record.status_activity.value === 'Đóng đăng ký',
+                                                    ' text-light bg-success' : record.status_activity.value === 'Đang diễn ra',
+                                                    ' text-light bg-primary ': record.status_activity.value === 'Đã kết thúc',
                                                 }">
                                                 <t t-esc="record.status_activity.value"/>
                                             </span>                        
@@ -139,13 +139,18 @@
                                         </div>
                                     </div>
                                  
-                                    <div class="row">
+                                    <div class="row" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" >
                                         <div class="col-12 py-1 px-5 flex-row justify-content-center ">
                                             <hr />
                                             <div class="d-grid gap-2 d-md-block">
-                                            <span class="col-1">Duyệt nhanh: </span>
-                                                <button name="confirm_event" type="object" class="col-3 btn btn-success" string="Đồng ý" confirm="Xác nhận đồng ý" attrs="{'invisible': [('stage_id','=',8)]}" />
-                                                <button name="refuse_event" type="object" class="col-3  btn btn-danger" string="Từ chối" confirm="Xác nhận từ chối" attrs="{'invisible': [('stage_id','=',9)]}"/>
+                                            <span class="col-1"  >Duyệt nhanh: </span>
+                                            <field name="stage_name" invisible="1" />
+                                                <button name="confirm_event" type="object" class="col-3 btn btn-success" string="Đồng ý" confirm="Xác nhận đồng ý" 
+                                                    />
+                                                <button name="need_update_event" type="object" class="col-3  btn btn-warning" string="Bổ sung" confirm="Xác nhận bổ sung" 
+                                                    />
+                                                <button name="refuse_event" type="object" class="col-3  btn btn-danger" string="Từ chối" confirm="Xác nhận từ chối"
+                                                    />
                                             </div>
                                         </div>
                                     </div>

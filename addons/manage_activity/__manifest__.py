@@ -16,6 +16,8 @@
     "data": [
         'security/ir.model.access.csv',
         'data/event_data.xml',
+        'views/event_templates_attendee_detail.xml',
+        'views/event_templates_page_registration.xml',
         'views/event_type_views.xml',
         'views/event_ticket_views.xml',
         'views/event_event_kanban_custom.xml',
@@ -25,6 +27,9 @@
     'assets': {
        'web.assets_backend': [
             'manage_activity/static/src/scss/kanban.scss',
+        ],
+        'web.assets_frontend': [
+            'manage_activity/static/src/js/custom_website_event.js',
         ],
     },
     'license': 'LGPL-3',
