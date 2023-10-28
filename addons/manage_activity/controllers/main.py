@@ -18,13 +18,30 @@ from odoo.http import request
 from odoo.osv import expression
 from odoo.tools.misc import get_lang
 from odoo.tools import lazy
-from odoo.exceptions import UserError
-
+from odoo.exceptions import UserError, AccessError, MissingError 
 
 from odoo.addons.website_event.controllers.main import WebsiteEventController
 
 class WebsitEventCustomController(WebsiteEventController):
     
+    @http.route('/event/check_user_registration', type='json', auth='public')
+    def check_user_registration(self, event_id=None, partner_id=None):
+        if event_id and partner_id:
+            event = request.env['event.event'].sudo().browse(int(event_id))
+            partner = request.env['res.partner'].sudo().browse(int(partner_id))
+
+            if event and partner:
+                registration = request.env['event.registration'].sudo().search_count([
+                    ('event_id', '=', event.id),
+                    ('partner_id', '=', partner.id)
+                ])
+
+                is_registered = bool(registration)
+
+                return {'is_registered': is_registered}
+
+        return {'is_registered': False}
+        
     def _process_tickets_form_inherit(self, event, form_details):
         """ Process posted data about ticket order. Generic ticket are supported
         for event without tickets (generic registration).
@@ -37,18 +54,27 @@ class WebsitEventCustomController(WebsiteEventController):
         }, {...}]
         """
         ticket_order = {}
+        selected_ticket_id = None
+        print(form_details)
         for key, value in form_details.items():
             print("*********************** Key: ", key)
             print("*********************** Key: ", value)
             registration_items = key.split('nb_register-')
             if len(registration_items) != 2:
                 continue
-            ticket_order[int(registration_items[1])] = int(value)
+            ticket_id = int(registration_items[1])
+            if int(value) > 0:
+                selected_ticket_id = ticket_id
+            ticket_order[ticket_id] = int(value)
 
-        ticket_dict = dict((ticket.id, ticket) for ticket in request.env['event.event.ticket'].sudo().search([
-            ('id', 'in', [tid for tid in ticket_order.keys() if tid]),
-            ('event_id', '=', event.id)
-        ]))
+        ticket_dict = {}
+        if selected_ticket_id:
+            selected_ticket = request.env['event.event.ticket'].sudo().search([
+                ('id', '=', selected_ticket_id),
+                ('event_id', '=', event.id)
+            ])
+            if selected_ticket:
+                ticket_dict[selected_ticket.id] = selected_ticket
 
         return [{
             'id': tid if ticket_dict.get(tid) else 0,
@@ -60,17 +86,25 @@ class WebsitEventCustomController(WebsiteEventController):
     @http.route(['/event/<model("event.event"):event>/registration/new'], type='json', 
         auth="public", methods=['POST'], website=True)
     def registration_new(self, event, **post):
+        availability_check = True
+        # Check if the user has already registered for the event
+        user_registered = request.env['event.registration'].sudo().search_count([
+            ('event_id', '=', event.id),
+            ('partner_id', '=', request.env.user.partner_id.id)
+        ])
+        if user_registered:
+            availability_check = False
         #load data for form
         tickets = self._process_tickets_form_inherit(event, post)
-        # availability_check = True
-        # if event.seats_limited:
-        #     ordered_seats = 0
-        #     for ticket in tickets:
-        #         ordered_seats += ticket['quantity']
-        #     if event.seats_available < ordered_seats:
-        #         availability_check = False
-        # if not tickets:
-        #     return False
+        
+        if event.seats_limited:
+            ordered_seats = 0
+            for ticket in tickets:
+                ordered_seats += ticket['quantity']
+            if event.seats_available < ordered_seats:
+                availability_check = False
+        if not tickets:
+            return False
         
         #load data for form
         default_first_attendee = {}
@@ -81,18 +115,11 @@ class WebsitEventCustomController(WebsiteEventController):
                 "phone": request.env.user.user_info_id.phone_number,
                 "gender": request.env.user.user_info_id.gender 
             }
-        # else:
-        #     visitor = request.env['website.visitor']._get_visitor_from_request()
-        #     if visitor.email:
-        #         default_first_attendee = {
-        #             "name": visitor.name,
-        #             "email": visitor.email,
-        #             "phone": visitor.mobile,
-        #         }
+    
         return request.env['ir.ui.view']._render_template("website_event.registration_attendee_details", {
             'tickets': tickets,
             'event': event,
-            'availability_check': True,
+            'availability_check': availability_check,
             'default_first_attendee': default_first_attendee,
         })
     

@@ -59,7 +59,7 @@
                 </group>
                 <group string="Thong tin hoat dong">
                   <h3>Mô tả hoạt động </h3>
-                  <field name="description" widget="html" class="border-input"/>
+                  <field name="description" widget="text" class="border-input"/>
                   <group>
                     <field name="status_activity"/>
                     <label for="date_begin" string="Dang ky"/>

@@ -25,8 +25,6 @@ class EventEvent(models.Model):
     compute='_compute_status_activity'
   )
 
-  readonlyMode = fields.Boolean(default=False)
-
   user_id = fields.Many2one('res.users', string='User', readonly=True)
   created_by_name = fields.Char(string="Hoạt động được tạo bởi ", store=True, default = lambda self: self.env.user.name)
   activity_manager =  fields.Many2many('user.department.admin', string='Giám sát')
@@ -80,7 +78,7 @@ class EventEvent(models.Model):
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)
     #publish_event_website
     vals['is_published'] = False
-    if ('stage_id' in vals and self.env['event.stage'].search([('id', '=', vals['stage_id'])]).name == 'Đã duyệt'):
+    if ('stage_id' not in vals and self.stage_id.name == 'Đã duyệt') or ('stage_id' in vals and self.env['event.stage'].search([('id', '=', vals['stage_id'])]).name == 'Đã duyệt'):
       vals['is_published'] = True  
     
     #change_stage

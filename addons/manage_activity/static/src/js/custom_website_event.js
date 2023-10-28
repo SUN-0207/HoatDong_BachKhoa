@@ -2,8 +2,6 @@
 odoo.define('manage_activity.custom_website_event', function (require) {
     "use strict";
 
-    console.log('111XXX');
-
     var ajax = require('web.ajax');
     var core = require('web.core');
     var Widget = require('web.Widget');
@@ -11,11 +9,38 @@ odoo.define('manage_activity.custom_website_event', function (require) {
     var WebsiteEvent = require('website_event.website_event')
     var _t = core._t;
     
-    var inheritEventRegistrationForm = WebsiteEvent.include({
-        
-    })
+
     // Catch registration form event, because of JS for attendee details
     var inheritEventRegistrationForm = WebsiteEvent.include({
+        // start: function () {
+        //     var self = this;
+        //     var event_id = self.$('#registration_form').data('event-id');
+        //     var partner_id = self.$('#registration_form').data('partner-id');
+        //     console.log(this)
+        //     console.log(event_id)
+        //     console.log(partner_id)
+            // var res = this._super.apply(this, arguments).then(function () {
+            //     var $submitButton = self.$('#registration_form .a-submit');
+            //     var registrationPromise = self._rpc({
+            //         route: '/event/check_user_registration',
+            //         params: {
+            //             event_id: event_id,
+            //             partner_id: partner_id,
+            //         },
+            //     });
+        
+            //     return $.when(registrationPromise).then(function (result) {
+            //         if (result.is_registered) {
+            //             $submitButton.hide();
+            //         } else {
+            //             $submitButton.prop('disabled', false);
+            //         }
+            //     });
+            // });
+        
+            // return res;
+        // },
+
         events: _.extend({}, WebsiteEvent.prototype.events, {
             'click .registration_button': 'on_click',
         }),
@@ -53,7 +78,6 @@ odoo.define('manage_activity.custom_website_event', function (require) {
                 });
                 console.log('Form:', $modal);
             });
-
         },
     });
 
