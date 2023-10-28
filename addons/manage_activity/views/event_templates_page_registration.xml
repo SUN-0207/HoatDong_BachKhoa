@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
      <!-- Header -->
-    <template id="inherit_id_inherit" inherit_id="website_event.registration_template">
-       
+    <template id="inherit_id_inherit" inherit_id="website_event.registration_template">     
         <xpath expr="//div[@id='o_wevent_tickets_collapse']" position="replace">
             <div id="o_wevent_tickets_collapse" class="collapse show" >
                 <!-- 
@@ -123,7 +122,6 @@
         <!-- Body -->
         <xpath expr="//div[@id='o_wevent_event_main_col']" position="replace">
             <div id="o_wevent_event_main_col" class="o_wevent_theme_bg_base col-lg-8 px-3 pt-5 pb-0 shadow-sm">
-                    <h1> test</h1>
                     <!-- Date & Time -->
                     <div class='col-12 d-flex flex-row px-3'>
 

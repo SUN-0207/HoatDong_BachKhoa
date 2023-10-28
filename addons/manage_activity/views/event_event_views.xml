@@ -95,9 +95,9 @@
                     <group>
                       <field string="All students: " name="is_for_all_students"/>
                     </group>
-                    <group>
+                    <!-- <group>
                       <field string="Giới hạn sinh viên các đơn vị" name="is_maximize_department"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>
-                    </group>
+                    </group> -->
                   </group>
                   <group>
                     <group>
@@ -107,14 +107,18 @@
                       <label for="seats_limited" string="Gioi han tham gia"/>
                       <div>
                         <field name="seats_limited"/>
-                        <span attrs="{'invisible': [('seats_limited', '=', False)], 'required': [('seats_limited', '=', False)]}"><field name="seats_max" class="oe_inline o_input_9ch"/> nguoi</span>
+                        <span attrs="{'invisible': [('seats_limited', '=', False)], 'required': [('seats_limited', '=', False)]}">
+                          <field name="seats_max" class="oe_inline o_input_9ch"/> 
+                          nguoi
+                        </span>
                       </div>
                     </group>
-                      <group>
+                      <!-- <group>
                         <field string="Giới hạn sinh viên các chuyên ngành" name="is_maximize_major"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>
                       </group>
                       <group>
-                        <field  string="Giới hạn sinh viên các khóa" name="is_maximize_year"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>          </group>
+                        <field  string="Giới hạn sinh viên các khóa" name="is_maximize_year"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>         
+                      </group> -->
                   </group> 
                 </group>
                   <notebook>
