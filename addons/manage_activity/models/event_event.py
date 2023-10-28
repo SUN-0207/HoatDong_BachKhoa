@@ -9,7 +9,7 @@ class EventEvent(models.Model):
         'website.cover_properties.mixin',
         'website.searchable.mixin',
     ]
-  stage_name = fields.Char(related='stage_id.name')
+  stage_name = fields.Char(string='Ten hoat dong',related='stage_id.name')
   status_activity = fields.Selection(string="Tình trạng hoạt động",
     selection=[
       ('new', 'Mới'),
@@ -17,12 +17,15 @@ class EventEvent(models.Model):
       ('close_registration', 'Đóng đăng ký'),
       ('inprogress', 'Đang diễn ra'),
       ('completed', 'Đã kết thúc')],
-
+    readonly=True,
     copy=False,
-    default='new',
+    default=False,
     store=True,
     tracking=True, 
+    compute='_compute_status_activity'
   )
+
+  readonlyMode = fields.Boolean(default=False)
 
   user_id = fields.Many2one('res.users', string='User', readonly=True)
   created_by_name = fields.Char(string="Hoạt động được tạo bởi ", store=True, default = lambda self: self.env.user.name)
@@ -60,29 +63,53 @@ class EventEvent(models.Model):
   def create(self, vals):
     if not vals:
         vals = {}
-    # Nay tu dong duyet hoat dong  if 'event_type_id' not in vals:
-    #   vals['stage_id'] = 6
-    #   #self.env['event.stage'].search([('name', '=', 'Chờ duyệt')]).id
-    # else:
-    #   if vals['event_type_id'] == 3:
-    #     vals['stage_id'] = 8
+        
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Create event: ', vals)
-    return super(EventEvent, self).create(vals)
-
-
+    # Create the record
+    record = super(EventEvent, self).create(vals)
+    
+    # Display the success notification
+    self.env['bus.bus']._sendone(self.env.uid, 'notif_type', 'message')
+    
+    return record
+    
   def write(self, vals):
     self.ensure_one()
     # Nay tu dong duyet hoat dong if 'event_type_id' in vals and vals['event_type_id'] == 3:
     #   vals['stage_id'] = 8
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)
-    if self.stage_name == 'Bổ sung' and 'stage_id' not in vals :
+    #publish_event_website
+    vals['is_published'] = False
+    if ('stage_id' in vals and self.env['event.stage'].search([('id', '=', vals['stage_id'])]).name == 'Đã duyệt'):
+      vals['is_published'] = True  
+    
+    #change_stage
+    print(self.stage_id.name)
+    if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung'   :
       vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Chờ duyệt')]).id
-    if self.stage_name == 'Đã duyệt' or ('stage_id' in vals and self.env['event.stage'].search([('id', '=', vals['stage_id'])]).name == 'Đã duyệt'):
-      vals['is_published'] = True
-    else:
-      vals['is_published'] = False
+   
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Update event: ', vals)
+    self.env['bus.bus']._sendone(self.env.uid, 'notif_type', 'message')
     return super(EventEvent, self).write(vals)
+
+  @api.depends('stage_id', 'date_begin_registration', 'date_end_registration', 'date_begin', 'date_end')
+  def _compute_status_activity(self):
+        current_datetime = datetime.now()
+        for event in self:
+            print('^^^^^^^^6', event.stage_id.name)
+            if event.stage_id.name == 'Đã duyệt':
+                if current_datetime < event.date_begin_registration:
+                    event.status_activity = 'new'
+                elif event.date_begin_registration <= current_datetime <= event.date_end_registration:
+                    event.status_activity = 'open_registration'
+                elif event.date_end_registration < current_datetime < event.date_begin:
+                    event.status_activity = 'close_registration'
+                elif event.date_begin <= current_datetime <= event.date_end:
+                    event.status_activity = 'inprogress'
+                elif current_datetime > event.date_end:
+                    event.status_activity = 'completed'
+            else:
+                event.status_activity = False
 
   def see_info(self):
     self.ensure_one()
@@ -93,17 +120,25 @@ class EventEvent(models.Model):
         'res_model': 'event.event',
         'view_id': False,
         'res_id': self.id,
-        'target': 'new',
+        'target': 'current',
     }
         
   def confirm_event(self):
     self.ensure_one()
-    self.write({'stage_id': 8})
+    stage_id = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
+    self.write({'stage_id': stage_id})
+    return self.notify_success()
+
+  def need_update_event(self):
+    self.ensure_one()
+    stage_id = self.env['event.stage'].search([('name', '=', 'Bổ sung')]).id
+    self.write({'stage_id': stage_id})
     return self.notify_success()
 
   def refuse_event(self):
     self.ensure_one()
-    self.write({'stage_id': 9})
+    stage_id = self.env['event.stage'].search([('name', '=', 'Đã huỷ')]).id
+    self.write({'stage_id': stage_id})
     return self.notify_success()
 
   def notify_success(self):
@@ -118,40 +153,6 @@ class EventEvent(models.Model):
             'next': {'type': 'ir.actions.act_window_close'},
         },
     }
-    
-  def action_change_status_new(self):
-    self.write({'status_activity': 'new'})
-    return self.notify_success()
-
-  def action_change_status_open_registration(self):
-        self.write({'status_activity': 'open_registration'})
-        return self.notify_success()
-
-  def action_change_status_close_registration(self):
-      self.write({'status_activity': 'close_registration'})
-      return self.notify_success()
-
-  def action_change_status_inprogress(self):
-        self.write({'status_activity': 'inprogress'})
-        return self.notify_success()
-  def action_change_status_completed(self):
-      self.write({'status_activity': 'completed'})
-      return self.notify_success()
-
-  @api.depends('date_begin_registration', 'date_end_registration', 'date_begin', 'date_end')
-  def _compute_status_activity(self):
-        current_datetime = fields.Datetime.now()
-        for event in self:
-            if current_datetime < event.date_begin_registration:
-                event.status_activity = 'new'
-            elif event.date_begin_registration <= current_datetime <= event.date_end_registration:
-                event.status_activity = 'open_registration'
-            elif event.date_end_registration < current_datetime < event.date_begin:
-                event.status_activity = 'close_registration'
-            elif event.date_begin <= current_datetime <= event.date_end:
-                event.status_activity = 'inprogress'
-            elif current_datetime > event.date_end:
-                event.status_activity = 'completed'
 
   @api.constrains('date_begin_registration', 'date_end_registration', 'date_begin', 'date_end')
   def _check_dates(self):
