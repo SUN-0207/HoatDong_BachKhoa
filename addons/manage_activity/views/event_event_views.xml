@@ -53,9 +53,15 @@
                 <group string="Quan ly hoat dong" name="right_event_details" >
                   <field name="organizer_id" invisible="1"/>
                   <group>
-                    <field name="department_response" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                    <!-- Hien tai chi cho Adminstrator can them business <field name="department_response" groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin"
+                     options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/> -->
+                    <field name="department_of_create_user" 
+                    attrs="{'readonly': [('created_by_name', '!=', 'Administrator')]}"
+                    groups="manage_user_info.group_hcmut_department_admin"
+                    options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                   </group>
                   <group>
+
                     <field name="auto_accept_activity" />
                   </group>
                 </group>
@@ -202,11 +208,18 @@
             <field name="date_end" readonly="1" widget="date" optional="show"/>
             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" optional="hide"/>
             <field name="stage_name" readonly="1" invisible="1"/>
-            <button name="confirm_event" type="object" class="btn btn-outline-primary" string="Đồng ý" confirm="Xác nhận đồng ý" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}"/>
-            <button name="need_update_event" type="object" class="btn btn-warning" string="Bổ sung" confirm="Xác nhận bổ sung" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}"/>
-            <button name="refuse_event" type="object" class="btn btn-outline-danger" string="Từ chối" confirm="Xác nhận từ chối" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}"/>
+           
+            <button name="confirm_event" type="object" class="btn btn-outline-primary" string="Đồng ý" confirm="Xác nhận đồng ý" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}"  groups="manage_user_info.group_hcmut_super_admin"/>
+            <button name="need_update_event" type="object" class="btn btn-warning" string="Bổ sung" confirm="Xác nhận bổ sung" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" groups="manage_user_info.group_hcmut_super_admin"/>
+            <button name="refuse_event" type="object" class="btn btn-outline-danger" string="Từ chối" confirm="Xác nhận từ chối" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" groups="manage_user_info.group_hcmut_super_admin"/>
+           
           </tree>
         </xpath>
+        <!-- <xpath expr="//th[@class='o_list_button']" position="replace">
+          <th class="o_list_button" style="width: 268px;">
+              Duyet nhanh
+          </th>
+      </xpath> -->
       </field>
     </record>
 
@@ -218,7 +231,7 @@
         <search position="inside">
           <searchpanel>
             <field name="status_activity" icon="fa fa-cogs" enable_counters="1" select="multi"/>
-            <field name="department_response" icon="fa fa-building" enable_counters="1" select="multi"/>
+            <field groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" name="department_of_create_user" icon="fa fa-building" enable_counters="1" select="multi"/>
             <field name="tag_ids" icon="fa fa-tags" enable_counters="1" select="multi"/>
             <field name="event_type_id" icon="fa fa-file" enable_counters="1" select="multi"/>
            

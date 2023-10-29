@@ -27,7 +27,9 @@ class EventEvent(models.Model):
   user_id = fields.Many2one('res.users', string='User', readonly=True)
   created_by_name = fields.Char(string="Hoạt động được tạo bởi ", store=True, default = lambda self: self.env.user.name)
   department_response = fields.Many2one('user.info.department', string='Hoat dong thuoc ve don vi')
-
+ 
+  department_of_create_user = fields.Many2one(related='user_id.manage_department_id', 
+  string='Hoat dong thuoc ve don vi', store=True, default=lambda self: self.env.user.manage_department_id)
   date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
   date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
   max_social_point = fields.Char(string="Số ngày CTXH tối đa")
@@ -48,6 +50,7 @@ class EventEvent(models.Model):
   
   accept_registration = fields.Integer(string='Registration Count', compute='_compute_accept_registration')
   unaccpet_registration = fields.Integer(string='Registration Count', compute='_compute_unaccpet_registration')
+  duyet_nhanh = fields.Char(string='Duyet nhanh')
 
   @api.depends('registration_ids')
   def _compute_accept_registration(self):

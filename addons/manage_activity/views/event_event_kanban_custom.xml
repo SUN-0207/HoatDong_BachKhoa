@@ -8,7 +8,10 @@
             <field name="arch" type="xml">
                 <xpath expr="//kanban" position="replace">
                     <!-- Replace the entire kanban view -->
-                    <kanban records_draggable="false" default_group_by="stage_id" archivable="False" group_edit='False' group_create='False' group_delete='False' quick_create='false'>     
+                    <kanban records_draggable="false" 
+                        default_group_by="stage_id" 
+                        archivable="False" group_edit='False' group_create='False' group_delete='False' quick_create='false'
+                    >     
                         <field name="activity_ids" widget="kanban_activity" ></field>
                         <field name="user_id"/>
                         <field name="name"/>
@@ -34,10 +37,17 @@
                         <field name="year_can_register"/>
                         <field name="seats_max"/>
                         <field name="seats_limited"/>
+                        <field name="created_by_name"/>
+                        <field name="department_of_create_user"/>
                         <templates>
+                            <!-- t-if="user.manage_department_id == record.department_of_create_user" -->
                             <t t-name="kanban-box">
                                 <div t-attf-class="d-flex flex-column p-0 oe_kanban_card oe_kanban_global_click">
                                     <div class="row">
+                                        <!-- <div>
+                                            Current User's Department ID: <t t-esc="user['department_id']" />
+                                        </div> -->
+                                        <!-- <t t-esc="record.department_of_create_user.value" /> -->
                                         <div class="col-8 py-1 px-5 d-flex flex-column justify-content-center pt-3">
                                             <div class="o_kanban_record_title o_text_overflow" t-att-title="record.name.value">
                                                 <h2><field class="fs-3" readonly="True" name="name" widget="text"/></h2>
@@ -56,20 +66,6 @@
                                             </span>                        
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-12 py-1 px-5 d-flex flex-column justify-content-center pt-3">
-                                            <label for="department_response" ><strong>Hoạt động của đơn vị: </strong>
-                                                <field name="department_response"/>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12 py-1 px-5 d-flex flex-column justify-content-center pt-3">
-                                            <label for="event_type_id" ><strong>Nhóm hoạt động:</strong>
-                                                <field name="event_type_id"/>
-                                            </label>
-                                        </div>
-                                    </div>
                                     <div class="row" attrs="{'invisible': [('stage_name','!=', 'Đã duyệt')]}">
                                         <div class="col-4 py-1 px-5 d-flex flex-column justify-content-center pt-3">
                                             <label for="unaccpet_registration" ><strong>Dang ky: </strong>
@@ -81,7 +77,6 @@
                                                 <field name="accept_registration"/> 
                                             </label>
                                         </div>
-                                        
                                         <div class="col-4  d-flex flex-column justify-content-center pt-3">
                                             <t t-if="record.seats_max.value == 0">
                                                 Khong gioi han
@@ -93,6 +88,21 @@
                                             </t>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-12 py-1 px-5 d-flex flex-column justify-content-center pt-3">
+                                            <label for="department_of_create_user" ><strong>Hoạt động của đơn vị: </strong>
+                                                <field name="department_of_create_user"/>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 py-1 px-5 d-flex flex-column justify-content-center pt-3">
+                                            <label for="event_type_id" ><strong>Nhóm hoạt động:</strong>
+                                                <field name="event_type_id"/>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
                                     <div class="row">
                                         <div class="py-1 px-5 flex-row justify-content-center ">
                                             <strong>Đăng ký: </strong>
@@ -185,6 +195,7 @@
                                         </div>
                                     </div>
                                 </div>
+                            
                             </t>
                         </templates>
                     </kanban>
