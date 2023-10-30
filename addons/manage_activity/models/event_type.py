@@ -14,5 +14,6 @@ class EventType(models.Model):
     max_social_working_day = fields.Integer(string='Số ngày CTXH tối đa', required=True)
     max_training_point = fields.Integer(string='Số ĐRL tối đa', required=True)
 
-
+    auto_accept_activity = fields.Boolean('Tu dong duyet', default=False)
+  
  
