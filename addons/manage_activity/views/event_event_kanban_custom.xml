@@ -41,7 +41,7 @@
                         <field name="department_of_create_user"/>
                         <templates>
                             <!-- t-if="user.manage_department_id == record.department_of_create_user" -->
-                            <t t-name="kanban-box">
+                            <t t-name="kanban-box" >
                                 <div t-attf-class="d-flex flex-column p-0 oe_kanban_card oe_kanban_global_click">
                                     <div class="row">
                                         <!-- <div>
@@ -90,9 +90,14 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12 py-1 px-5 d-flex flex-column justify-content-center pt-3">
-                                            <label for="department_of_create_user" ><strong>Hoạt động của đơn vị: </strong>
-                                                <field name="department_of_create_user"/>
-                                            </label>
+                                            <t t-if="record.department_of_create_user.raw_value != false">
+                                                <label for="department_of_create_user"><strong>Hoạt động của đơn vị: </strong>
+                                                    <field name="department_of_create_user"/>
+                                                </label>
+                                            </t>
+                                            <t t-else="">
+                                                <label for="department_of_create_user"><strong>Hoạt động chung</strong></label>
+                                            </t>
                                         </div>
                                     </div>
                                     <div class="row">

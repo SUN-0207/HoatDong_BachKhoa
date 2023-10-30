@@ -4,10 +4,7 @@ from datetime import datetime, timedelta
 class EventEvent(models.Model):
   _name = 'event.event'
   _inherit = [
-        'event.event',
-        'website.published.multi.mixin',
-        'website.cover_properties.mixin',
-        'website.searchable.mixin',
+        'event.event'
     ]
   stage_name = fields.Char(string='Ten hoat dong',related='stage_id.name')
   status_activity = fields.Selection(string="Tình trạng hoạt động",
@@ -24,12 +21,12 @@ class EventEvent(models.Model):
     compute='_compute_status_activity'
   )
   
-  user_id = fields.Many2one('res.users', string='User', readonly=True)
+  user_id = fields.Many2one('res.users', string='User', readonly=True, default=lambda self: self.env.user)
   created_by_name = fields.Char(string="Hoạt động được tạo bởi ", store=True, default = lambda self: self.env.user.name)
-  department_response = fields.Many2one('user.info.department', string='Hoat dong thuoc ve don vi')
  
   department_of_create_user = fields.Many2one(related='user_id.manage_department_id', 
   string='Hoat dong thuoc ve don vi', store=True, default=lambda self: self.env.user.manage_department_id)
+  
   date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
   date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
   max_social_point = fields.Char(string="Số ngày CTXH tối đa")
@@ -63,6 +60,11 @@ class EventEvent(models.Model):
     for activity in self:
       filtered_registrations = activity.registration_ids.filtered(lambda r: r.state == 'draft')
       activity.unaccpet_registration = len(filtered_registrations)
+
+  @api.onchange('is_for_all_students')
+  def check_tickets(self):
+    if len(self.event_ticket_ids) != 0 and self.is_for_all_students == True:
+       raise ValidationError('Khong the chuyen ve tat ca sinh vien vi dang co gioi han sinh vien')
 
   @api.model
   def default_get(self, fields_list):

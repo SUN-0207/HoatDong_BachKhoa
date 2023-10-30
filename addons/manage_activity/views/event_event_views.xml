@@ -31,8 +31,6 @@
                             help="Total Registrations for this Event">
                         <field name="seats_expected" widget="statinfo" string="Attendees"/>
                     </button>
-                    <field name="website_url" invisible="1"/>
-                    <field name="is_published" widget="website_redirect_button" invisible="1"/>
                 </div>
                 <field name="active" invisible="1"/>
                 <field name="company_id" invisible="1"/>
@@ -228,17 +226,32 @@
       <field name="model">event.event</field>
       <field name="inherit_id" ref="event.view_event_search" />
       <field name="arch" type="xml">
-        <search position="inside">
-          <searchpanel>
-            <field name="status_activity" icon="fa fa-cogs" enable_counters="1" select="multi"/>
-            <field groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" name="department_of_create_user" icon="fa fa-building" enable_counters="1" select="multi"/>
-            <field name="tag_ids" icon="fa fa-tags" enable_counters="1" select="multi"/>
-            <field name="event_type_id" icon="fa fa-file" enable_counters="1" select="multi"/>
+        <xpath expr="//search" position="replace">
+          <search string="Events">
+            <field name="name" string="Event"/>
+            <field name="department_of_create_user" string="Department"/>
            
-          </searchpanel>
-        </search>
+            <filter string="My Events" name="myevents" help="My Events" domain="[('user_id', '=', uid)]"/>
+            <!-- <filter string="Department" name="Department" domain="[('department_of_create_user', '=', user.manage_department_id)]"/> -->
+            <filter string="Hoat dong chung" name="mydepartment" domain="[('department_of_create_user', '=', False)]"/>
+            <searchpanel>
+              <field name="status_activity" icon="fa fa-cogs" enable_counters="1" select="multi"/>
+              <field groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" name="department_of_create_user" icon="fa fa-building" enable_counters="1" select="multi"/>
+              <field name="tag_ids" icon="fa fa-tags" enable_counters="1" select="multi"/>
+              <field name="event_type_id" icon="fa fa-file" enable_counters="1" select="multi"/>
+            </searchpanel>
+          </search>
+        </xpath>
       </field>
     </record>
+
+    <!-- Change view to 3 view EVENT.EVENT VIEWS -->
+    <record model="ir.actions.act_window" id="event.action_event_view">
+      <field name="name">Events</field>
+      <field name="view_mode">kanban,tree,form</field>
+      <field name="search_view_id" ref="event.view_event_search"/>
+      <field name="context" eval="{'search_default_myevents': 1}" />
+   </record>   
   </data>
 </odoo>
     

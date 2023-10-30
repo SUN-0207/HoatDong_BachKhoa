@@ -47,7 +47,7 @@ class UserDpartmentAdmin(models.Model):
     if user:
       user.write({
 				'groups_id': [(6, 0, [group_department_admin_id])],
-				'manage_department_id': vals['department_id']
+				'manage_department_id': vals['department_id'].id
 			})
     return super(UserDpartmentAdmin, self).create(vals)
   
