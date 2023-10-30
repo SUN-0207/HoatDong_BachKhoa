@@ -11,12 +11,14 @@
           <form string="Events" class="o_event_form_view">
             <header>
                 <field name="stage_name" invisible="true" />
-                <field name="stage_id" widget="statusbar" options="{'clickable': '1'}"/>
+                <field name="stage_id" widget="statusbar" 
+                options="{'clickable': ['1']}" groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin"/>
             </header>
             <sheet>
                 <div class="oe_button_box" name="button_box" groups="base.group_user">
                     <button name="%(event.event_registration_action_stats_from_event)d"
-                            type="action" class="oe_stat_button" icon="fa-line-chart">
+                            type="action" class="oe_stat_button" icon="fa-line-chart"
+                            invisible="1">
                         <span class="o_stat_text">
                             Registration statistics
                         </span>
@@ -29,8 +31,6 @@
                             help="Total Registrations for this Event">
                         <field name="seats_expected" widget="statinfo" string="Attendees"/>
                     </button>
-                    <field name="website_url" invisible="1"/>
-                    <field name="is_published" widget="website_redirect_button"/>
                 </div>
                 <field name="active" invisible="1"/>
                 <field name="company_id" invisible="1"/>
@@ -43,25 +43,31 @@
                     <h2>Tên hoạt động</h2>                   
                     <field class="fs-1 no-border-input" name="name" widget="text" />
                   </div>
-                  <div class="col-3 text-end px-3">
+                  <div class="col-4 text-end px-3">
                     <label for="created_by_name" string="Tao boi"/> 
                     <field name="created_by_name" readonly="1" />
                   </div>
                 </div>
-                <group string="Quan ly hoat dong" name="right_event_details">
+                <group string="Quan ly hoat dong" name="right_event_details" >
                   <field name="organizer_id" invisible="1"/>
                   <group>
-                  <field name="activity_manager" widget="many2many_tags" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                    <!-- Hien tai chi cho Adminstrator can them business <field name="department_response" groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin"
+                     options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/> -->
+                    <field name="department_of_create_user" 
+                    attrs="{'readonly': [('created_by_name', '!=', 'Administrator')]}"
+                    groups="manage_user_info.group_hcmut_department_admin"
+                    options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                   </group>
                   <group>
-                  <field name="department_response" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+
+                    <field name="auto_accept_activity" />
                   </group>
                 </group>
                 <group string="Thong tin hoat dong">
                   <h3>Mô tả hoạt động </h3>
-                  <field name="description" widget="html" class="border-input"/>
+                  <field name="description" widget="text" class="border-input"/>
                   <group>
-                    <field name="status_activity"/>
+                    <field name="status_activity"  attrs="{'readonly': [('stage_name', '!=', 'Đã duyệt')]}" />
                     <label for="date_begin" string="Dang ky"/>
                     <div class="o_row">
                       <field name="date_begin_registration" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'date_end_registration'}"
@@ -95,9 +101,9 @@
                     <group>
                       <field string="All students: " name="is_for_all_students"/>
                     </group>
-                    <group>
+                    <!-- <group>
                       <field string="Giới hạn sinh viên các đơn vị" name="is_maximize_department"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>
-                    </group>
+                    </group> -->
                   </group>
                   <group>
                     <group>
@@ -107,14 +113,18 @@
                       <label for="seats_limited" string="Gioi han tham gia"/>
                       <div>
                         <field name="seats_limited"/>
-                        <span attrs="{'invisible': [('seats_limited', '=', False)], 'required': [('seats_limited', '=', False)]}"><field name="seats_max" class="oe_inline o_input_9ch"/> nguoi</span>
+                        <span attrs="{'invisible': [('seats_limited', '=', False)], 'required': [('seats_limited', '=', False)]}">
+                          <field name="seats_max" class="oe_inline o_input_9ch"/> 
+                          nguoi
+                        </span>
                       </div>
                     </group>
-                      <group>
+                      <!-- <group>
                         <field string="Giới hạn sinh viên các chuyên ngành" name="is_maximize_major"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>
                       </group>
                       <group>
-                        <field  string="Giới hạn sinh viên các khóa" name="is_maximize_year"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>          </group>
+                        <field  string="Giới hạn sinh viên các khóa" name="is_maximize_year"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>         
+                      </group> -->
                   </group> 
                 </group>
                   <notebook>
@@ -163,58 +173,85 @@
         </xpath>  
       </field>
     </record>
- 
-    <!-- <record id="event_event_tree_inherit" model="ir.ui.view">
+
+    <record id="event_event_tree_inherit" model="ir.ui.view">
       <field name="name">event.event.tree.inherit</field>
       <field name="model">event.event</field>
       <field name="inherit_id" ref="event.view_event_tree" />
       <field name="arch" type="xml">
         <xpath expr="//tree"  position="replace">
           <tree string="Events">
+         
             <field name="address_id" readonly="1" invisible="1"/>
             <field name="organizer_id" readonly="1" optional="hide" invisible="1"/>
             <field name="organizer_id" readonly="1" optional="hide" invisible="1"/>
             <field name="user_id" readonly="1" widget="many2one_avatar_user" invisible="1"/>
             <field name="company_id" groups="base.group_multi_company" readonly="1" optional="show" invisible="1" />
             <field name="seats_expected" string="Expected Attendees" sum="Total" readonly="1" invisible="1"/>
-            <field name="seats_used" sum="Total" readonly="1"/>
+            <field name="seats_used" sum="Total" readonly="1" invisible="1"/>
             <field name="seats_max" string="Maximum Seats" sum="Total" readonly="1" optional="hide" invisible="1"/>
             <field name="seats_reserved" sum="Total" readonly="1" optional="hide" invisible="1"/>
             <field name="seats_unconfirmed" string="Unconfirmed Seats" sum="Total" readonly="1" optional="hide" invisible="1"/>
             <field name="message_needaction" invisible="1" readonly="1" />
             <field name="activity_exception_decoration" widget="activity_exception" readonly="1" invisible="1"/>
-
-            <field name="name"/>
-            <field name="event_type_id" options="{'color_field': 'color'}" />
-            <field name="user_id" readonly="1" widget="many2one_avatar_user"/>
-            <field name="date_begin" readonly="1" widget="date"/>
-            <field name="date_end" readonly="1" widget="date"/>
+            
+            <field name="name" string='Ten hoat dong'/>
+            <field name="stage_id" readonly="1" string='Trang thai duyet'/>
+            <field name="status_activity" widget='badge' optional="show"/>
+            <field name="event_type_id" optional="show" />
+            <field name="user_id" readonly="1" widget="many2one_avatar_user" invisible="1"/>
+            <field name="date_begin_registration" readonly="1" widget="date" optional="show"/>
+            <field name="date_end_registration" readonly="1" widget="date" optional="show"/>
+            <field name="date_begin" readonly="1" widget="date" optional="show"/>
+            <field name="date_end" readonly="1" widget="date" optional="show"/>
             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" optional="hide"/>
-            <field name="stage_id" readonly="1"/>
-            <button name="confirm_event" type="object" class="col-3 btn btn-outline-primary" string="Đồng ý" confirm="Xác nhận đồng ý" attrs="{'invisible': [('stage_id','=',8)]}" />
-            <button name="refuse_event" type="object" class="col-3 btn btn-outline-danger" string="Từ chối" confirm="Xác nhận từ chối" attrs="{'invisible': [('stage_id','=',9)]}"/>
+            <field name="stage_name" readonly="1" invisible="1"/>
+           
+            <button name="confirm_event" type="object" class="btn btn-outline-primary" string="Đồng ý" confirm="Xác nhận đồng ý" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}"  groups="manage_user_info.group_hcmut_super_admin"/>
+            <button name="need_update_event" type="object" class="btn btn-warning" string="Bổ sung" confirm="Xác nhận bổ sung" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" groups="manage_user_info.group_hcmut_super_admin"/>
+            <button name="refuse_event" type="object" class="btn btn-outline-danger" string="Từ chối" confirm="Xác nhận từ chối" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" groups="manage_user_info.group_hcmut_super_admin"/>
+           
           </tree>
         </xpath>
+        <!-- <xpath expr="//th[@class='o_list_button']" position="replace">
+          <th class="o_list_button" style="width: 268px;">
+              Duyet nhanh
+          </th>
+      </xpath> -->
       </field>
-    </record> -->
+    </record>
 
     <record id="event_event_search_inherit" model="ir.ui.view">
       <field name="name">event.event.search.inherit</field>
       <field name="model">event.event</field>
       <field name="inherit_id" ref="event.view_event_search" />
       <field name="arch" type="xml">
-        <search position="inside">
-          <searchpanel>
-            <field name="stage_id" icon="fa fa-cogs" enable_counters="1" select="multi"/>
-            <field name="department_response" icon="fa fa-building" enable_counters="1" select="multi"/>
-            <field name="tag_ids" icon="fa fa-tags" enable_counters="1" select="multi"/>
-            <field name="event_type_id" icon="fa fa-file" enable_counters="1" select="multi"/>
-            <field name="user_id" icon="fa fa-user" enable_counters="1" select="multi"/>
- 
-          </searchpanel>
-        </search>
+        <xpath expr="//search" position="replace">
+          <search string="Events">
+            <field name="name" string="Event"/>
+            <field name="department_of_create_user" string="Department"/>
+           
+            <filter string="My Events" name="myevents" help="My Events" domain="[('user_id', '=', uid)]"/>
+            <!-- <filter string="Department" name="Department" domain="[('department_of_create_user', '=', user.manage_department_id)]"/> -->
+            <filter string="Hoat dong chung" name="mydepartment" domain="[('department_of_create_user', '=', False)]"/>
+            <searchpanel>
+              <field name="status_activity" icon="fa fa-cogs" enable_counters="1" select="multi"/>
+              <field groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" name="department_of_create_user" icon="fa fa-building" enable_counters="1" select="multi"/>
+              <field name="tag_ids" icon="fa fa-tags" enable_counters="1" select="multi"/>
+              <field name="event_type_id" icon="fa fa-file" enable_counters="1" select="multi"/>
+            </searchpanel>
+          </search>
+        </xpath>
       </field>
     </record>
+
+    <!-- Change view to 3 view EVENT.EVENT VIEWS -->
+    <record model="ir.actions.act_window" id="event.action_event_view">
+      <field name="name">Events</field>
+      <field name="view_mode">kanban,tree,form</field>
+      <field name="search_view_id" ref="event.view_event_search"/>
+      <field name="context" eval="{'search_default_myevents': 1}" />
+   </record>   
   </data>
 </odoo>
     

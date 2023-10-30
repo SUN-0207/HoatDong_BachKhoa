@@ -15,9 +15,12 @@
                     <field name="description" optional="hide" invisible="1"/>
                     <field name="start_sale_datetime" optional="show" invisible="1"/>
                     <field name="end_sale_datetime" optional="show" invisible="1"/>
-                    <field name="event_department_id" />
-                    <field name="event_info_major_id" />
-                    <field name="event_info_academy_year" />
+                    <field name="event_department_id"   options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                    <field name="event_info_major_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                        domain="[('department_id', '=', event_department_id)]"
+                        attrs="{'readonly': [('event_department_id', '=', False)]}"
+                    />
+                    <field name="event_info_academy_year" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                     <field name="seats_max" optional="show" sum="Total" width="105px" string="Maximum"/>
                     <field name="seats_reserved" optional="hide" sum="Total" width="105px" string="Confirmed"/>
                     <field name="seats_unconfirmed" optional="hide" sum="Total" width="110px" string="Unconfirmed"/>

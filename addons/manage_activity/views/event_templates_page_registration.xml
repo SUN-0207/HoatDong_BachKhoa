@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
      <!-- Header -->
-    <template id="inherit_id_inherit" inherit_id="website_event.registration_template">
-       
+    <template id="inherit_id_inherit" inherit_id="website_event.registration_template">     
         <xpath expr="//div[@id='o_wevent_tickets_collapse']" position="replace">
             <div id="o_wevent_tickets_collapse" class="collapse show" >
                 <!-- 
@@ -55,7 +54,7 @@
                 </div>
                 <div class="row g-0">
                     <div class="d-grid col-md-4 offset-md-8 py-2 ps-md-0 pe-md-2">
-                        <button type="submit" class="btn btn-primary o_wait_lazy_js a-submit" disabled="" t-attf-id="#{event.id}">
+                        <button type="submit" class="btn btn-primary o_wait_lazy_js a-submit"  t-attf-id="#{event.id}">
                             Register
                             <t t-if="event.seats_limited and event.seats_max and event.seats_available &lt;= (event.seats_max * 0.2)">
                                 (only <t t-out="event.seats_available"/> available)
@@ -107,8 +106,8 @@
                     </div>
                 </div>
                 <div class="d-grid col-lg-4 pt-3 pt-lg-0 ps-2 ps-lg-0">
-                    <button type="submit" class="btn btn-primary o_wait_lazy_js a-submit" t-attf-id="#{event.id}" disabled="disabled">
-                        Register
+                    <button  type="submit" class="btn btn-primary o_wait_lazy_js a-submit" t-attf-id="#{event.id}" t-att-disabled="event.is_participating">
+                        Check
                         <t t-if="event.seats_limited and event.seats_max and event.seats_available &lt;= (event.seats_max * 0.2)">
                             (only <t t-out="event.seats_available"/> available)
                         </t>
@@ -119,14 +118,23 @@
     </template>
     
     <template id="event_description_full_inherit" inherit_id="website_event.event_description_full">
-        
         <!-- Body -->
         <xpath expr="//div[@id='o_wevent_event_main_col']" position="replace">
             <div id="o_wevent_event_main_col" class="o_wevent_theme_bg_base col-lg-8 px-3 pt-5 pb-0 shadow-sm">
-                    <h1> test</h1>
-                    <!-- Date & Time -->
-                    <div class='col-12 d-flex flex-row px-3'>
-
+                <h4 class='col-12 d-flex flex-row px-3'>Mo ta hoat dong</h4>
+                <span class='col-12 d-flex flex-row px-3 py-3' t-field="event.description"/>
+                <div class='col-12 d-flex flex-row px-3 py-2'>
+                    <div class='col-6'>
+                        <label for='event.max_social_point'>max_social_point: </label>
+                        <span t-field="event.max_social_point"/>
+                    </div>
+                    <div class='col-6'>
+                        <label for='event.max_tranning_point'>max_tranning_point: </label>
+                        <span t-field="event.max_tranning_point"/>
+                    </div>
+                </div>
+                <!-- Date & Time -->
+                <div class='col-12 d-flex flex-row px-2'>
                         <div class="col-6">
                             <h6 class="o_wevent_sidebar_title">Thoi gian bat dau dang ky</h6>
                             <div class="d-flex">
@@ -185,19 +193,24 @@
                             <i class="fa fa-calendar me-1"/>
                             <a href="#" role="button" data-bs-toggle="dropdown">Add to Calendar</a>
                             <div class="dropdown-menu">
-                                <a t-att-href="iCal_url" class="dropdown-item">iCal/Outlook</a>
+                                <a style="display: none;"   t-att-href="iCal_url" class="dropdown-item">iCal/Outlook</a>
                                 <a t-att-href="google_url" class="dropdown-item" target="_blank">Google</a>
                             </div>
                         </div>
                     </div>
                 </div>
+              
             </div>
         </xpath>
 
         <xpath expr="//div[@class='o_wevent_theme_bg_light col-lg-4 shadow-sm d-print-none']" position="replace">
             <div class="o_wevent_theme_bg_light col-lg-4 shadow-sm d-print-none">
+                <div t-if="event.status_activity" class="o_wevent_sidebar_block"  >
+                    <h6 class="o_wevent_sidebar_title">Trang thai</h6>
+                    <h4 t-field="event.status_activity"/>
+                </div>
                 <!-- Location -->
-                <div t-if="event.address_id" class="o_wevent_sidebar_block">
+                <div t-if="event.address_id" class="o_wevent_sidebar_block" style="display: none;">
                     <h6 class="o_wevent_sidebar_title">Location</h6>
                     <h4 t-field="event.address_id" class="" t-options='{
                         "widget": "contact",
@@ -216,13 +229,13 @@
                     <a t-att-href="event._google_map_link()" target="_blank">Get the direction</a>
                 </div>
                 <!-- Organizer -->
-                <div t-if="event.organizer_id" class="o_wevent_sidebar_block">
+                <div t-if="event.organizer_id" class="o_wevent_sidebar_block" style="display: none;" >
                     <h6 class="o_wevent_sidebar_title">Organizer</h6>
                     <h4 t-field="event.organizer_id"/>
                     <div itemprop="location" t-field="event.organizer_id" t-options="{'widget': 'contact', 'fields': ['phone', 'mobile', 'email']}"/>
                 </div>
                 <!-- Social -->
-                <div class="o_wevent_sidebar_block">
+                <div class="o_wevent_sidebar_block" style="display: none;"   >
                     <h6 class="o_wevent_sidebar_title">SHARE</h6>
                     <p class="mb-2">Find out what people see and say about this event, and join the conversation.</p>
                     <t t-snippet-call="website.s_share">

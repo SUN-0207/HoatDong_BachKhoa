@@ -4,10 +4,7 @@ from datetime import datetime, timedelta
 class EventEvent(models.Model):
   _name = 'event.event'
   _inherit = [
-        'event.event',
-        'website.published.multi.mixin',
-        'website.cover_properties.mixin',
-        'website.searchable.mixin',
+        'event.event'
     ]
   stage_name = fields.Char(string='Ten hoat dong',related='stage_id.name')
   status_activity = fields.Selection(string="Tình trạng hoạt động",
@@ -17,21 +14,19 @@ class EventEvent(models.Model):
       ('close_registration', 'Đóng đăng ký'),
       ('inprogress', 'Đang diễn ra'),
       ('completed', 'Đã kết thúc')],
-    readonly=True,
     copy=False,
     default=False,
     store=True,
     tracking=True, 
     compute='_compute_status_activity'
   )
-
-  readonlyMode = fields.Boolean(default=False)
-
-  user_id = fields.Many2one('res.users', string='User', readonly=True)
+  
+  user_id = fields.Many2one('res.users', string='User', readonly=True, default=lambda self: self.env.user)
   created_by_name = fields.Char(string="Hoạt động được tạo bởi ", store=True, default = lambda self: self.env.user.name)
-  activity_manager =  fields.Many2many('user.department.admin', string='Giám sát')
-  department_response = fields.Many2one('user.info.department' )
  
+  department_of_create_user = fields.Many2one(related='user_id.manage_department_id', 
+  string='Hoat dong thuoc ve don vi', store=True, default=lambda self: self.env.user.manage_department_id)
+  
   date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
   date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
   max_social_point = fields.Char(string="Số ngày CTXH tối đa")
@@ -47,6 +42,29 @@ class EventEvent(models.Model):
   department_can_register = fields.Many2many('user.info.department', string='Department', default=False)
   major_can_register = fields.Many2many('user.info.major', string='Major')
   year_can_register = fields.Many2many('user.info.year', string='Years')
+
+  auto_accept_activity = fields.Boolean('Tu dong duyet', default=False, readonly=True)
+  
+  accept_registration = fields.Integer(string='Registration Count', compute='_compute_accept_registration')
+  unaccpet_registration = fields.Integer(string='Registration Count', compute='_compute_unaccpet_registration')
+  duyet_nhanh = fields.Char(string='Duyet nhanh')
+
+  @api.depends('registration_ids')
+  def _compute_accept_registration(self):
+    for activity in self:
+      filtered_registrations = activity.registration_ids.filtered(lambda r: r.state == 'open')
+      activity.accept_registration = len(filtered_registrations)
+  
+  @api.depends('registration_ids')
+  def _compute_unaccpet_registration(self):
+    for activity in self:
+      filtered_registrations = activity.registration_ids.filtered(lambda r: r.state == 'draft')
+      activity.unaccpet_registration = len(filtered_registrations)
+
+  @api.onchange('is_for_all_students')
+  def check_tickets(self):
+    if len(self.event_ticket_ids) != 0 and self.is_for_all_students == True:
+       raise ValidationError('Khong the chuyen ve tat ca sinh vien vi dang co gioi han sinh vien')
 
   @api.model
   def default_get(self, fields_list):
@@ -64,13 +82,14 @@ class EventEvent(models.Model):
     if not vals:
         vals = {}
         
-    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Create event: ', vals)
+    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before create event: ', vals)
     # Create the record
+    if 'auto_accept_activity' in vals and vals['auto_accept_activity'] == True:
+      vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
+    
+    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ After create event: ', vals)
     record = super(EventEvent, self).create(vals)
-    
-    # Display the success notification
-    self.env['bus.bus']._sendone(self.env.uid, 'notif_type', 'message')
-    
+        
     return record
     
   def write(self, vals):
@@ -80,7 +99,7 @@ class EventEvent(models.Model):
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)
     #publish_event_website
     vals['is_published'] = False
-    if ('stage_id' in vals and self.env['event.stage'].search([('id', '=', vals['stage_id'])]).name == 'Đã duyệt'):
+    if ('stage_id' not in vals and self.stage_id.name == 'Đã duyệt') or ('stage_id' in vals and self.env['event.stage'].search([('id', '=', vals['stage_id'])]).name == 'Đã duyệt'):
       vals['is_published'] = True  
     
     #change_stage
@@ -89,7 +108,7 @@ class EventEvent(models.Model):
       vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Chờ duyệt')]).id
    
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Update event: ', vals)
-    self.env['bus.bus']._sendone(self.env.uid, 'notif_type', 'message')
+   
     return super(EventEvent, self).write(vals)
 
   @api.depends('stage_id', 'date_begin_registration', 'date_end_registration', 'date_begin', 'date_end')

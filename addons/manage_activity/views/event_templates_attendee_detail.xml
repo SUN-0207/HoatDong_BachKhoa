@@ -9,7 +9,7 @@
                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                         <div class="modal-content">
                             <div class="modal-header align-items-center">
-                                <h4 class="modal-title">Attendees</h4>
+                                <h4 class="modal-title">Dang ky su kien</h4>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <t t-set="counter_type" t-value="1"/>
@@ -54,7 +54,7 @@
                             </t>
                             <t t-if="not availability_check">
                                 <div class="modal-body border-bottom">
-                                    <strong> You ordered more tickets than available seats</strong>
+                                    <strong> Ban da dang ky su kien nay roi!</strong>
                                 </div>
                             </t>
                             <div class="modal-footer border-0 justify-content-between">

@@ -8,7 +8,10 @@
             <field name="arch" type="xml">
                 <xpath expr="//kanban" position="replace">
                     <!-- Replace the entire kanban view -->
-                    <kanban records_draggable="false" default_group_by="stage_id" archivable="False" group_edit='False' group_create='False' group_delete='False' quick_create='false'>     
+                    <kanban records_draggable="false" 
+                        default_group_by="stage_id" 
+                        archivable="False" group_edit='False' group_create='False' group_delete='False' quick_create='false'
+                    >     
                         <field name="activity_ids" widget="kanban_activity" ></field>
                         <field name="user_id"/>
                         <field name="name"/>
@@ -32,10 +35,19 @@
                         <field name="department_can_register"/>
                         <field name="major_can_register"/>
                         <field name="year_can_register"/>
+                        <field name="seats_max"/>
+                        <field name="seats_limited"/>
+                        <field name="created_by_name"/>
+                        <field name="department_of_create_user"/>
                         <templates>
-                            <t t-name="kanban-box">
-                                <div t-attf-class="d-flex flex-column p-0 oe_kanban_card ">
+                            <!-- t-if="user.manage_department_id == record.department_of_create_user" -->
+                            <t t-name="kanban-box" >
+                                <div t-attf-class="d-flex flex-column p-0 oe_kanban_card oe_kanban_global_click">
                                     <div class="row">
+                                        <!-- <div>
+                                            Current User's Department ID: <t t-esc="user['department_id']" />
+                                        </div> -->
+                                        <!-- <t t-esc="record.department_of_create_user.value" /> -->
                                         <div class="col-8 py-1 px-5 d-flex flex-column justify-content-center pt-3">
                                             <div class="o_kanban_record_title o_text_overflow" t-att-title="record.name.value">
                                                 <h2><field class="fs-3" readonly="True" name="name" widget="text"/></h2>
@@ -54,11 +66,38 @@
                                             </span>                        
                                         </div>
                                     </div>
+                                    <div class="row" attrs="{'invisible': [('stage_name','!=', 'Đã duyệt')]}">
+                                        <div class="col-4 py-1 px-5 d-flex flex-column justify-content-center pt-3">
+                                            <label for="unaccpet_registration" ><strong>Dang ky: </strong>
+                                                <field name="unaccpet_registration"/> 
+                                            </label>
+                                        </div>
+                                        <div class="col-4  d-flex flex-column justify-content-center pt-3">
+                                            <label for="accept_registration" ><strong>Chap nhan: </strong>
+                                                <field name="accept_registration"/> 
+                                            </label>
+                                        </div>
+                                        <div class="col-4  d-flex flex-column justify-content-center pt-3">
+                                            <t t-if="record.seats_max.value == 0">
+                                                Khong gioi han
+                                            </t>
+                                            <t t-else="">
+                                                    <label for="seats_max"><strong>Toi da: </strong>
+                                                    <field name="seats_max"/>
+                                                </label>
+                                            </t>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-12 py-1 px-5 d-flex flex-column justify-content-center pt-3">
-                                            <label for="department_response" ><strong>Hoạt động của đơn vị: </strong>
-                                                <field name="department_response"/>
-                                            </label>
+                                            <t t-if="record.department_of_create_user.raw_value != false">
+                                                <label for="department_of_create_user"><strong>Hoạt động của đơn vị: </strong>
+                                                    <field name="department_of_create_user"/>
+                                                </label>
+                                            </t>
+                                            <t t-else="">
+                                                <label for="department_of_create_user"><strong>Hoạt động chung</strong></label>
+                                            </t>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -68,6 +107,7 @@
                                             </label>
                                         </div>
                                     </div>
+                                    
                                     <div class="row">
                                         <div class="py-1 px-5 flex-row justify-content-center ">
                                             <strong>Đăng ký: </strong>
@@ -116,33 +156,33 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <field name="event_ticket_ids" invisible="1" />
                                         <div class="col-12 py-1 px-5 flex-row justify-content-center">
-                                            <span><strong>Đối tượng tham gia: </strong></span>
+                                            <span><strong>Đối tượng tham gia: </strong>
                                                 <t t-if="record.is_for_all_students.raw_value === false">
-                                                    <br></br>
+                                                    Gioi han sinh vien tham gia
                                                 </t >
-                                                <span t-if="record.is_for_all_students.raw_value === true" >
+                                                <t t-if="record.is_for_all_students.raw_value === true" >
                                                     Dành cho toàn bộ sinh viên
-                                                </span>    
-                                                <span t-if="record.is_maximize_department.raw_value === true" >
-                                                - Dành cho sinh viên các đơn vị
-                                                <field name="department_can_register" widget="many2many_tags"></field>
-                                            </span> 
-                                                <span t-if="record.is_maximize_major.raw_value === true" >
-                                                - Dành cho sinh viên các chuyên ngành
-                                               <field name="major_can_register" widget="many2many_tags"></field>
-                                                 </span> 
-                                                <span t-if="record.is_maximize_year.raw_value === true" >
-                                                    - Dành cho sinh viên các khóa
-                                                    <field name="year_can_register" widget="many2many_tags"></field>
-                                                </span>
+                                                </t>  
+                                                
+                                            </span>
+                                                <!--
+                                                  <t t-if="record.event_ticket_ids">
+                                                    <ul>
+                                                        <t t-foreach="record.event_ticket_ids.raw_value" t-as="ticket_id">
+                                                             <t t-set="ticket" t-value="env['event.event.ticket'].browse(ticket_id) if ticket_id else None"/> 
+                                                        </t>
+                                                    </ul>
+                                                 </t>
+                                                -->
                                         </div>
                                     </div>
                                  
                                     <div class="row" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" >
                                         <div class="col-12 py-1 px-5 flex-row justify-content-center ">
                                             <hr />
-                                            <div class="d-grid gap-2 d-md-block">
+                                            <div class="d-grid gap-2 d-md-block" groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin">
                                             <span class="col-1"  >Duyệt nhanh: </span>
                                             <field name="stage_name" invisible="1" />
                                                 <button name="confirm_event" type="object" class="col-3 btn btn-success" string="Đồng ý" confirm="Xác nhận đồng ý" 
@@ -160,6 +200,7 @@
                                         </div>
                                     </div>
                                 </div>
+                            
                             </t>
                         </templates>
                     </kanban>
