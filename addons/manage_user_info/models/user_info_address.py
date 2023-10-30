@@ -99,9 +99,7 @@ class UserNationalPlace(models.Model):
     response = requests.get("https://provinces.open-api.vn/api/p/")
     response.raise_for_status()
     province_datas = response.json()
-
-    province_datas = []
-
+    
     province_datas.append({'name': 'Cục Cảnh sát quản lí hành chính về trật tự xã hội', 'codename':'ccs'})
     
     for province_data in province_datas:
