@@ -96,21 +96,41 @@ class UserNationalPlace(models.Model):
 
   @api.model
   def init(self):
-    national_places = []
-    national_places.append({'name': 'Cục Cảnh sát quản lí hành chính về trật tự xã hội', 'codename':'ccs'})
+    response = requests.get("https://provinces.open-api.vn/api/p/")
+    response.raise_for_status()
+    province_datas = response.json()
 
-    provinces = self.env['user.province.info'].search([])
-    for province in provinces:
-      national_places.append({'name': province['name'], 'codename': province['codename']})
+    province_datas = []
 
-    for place in national_places:
-      codename = place['codename']
-      existing_place = self.env['user.national.place'].search([('codename', '=', codename)], limit=1)
-      if not existing_place:
-        try:
-          self.env['user.national.place'].create({
-            'name': place['name'],
-            'codename': place['codename']
-          })
-        except Exception as e:
-          pass
+    province_datas.append({'name': 'Cục Cảnh sát quản lí hành chính về trật tự xã hội', 'codename':'ccs'})
+    
+    for province_data in province_datas:
+      codename = province_data['codename']
+      existing_province = self.env['user.national.place'].search([('codename', '=', codename)], limit=1)
+      
+      if not existing_province:      
+        province = self.env['user.national.place'].create({
+            'name': province_data['name'],
+            'codename': province_data['codename'],
+        })
+
+  # @api.model
+  # def init(self):
+  #   national_places = []
+  #   national_places.append({'name': 'Cục Cảnh sát quản lí hành chính về trật tự xã hội', 'codename':'ccs'})
+
+  #   provinces = self.env['user.province.info'].search([])
+  #   for province in provinces:
+  #     national_places.append({'name': province['name'], 'codename': province['codename']})
+
+  #   for place in national_places:
+  #     codename = place['codename']
+  #     existing_place = self.env['user.national.place'].search([('codename', '=', codename)], limit=1)
+  #     if not existing_place:
+  #       try:
+  #         self.env['user.national.place'].create({
+  #           'name': place['name'],
+  #           'codename': place['codename']
+  #         })
+  #       except Exception as e:
+  #         pass

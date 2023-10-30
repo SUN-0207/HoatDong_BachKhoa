@@ -24,7 +24,7 @@ class UserInfo(models.Model):
   first_name = fields.Char('Tên', compute='_compute_name_parts', inverse='_inverse_name', store=True)
   sur_name = fields.Char('Họ và tên lót', compute='_compute_name_parts', inverse='_inverse_name', store=True)
   email= fields.Char(related='user_id.email', string="Email")
-  avatar = fields.Binary(string='Ảnh chân dung')
+  avatar = fields.Binary(string='Ảnh chân dung', attachment=True, store=True, max_file_upload_size=1048576)
 
   phone_number = fields.Char(string="Số điện thoại di động")
   gender = fields.Selection([('male', 'Nam'),('female', 'Nữ')],string='Giới tính')
