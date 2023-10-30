@@ -108,7 +108,7 @@
                                             </label>            
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-12 py-1 px-5 flex-row justify-content-center">
                                             <label><strong>Ý nghĩa hoạt động: </strong> 
                                                 <field name="tag_ids" widget="many2many_tags"></field>
@@ -137,13 +137,13 @@
                                                     <field name="year_can_register" widget="many2many_tags"></field>
                                                 </span>
                                         </div>
-                                    </div>
+                                    </div> -->
                                  
-                                    <div class="row" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" >
-                                        <div class="col-12 py-1 px-5 flex-row justify-content-center ">
+                                    <div class="row event-state-action" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" >
+                                        <div class="col-12 py-1 px-5 flex-row justify-content-center">
                                             <hr />
                                             <div class="d-grid gap-2 d-md-block">
-                                            <span class="col-1"  >Duyệt nhanh: </span>
+                                            <!-- <span class="col-1">Duyệt nhanh: </span> -->
                                             <field name="stage_name" invisible="1" />
                                                 <button name="confirm_event" type="object" class="col-3 btn btn-success" string="Đồng ý" confirm="Xác nhận đồng ý" 
                                                     />

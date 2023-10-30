@@ -140,6 +140,26 @@ class EventEvent(models.Model):
     stage_id = self.env['event.stage'].search([('name', '=', 'Đã huỷ')]).id
     self.write({'stage_id': stage_id})
     return self.notify_success()
+  
+  def register_event(self):
+    self.ensure_one()
+    create_date = fields.Datetime.now()
+    registration = self.env['event.registration'].create({
+      'create_date': create_date,
+      'event_id': self.id,
+      'name': self.env.user.user_info_id.name,
+      'email': self.env.user.login,
+    })
+    if self.auto_confirm:
+      registration.sudo().action_confirm()
+    return self.notify_success()
+  
+  def cancel_event_registration(self):
+    self.ensure_one()
+    resgistration = self.env['event.registration'].search([('event_id','=',self.id),('email','=',self.env.user.login)],limit=1)
+    if resgistration:
+      resgistration.sudo().unlink()
+    return self.notify_success()
 
   def notify_success(self):
     return {
@@ -148,8 +168,8 @@ class EventEvent(models.Model):
         'params': {
             'title': 'Thành công',
             'message': 'Thao tác của bạn đã được lưu',
-            'type': 'success',  # types: success, warning, danger, info
-            'sticky': False,  # True/False will display for a few seconds if False
+            'type': 'success',
+            'sticky': False, 
             'next': {'type': 'ir.actions.act_window_close'},
         },
     }
