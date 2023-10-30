@@ -24,6 +24,7 @@ body {
 body.bg-100 {
     background-color: #000000 !important;
 }
+
 .card.o_database_list {
     align-items: center;
     max-width: 700px !important;
@@ -37,6 +38,8 @@ body.bg-100 {
     box-shadow: 0 0.75rem 1.5rem rgba(18,38,63, .03) !important;
     width: 700px;
 }
+
+
 a {
     color: #023e8a;
     text-decoration: none;
@@ -202,10 +205,6 @@ div.oe_login_buttons {
     justify-content: center;
 }
 
-div.o_login_auth {
-    width: 360px;
-}
-
 div.clearfix.oe_login_buttons {
     padding-top: 0 !important;
 }
@@ -258,8 +257,143 @@ form.admin-login {
     }
 }
 
-button.login-btn {
-    width: 420px;
-    font-size: 16px;
-    font-weight: 500;
+// RESPONSIVE
+
+@media (max-width: 400px) {
+    @media (max-width: 576px) {
+        .card.o_database_list {
+            width: 340px;
+        }
+    
+    
+        .card.o_database_list .card-body {
+            width: 340px;
+        }
+    
+        form.admin-login {
+            div.login-inputs {
+                width: 320px;
+            }
+        }
+    
+        button.login-btn {
+            width: 320px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+    
+        // user view
+        div.o_login_auth {
+            width: 280px;
+        }
+    
+    }
+}
+
+@media (min-width: 400px) and (max-width: 576px) {
+    .card.o_database_list {
+        width: 360px;
+    }
+
+
+    .card.o_database_list .card-body {
+        width: 360px;
+    }
+
+    form.admin-login {
+        div.login-inputs {
+            width: 320px;
+        }
+    }
+
+    button.login-btn {
+        width: 320px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    // user view
+    div.o_login_auth {
+        width: 280px;
+    }
+
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+    .card.o_database_list {
+        width: 450px;
+    }
+
+
+    .card.o_database_list .card-body {
+        width: 450px;
+    }
+
+    form.admin-login {
+        div.login-inputs {
+            width: 320px;
+        }
+    }
+
+    button.login-btn {
+        width: 320px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    // user view
+    div.o_login_auth {
+        width: 280px;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .card.o_database_list {
+        width: 500px;
+    }
+
+
+    .card.o_database_list .card-body {
+        width: 500px;
+    }
+
+    form.admin-login {
+        div.login-inputs {
+            width: 360px;
+        }
+    }
+
+    button.login-btn {
+        width: 360px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    // user view
+    div.o_login_auth {
+        width: 320px;
+    }
+}
+
+@media (min-width: 992px) {
+    .card.o_database_list {
+        width: 700px;
+    }
+
+
+    .card.o_database_list .card-body {
+        width: 700px;
+    }
+
+    button.login-btn {
+        width: 420px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    // user view
+    div.o_login_auth {
+        width: 360px;
+    }
 }
