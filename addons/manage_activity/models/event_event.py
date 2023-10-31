@@ -163,6 +163,9 @@ class EventEvent(models.Model):
   def register_event(self):
     self.ensure_one()
     create_date = fields.Datetime.now()
+    exist_resgistration = self.env['event.registration'].search([('event_id','=',self.id),('email','=',self.env.user.login)],limit=1)
+    if exist_resgistration:
+      raise ValidationError('Sự kiện đã được đăng ký')
     registration = self.env['event.registration'].create({
       'create_date': create_date,
       'event_id': self.id,
