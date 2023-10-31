@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <data>
+
+    <record id="event_registration_page_kanban" model="ir.ui.view">
+      <field name="name">event.registration.page.kanban</field>
+      <field name="model">event.event</field>
+      <field name="inherit_id" ref="event.view_event_kanban"/>
+      <field name="mode">primary</field>
+      <field name="arch" type="xml">
+        <xpath expr="//button[@name='see_info']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//kanban" position="attributes">
+          <attribute name="default_group_by" separator="replace">status_activity</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('event-state-action')]" position="replace">
+          <div class="row" attrs="{'invisible': [('status_activity','!=','open_registration')]}">
+            <div class="col-12 py-1 px-5 flex-row justify-content-center">
+              <hr />
+              <div class="d-grid gap-2 d-md-block">
+                <button name="register_event" type="object" class="col-3 btn btn-success" string="Đăng ký" confirm="Xác nhận Đăng ký" />
+                <span class="col-1"></span>
+                <button name="cancel_event_registration" type="object" class="col-4  btn btn-danger" string="Huỷ Đăng ký" confirm="Xác nhận huỷ đăng ký" />
+              </div>
+            </div>
+          </div>
+        </xpath>
+      </field>
+    </record>
+
+    <record id='event_registration_page_action' model='ir.actions.act_window'>
+      <field name="name">Đăng ký sự kiện</field>
+      <field name="res_model">event.event</field>
+      <field name="view_mode">kanban</field>
+      <field name="view_id" ref="event_registration_page_kanban"/>
+    </record>
+
+  </data>
+
+
+</odoo>
