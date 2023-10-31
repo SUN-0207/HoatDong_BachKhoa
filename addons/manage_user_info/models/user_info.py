@@ -148,8 +148,8 @@ class UserInfo(models.Model):
     # check the file size here before updating the record
     if self.avatar:
       file_size = len(self.avatar)
-      if file_size > 1048576:
-        raise UserError(_('Hình ảnh tải lên không được vượt quá 1MB'))
+      if file_size > 5 * 1024 * 1024:
+        raise UserError(_('Hình ảnh tải lên không vượt quá 5MB'))
 
   @api.onchange('phone_number', 'national_id')
   def _validate_number_char_field(self):
