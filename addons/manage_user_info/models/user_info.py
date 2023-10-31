@@ -1,5 +1,5 @@
 from odoo import models, fields,api, _, Command
-from odoo.exceptions import AccessDenied, ValidationError
+from odoo.exceptions import AccessDenied, ValidationError, UserError
 import re
 from . import common_constants
 class UserInfo(models.Model):
@@ -31,12 +31,14 @@ class UserInfo(models.Model):
   birth_date = fields.Date(string="Ngày sinh")
   nation = fields.Char(string="Nation")
   personal_email = fields.Char(string="Email cá nhân")
-  religion = fields.Char(string="Tôn giáo")
+  religion = fields.Many2one('user.religion', string="Tôn giáo")
 
-  ethnicity = fields.Char(string='Dân tộc')
+  ethnicity = fields.Many2one('user.ethnicity', string='Dân tộc')
   national_id = fields.Char(string="Số CMND/CCCD")
   national_id_date = fields.Date(string="Ngày cấp")
-  national_id_place = fields.Selection(selection='_get_national_id_place_options', string='Nơi cấp')
+  # national_id_place = fields.Selection(selection='_get_national_id_place_options', string='Nơi cấp')
+  national_id_place = fields.Many2one('user.national.place', 'Nơi cấp')
+
 
   joined_communist_party = fields.Boolean(default=False, string="Đã kết nạp Đảng")
   re_date_communist_party= fields.Date(string="Ngày vào Đảng (dự bị)")
@@ -70,6 +72,7 @@ class UserInfo(models.Model):
     domain=lambda self: self._compute_user_info_class_domain(),
     store=True
   )
+
 
   @api.depends('user_info_major_id')
   def _compute_user_info_department(self):
@@ -139,6 +142,14 @@ class UserInfo(models.Model):
     if 'states' not in vals:
       vals['states'] = 'done'
     return super(UserInfo, self).write(vals)
+  
+  @api.onchange('avatar')
+  def _check_limit_image_size(self):
+    # check the file size here before updating the record
+    if self.avatar:
+      file_size = len(self.avatar)
+      if file_size > 5 * 1024 * 1024:
+        raise UserError(_('Hình ảnh tải lên không vượt quá 5MB'))
 
   @api.onchange('phone_number', 'national_id')
   def _validate_number_char_field(self):

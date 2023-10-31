@@ -51,8 +51,8 @@
               <group >
                 <field name="phone_number" required="1" placeholder="Vui lòng điền"/>
                 <field name="personal_email" required="1" placeholder="Vui lòng điền gmail cá nhân (@gmail.com)"/>
-                <field name="religion" placeholder="Vui lòng chọn" />
-                <field name="ethnicity" placeholder="Vui lòng chọn" />
+                <field name="religion" placeholder="Vui lòng chọn" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                <field name="ethnicity" placeholder="Vui lòng chọn" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
               </group>
 
             </group>
@@ -75,7 +75,7 @@
               <group string="Thông tin CMND/CCCD">
                 <field name="national_id" required="1" placeholder="Vui lòng điền"/>
                 <field name="national_id_date" placeholder="Theo định dạng dd/mm/yyyy" />
-                <field name="national_id_place" placeholder="Vui lòng điền" />
+                <field name="national_id_place" placeholder="Vui lòng điền" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
               </group>
 
               <group string="Địa chỉ Tạm trú">

@@ -1,5 +1,5 @@
 import requests
-from odoo import models, fields,api
+from odoo import models, fields, api
 
 import logging
 
@@ -85,4 +85,50 @@ class UserWardInfo(models.Model):
     
     _logger.info("Finished import_location_data function")
     print("Finished import_location_data function")
+
+# Noi cap CCCD/CMND
+class UserNationalPlace(models.Model):
+  _name = 'user.national.place'
+  _description = 'User National Info Registration Place'
   
+  name = fields.Char('Name', required=True)
+  codename = fields.Char('Codename', required=True)
+
+  @api.model
+  def init(self):
+    response = requests.get("https://provinces.open-api.vn/api/p/")
+    response.raise_for_status()
+    province_datas = response.json()
+    
+    province_datas.append({'name': 'Cục Cảnh sát quản lí hành chính về trật tự xã hội', 'codename':'ccs'})
+    
+    for province_data in province_datas:
+      codename = province_data['codename']
+      existing_province = self.env['user.national.place'].search([('codename', '=', codename)], limit=1)
+      
+      if not existing_province:      
+        province = self.env['user.national.place'].create({
+            'name': province_data['name'],
+            'codename': province_data['codename'],
+        })
+
+  # @api.model
+  # def init(self):
+  #   national_places = []
+  #   national_places.append({'name': 'Cục Cảnh sát quản lí hành chính về trật tự xã hội', 'codename':'ccs'})
+
+  #   provinces = self.env['user.province.info'].search([])
+  #   for province in provinces:
+  #     national_places.append({'name': province['name'], 'codename': province['codename']})
+
+  #   for place in national_places:
+  #     codename = place['codename']
+  #     existing_place = self.env['user.national.place'].search([('codename', '=', codename)], limit=1)
+  #     if not existing_place:
+  #       try:
+  #         self.env['user.national.place'].create({
+  #           'name': place['name'],
+  #           'codename': place['codename']
+  #         })
+  #       except Exception as e:
+  #         pass
