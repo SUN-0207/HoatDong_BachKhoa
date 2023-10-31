@@ -132,11 +132,6 @@ class UserInfo(models.Model):
   @api.model
   def create(self, vals):
     vals['states'] = 'draft'
-    if vals['avatar']:
-      file_size = len(vals['avatar'])
-      if file_size > 1048576:
-        raise UserError(_('Hình ảnh tải lên không được vượt quá 1MB'))
-
     return super(UserInfo, self).create(vals)
 
   def write(self, vals):
@@ -146,13 +141,15 @@ class UserInfo(models.Model):
       raise AccessDenied(_("Bạn không có quyền truy cập vào thông tin này"))
     if 'states' not in vals:
       vals['states'] = 'done'
+    return super(UserInfo, self).write(vals)
+  
+  @api.onchange('avatar')
+  def _check_limit_image_size(self):
     # check the file size here before updating the record
-    if vals['avatar']:
-      file_size = len(vals['avatar'])
+    if self.avatar:
+      file_size = len(self.avatar)
       if file_size > 1048576:
         raise UserError(_('Hình ảnh tải lên không được vượt quá 1MB'))
-
-    return super(UserInfo, self).write(vals)
 
   @api.onchange('phone_number', 'national_id')
   def _validate_number_char_field(self):
