@@ -73,6 +73,7 @@ class UserInfo(models.Model):
     store=True
   )
 
+
   @api.depends('user_info_major_id')
   def _compute_user_info_department(self):
     for record in self:
@@ -131,6 +132,11 @@ class UserInfo(models.Model):
   @api.model
   def create(self, vals):
     vals['states'] = 'draft'
+    if 'avatar' in vals:
+      file_size = len(vals['avatar'])
+      if file_size > 1048576:
+        raise ValidationError(_('Hình ảnh tải lên không được vượt quá 1MB'))
+
     return super(UserInfo, self).create(vals)
 
   def write(self, vals):
@@ -140,6 +146,12 @@ class UserInfo(models.Model):
       raise AccessDenied(_("Bạn không có quyền truy cập vào thông tin này"))
     if 'states' not in vals:
       vals['states'] = 'done'
+    # check the file size here before updating the record
+    if 'avatar' in vals:
+      file_size = len(vals['avatar'])
+      if file_size > 1048576:
+        raise ValidationError(_('Hình ảnh tải lên không được vượt quá 1MB'))
+
     return super(UserInfo, self).write(vals)
 
   @api.onchange('phone_number', 'national_id')
