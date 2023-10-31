@@ -1,5 +1,5 @@
 from odoo import models, fields,api, _, Command
-from odoo.exceptions import AccessDenied, ValidationError
+from odoo.exceptions import AccessDenied, ValidationError, UserError
 import re
 from . import common_constants
 class UserInfo(models.Model):
@@ -24,7 +24,7 @@ class UserInfo(models.Model):
   first_name = fields.Char('Tên', compute='_compute_name_parts', inverse='_inverse_name', store=True)
   sur_name = fields.Char('Họ và tên lót', compute='_compute_name_parts', inverse='_inverse_name', store=True)
   email= fields.Char(related='user_id.email', string="Email")
-  avatar = fields.Binary(string='Ảnh chân dung', attachment=True, store=True, max_file_upload_size=1048576)
+  avatar = fields.Binary(string='Ảnh chân dung')
 
   phone_number = fields.Char(string="Số điện thoại di động")
   gender = fields.Selection([('male', 'Nam'),('female', 'Nữ')],string='Giới tính')
@@ -132,10 +132,10 @@ class UserInfo(models.Model):
   @api.model
   def create(self, vals):
     vals['states'] = 'draft'
-    if 'avatar' in vals:
+    if vals['avatar']:
       file_size = len(vals['avatar'])
       if file_size > 1048576:
-        raise ValidationError(_('Hình ảnh tải lên không được vượt quá 1MB'))
+        raise UserError(_('Hình ảnh tải lên không được vượt quá 1MB'))
 
     return super(UserInfo, self).create(vals)
 
@@ -147,10 +147,10 @@ class UserInfo(models.Model):
     if 'states' not in vals:
       vals['states'] = 'done'
     # check the file size here before updating the record
-    if 'avatar' in vals:
+    if vals['avatar']:
       file_size = len(vals['avatar'])
       if file_size > 1048576:
-        raise ValidationError(_('Hình ảnh tải lên không được vượt quá 1MB'))
+        raise UserError(_('Hình ảnh tải lên không được vượt quá 1MB'))
 
     return super(UserInfo, self).write(vals)
 
