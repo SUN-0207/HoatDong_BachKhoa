@@ -116,14 +116,7 @@ class EventEvent(models.Model):
     
   def write(self, vals):
     self.ensure_one()
-    # Nay tu dong duyet hoat dong if 'event_type_id' in vals and vals['event_type_id'] == 3:
-    #   vals['stage_id'] = 8
-    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)
-    #publish_event_website
-    # vals['is_published'] = False
-    # if ('stage_id' not in vals and self.stage_id.name == 'Đã duyệt') or ('stage_id' in vals and self.env['event.stage'].search([('id', '=', vals['stage_id'])]).name == 'Đã duyệt'):
-    #   vals['is_published'] = True  
-    
+    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)  
     #change_stage
     print(self.stage_id.name)
     if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung'   :
@@ -168,19 +161,19 @@ class EventEvent(models.Model):
     self.ensure_one()
     stage_id = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
     self.write({'stage_id': stage_id})
-    return self.notify_success()
+    return self.notify_success('Chuyen trang thai thanh Da duyet')
 
   def need_update_event(self):
     self.ensure_one()
     stage_id = self.env['event.stage'].search([('name', '=', 'Bổ sung')]).id
     self.write({'stage_id': stage_id})
-    return self.notify_success()
+    return self.notify_success('Chuyen trang thai thanh Bo sung')
 
   def refuse_event(self):
     self.ensure_one()
     stage_id = self.env['event.stage'].search([('name', '=', 'Đã huỷ')]).id
     self.write({'stage_id': stage_id})
-    return self.notify_success()
+    return self.notify_success('Ban da tu choi hoat dong nay')
   
   def register_event(self):
     self.ensure_one()
@@ -205,13 +198,15 @@ class EventEvent(models.Model):
       resgistration.sudo().unlink()
     return self.notify_success()
 
-  def notify_success(self):
+  def notify_success(self, mess= None):
+    if mess == None: 
+      mess = 'Thao tác của bạn đã được lưu'
     return {
         'type': 'ir.actions.client',
         'tag': 'display_notification',
         'params': {
             'title': 'Thành công',
-            'message': 'Thao tác của bạn đã được lưu',
+            'message': mess,
             'type': 'success',
             'sticky': False, 
             'next': {'type': 'ir.actions.act_window_close'},

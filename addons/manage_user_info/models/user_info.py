@@ -64,7 +64,7 @@ class UserInfo(models.Model):
   ward_id_permanent = fields.Many2one('user.ward.info', 'Phường/Xã', domain="[('district_id', '=', district_id_permanent)]")
 
   user_info_department_id = fields.Many2one('user.info.department', string='Đơn vị', readonly=True, store=True, compute='_compute_user_info_department')
-  user_info_major_id = fields.Many2one('user.info.major',string='Ngành', store=True)
+  user_info_major_id = fields.Many2one('user.info.major',string='Ngành', store=True, domain="[('show_student_form', '=', True)]")
   user_info_academy_year = fields.Many2one('user.info.year', string='Niên khoá', store=True, compute="_compute_user_info_academy_year")
   student_id = fields.Char(string="MSSV")
   user_info_class_id = fields.Many2one('user.info.class',string='Lớp', 
