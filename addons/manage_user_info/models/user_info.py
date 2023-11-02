@@ -135,10 +135,6 @@ class UserInfo(models.Model):
     return super(UserInfo, self).create(vals)
 
   def write(self, vals):
-    if not self.env.user.sudo().has_group('manage_user_info.group_hcmut_department_admin') and self.env.user.id != self.user_id.id:
-      print(self.env.user.id)
-      print(self.user_id.id)
-      raise AccessDenied(_("Bạn không có quyền truy cập vào thông tin này"))
     if 'states' not in vals:
       vals['states'] = 'done'
     return super(UserInfo, self).write(vals)
