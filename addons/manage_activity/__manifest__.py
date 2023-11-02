@@ -16,8 +16,6 @@
     "data": [
         'security/ir.model.access.csv',
         'data/event_data.xml',
-        'views/event_templates_attendee_detail.xml',
-        'views/event_templates_page_registration.xml',
         'views/event_type_views.xml',
         'views/event_ticket_views.xml',
         'views/event_event_kanban_custom.xml',
