@@ -41,7 +41,7 @@
                 <div class="d-flex flex-row">
                   <div class="col-8 mb24">
                     <h2>Tên hoạt động</h2>                   
-                    <field class="fs-1 no-border-input" name="name" widget="text" />
+                    <field class="fs-1 no-border-input" name="name" widget="text"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" />
                   </div>
                   <div class="col-4 text-end px-3">
                     <label for="created_by_name" string="Tao boi"/> 
@@ -59,15 +59,19 @@
                     options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                   </group>
                   <group>
+                    <field name="auto_accept_activity"  readonly="1" />
 
-                    <field name="auto_accept_activity" />
+                    <field name="user_response" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
+                    <field name="user_response_phone"  readonly="1" />
+                    <field name="user_response_email"  readonly="1" />
+                 
                   </group>
                 </group>
                 <group string="Thong tin hoat dong">
                   <h3>Mô tả hoạt động </h3>
-                  <field name="description" widget="text" class="border-input"/>
+                  <field name="description" widget="html" class="border-input"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"/>
                   <group>
-                    <field name="status_activity"  attrs="{'readonly': [('stage_name', '!=', 'Đã duyệt')]}" />
+                    <field name="status_activity"  readonly="1" />
                     <label for="date_begin" string="Dang ky"/>
                     <div class="o_row">
                       <field name="date_begin_registration" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'date_end_registration'}"
@@ -85,9 +89,9 @@
                   </group>
                   <group >
                     <field name="active" invisible="1"/>
-                    <field name="event_type_id" string="Nhóm hoạt động"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                    <field name="tag_ids" string="Ý nghĩa hoạt động" widget="many2many_tags" options="{'color_field': 'color', 'no_quick_create': True,'no_create_edit':True,'no_open': True,}"/>
-                    <field  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  string="Giấy tờ liên quan" name="attach_file" widget="many2many_binary" />
+                    <field name="event_type_id" string="Nhóm hoạt động"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"/>
+                    <field name="tag_ids" string="Ý nghĩa hoạt động" widget="many2many_tags" options="{'color_field': 'color', 'no_quick_create': True,'no_create_edit':True,'no_open': True,}"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"/>
+                    <field attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  string="Giấy tờ liên quan" name="attach_file" widget="many2many_binary" />
                   </group>
                 </group>
                 <group string="Thiet lap hoat dong">
@@ -99,7 +103,7 @@
                       <field name="max_tranning_point"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  />
                     </group>
                     <group>
-                      <field string="All students: " name="is_for_all_students"/>
+                      <field string="All students: " name="is_for_all_students" invisible="1"/>
                     </group>
                     <!-- <group>
                       <field string="Giới hạn sinh viên các đơn vị" name="is_maximize_department"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>
@@ -109,7 +113,7 @@
                     <group>
                       <field name="auto_confirm" string="Autocofirm"/>                 
                     </group>
-                    <group>
+                    <group invisible="1">
                       <label for="seats_limited" string="Gioi han tham gia"/>
                       <div>
                         <field name="seats_limited"/>
@@ -128,7 +132,7 @@
                   </group> 
                 </group>
                   <notebook>
-                    <page string="Gioi han tham gia" name="tickets" attrs="{'invisible': [('is_for_all_students', '=', True)]}" >
+                    <page string="Gioi han tham gia" name="tickets" >
                       <field name="event_ticket_ids" context="{
                         'default_event_name': name,
                         'tree_view_ref': 'event.event_event_ticket_view_tree_from_event',

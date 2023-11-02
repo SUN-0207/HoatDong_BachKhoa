@@ -22,6 +22,7 @@ class EventRegistration(models.Model):
            
       @api.model
       def create(self, vals):
+            #Check dieu kien o day
             event_registration = super(EventRegistration, self).create(vals)
             return event_registration
 

@@ -5,7 +5,7 @@ class UserInfoDepartment(models.Model):
     _name = 'user.info.department'
     _description = 'User Info Department'
  
-    name = fields.Char('Đơn vị', required=True, translate=True)
+    name = fields.Char('Đơn vị', required=True)
     code = fields.Char('Mã đơn vị', required=True)
  
     major_ids = fields.One2many('user.info.major', 'department_id', string='Ngành')

@@ -18,6 +18,7 @@ class UserInfo(models.Model):
     default='draft',
   )
 
+  can_response_event = fields.Boolean('Co quyen giam sat hoat dong',store=True, default=False)
   user_id = fields.Many2one('res.users', string='User',ondelete='cascade', readonly=True)
   
   name = fields.Char(compute='_compute_name_parts', string="Name", store=True)

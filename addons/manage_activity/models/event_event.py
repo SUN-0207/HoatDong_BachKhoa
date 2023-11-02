@@ -23,10 +23,24 @@ class EventEvent(models.Model):
   
   user_id = fields.Many2one('res.users', string='User', readonly=True, default=lambda self: self.env.user)
   created_by_name = fields.Char(string="Hoạt động được tạo bởi ", store=True, default = lambda self: self.env.user.name)
- 
   department_of_create_user = fields.Many2one(related='user_id.manage_department_id', 
-  string='Hoat dong thuoc ve don vi', store=True, default=lambda self: self.env.user.manage_department_id)
+    string='Hoat dong thuoc ve don vi', store=True, default=lambda self: self.env.user.manage_department_id)
   
+  user_response = fields.Many2one('user.info', domain=[('can_response_event', '=', False)])
+  user_response_phone = fields.Char(string="Số điện thoại di động", compute='_get_info', store=True)
+  user_response_email = fields.Char(string="Mail", compute='_get_info', store=True)
+
+  @api.depends('user_response')
+  def _get_info(self):
+      for record in self:
+          if record.user_response:
+              record.user_response_phone = record.user_response.phone_number
+              record.user_response_email = record.user_response.user_id.email
+          else:
+              record.user_response_phone = False
+              record.user_response_email = False
+
+
   date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
   date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
   max_social_point = fields.Char(string="Số ngày CTXH tối đa")
@@ -43,11 +57,19 @@ class EventEvent(models.Model):
   major_can_register = fields.Many2many('user.info.major', string='Major')
   year_can_register = fields.Many2many('user.info.year', string='Years')
 
-  auto_accept_activity = fields.Boolean('Tu dong duyet', default=False, readonly=True)
+  auto_accept_activity = fields.Boolean('Tu dong duyet', readonly=True, store=True, compute='_check_auto_accept_activity')
   
   accept_registration = fields.Integer(string='Registration Count', compute='_compute_accept_registration')
   unaccpet_registration = fields.Integer(string='Registration Count', compute='_compute_unaccpet_registration')
   duyet_nhanh = fields.Char(string='Duyet nhanh')
+
+  @api.depends('event_type_id')
+  def _check_auto_accept_activity(self):
+    for record in self:
+      print(record.event_type_id)
+      print(record.event_type_id.auto_accept_activity)
+      if record.event_type_id :
+        record.auto_accept_activity = record.event_type_id.auto_accept_activity
 
   @api.depends('registration_ids')
   def _compute_accept_registration(self):
@@ -98,9 +120,9 @@ class EventEvent(models.Model):
     #   vals['stage_id'] = 8
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)
     #publish_event_website
-    vals['is_published'] = False
-    if ('stage_id' not in vals and self.stage_id.name == 'Đã duyệt') or ('stage_id' in vals and self.env['event.stage'].search([('id', '=', vals['stage_id'])]).name == 'Đã duyệt'):
-      vals['is_published'] = True  
+    # vals['is_published'] = False
+    # if ('stage_id' not in vals and self.stage_id.name == 'Đã duyệt') or ('stage_id' in vals and self.env['event.stage'].search([('id', '=', vals['stage_id'])]).name == 'Đã duyệt'):
+    #   vals['is_published'] = True  
     
     #change_stage
     print(self.stage_id.name)
@@ -242,3 +264,6 @@ class UserInfoMajor(models.Model):
   _inherit = 'user.info.major'
 class UserInfoYear(models.Model):
   _inherit = 'user.info.year'
+
+class UserInfo(models.Model):
+  _inherit = 'user.info'
