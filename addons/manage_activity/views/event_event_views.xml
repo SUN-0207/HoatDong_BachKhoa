@@ -41,7 +41,7 @@
 
                 <div class="d-flex flex-row justify-content-between" style="margin-top:3rem;margin-bottom:4rem;">
                   <div class="event-name-group">         
-                      <field class="fs-1 event-name-field" name="name" placeholder=" " widget="event_name" attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" />
+                      <field class="fs-1 event-name-field" name="name" placeholder=" " widget="event_name" />
                       <label for="name">Tên hoạt động</label>
                       <script type="text/javascript" src="/manage_activity/static/src/js/event_name.js"></script>
                   </div>
@@ -104,8 +104,8 @@
                     <group>
                       <field name="auto_confirm" string="Autocofirm"/>                 
                     </group>
-                    <group>
-                      <label for="seats_limited" string="Giới hạn tham gia"/>
+                    <group invisible="1">
+                      <label for="seats_limited" string="Gioi han tham gia"/>
                       <div>
                         <field name="seats_limited"/>
                         <span attrs="{'invisible': [('seats_limited', '=', False)], 'required': [('seats_limited', '=', False)]}">
