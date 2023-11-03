@@ -145,6 +145,23 @@ class EventEvent(models.Model):
             else:
                 event.status_activity = False
 
+  def see_info_user_response(self):
+    self.ensure_one()
+    return {
+        'name': self.user_response.name,
+        'type': 'ir.actions.act_window',
+        'res_model': 'see.info.wizard',
+        'view_mode': 'form',
+        'view_type': 'form',
+        'view_id': self.env.ref('manage_activity.view_form_see_info_wizard').id,
+        'target': 'new',
+        'context': {
+            'active_id': self.id,
+            'default_user_response_phone': self.user_response.phone_number,
+            'default_user_response_email': self.user_response.user_id.email,
+        },
+    }
+
   def see_info(self):
     self.ensure_one()
     return{
@@ -242,6 +259,14 @@ class EventEvent(models.Model):
       if record.is_maximize_department == False:
         if record.is_maximize_major == True:
           record.is_maximize_major = False
+
+
+class SeeInfoWizard(models.TransientModel):
+    _name = 'see.info.wizard'
+    _description = 'See Info Wizard'
+
+    user_response_phone = fields.Char(string="Số điện thoại di động", readonly=True)
+    user_response_email = fields.Char(string="Mail", readonly=True)
 
 class ResUsers(models.Model):
   _inherit = ['res.users']

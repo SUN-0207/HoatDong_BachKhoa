@@ -1,6 +1,6 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError, UserError
-
+from lxml import etree
 class EventTicket(models.Model):
     _inherit = 'event.type.ticket'
        
@@ -26,16 +26,21 @@ class EventTicket(models.Model):
         for record in self:
             if record.event_info_major_id and self.event_info_major_id.name != 'Tat ca':
                 record.event_department_id = record.event_info_major_id.department_id
+
+    # Khoa field neu chon Tat ca
+    # @api.model
+    # def fields_view_get(self, view_id=None, view_type='form',
+    #                     toolbar=False, submenu=False):
+    #     res = super(EventTicket, self).fields_view_get(
+    #         view_id=view_id, view_type=view_type,
+    #         toolbar=toolbar, submenu=submenu)
+      
+    #     doc = etree.XML(res['arch'])
+    #     create_button = doc.xpath("//tree[@create='1']")
             
-
-    ticket_department_selection = fields.Selection(string='Ticket Major Selection', selection='_get_ticket_department_selection_options',)
-    ticket_major_selection = fields.Selection(string='Ticket Major Selection', selection='_get_ticket_major_selection_options',)
-    ticket_academy_year_selection = fields.Selection(string='Ticket Major Selection', selection='_get_ticket_year_selection_options',)
-
-    @api.model
-    def _get_ticket_department_selection_options(self):
-        selection = [('False', 'Tất cả')]
-        department_ids = self.env['user.info.department'].search([]).ids
-        selection += [(str(department_id), self.env['user.info.department'].browse(department_id).display_name) for department_id in department_ids]
-        print(selection)
-        return selection   
+    #     if create_button and self.event_department_id.name == 'Tat ca':
+    #             create_button[0].attrib['create'] = '0'
+            
+    #     res['arch'] = etree.tostring(doc)
+    #     print(res)
+    #     return res

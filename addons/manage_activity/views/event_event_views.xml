@@ -64,7 +64,7 @@
                     <field name="user_response" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
                     <field name="user_response_phone"  readonly="1" />
                     <field name="user_response_email"  readonly="1" />
-                 
+                    <button name="see_info_user_response" type="object" class="btn btn-link" string="Xem thông tin nguoi quan ly hoat dong"></button>
                   </group>
                 </group>
                 <group string="Thong tin hoat dong">
@@ -184,7 +184,7 @@
       <field name="inherit_id" ref="event.view_event_tree" />
       <field name="arch" type="xml">
         <xpath expr="//tree"  position="replace">
-          <tree string="Events" default_order="stage_id asc">
+          <tree string="Events" default_order="stage_id asc" expand="1">           
             <!-- Hide field but effect -->
             <field name="address_id" readonly="1" invisible="1"/>
             <field name="organizer_id" readonly="1" optional="hide" invisible="1"/>
@@ -202,7 +202,7 @@
             
             
             <field name="name" string='Tên hoạt động'/>
-            <field name="stage_id" string='Tình trạng duyệt'/>
+            <field name="stage_id" string='Tình trạng duyệt' invisible="1"/>
             <field name="status_activity" widget='badge' optional="show" string='Tình trạng hoạt động'/>
             <field name="event_type_id" optional="show" string='Nhóm hoạt động' />
             <field name="date_begin_registration" readonly="1" widget="date" optional="show" />
@@ -214,7 +214,6 @@
             <button name="confirm_event" type="object" class="btn btn-outline-primary" string="Đồng ý" confirm="Xác nhận đồng ý" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}"  groups="manage_user_info.group_hcmut_super_admin"/>
             <button name="need_update_event" type="object" class="btn btn-warning" string="Bổ sung" confirm="Xác nhận bổ sung" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" groups="manage_user_info.group_hcmut_super_admin"/>
             <button name="refuse_event" type="object" class="btn btn-outline-danger" string="Từ chối" confirm="Xác nhận từ chối" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" groups="manage_user_info.group_hcmut_super_admin"/>
-           
           </tree>
         </xpath>
       </field>
@@ -225,12 +224,15 @@
       <field name="model">event.event</field>
       <field name="inherit_id" ref="event.view_event_search" />
       <field name="arch" type="xml">
-        <xpath expr="//search" position="replace">
+        <xpath expr="//search" position="replace" >
           <search string="Events">
             <field name="name" string="Event"/>
+            <field name="stage_id" string="stage_id"/>
             <field name="department_of_create_user" string="Department"/>
-           
             <filter string="My Events" name="myevents" help="My Events" domain="[('user_id', '=', uid)]"/>
+            <group expand="0" string="Group By">
+              <filter string="Tinh trang duyet" name="group_by_stage_id" context="{'group_by': 'stage_id'}"/>
+            </group>
             <searchpanel>
               <field name="status_activity" icon="fa fa-cogs" enable_counters="1" select="multi"/>
               <field groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" name="department_of_create_user" icon="fa fa-building" enable_counters="1" select="multi"/>
@@ -242,12 +244,29 @@
       </field>
     </record>
 
+
+    <record id="view_form_see_info_wizard" model="ir.ui.view">
+      <field name="name">see.info.wizard.form</field>
+      <field name="model">see.info.wizard</field>
+      <field name="arch" type="xml">
+          <form string="See Info" create="false" edit="false">
+              <group>
+                  <field name="user_response_phone"/>
+                  <field name="user_response_email"/>
+              </group>
+              <footer>
+                  <button string="Close" class="btn-secondary" special="cancel"/>
+              </footer>
+          </form>
+      </field>
+  </record>
+
     <!-- Change view to 3 view EVENT.EVENT VIEWS -->
     <record model="ir.actions.act_window" id="event.action_event_view">
       <field name="name">Events</field>
       <field name="view_mode">tree,kanban,form</field>
       <field name="search_view_id" ref="event.view_event_search"/>
-      <!-- <field name="context" eval="{'search_default_myevents': 1}" /> -->
+      <field name="context" eval="{'search_default_group_by_stage_id': 1}" />
    </record>   
   </data>
 </odoo>

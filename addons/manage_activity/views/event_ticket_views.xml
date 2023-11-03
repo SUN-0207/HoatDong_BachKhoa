@@ -10,22 +10,15 @@
         <field name="inherit_id" ref="event.event_event_ticket_view_tree_from_event"/>
         <field name="arch" type="xml">
             <xpath expr="//tree" position="replace">
-                <tree string="Tickets" editable="bottom">
+                <tree string="Tickets" create="1"  editable="bottom">
                     <field name="name" invisible="1"/>
                     <field name="description" optional="hide" invisible="1"/>
                     <field name="start_sale_datetime" optional="show" invisible="1"/>
                     <field name="end_sale_datetime" optional="show" invisible="1"/>
-                    <field name="event_department_id"   options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                    <field name="event_info_major_id" 
-                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
-                      
-                    />
+                    <field name="event_department_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                    <field name="event_info_major_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                     <field name="event_info_academy_year" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                    <!-- <field name="ticket_department_selection"   
-                        domain="[('department_id', '=', event_department_id)]" />
-                    <field name="ticket_major_selection" />
-                        
-                    <field name="ticket_academy_year_selection" />  -->
+              
 
                     <field name="seats_max" optional="show" sum="Total" width="105px" string="Maximum"/>
                     <field name="seats_reserved" invisible="1" optional="hide" sum="Total" width="105px" string="Confirmed"/>
