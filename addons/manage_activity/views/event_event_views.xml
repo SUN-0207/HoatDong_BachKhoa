@@ -38,65 +38,62 @@
                 <field name="legend_normal" invisible="1"/>
                 <field name="legend_done" invisible="1"/>
                 <widget name="web_ribbon" text="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
-                <div class="d-flex flex-row">
-                  <div class="col-8 mb24">
-                    <h2>Tên hoạt động</h2>                   
-                    <field class="fs-1 no-border-input" name="name" widget="text" />
+                <div class="d-flex flex-row justify-content-between" style="margin-top:1rem;margin-bottom:4rem;">
+                  <div class="event-name-group">         
+                      <field class="fs-1 event-name-field" name="name" placeholder=" " widget="event_name"/>
+                      <label for="name">Tên hoạt động</label>
+
+                      <script type="text/javascript" src="/manage_activity/static/src/js/event_name.js"></script>
                   </div>
+
                   <div class="col-4 text-end px-3">
                     <label for="created_by_name" string="Tao boi"/> 
                     <field name="created_by_name" readonly="1" />
                   </div>
-                </div>
-                <group string="Quan ly hoat dong" name="right_event_details" >
-                  <field name="organizer_id" invisible="1"/>
-                  <group>
-                    <!-- Hien tai chi cho Adminstrator can them business <field name="department_response" groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin"
-                     options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/> -->
-                    <field name="department_of_create_user" 
-                    attrs="{'readonly': [('created_by_name', '!=', 'Administrator')]}"
-                    groups="manage_user_info.group_hcmut_department_admin"
-                    options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                  </group>
-                  <group>
 
-                    <field name="auto_accept_activity" />
-                  </group>
-                </group>
-                <group string="Thong tin hoat dong">
-                  <h3>Mô tả hoạt động </h3>
-                  <field name="description" widget="text" class="border-input"/>
+                </div>
+
+                <group >
                   <group>
-                    <field name="status_activity"  attrs="{'readonly': [('stage_name', '!=', 'Đã duyệt')]}" />
-                    <label for="date_begin" string="Dang ky"/>
-                    <div class="o_row">
-                      <field name="date_begin_registration" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'date_end_registration'}"
-                        attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"                    />
-                      <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
-                      <field name="date_end_registration" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'date_begin'}" 
-                      attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  />
-                    </div>
-                    <label for="date_begin" string="Diễn ra"/>
-                    <div class="o_row">
-                      <field attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  name="date_begin" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'date_end'}"/>
-                      <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
-                      <field attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  name="date_end" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'date_begin'}"/>
-                    </div>
-                  </group>
-                  <group >
                     <field name="active" invisible="1"/>
                     <field name="event_type_id" string="Nhóm hoạt động"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                  </group>
+                  
+                  <group>
                     <field name="tag_ids" string="Ý nghĩa hoạt động" widget="many2many_tags" options="{'color_field': 'color', 'no_quick_create': True,'no_create_edit':True,'no_open': True,}"/>
-                    <field  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  string="Giấy tờ liên quan" name="attach_file" widget="many2many_binary" />
                   </group>
                 </group>
-                <group string="Thiet lap hoat dong">
+                
+                <group string="Thông tin hoạt động">
+                  <field name="description" widget="html" class="border-input"/>
+                  
+                  <field name="status_activity"  attrs="{'readonly': [('stage_name', '!=', 'Đã duyệt')]}" invisible="1"/>
+
+                  <label for="date_begin" string="Đăng ký"/>
+                  <div class="o_row">
+                    <field name="date_begin_registration" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'date_end_registration'}"
+                      attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"                    />
+                    <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+                    <field name="date_end_registration" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'date_begin'}" 
+                    attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  />
+                  </div>
+
+                  <label for="date_begin" string="Diễn ra"/>
+                  <div class="o_row">
+                    <field attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  name="date_begin" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'date_end'}"/>
+                    <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+                    <field attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  name="date_end" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'date_begin'}"/>
+                  </div>
+                  
+                  <field  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  string="Giấy tờ liên quan" name="attach_file" widget="many2many_binary" />
+                </group>
+                <group string="Thiết lập hoạt động">
                   <group>
                     <group>
-                    <field name="max_social_point"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  />
+                    <field name="max_social_point"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" class="mini-field"/>
                     </group>
                     <group>
-                      <field name="max_tranning_point"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  />
+                      <field name="max_tranning_point"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" class="mini-field"/>
                     </group>
                     <group>
                       <field string="All students: " name="is_for_all_students"/>
@@ -114,8 +111,8 @@
                       <div>
                         <field name="seats_limited"/>
                         <span attrs="{'invisible': [('seats_limited', '=', False)], 'required': [('seats_limited', '=', False)]}">
-                          <field name="seats_max" class="oe_inline o_input_9ch"/> 
-                          nguoi
+                          <field name="seats_max" class="oe_inline o_input_9ch mini-field"/> 
+                          <span style="margin-left:5px;">người</span>
                         </span>
                       </div>
                     </group>
@@ -126,6 +123,24 @@
                         <field  string="Giới hạn sinh viên các khóa" name="is_maximize_year"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>         
                       </group> -->
                   </group> 
+
+                  <group string="Quan ly hoat dong" name="right_event_details" >
+                    <field name="organizer_id" invisible="1"/>
+                    
+                    <group>
+                      <!-- Hien tai chi cho Adminstrator can them business <field name="department_response" groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin"
+                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/> -->
+                      <field name="department_of_create_user" 
+                      attrs="{'readonly': [('created_by_name', '!=', 'Administrator')]}"
+                      groups="manage_user_info.group_hcmut_department_admin"
+                      options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                    </group>
+                    
+                    <group>
+                      <field name="auto_accept_activity" />
+                    </group>
+                  </group>
+
                 </group>
                   <notebook>
                     <page string="Gioi han tham gia" name="tickets" attrs="{'invisible': [('is_for_all_students', '=', True)]}" >
