@@ -156,7 +156,6 @@ class EventEvent(models.Model):
         'view_id': self.env.ref('manage_activity.view_form_see_info_wizard').id,
         'target': 'new',
         'context': {
-            'active_id': self.id,
             'default_user_response_phone': self.user_response.phone_number,
             'default_user_response_email': self.user_response.user_id.email,
         },
