@@ -131,7 +131,7 @@
                             attrs="{'readonly': [('created_by_name', '!=', 'Administrator')]}"
                             groups="manage_user_info.group_hcmut_department_admin"
                             options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>                                         
-                    
+                    <field name="user_response" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
                     <field name="auto_accept_activity" />
                     
                   </group>
