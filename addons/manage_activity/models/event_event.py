@@ -48,6 +48,17 @@ class EventEvent(models.Model):
   accept_registration = fields.Integer(string='Registration Count', compute='_compute_accept_registration')
   unaccpet_registration = fields.Integer(string='Registration Count', compute='_compute_unaccpet_registration')
   duyet_nhanh = fields.Char(string='Duyet nhanh')
+  
+  user_current_registed_event = fields.Boolean(string="User hiện tại đã đăng ký", default=False)
+  
+  def compute_event_registed_button(self):
+    for event in self:
+      exist_registration = self.env['event.registration'].search([('event_id','=',event.id),('email','=',self.env.user.login)],limit=1)
+      if exist_registration:
+        event.user_current_registed_event = True
+      else:
+        event.user_current_registed_event = False
+        
 
   @api.depends('registration_ids')
   def _compute_accept_registration(self):
@@ -162,25 +173,21 @@ class EventEvent(models.Model):
   
   def register_event(self):
     self.ensure_one()
-    create_date = fields.Datetime.now()
-    exist_resgistration = self.env['event.registration'].search([('event_id','=',self.id),('email','=',self.env.user.login)],limit=1)
-    if exist_resgistration:
-      raise ValidationError('Sự kiện đã được đăng ký')
-    registration = self.env['event.registration'].create({
-      'create_date': create_date,
-      'event_id': self.id,
-      'name': self.env.user.user_info_id.name,
-      'email': self.env.user.login,
-    })
-    if self.auto_confirm:
-      registration.sudo().action_confirm()
-    return self.notify_success()
+    return{
+        'name': 'Thông tin đăng ký hoạt động',
+        'type': 'ir.actions.act_window',
+        'view_mode': 'form',
+        'res_model': 'event.registration.wizard',
+        'view_id': False,
+        'target': 'new',
+    }
   
   def cancel_event_registration(self):
     self.ensure_one()
     resgistration = self.env['event.registration'].search([('event_id','=',self.id),('email','=',self.env.user.login)],limit=1)
     if resgistration:
       resgistration.sudo().unlink()
+      self.compute_event_registed_button()
     return self.notify_success()
 
   def notify_success(self):
