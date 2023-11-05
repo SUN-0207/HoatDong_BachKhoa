@@ -99,6 +99,74 @@ class EventEvent(models.Model):
             result['date_end_registration'] = result['date_begin_registration'] + timedelta(days=1)
         return result
 
+  
+  def _is_invalid_created_ticket(self, vals):
+    all_students = self.env['user.info.department'].search([('name', '=', 'Tat ca')]).id
+    all_students_major = self.env['user.info.major'].search([('name', '=', 'Tat ca')]).id 
+    all_students_year = self.env['user.info.year'].search([('name', '=', 'Tat ca')]).id
+    is_for_all_school_students = False
+
+
+    if 'event_ticket_ids' not in vals:
+      vals['event_ticket_ids'] = [(0, 0, {'event_department_id': all_students, 'event_info_major_id': all_students_major, 'event_info_academy_year': all_students_year})]
+      return      
+    
+    ticket_new = []
+    ticket_update = []
+    ticket_deleted = []
+    ticket_existed = []
+    #assgin False value to 'Tat ca' for create/update value
+    for ticket_id in vals['event_ticket_ids']:
+      if ticket_id[0] == 0 :       
+        if ticket_id[2]['event_info_major_id'] == False:
+          ticket_id[2]['event_info_major_id'] = all_students_major
+        if ticket_id[2]['event_info_academy_year'] == False:
+          ticket_id[2]['event_info_academy_year'] = all_students_year
+      if ticket_id[0] == 1:
+        if 'event_info_major_id' not in ticket_id[2] or ticket_id[2]['event_info_major_id'] == False:
+          ticket_id[2].update({'event_info_major_id': all_students_major})
+        if 'event_info_academy_year' not in ticket_id[2] or  ticket_id[2]['event_info_academy_year'] == False:
+          ticket_id[2].update({'event_info_academy_year': all_students_year})
+
+    for ticket_id in vals['event_ticket_ids']:
+      if ticket_id[0] == 0: ticket_new.append(ticket_id)
+      if ticket_id[0] == 1: ticket_update.append(ticket_id)
+      if ticket_id[0] == 2: ticket_deleted.append(ticket_id)
+      if ticket_id[0] == 4: ticket_existed.append(ticket_id[1])
+
+    print(ticket_new)
+    print(ticket_update)
+    print(ticket_deleted)
+    print(ticket_existed)
+    if(len(ticket_deleted) == len(vals['event_ticket_ids'])): 
+      vals['event_ticket_ids'] = ticket_deleted + [(0, 0, {'event_department_id': all_students, 'event_info_major_id': all_students_major, 'event_info_academy_year': all_students_year})]
+      return
+
+    for exist in ticket_existed:
+      if self.env['event.event.ticket'].browse(exist)[0].event_department_id.display_name  == 'Tat ca':
+        is_for_all_school_students = True
+    
+    if(ticket_new and not ticket_existed):
+      for temp in ticket_new:
+        department = self.env['user.info.department'].search([('id', '=', temp[2]['event_department_id'])])
+        if department.display_name == 'Tat ca' and  len(ticket_new) > 1:
+          raise ValidationError('Khong the them lua chon tat ca sinh vien toan truong vi dang co gioi han don vi tham gia')
+    elif (ticket_new and not is_for_all_school_students):
+        for temp in ticket_new:
+          department = self.env['user.info.department'].search([('id', '=', temp[2]['event_department_id'])])
+          if department.display_name == 'Tat ca': 
+            raise ValidationError('Khong the them lua chon tat ca sinh vien toan truong vi dang co gioi han don vi tham gia')
+    elif ticket_new and is_for_all_school_students:
+        raise ValidationError('Da gioi han sinh vien toan truong khong the tao them gioi han don vi')
+
+    if ticket_update and ticket_existed and not is_for_all_school_students:
+        for temp in ticket_update:
+          department = self.env['user.info.department'].search([('id', '=', temp[2]['event_department_id'])])
+          if department.display_name == 'Tat ca': 
+            raise ValidationError('Khong cap nhat lua chon tat ca sinh vien toan truong vi dang co gioi han don vi tham gia')
+          
+
+
   @api.model
   def create(self, vals):
     if not vals:
@@ -117,8 +185,9 @@ class EventEvent(models.Model):
   def write(self, vals):
     self.ensure_one()
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)  
+    self._is_invalid_created_ticket(vals)
+  
     #change_stage
-    print(self.stage_id.name)
     if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung'   :
       vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Chờ duyệt')]).id
    

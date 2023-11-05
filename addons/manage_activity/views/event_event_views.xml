@@ -113,7 +113,7 @@
                     <group>
                       <field name="auto_confirm" string="Autocofirm"/>                 
                     </group>
-                    <group invisible="1">
+                    <group >
                       <label for="seats_limited" string="Gioi han tham gia"/>
                       <div>
                         <field name="seats_limited"/>

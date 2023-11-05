@@ -1,6 +1,6 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError, UserError
-from lxml import etree
+
 class EventTicket(models.Model):
     _inherit = 'event.type.ticket'
        
@@ -27,20 +27,24 @@ class EventTicket(models.Model):
             if record.event_info_major_id and self.event_info_major_id.name != 'Tat ca':
                 record.event_department_id = record.event_info_major_id.department_id
 
-    # Khoa field neu chon Tat ca
-    # @api.model
-    # def fields_view_get(self, view_id=None, view_type='form',
-    #                     toolbar=False, submenu=False):
-    #     res = super(EventTicket, self).fields_view_get(
-    #         view_id=view_id, view_type=view_type,
-    #         toolbar=toolbar, submenu=submenu)
-      
-    #     doc = etree.XML(res['arch'])
-    #     create_button = doc.xpath("//tree[@create='1']")
-            
-    #     if create_button and self.event_department_id.name == 'Tat ca':
-    #             create_button[0].attrib['create'] = '0'
-            
-    #     res['arch'] = etree.tostring(doc)
-    #     print(res)
-    #     return res
+    @api.model
+    def create(self, vals):
+            #Check dieu kien o day
+            print(self)
+            print('Create tickets: ', vals)
+            event_registration = super(EventTicket, self).create(vals)
+            return event_registration
+
+    def write(self, vals):      
+        print('Update tickets: ', vals)
+   
+        return super(EventTicket, self).write(vals)
+
+    def unlink(self):
+        # Perform custom logic before deleting the record
+        # ...  
+        print('Im done')
+
+        # Call the superclass unlink() method to delete the record
+        return super(EventTicket, self).unlink()
+ 
