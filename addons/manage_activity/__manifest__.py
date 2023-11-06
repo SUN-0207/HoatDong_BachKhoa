@@ -11,9 +11,6 @@
         'web',
         'manage_user_info', 
         'event', 
-        'website',
-        'website_partner',
-        'website_mail',
     ],
     "data": [
         'security/ir.model.access.csv',
@@ -29,11 +26,9 @@
        'web.assets_backend': [
             'manage_activity/static/src/js/event_name.js',
             'manage_activity/static/src/scss/kanban.scss',
+            'manage_activity/static/src/scss/list.scss',
             'manage_activity/static/src/scss/website_kanban.scss',
             'manage_activity/static/src/scss/event_form.scss',
-        ],
-        'web.assets_frontend': [
-            'manage_activity/static/src/js/custom_website_event.js',            
         ],
     },
     'license': 'LGPL-3',
