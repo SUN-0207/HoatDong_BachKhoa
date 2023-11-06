@@ -14,19 +14,23 @@
                     create="1" editable="bottom"  
                     default_order="event_department_id asc" expand="1"
                 >
+                    <control >
+                        <create string="Thêm giới hạn đơn vị" />
+                    </control>
                     <field name="name" invisible="1"/>
                     <field name="description" optional="hide" invisible="1"/>
                     <field name="start_sale_datetime" optional="show" invisible="1"/>
                     <field name="end_sale_datetime" optional="show" invisible="1"/>
-                    <field name="event_department_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                    <field name="event_info_major_id" 
+                    <field name="event_department_id"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                    <field name="event_info_major_id"  
                         domain="['|',('department_id', '=', event_department_id),('show_student_form', '=', False) ]"
                         options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                    <field name="event_info_academy_year" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                    <field name="seats_max"   width="105px" string="Số lượng (để trống là không giới hạn)" />
+                    <field name="event_info_academy_year"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                    <field name="seats_max"   width="105px" string="Giới hạn sinh viên (0 là không giới hạn)" />
                     <field name="seats_reserved"  invisible="1" optional="hide" sum="Total" width="105px" string="Confirmed"/>
                     <field name="seats_unconfirmed" invisible="1" optional="hide" sum="Total" width="110px" string="Unconfirmed"/>
                 </tree>
+
             </xpath>
         </field>
     </record>
@@ -43,20 +47,20 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name"/>
-                            <field name="description"/>
+                            <field name="name"  invisible="1"/>
+                            <field name="description"  invisible="1"/>
                             <field name="start_sale_datetime" invisible="1"/>
                             <field name="end_sale_datetime" invisible="1"/>
+                            <field name="event_department_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                            <field name="event_info_major_id" 
+                                domain="['|',('department_id', '=', event_department_id),('show_student_form', '=', False) ]"
+                                options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                            <field name="event_info_academy_year" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                         </group><group>
                             <field name="seats_max"/>
                             <field name="seats_reserved"/>
                             <field name="seats_unconfirmed"/>
                         </group>
-                        <field name="event_department_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                        <field name="event_info_major_id" 
-                            domain="['|',('department_id', '=', event_department_id),('show_student_form', '=', False) ]"
-                            options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                        <field name="event_info_academy_year" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                   
                     </group>
                 </sheet>
