@@ -6,6 +6,8 @@ class EventEvent(models.Model):
   _inherit = [
         'event.event'
     ]
+
+  name = fields.Char(string='Tên hoạt động', translate=False, required=True)
   stage_name = fields.Char(string='Ten hoat dong',related='stage_id.name')
   status_activity = fields.Selection(string="Tình trạng hoạt động",
     selection=[
@@ -30,9 +32,9 @@ class EventEvent(models.Model):
   date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
   date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
   max_social_point = fields.Char(string="Số ngày CTXH tối đa")
-  max_tranning_point = fields.Integer(string="DRL toi da")
+  max_tranning_point = fields.Integer(string="ĐRL tối đa")
 
-  description = fields.Text(string="Nội dung hoạt động", widget="html" )
+  description = fields.Text(string="Mô tả hoạt động", widget="html" )
   attach_file = fields.Many2many('ir.attachment', string='Attachments', widget='many2many_binary')
 
   is_for_all_students = fields.Boolean(string="Dành cho toàn bộ sinh viên", default=True)
