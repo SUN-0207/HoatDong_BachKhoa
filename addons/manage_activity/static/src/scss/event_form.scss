@@ -1,0 +1,167 @@
+.o_event_form_view {
+    font-family: 'Be Vietnam Pro', sans-serif !important;
+}
+
+.o_event_form_view {
+    .o_input {
+        
+    }
+
+    div.o_attachments {
+        display: flex;
+        flex-wrap: wrap;
+
+        div.o_attachment_many2many {
+            width: 25%;
+        }
+    }
+
+    div.oe_add {
+        button.o_attach {
+            margin-left: 5px;
+            margin-top: 10px;
+        }
+    }
+
+    .o_field_many2many_selection {
+        .o_input_dropdown #tag_ids {
+            margin: 0 !important;
+            border: none !important;
+            // height: 1.8rem !important;
+        }
+
+        .o_input_dropdown input:focus {
+            border: none !important;
+            outline: none;
+        }
+    }
+
+    .o_field_many2many_tags {
+        div.o_field_tags {
+            padding-left: .5rem;
+            align-items: center;
+            max-height: 70px;
+            overflow: scroll;
+
+            span.badge {
+                // height: 1.8rem;
+            }
+
+            &:focus-within {
+                border: 2px solid #4a9bff !important;
+            }
+        }
+
+        div.o_field_tags::-webkit-scrollbar {
+            display: none;
+        }
+    }
+    
+
+    .mini-field {
+
+        #seats_max, #max_social_point, #max_tranning_point {
+            width: 5rem !important;
+            border: none !important;
+            border-bottom: 2px solid #dbdbdb !important;
+            border-radius: 0 !important;
+            margin: 0 !important;
+            height: 18px !important;
+            padding-left: 0;
+        }
+
+        #seats_max:focus, #max_social_point:focus, #max_tranning_point:focus {
+            outline: none;
+            border-radius: 0 !important;
+            border-bottom: 2px solid #4a9bff !important;
+        }
+    }
+
+    #description {
+        height: 150px;
+        border: 1px #dfdfdf solid;
+        padding-top: .5rem;
+        border-radius: .5rem;
+        margin-bottom: 2rem;
+    }
+
+    #description:focus {
+        border: 2px solid #4a9bff !important;
+    }
+
+    div.event-name-group {
+        display: flex !important;
+        position: relative;
+        height: 45px;
+
+        .o_field_widget {
+            width: 55rem;
+        }
+
+        & + .event-name-group {
+            margin-top: 30px;
+        }
+
+        label {
+            position: absolute;
+            left: 0;
+            top: 0px;
+            color: #999 !important;
+            // background-color: #fff;
+            background-color: none;
+            z-index: 10;
+            transition: transform 150ms ease-out, font-size 150ms ease-out, font-color 150ms ease-out;
+            font-size: 2rem;
+        }
+
+        &:focus-within label {
+            transform: translateY(-90%) !important;
+            font-size: medium !important;
+            margin-bottom: 5px;
+            color: #023e8a !important; 
+        }
+
+        div.has_name + label{
+            transform: translateY(-90%) !important;
+            font-size: medium !important;
+            margin-bottom: 5px;
+            color: #023e8a !important;
+        }
+
+        .o_input {
+            border: none !important;
+            border-radius: 0 !important;
+            box-shadow: 0 1px 0 0 rgb(180, 180, 180) !important;
+            position: relative;
+            padding: 8px 0px 8px 0;
+            width: 100%;
+            outline: 0;
+            box-shadow: 0 1px 0 0 #e5e5e5;
+            transition: box-shadow 150ms ease-out;
+            font-size: 2rem;
+            
+            &:focus {
+              box-shadow: 0 2px 0 0 #023e8a !important;
+            }
+          
+        }
+
+        .o_input.filled {
+            box-shadow: 0 2px 0 0 rgb(0, 167, 0);
+        }
+          
+        
+    }
+
+    // Attendees btn
+    div.o-form-buttonbox {
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+            display: flex;
+            align-items: center;
+            height: 55px !important;
+        }
+    }
+}

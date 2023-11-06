@@ -6,6 +6,8 @@ class EventEvent(models.Model):
   _inherit = [
         'event.event'
     ]
+
+  name = fields.Char(string='Tên hoạt động', translate=False, required=True)
   stage_name = fields.Char(string='Ten hoat dong',related='stage_id.name')
   status_activity = fields.Selection(string="Tình trạng hoạt động",
     selection=[
@@ -23,16 +25,30 @@ class EventEvent(models.Model):
   
   user_id = fields.Many2one('res.users', string='User', readonly=True, default=lambda self: self.env.user)
   created_by_name = fields.Char(string="Hoạt động được tạo bởi ", store=True, default = lambda self: self.env.user.name)
- 
   department_of_create_user = fields.Many2one(related='user_id.manage_department_id', 
-  string='Hoat dong thuoc ve don vi', store=True, default=lambda self: self.env.user.manage_department_id)
+    string='Hoat dong thuoc ve don vi', store=True, default=lambda self: self.env.user.manage_department_id)
   
+  user_response = fields.Many2one('user.info', domain=[('can_response_event', '=', False)])
+  user_response_phone = fields.Char(string="Số điện thoại di động", compute='_get_info', store=True)
+  user_response_email = fields.Char(string="Mail", compute='_get_info', store=True)
+
+  @api.depends('user_response')
+  def _get_info(self):
+      for record in self:
+          if record.user_response:
+              record.user_response_phone = record.user_response.phone_number
+              record.user_response_email = record.user_response.user_id.email
+          else:
+              record.user_response_phone = False
+              record.user_response_email = False
+
+
   date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
   date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
   max_social_point = fields.Char(string="Số ngày CTXH tối đa")
-  max_tranning_point = fields.Integer(string="DRL toi da")
+  max_tranning_point = fields.Integer(string="ĐRL tối đa")
 
-  description = fields.Text(string="Nội dung hoạt động", widget="html" )
+  description = fields.Text(string="Mô tả hoạt động", widget="html" )
   attach_file = fields.Many2many('ir.attachment', string='Attachments', widget='many2many_binary')
 
   is_for_all_students = fields.Boolean(string="Dành cho toàn bộ sinh viên", default=True)
@@ -43,7 +59,7 @@ class EventEvent(models.Model):
   major_can_register = fields.Many2many('user.info.major', string='Major')
   year_can_register = fields.Many2many('user.info.year', string='Years')
 
-  auto_accept_activity = fields.Boolean('Tu dong duyet', default=False, readonly=True)
+  auto_accept_activity = fields.Boolean('Tu dong duyet', readonly=True, store=True, compute='_check_auto_accept_activity')
   
   accept_registration = fields.Integer(string='Registration Count', compute='_compute_accept_registration')
   unaccpet_registration = fields.Integer(string='Registration Count', compute='_compute_unaccpet_registration')
@@ -59,6 +75,14 @@ class EventEvent(models.Model):
       else:
         event.user_current_registed_event = False
         
+
+  @api.depends('event_type_id')
+  def _check_auto_accept_activity(self):
+    for record in self:
+      print(record.event_type_id)
+      print(record.event_type_id.auto_accept_activity)
+      if record.event_type_id :
+        record.auto_accept_activity = record.event_type_id.auto_accept_activity
 
   @api.depends('registration_ids')
   def _compute_accept_registration(self):
@@ -88,6 +112,74 @@ class EventEvent(models.Model):
             result['date_end_registration'] = result['date_begin_registration'] + timedelta(days=1)
         return result
 
+  
+  def _is_invalid_created_ticket(self, vals):
+    all_students = self.env['user.info.department'].search([('name', '=', 'Tat ca')]).id
+    all_students_major = self.env['user.info.major'].search([('name', '=', 'Tat ca')]).id 
+    all_students_year = self.env['user.info.year'].search([('name', '=', 'Tat ca')]).id
+    is_for_all_school_students = False
+
+
+    if 'event_ticket_ids' not in vals:
+      vals['event_ticket_ids'] = [(0, 0, {'event_department_id': all_students, 'event_info_major_id': all_students_major, 'event_info_academy_year': all_students_year})]
+      return      
+    
+    ticket_new = []
+    ticket_update = []
+    ticket_deleted = []
+    ticket_existed = []
+    #assgin False value to 'Tat ca' for create/update value
+    for ticket_id in vals['event_ticket_ids']:
+      if ticket_id[0] == 0 :       
+        if ticket_id[2]['event_info_major_id'] == False:
+          ticket_id[2]['event_info_major_id'] = all_students_major
+        if ticket_id[2]['event_info_academy_year'] == False:
+          ticket_id[2]['event_info_academy_year'] = all_students_year
+      if ticket_id[0] == 1:
+        if 'event_info_major_id' not in ticket_id[2] or ticket_id[2]['event_info_major_id'] == False:
+          ticket_id[2].update({'event_info_major_id': all_students_major})
+        if 'event_info_academy_year' not in ticket_id[2] or  ticket_id[2]['event_info_academy_year'] == False:
+          ticket_id[2].update({'event_info_academy_year': all_students_year})
+
+    for ticket_id in vals['event_ticket_ids']:
+      if ticket_id[0] == 0: ticket_new.append(ticket_id)
+      if ticket_id[0] == 1: ticket_update.append(ticket_id)
+      if ticket_id[0] == 2: ticket_deleted.append(ticket_id)
+      if ticket_id[0] == 4: ticket_existed.append(ticket_id[1])
+
+    print(ticket_new)
+    print(ticket_update)
+    print(ticket_deleted)
+    print(ticket_existed)
+    if(len(ticket_deleted) == len(vals['event_ticket_ids'])): 
+      vals['event_ticket_ids'] = ticket_deleted + [(0, 0, {'event_department_id': all_students, 'event_info_major_id': all_students_major, 'event_info_academy_year': all_students_year})]
+      return
+
+    for exist in ticket_existed:
+      if self.env['event.event.ticket'].browse(exist)[0].event_department_id.display_name  == 'Tat ca':
+        is_for_all_school_students = True
+    
+    if(ticket_new and not ticket_existed):
+      for temp in ticket_new:
+        department = self.env['user.info.department'].search([('id', '=', temp[2]['event_department_id'])])
+        if department.display_name == 'Tat ca' and  len(ticket_new) > 1:
+          raise ValidationError('Khong the them lua chon tat ca sinh vien toan truong vi dang co gioi han don vi tham gia')
+    elif (ticket_new and not is_for_all_school_students):
+        for temp in ticket_new:
+          department = self.env['user.info.department'].search([('id', '=', temp[2]['event_department_id'])])
+          if department.display_name == 'Tat ca': 
+            raise ValidationError('Khong the them lua chon tat ca sinh vien toan truong vi dang co gioi han don vi tham gia')
+    elif ticket_new and is_for_all_school_students:
+        raise ValidationError('Da gioi han sinh vien toan truong khong the tao them gioi han don vi')
+
+    if ticket_update and ticket_existed and not is_for_all_school_students:
+        for temp in ticket_update:
+          department = self.env['user.info.department'].search([('id', '=', temp[2]['event_department_id'])])
+          if department.display_name == 'Tat ca': 
+            raise ValidationError('Khong cap nhat lua chon tat ca sinh vien toan truong vi dang co gioi han don vi tham gia')
+          
+
+
   @api.model
   def create(self, vals):
     if not vals:
@@ -105,16 +197,10 @@ class EventEvent(models.Model):
     
   def write(self, vals):
     self.ensure_one()
-    # Nay tu dong duyet hoat dong if 'event_type_id' in vals and vals['event_type_id'] == 3:
-    #   vals['stage_id'] = 8
-    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)
-    #publish_event_website
-    vals['is_published'] = False
-    if ('stage_id' not in vals and self.stage_id.name == 'Đã duyệt') or ('stage_id' in vals and self.env['event.stage'].search([('id', '=', vals['stage_id'])]).name == 'Đã duyệt'):
-      vals['is_published'] = True  
-    
+    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)  
+    self._is_invalid_created_ticket(vals)
+  
     #change_stage
-    print(self.stage_id.name)
     if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung'   :
       vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Chờ duyệt')]).id
    
@@ -141,6 +227,22 @@ class EventEvent(models.Model):
             else:
                 event.status_activity = False
 
+  def see_info_user_response(self):
+    self.ensure_one()
+    return {
+        'name': self.user_response.name,
+        'type': 'ir.actions.act_window',
+        'res_model': 'see.info.wizard',
+        'view_mode': 'form',
+        'view_type': 'form',
+        'view_id': self.env.ref('manage_activity.view_form_see_info_wizard').id,
+        'target': 'new',
+        'context': {
+            'default_user_response_phone': self.user_response.phone_number,
+            'default_user_response_email': self.user_response.user_id.email,
+        },
+    }
+
   def see_info(self):
     self.ensure_one()
     return{
@@ -157,19 +259,19 @@ class EventEvent(models.Model):
     self.ensure_one()
     stage_id = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
     self.write({'stage_id': stage_id})
-    return self.notify_success()
+    return self.notify_success('Chuyen trang thai thanh Da duyet')
 
   def need_update_event(self):
     self.ensure_one()
     stage_id = self.env['event.stage'].search([('name', '=', 'Bổ sung')]).id
     self.write({'stage_id': stage_id})
-    return self.notify_success()
+    return self.notify_success('Chuyen trang thai thanh Bo sung')
 
   def refuse_event(self):
     self.ensure_one()
     stage_id = self.env['event.stage'].search([('name', '=', 'Đã huỷ')]).id
     self.write({'stage_id': stage_id})
-    return self.notify_success()
+    return self.notify_success('Ban da tu choi hoat dong nay')
   
   def register_event(self):
     self.ensure_one()
@@ -190,13 +292,15 @@ class EventEvent(models.Model):
       self.compute_event_registed_button()
     return self.notify_success()
 
-  def notify_success(self):
+  def notify_success(self, mess= None):
+    if mess == None: 
+      mess = 'Thao tác của bạn đã được lưu'
     return {
         'type': 'ir.actions.client',
         'tag': 'display_notification',
         'params': {
             'title': 'Thành công',
-            'message': 'Thao tác của bạn đã được lưu',
+            'message': mess,
             'type': 'success',
             'sticky': False, 
             'next': {'type': 'ir.actions.act_window_close'},
@@ -233,6 +337,14 @@ class EventEvent(models.Model):
         if record.is_maximize_major == True:
           record.is_maximize_major = False
 
+
+class SeeInfoWizard(models.TransientModel):
+    _name = 'see.info.wizard'
+    _description = 'See Info Wizard'
+
+    user_response_phone = fields.Char(string="Số điện thoại di động", readonly=True)
+    user_response_email = fields.Char(string="Mail", readonly=True)
+
 class ResUsers(models.Model):
   _inherit = ['res.users']
 
@@ -249,3 +361,6 @@ class UserInfoMajor(models.Model):
   _inherit = 'user.info.major'
 class UserInfoYear(models.Model):
   _inherit = 'user.info.year'
+
+class UserInfo(models.Model):
+  _inherit = 'user.info'

@@ -5,9 +5,10 @@ class UserInfoDepartment(models.Model):
     _name = 'user.info.department'
     _description = 'User Info Department'
  
-    name = fields.Char('Đơn vị', required=True, translate=True)
+    name = fields.Char('Đơn vị', required=True)
     code = fields.Char('Mã đơn vị', required=True)
- 
+    show_student_form = fields.Boolean(string='Show student',default=True)
+
     major_ids = fields.One2many('user.info.major', 'department_id', string='Ngành')
     user_manage_ids = fields.One2many('res.users', 'manage_department_id')
     major_count = fields.Integer('Số ngành', compute="_compute_major_count", store=True, default=0)
