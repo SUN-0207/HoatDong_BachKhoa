@@ -127,6 +127,12 @@ class UserInfo(models.Model):
   def button_done(self):
     self.write({'states': 'done'})
 
+  def update_can_response_event(self):
+    self.write({'can_response_event': True})
+    
+  def remove_can_response_event(self):
+     self.write({'can_response_event': False})
+
   @api.model
   def create(self, vals):
     vals['states'] = 'draft'
