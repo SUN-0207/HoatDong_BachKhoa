@@ -44,7 +44,11 @@
             overflow: scroll;
 
             span.badge {
-                height: 1.8rem;
+                // height: 1.8rem;
+            }
+
+            &:focus-within {
+                border: 2px solid #4a9bff !important;
             }
         }
 
@@ -74,10 +78,15 @@
     }
 
     #description {
-        height: 200px;
+        height: 150px;
         border: 1px #dfdfdf solid;
         padding-top: .5rem;
         border-radius: .5rem;
+        margin-bottom: 2rem;
+    }
+
+    #description:focus {
+        border: 2px solid #4a9bff !important;
     }
 
     div.event-name-group {
@@ -142,6 +151,18 @@
         }
           
         
+    }
+
+    // Attendees btn
+    div.o-form-buttonbox {
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+            display: flex;
+            align-items: center;
+            height: 55px !important;
+        }
     }
 }
 
