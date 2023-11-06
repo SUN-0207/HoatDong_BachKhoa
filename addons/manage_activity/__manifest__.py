@@ -20,6 +20,8 @@
         'views/event_event_kanban_custom.xml',
         'views/event_event_views.xml',
         'views/event_registration_page_views.xml',
+        'views/event_registration_views.xml',
+        'wizard/event_registration_wizard_views.xml',
         'views/event_menuitem.xml'
     ],
     'assets': {

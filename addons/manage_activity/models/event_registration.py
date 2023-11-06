@@ -19,6 +19,11 @@ class EventRegistration(models.Model):
       user_info_department_id= fields.Many2one('user.info.department', 'Don vi', related='user_info_id.user_info_department_id') 
       user_info_major_id= fields.Many2one('user.info.major', 'Chuyen nganh', related='user_info_id.user_info_major_id') 
       user_info_class_id= fields.Many2one('user.info.class', 'Lop', related='user_info_id.user_info_class_id') 
+      
+      state = fields.Selection([
+        ('draft', 'Unconfirmed'), ('cancel', 'Cancelled'),
+        ('open', 'Confirmed'), ('done', 'Attended')],
+        string='Status', default='draft', copy=False, tracking=True)
            
       @api.model
       def create(self, vals):
