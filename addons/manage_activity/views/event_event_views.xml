@@ -46,7 +46,7 @@
                       <script type="text/javascript" src="/manage_activity/static/src/js/event_name.js"></script>
                   </div>
                   <div class="col-4 text-end px-3">
-                    <label for="created_by_name" string="Tao boi"/> 
+                    <label for="created_by_name" string="Tạo bởi"/> 
                     <field name="created_by_name" readonly="1" />
                   </div>
                 </div>
@@ -83,7 +83,7 @@
                     <field attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  name="date_end" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'date_begin'}"/>
                   </div>
                   
-                  <field  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  string="Giấy tờ liên quan" name="attach_file" widget="many2many_binary" />
+                
                 </group>
                 <group string="Thiết lập hoạt động">
                   <group>
@@ -102,10 +102,10 @@
                   </group>
                   <group>
                     <group>
-                      <field name="auto_confirm" string="Autocofirm"/>                 
+                      <field name="auto_confirm" string="Tự động duyệt sinh viên"/>                 
                     </group>
-                    <group invisible="1">
-                      <label for="seats_limited" string="Gioi han tham gia"/>
+                    <group >
+                      <label for="seats_limited" string="Giới hạn tham gia"/>
                       <div>
                         <field name="seats_limited"/>
                         <span attrs="{'invisible': [('seats_limited', '=', False)], 'required': [('seats_limited', '=', False)]}">
@@ -124,21 +124,24 @@
 
                   <group string="Quản lý hoạt động" name="right_event_details" >
                     <field name="organizer_id" invisible="1"/>
-
+                      <field name="auto_accept_activity"  invisible="1" />
                     <!-- Hien tai chi cho Adminstrator can them business <field name="department_response" groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin"
                     options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/> -->
-                    <field  name="department_of_create_user" 
-                            attrs="{'readonly': [('created_by_name', '!=', 'Administrator')]}"
-                            groups="manage_user_info.group_hcmut_department_admin"
-                            options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>                                         
-                    <field name="user_response" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
-                    <field name="auto_accept_activity" />
-                    
+                    <field class="oe_inline" name="user_response" string="Người phụ trách" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" /> 
                   </group>
-
+                  <group string="">
+                    <field  name="department_of_create_user" string="Hoạt động của đơn vị"
+                    attrs="{'readonly': [('created_by_name', '!=', 'Administrator')]}"
+                    groups="manage_user_info.group_hcmut_department_admin"
+                    options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>  
+                  </group>
+                  <div class="o_row ">
+                    <button nolabel="1" name="see_info_user_response" type="object" class=" btn btn-link" string="Xem thông tin liên hệ người phụ trách" />
+                  </div>
+                  
                 </group>
                   <notebook>
-                    <page string="Gioi han tham gia" name="tickets" >
+                    <page string="Giới hạn tham gia" name="tickets" >
                       <field name="event_ticket_ids" context="{
                         'default_event_name': name,
                         'tree_view_ref': 'event.event_event_ticket_view_tree_from_event',
@@ -177,6 +180,10 @@
                         </group>
                     </page>
                 </notebook>
+                <group string="Minh chứng">
+
+                  <field  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  string="Giấy tờ liên quan" name="attach_file" widget="many2many_binary" />
+                </group>
             </sheet>
          
         </form>

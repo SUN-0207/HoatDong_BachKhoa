@@ -23,7 +23,7 @@
                         domain="['|',('department_id', '=', event_department_id),('show_student_form', '=', False) ]"
                         options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                     <field name="event_info_academy_year" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                    <field name="seats_max"   width="105px" string="Gioi han tham gia" />
+                    <field name="seats_max"   width="105px" string="Số lượng (để trống là không giới hạn)" />
                     <field name="seats_reserved"  invisible="1" optional="hide" sum="Total" width="105px" string="Confirmed"/>
                     <field name="seats_unconfirmed" invisible="1" optional="hide" sum="Total" width="110px" string="Unconfirmed"/>
                 </tree>

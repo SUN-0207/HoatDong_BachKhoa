@@ -27,7 +27,6 @@
             'manage_activity/static/src/js/event_name.js',
             'manage_activity/static/src/scss/kanban.scss',
             'manage_activity/static/src/scss/list.scss',
-            'manage_activity/static/src/scss/website_kanban.scss',
             'manage_activity/static/src/scss/event_form.scss',
         ],
     },
