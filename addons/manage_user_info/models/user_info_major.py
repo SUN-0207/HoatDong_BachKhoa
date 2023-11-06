@@ -9,8 +9,7 @@ class UserInfoMajor(models.Model):
 
    department_id = fields.Many2one('user.info.department', string='Đơn vị')
    class_ids = fields.One2many('user.info.class', 'major_id', string="Lớp")
-   show_student_form = fields.Boolean(default=True)
-   
+
    def open_list_major_info(self):
       action = {
          'name': 'Thông tin Ngành học',

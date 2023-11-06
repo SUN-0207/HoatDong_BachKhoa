@@ -40,10 +40,7 @@
                         <field name="limited_registration"/>
                         <field name="max_event_registration" attrs="{'invisible': [('limited_registration', '!=', 'limited')]}"/>
                        </group>
-                       <group>
-                        <field name="auto_accept_activity" />
 
-                       </group>
                    </group>
                 </sheet>
             </form>

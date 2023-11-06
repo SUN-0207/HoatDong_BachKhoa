@@ -22,13 +22,10 @@ class EventRegistration(models.Model):
            
       @api.model
       def create(self, vals):
-            #Check dieu kien o day
-            print('Create Regis: ', vals)
             event_registration = super(EventRegistration, self).create(vals)
             return event_registration
 
       def write(self, vals):
-            print('Update Regis: ', vals)
             result = super(EventRegistration, self).write(vals)
             # Add any additional logic you need upon updating a registration
             return result
