@@ -18,7 +18,7 @@
           <group>
             <field name="name" />
             <field name="code" />
-            <field name="show_student_form" />            
+            <field name="show_student_form" invisible="1" />            
           </group>
           <notebook>
             <page name="majors_ids" string="Ngành">
@@ -41,7 +41,7 @@
         <tree>
           <field name="name"/>
           <field name="code"/>
-          <field name="show_student_form" />            
+          <field name="show_student_form" invisible="1"/>            
           <field name="major_count"/>
         </tree>
       </field>
