@@ -111,8 +111,7 @@ class EventEvent(models.Model):
     if not self.event_ticket_ids and 'event_ticket_ids' not in vals:
       vals['event_ticket_ids'] = [(0, 0, {'event_department_id': all_students, 'event_info_major_id': all_students_major, 'event_info_academy_year': all_students_year})]
       return
-    print(len(self.event_ticket_ids))
-   
+  
     ticket_new = []
     ticket_update = []
     ticket_deleted = []
@@ -142,59 +141,68 @@ class EventEvent(models.Model):
           if ticket_id[2]['event_info_academy_year'] == False:
             ticket_id[2]['event_info_academy_year'] = all_students_year
         if ticket_id[0] == 1:
-          if 'event_department_id' in ticket_id[2]:
-            if 'event_info_major_id' not in ticket_id[2] or ticket_id[2]['event_info_major_id'] == False:
+          if 'event_department_id' in ticket_id[2] and  ('event_info_major_id' not in ticket_id[2] or ticket_id[2]['event_info_major_id'] == False ):
               ticket_id[2].update({'event_info_major_id': all_students_major})
-            if 'event_info_academy_year' not in ticket_id[2] or  ticket_id[2]['event_info_academy_year'] == False:
+          elif 'event_department_id' in ticket_id[2] and ('event_info_academy_year' not in ticket_id[2] or ticket_id[2]['event_info_academy_year'] == False):
               ticket_id[2].update({'event_info_academy_year': all_students_year})
+          elif 'event_department_id' not in ticket_id[2] and 'event_info_major_id' in ticket_id[2]:
+              major_id =  ticket_id[2]['event_info_major_id']
+              department_id = self.env['user.info.major'].search([('id', '=', major_id)]).department_id
+              ticket_id[2].update({'event_department_id': department_id.id})
+              if 'event_info_academy_year' not in ticket_id[2]:
+                exist_info = self.env['event.event.ticket'].search([('id', '=', ticket_id[1])])
+                ticket_id[2].update({'event_info_academy_year': exist_info.event_info_academy_year.id})
+          elif 'event_info_academy_year' in ticket_id[2] and 'event_department_id' not in ticket_id[2] and 'event_info_major_id' not in ticket_id[2]:
+              exist_info = self.env['event.event.ticket'].search([('id', '=', ticket_id[1])])
+              ticket_id[2].update({'event_department_id': exist_info.event_department_id.id})
+              ticket_id[2].update({'event_info_major_id': exist_info.event_info_major_id.id})
 
     print(ticket_new)
     print(ticket_update)
     print(ticket_deleted)
     print(ticket_existed)
 
+    exist_ticket_info = []
+    # Get the exist info of ticket 
     for exist in ticket_existed:
       temp = self.env['event.event.ticket'].browse(exist)[0]
       if temp.event_department_id.display_name  == 'Tat ca':
         is_for_all_school_students = True
+      exist_ticket_info.append([temp.id, temp.event_department_id.id, temp.event_info_major_id.id, temp.event_info_academy_year.id]) 
+    print('Info: ',exist_ticket_info)  
     
     if(ticket_new and not ticket_existed):
       for temp in ticket_new:
         department = self.env['user.info.department'].search([('id', '=', temp[2]['event_department_id'])])
         if department.display_name == 'Tat ca' and  len(ticket_new) > 1:
-          raise ValidationError('Khong the them lua chon tat ca sinh vien toan truong vi dang co gioi han don vi tham gia')
+          raise ValidationError('Không thể thêm lựa chọn tất cả sinh viên toàn trường vì đang có giới hạn đơn vị tham gia. Vui lòng kiểm tra lại ')
     elif (ticket_new and not is_for_all_school_students):
         for temp in ticket_new:
           department = self.env['user.info.department'].search([('id', '=', temp[2]['event_department_id'])])
           if department.display_name == 'Tat ca': 
-            raise ValidationError('Khong the them lua chon tat ca sinh vien toan truong vi dang co gioi han don vi tham gia')
+            raise ValidationError('Không thể thêm lựa chọn tất cả sinh viên toàn trường vì đang có giới hạn đơn vị tham gia. Vui lòng kiểm tra lại ')
     elif ticket_new and is_for_all_school_students:
-        raise ValidationError('Da gioi han sinh vien toan truong khong the tao them gioi han don vi')
+        raise ValidationError('Đã giới hạn sinh viên toàn trường không thể tạo thêm giới hạn đơn vị. Vui lòng kiểm tra lại ')
 
-   
-    # if ticket_update and ticket_existed and not is_for_all_school_students:
-    #     ticket_ids = []
-    #     for temp in ticket_update:
-    #       if temp[0] == 1: 
-    #         ticket_ids.append(ticket_id[1])
-    #       founded = self.env['event.event.ticket'].browse(ticket_ids)
-    #       major = self.env['user.info.major'].search([('id', '=', temp[2]['event_info_major_id'])])
-    #       for ticket in founded:
-    #         if ticket.event_department_id.display_name == 'Tat ca': 
-    #           raise ValidationError('Khong cap nhat lua chon tat ca sinh vien toan truong vi dang co gioi han don vi tham gia')
-            
-    #         if ticket.id not in department_ids_have_all_major and major.display_name == 'Tat ca' :
-    #           department_ids_have_all_major.append(department.id)
-        
-    # print('GGGGGGGG',department_ids_have_all_major)
-    # #last check
-    # for temp in ticket_new:
-    #   department = self.env['user.info.department'].search([('id', '=', temp[2]['event_department_id'])])
-    #   if department.id in department_ids_have_all_major:                                                                                                                                                                                                                                                                                                                                                                                                            
-    #     raise ValidationError('Khong the them lua chon tat ca sinh vien toan truong vi dang co gioi han don vi tham gia')
-      
-
-
+    #validate with exist
+    for update in ticket_update:
+      check_all = False
+      year_all = False
+      for exist in exist_ticket_info:
+        if exist[1] == update[2]['event_department_id'] and exist[2] == update[2]['event_info_major_id']:
+          if exist[3] == update[2]['event_info_academy_year']:
+            raise ValidationError('Khong the cap nhat vi lua chon dang bi trung lap ')
+          elif exist[3] == all_students_year or  update[2]['event_info_academy_year'] == all_students_year:
+            raise ValidationError('Khong the cap nhat nam vi da co lua chon tat ca ')
+        if exist[1] == update[2]['event_department_id']:
+          if update[2]['event_info_major_id'] == all_students_major: check_all = True
+        if exist[1] == update[2]['event_department_id']:
+          if update[2]['event_info_academy_year'] == all_students_major: year_all = True
+        if exist[0] != update[1] and check_all:
+          raise ValidationError('Không thể cap nhat lựa chọn tất cả sinh viên toàn nganh vì đang có giới hạn nganh tham gia. Vui lòng kiểm tra lại ')
+        if exist[0] != update[1] and year_all:
+          raise ValidationError('Không thể cap nhat lựa chọn tất cả cac khoa vi đang có giới hạn khoa tham gia. Vui lòng kiểm tra lại ')
+  
   @api.model
   def create(self, vals):
     if not vals:
@@ -274,19 +282,19 @@ class EventEvent(models.Model):
     self.ensure_one()
     stage_id = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
     self.write({'stage_id': stage_id})
-    return self.notify_success('Chuyen trang thai thanh Da duyet')
+    return self.notify_success('Bạn đã chấp nhận hoạt dộng này')
 
   def need_update_event(self):
     self.ensure_one()
     stage_id = self.env['event.stage'].search([('name', '=', 'Bổ sung')]).id
     self.write({'stage_id': stage_id})
-    return self.notify_success('Chuyen trang thai thanh Bo sung')
+    return self.notify_success('Đã chuyển sang bổ sung')
 
   def refuse_event(self):
     self.ensure_one()
     stage_id = self.env['event.stage'].search([('name', '=', 'Đã huỷ')]).id
     self.write({'stage_id': stage_id})
-    return self.notify_success('Ban da tu choi hoat dong nay')
+    return self.notify_success('Đã từ chối hoạt động này')
   
   def register_event(self):
     self.ensure_one()
