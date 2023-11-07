@@ -141,19 +141,23 @@ class EventEvent(models.Model):
           if ticket_id[2]['event_info_academy_year'] == False:
             ticket_id[2]['event_info_academy_year'] = all_students_year
         if ticket_id[0] == 1:
+          exist_info = self.env['event.event.ticket'].search([('id', '=', ticket_id[1])])
           if 'event_department_id' in ticket_id[2] and  ('event_info_major_id' not in ticket_id[2] or ticket_id[2]['event_info_major_id'] == False ):
+              year = self.env['event.event.ticket'].search([('id', '=', ticket_id[1])]).event_info_academy_year
               ticket_id[2].update({'event_info_major_id': all_students_major})
+              ticket_id[2].update({'event_info_academy_year': year.id})
           elif 'event_department_id' in ticket_id[2] and ('event_info_academy_year' not in ticket_id[2] or ticket_id[2]['event_info_academy_year'] == False):
               ticket_id[2].update({'event_info_academy_year': all_students_year})
           elif 'event_department_id' not in ticket_id[2] and 'event_info_major_id' in ticket_id[2]:
               major_id =  ticket_id[2]['event_info_major_id']
-              department_id = self.env['user.info.major'].search([('id', '=', major_id)]).department_id
-              ticket_id[2].update({'event_department_id': department_id.id})
+              if major_id == all_students_major:
+                ticket_id[2].update({'event_department_id': exist_info.event_department_id.id})
+              else:
+                department_id = self.env['user.info.major'].search([('id', '=', major_id)]).department_id
+                ticket_id[2].update({'event_department_id': department_id.id})
               if 'event_info_academy_year' not in ticket_id[2]:
-                exist_info = self.env['event.event.ticket'].search([('id', '=', ticket_id[1])])
                 ticket_id[2].update({'event_info_academy_year': exist_info.event_info_academy_year.id})
           elif 'event_info_academy_year' in ticket_id[2] and 'event_department_id' not in ticket_id[2] and 'event_info_major_id' not in ticket_id[2]:
-              exist_info = self.env['event.event.ticket'].search([('id', '=', ticket_id[1])])
               ticket_id[2].update({'event_department_id': exist_info.event_department_id.id})
               ticket_id[2].update({'event_info_major_id': exist_info.event_info_major_id.id})
 
@@ -169,7 +173,6 @@ class EventEvent(models.Model):
       if temp.event_department_id.display_name  == 'Tat ca':
         is_for_all_school_students = True
       exist_ticket_info.append([temp.id, temp.event_department_id.id, temp.event_info_major_id.id, temp.event_info_academy_year.id]) 
-    print('Info: ',exist_ticket_info)  
     
     if(ticket_new and not ticket_existed):
       for temp in ticket_new:
@@ -184,7 +187,7 @@ class EventEvent(models.Model):
     elif ticket_new and is_for_all_school_students:
         raise ValidationError('Đã giới hạn sinh viên toàn trường không thể tạo thêm giới hạn đơn vị. Vui lòng kiểm tra lại ')
 
-    #validate with exist
+    #validate update with exist 
     for update in ticket_update:
       check_all = False
       year_all = False
@@ -202,6 +205,34 @@ class EventEvent(models.Model):
           raise ValidationError('Không thể cap nhat lựa chọn tất cả sinh viên toàn nganh vì đang có giới hạn nganh tham gia. Vui lòng kiểm tra lại ')
         if exist[0] != update[1] and year_all:
           raise ValidationError('Không thể cap nhat lựa chọn tất cả cac khoa vi đang có giới hạn khoa tham gia. Vui lòng kiểm tra lại ')
+        if update[2]['event_department_id'] == all_students and exist[1] != all_students:
+          raise ValidationError('Không thể cap nhat lựa chọn tất cả cac don vi vi đang có giới hạn don vi tham gia. Vui lòng kiểm tra lại ')
+
+    for create in ticket_new:
+      for exist in exist_ticket_info:
+        if exist[1] == create[2]['event_department_id'] and exist[2] == create[2]['event_info_major_id']:
+          if exist[3] == create[2]['event_info_academy_year']:
+            raise ValidationError('Khong the them vi lua chon dang bi trung lap ')
+          elif exist[3] == all_students_year or  create[2]['event_info_academy_year'] == all_students_year:
+            raise ValidationError('Khong the them vi da co lua chon tat ca cho khoa')
+        elif exist[1] == create[2]['event_department_id'] and exist[2] != create[2]['event_info_major_id']:
+          if exist[2] == all_students_major and create[2]['event_info_major_id'] != all_students_major:
+            raise ValidationError('Khong the them dieu kien cho nganh vi da chon tat ca nganh cua khoa')
+          if exist[2] != all_students_major and create[2]['event_info_major_id'] == all_students_major:
+            raise ValidationError('Khong the them dieu kien tat ca nganh vi da co nganh dang duoc gioi han')
+      for update in ticket_update:
+        if update[2]['event_department_id'] == create[2]['event_department_id'] and update[2]['event_info_major_id'] == create[2]['event_info_major_id']:
+          if update[2]['event_info_academy_year'] == create[2]['event_info_academy_year']:
+            raise ValidationError('Khong the them vi lua chon dang bi trung lap ')
+          elif update[2]['event_info_academy_year'] == all_students_year or  create[2]['event_info_academy_year'] == all_students_year:
+            raise ValidationError('Khong the them vi da co lua chon tat ca cho khoa')
+        elif update[2]['event_department_id'] == create[2]['event_department_id'] and update[2]['event_info_major_id']!= create[2]['event_info_major_id']:
+          if update[2]['event_info_major_id'] == all_students_major and create[2]['event_info_major_id'] != all_students_major:
+            raise ValidationError('Khong the them dieu kien cho nganh vi da chon tat ca nganh cua khoa')
+          if update[2]['event_info_major_id'] != all_students_major and create[2]['event_info_major_id'] == all_students_major:
+            raise ValidationError('Khong the them dieu kien tat ca nganh vi da co nganh dang duoc gioi han')
+
+
   
   @api.model
   def create(self, vals):
