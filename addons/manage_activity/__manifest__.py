@@ -30,6 +30,7 @@
             'manage_activity/static/src/scss/kanban.scss',
             'manage_activity/static/src/scss/list.scss',
             'manage_activity/static/src/scss/event_form.scss',
+            'manage_activity/static/src/scss/event_tree.scss',
         ],
     },
     'license': 'LGPL-3',
