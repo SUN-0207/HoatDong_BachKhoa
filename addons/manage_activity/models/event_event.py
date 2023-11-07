@@ -154,7 +154,6 @@ class EventEvent(models.Model):
                 ticket_id[2].update({'event_department_id': exist_info.event_department_id.id})
               else:
                 department_id = self.env['user.info.major'].search([('id', '=', major_id)]).department_id
-                print("Checkkkk", department_id.id)
                 ticket_id[2].update({'event_department_id': department_id.id})
               if 'event_info_academy_year' not in ticket_id[2]:
                 ticket_id[2].update({'event_info_academy_year': exist_info.event_info_academy_year.id})
@@ -175,6 +174,9 @@ class EventEvent(models.Model):
         is_for_all_school_students = True
       exist_ticket_info.append([temp.id, temp.event_department_id.id, temp.event_info_major_id.id, temp.event_info_academy_year.id]) 
     
+    self._check_self_tickets(ticket_update)
+    self._check_self_tickets(ticket_new)
+
     if(ticket_new and not ticket_existed):
       for temp in ticket_new:
         department = self.env['user.info.department'].search([('id', '=', temp[2]['event_department_id'])])
@@ -228,7 +230,15 @@ class EventEvent(models.Model):
           if update[2]['event_info_major_id'] != all_students_major and create[2]['event_info_major_id'] == all_students_major:
             raise ValidationError('Khong the them dieu kien Tất cả nganh vi da co nganh dang duoc gioi han')
 
-
+  def _check_self_tickets(self, vals):
+    for i, val in enumerate(vals):
+        for j, check in enumerate(vals[i + 1:], start=i + 1):
+            if (
+                check[2]['event_department_id'] == val[2]['event_department_id']
+                and check[2]['event_info_major_id'] == val[2]['event_info_major_id']
+                and check[2]['event_info_academy_year'] == val[2]['event_info_academy_year']
+            ):
+                raise ValidationError('Khong the luu! vi lua chon dang bi trung lap')
   
   @api.model
   def create(self, vals):
