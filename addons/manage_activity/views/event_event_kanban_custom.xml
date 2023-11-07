@@ -41,7 +41,7 @@
                     <templates>
                         <!-- t-if="user.manage_department_id == record.department_of_create_user" -->
                         <t t-name="kanban-box">
-                            <div t-attf-class="d-flex flex-column p-0 oe_kanban_card oe_kanban_global_click">
+                            <div t-attf-class="d-flex flex-column p-0 oe_kanban_card oe_kanban_global_click event-kanban">
                                 <div class="row">
                                     <!-- <div>
                                             Current User's Department ID: <t t-esc="user['department_id']" />
@@ -117,7 +117,7 @@
 
                                 <div class="row">
                                     <div class="py-1 px-5 flex-row justify-content-center ">
-                                        <strong>Thời gian Đăng ký: </strong>
+                                        <strong>Đăng ký: </strong>
                                         <t t-esc="luxon.DateTime.fromISO(record.date_begin_registration.raw_value).toFormat('HH:mm')"/>
                                         <span> - </span>
                                         <t t-esc="luxon.DateTime.fromISO(record.date_begin_registration.raw_value).toFormat('dd/MM/yyyy')"/>
@@ -131,7 +131,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="py-1 px-5 flex-row justify-content-center ">
-                                        <strong>Thời gian Diễn ra:  </strong>
+                                        <strong>Diễn ra:  </strong>
                                         <t t-esc="luxon.DateTime.fromISO(record.date_begin.raw_value).toFormat('HH:mm')"/>
                                         <span> - </span>
                                         <t t-esc="luxon.DateTime.fromISO(record.date_begin.raw_value).toFormat('dd/MM/yyyy')"/>
@@ -193,12 +193,12 @@
                                 <div class="row event-state-action" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}">
                                     <div class="col-12 py-1 px-5 flex-row justify-content-center">
                                         <hr />
-                                        <div class="d-grid gap-2 d-md-block" groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin">
-                                            <span class="col-1">Duyệt nhanh: </span>
+                                        <div class="d-grid gap-2 d-flex justify-content-end" groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin">
+                                            <!-- <span class="col-1">Duyệt nhanh: </span> -->
                                             <field name="stage_name" invisible="1" />
                                             <button name="confirm_event" type="object" class="col-3 btn btn-success" string="Đồng ý" confirm="Xác nhận đồng ý" />
-                                            <button name="need_update_event" type="object" class="col-3  btn btn-warning" string="Bổ sung" confirm="Xác nhận bổ sung" />
-                                            <button name="refuse_event" type="object" class="col-3  btn btn-danger" string="Từ chối" confirm="Xác nhận từ chối" />
+                                            <button name="need_update_event" type="object" class="col-3  btn btn-warning ms-1" string="Bổ sung" confirm="Xác nhận bổ sung" />
+                                            <button name="refuse_event" type="object" class="col-3  btn btn-danger ms-1" string="Từ chối" confirm="Xác nhận từ chối" />
                                         </div>
                                     </div>
                                 </div>
