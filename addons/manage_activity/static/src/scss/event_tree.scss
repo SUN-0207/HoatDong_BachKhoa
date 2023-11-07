@@ -1,0 +1,41 @@
+.user_activity_tree {
+    button[name="confirm_event"] {
+        background: #7BA94F;
+        border: solid 2px #7BA94F !important;
+        color: white !important;
+        margin-right: 1rem;
+        transition: all 150ms ease-in-out;
+    }
+
+    button[name="confirm_event"]:hover {
+        background-color: white;
+        color: #7BA94F !important;
+    }
+
+    button[name="need_update_event"] {
+        background-color: white;
+        background-color: #f1b44c !important;
+        border: solid 2px #f1b44c !important;
+        margin-right: 1rem;
+        transition: all 150ms ease-in-out;
+    }
+
+    button[name="need_update_event"]:hover {
+        background-color: white !important;
+        color: #f1b44c !important;
+        border: solid 2px #f1b44c !important;
+    }
+
+    button[name="refuse_event"] {
+        background-color: #cf4137;
+        border: solid 2px #cf4137 !important;
+        color: white !important;
+        transition: all 150ms ease-in-out;
+    }
+
+    button[name="refuse_event"]:hover {
+        background-color: white;
+        color: #cf4137 !important;
+        border: solid 2px #cf4137 !important;
+    }
+}

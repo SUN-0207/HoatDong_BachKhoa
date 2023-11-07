@@ -197,7 +197,7 @@
       <field name="inherit_id" ref="event.view_event_tree" />
       <field name="arch" type="xml">
         <xpath expr="//tree"  position="replace">
-          <tree string="Events" default_order="stage_id asc" expand="1">           
+          <tree string="Quản lý hoạt động" default_order="stage_id asc" expand="1" class="user_activity_tree">           
             <!-- Hide field but effect -->
             <field name="address_id" readonly="1" invisible="1"/>
             <field name="organizer_id" readonly="1" optional="hide" invisible="1"/>
@@ -214,7 +214,7 @@
             <field name="stage_name" readonly="1" invisible="1"/>
             
             
-            <field name="name" string='Tên hoạt động'/>
+            <field name="name" string='Tên hoạt động' class="tree_activity_name"/>
             <field name="stage_id" string='Tình trạng duyệt' invisible="1"/>
             <field name="status_activity" widget='badge' optional="show" string='Tình trạng hoạt động'/>
             <field name="event_type_id" optional="show" string='Nhóm hoạt động' />
