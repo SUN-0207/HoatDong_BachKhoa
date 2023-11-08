@@ -279,7 +279,7 @@ class EventEvent(models.Model):
    
     return super(EventEvent, self).write(vals)
 
-  @api.depends('stage_id', 'date_begin_registration', 'date_end_registration', 'date_begin', 'date_end')
+  @api.depends('stage_id', '__last_update')
   def _compute_status_activity(self):
         current_datetime = datetime.now()
         for event in self:
@@ -297,6 +297,13 @@ class EventEvent(models.Model):
                     event.status_activity = 'completed'
             else:
                 event.status_activity = False
+                
+  @api.model
+  def search_read(self, domain, fields, offset, limit, order):
+    records = super(EventEvent, self).search_read(domain=domain, fields=fields, offset=offset, limit=limit, order=order)
+    for record in records:
+      self.browse(record['id']).write({'name': record['name']})
+    return records
 
   def see_info_user_response(self):
     self.ensure_one()
