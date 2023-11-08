@@ -142,13 +142,15 @@
                 </group>
                   <notebook>
                     <page string="Giới hạn tham gia" name="tickets" >
-                      <field name="event_ticket_ids" context="{
-                        'default_event_name': name,
-                        'tree_view_ref': 'event.event_event_ticket_view_tree_from_event',
-                        'form_view_ref': 'event.event_event_ticket_view_form_from_event',
-                        'kanban_view_ref': 'event.event_event_ticket_view_kanban_from_event'}" mode="tree,kanban"/>
+                      <field name="event_ticket_ids" 
+                      attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"
+                      context="{
+                            'default_event_name': name,
+                            'tree_view_ref': 'event.event_event_ticket_view_tree_from_event',
+                            'form_view_ref': 'event.event_event_ticket_view_form_from_event',
+                            'kanban_view_ref': 'event.event_event_ticket_view_kanban_from_event'}" mode="tree"/> 
                     </page>
-                  
+                
 
                     <page string="Communication" name="event_communication" invisible="1">
                         <field name="event_mail_ids">

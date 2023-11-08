@@ -1,6 +1,6 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError, UserError
-from lxml import etree
+
 class EventTicket(models.Model):
     _inherit = 'event.type.ticket'
        
@@ -14,7 +14,7 @@ class EventTicket(models.Model):
         domain = []
         if self.event_department_id:
             domain = ['|',('department_id', '=', self.event_department_id.id),('show_student_form', '=', False)]
-            if self.event_info_major_id.department_id != self.event_department_id or self.event_department_id.name != 'Tat ca':
+            if self.event_info_major_id.department_id != self.event_department_id or self.event_department_id.name != 'Tất cả':
                 self.event_info_major_id = False
       
         return {
@@ -24,7 +24,7 @@ class EventTicket(models.Model):
     @api.onchange('event_info_major_id')
     def _compute_user_info_department(self):
         for record in self:
-            if record.event_info_major_id and self.event_info_major_id.name != 'Tat ca':
+            if record.event_info_major_id and self.event_info_major_id.name != 'Tất cả':
                 record.event_department_id = record.event_info_major_id.department_id
 
     @api.model
