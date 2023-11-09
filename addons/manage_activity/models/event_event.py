@@ -8,7 +8,7 @@ class EventEvent(models.Model):
     ]
 
   name = fields.Char(string='Tên hoạt động', translate=False, required=True)
-  stage_name = fields.Char(string='Ten hoat dong',related='stage_id.name')
+  stage_name = fields.Char(string='Tên tình trạng duyệt',related='stage_id.name')
   status_activity = fields.Selection(string="Tình trạng hoạt động",
     selection=[
       ('new', 'Mới'),
@@ -26,7 +26,7 @@ class EventEvent(models.Model):
   user_id = fields.Many2one('res.users', string='User', readonly=True, default=lambda self: self.env.user)
   created_by_name = fields.Char(string="Hoạt động được tạo bởi ", store=True, default = lambda self: self.env.user.name)
   department_of_create_user = fields.Many2one('user.info.department', 
-    string='Hoat dong thuoc ve don vi', store=True, default=lambda self: self.env.user.manage_department_id if self.env.user.manage_department_id else self.env['user.info.department'].search([('code', '=', 'DTN-HSV')]))
+    string='Hoạt động thuộc về', store=True, default=lambda self: self.env.user.manage_department_id if self.env.user.manage_department_id else self.env['user.info.department'].search([('code', '=', 'DTN-HSV')]))
   
   
   user_response = fields.Many2one('user.info', domain=[('can_response_event', '=', True)])
@@ -54,15 +54,15 @@ class EventEvent(models.Model):
 
   is_for_all_students = fields.Boolean(string="Dành cho toàn bộ sinh viên", default=True)
 
-  auto_accept_activity = fields.Boolean('Tu dong duyet', readonly=True, store=True, compute='_check_auto_accept_activity')
+  auto_accept_activity = fields.Boolean('Tự động đồng ý hoạt động', readonly=True, store=True, compute='_check_auto_accept_activity')
   
   accept_registration = fields.Integer(string='Registration Count', compute='_compute_accept_registration')
   unaccpet_registration = fields.Integer(string='Registration Count', compute='_compute_unaccpet_registration')
-  duyet_nhanh = fields.Char(string='Duyet nhanh')
+  duyet_nhanh = fields.Char(string='Duyệt nhanh')
   
   def open_list_event(self):
     action = {
-      'name': 'Events',
+      'name': 'Quản lý hoạt động',
       'type': 'ir.actions.act_window',
       'view_mode': 'tree,kanban,form',
       'res_model': 'event.event',  
@@ -112,10 +112,10 @@ class EventEvent(models.Model):
       filtered_registrations = activity.registration_ids.filtered(lambda r: r.state == 'draft')
       activity.unaccpet_registration = len(filtered_registrations)
 
-  @api.onchange('is_for_all_students')
-  def check_tickets(self):
-    if len(self.event_ticket_ids) != 0 and self.is_for_all_students == True:
-       raise ValidationError('Khong the chuyen ve Tất cả sinh vien vi dang co gioi han sinh vien')
+  # @api.onchange('is_for_all_students')
+  # def check_tickets(self):
+  #   if len(self.event_ticket_ids) != 0 and self.is_for_all_students == True:
+  #      raise ValidationError('Khong the chuyen ve Tất cả sinh vien vi dang co gioi han sinh vien')
 
   @api.model
   def default_get(self, fields_list):
@@ -222,16 +222,16 @@ class EventEvent(models.Model):
       for exist in exist_ticket_info:
         if exist[1] == update[2]['event_department_id'] and exist[2] == update[2]['event_info_major_id']:
           if exist[3] == update[2]['event_info_academy_year']:
-            raise ValidationError('Khong the cap nhat vi lua chon dang bi trung lap ')
+            raise ValidationError('Không thể cập nhật vì lựa chọn đang bị trùng lặp. Vui lòng kiểm tra lại')
           elif exist[3] == all_students_year or  update[2]['event_info_academy_year'] == all_students_year:
-            raise ValidationError('Khong the cap nhat nam vi da co lua chon Tất cả ')
+            raise ValidationError('Không thể cập nhật niên khóa vì đã có lựa chọn Tất cả niên khóa dành cho đơn vị và chuyên ngành này. Vui lòng kiểm tra lại')
         if exist[1] == update[2]['event_department_id'] and exist[2] != update[2]['event_info_major_id']:
           if exist[2] == all_students_major and update[2]['event_info_major_id'] != all_students_major:
-            raise ValidationError('Khong the them dieu kien cho nganh vi da chon Tất cả nganh cua khoa')
+            raise ValidationError('HKongo thể cập nhật thêm điều kiện cho ngành vì đã có lựa chọn tất cả ngành của đơn vị này. Vui lòng kiểm tra lại')
           if exist[2] != all_students_major and update[2]['event_info_major_id'] == all_students_major:
-            raise ValidationError('Không thể cap nhat lựa chọn tất cả sinh viên toàn nganh vì đang có giới hạn nganh tham gia. Vui lòng kiểm tra lại ')
+            raise ValidationError('Không thể cập nhật lựa chọn tất cả sinh viên toàn ngành vì đang có giới hạn ngành tham gia. Vui lòng kiểm tra lại ')
         if update[2]['event_department_id'] == all_students and exist[1] != all_students:
-          raise ValidationError('Không thể cap nhat lựa chọn tất cả cac don vi vi đang có giới hạn don vi tham gia. Vui lòng kiểm tra lại ')
+          raise ValidationError('Không thể cập nhật lựa chọn tất cả các đơn vị vì đang có giới hạn đơn vị tham gia. Vui lòng kiểm tra lại ')
 
     for create in ticket_new:
       for exist in exist_ticket_info:
@@ -293,12 +293,13 @@ class EventEvent(models.Model):
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)  
     self._validation_ticket_services(vals)
   
-    event_type = self.env['event.type'].browse(self.event_type_id)
-    if event_type.is_available and event_type.auto_accept_activity:
-        vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
-        event_type.event_registed = event_type.event_registed + 1
-    else:
-        raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
+    if self.event_type_id or 'event_type_id' in vals:
+      event_type = self.env['event.type'].browse(self.event_type_id)
+      if event_type.is_available and event_type.auto_accept_activity:
+          vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
+          event_type.event_registed = event_type.event_registed + 1
+      else:
+          raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
     #change_stage
     if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung'   :
       vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Chờ duyệt')]).id
@@ -364,13 +365,13 @@ class EventEvent(models.Model):
     self.ensure_one()
     stage_id = self.env['event.stage'].search([('name', '=', 'Bổ sung')]).id
     self.write({'stage_id': stage_id})
-    return self.notify_success('Đã chuyển sang bổ sung')
+    return self.notify_success('Bạn đã chuyển hoạt dộng này sang bổ sung')
 
   def refuse_event(self):
     self.ensure_one()
     stage_id = self.env['event.stage'].search([('name', '=', 'Đã huỷ')]).id
     self.write({'stage_id': stage_id})
-    return self.notify_success('Đã từ chối hoạt động này')
+    return self.notify_success('Bạn đã từ chối hoạt động này')
   
   def register_event(self):
     self.ensure_one()

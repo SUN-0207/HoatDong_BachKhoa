@@ -57,9 +57,9 @@
                                 options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                             <field name="event_info_academy_year" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                         </group><group>
-                            <field name="seats_max"/>
-                            <field name="seats_reserved"/>
-                            <field name="seats_unconfirmed"/>
+                            <field name="seats_max" invisible="1"/>
+                            <field name="seats_reserved" invisible="1"/>
+                            <field name="seats_unconfirmed" invisible="1"/>
                         </group>
                   
                     </group>
