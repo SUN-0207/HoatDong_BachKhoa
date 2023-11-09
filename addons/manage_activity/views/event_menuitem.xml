@@ -18,9 +18,9 @@
       <field name='name'>Nhóm hoạt động</field>
     </record>
 
-    <!-- <record id="event.menu_event_tag" model="ir.ui.menu">
+    <record id="event.menu_event_category" model="ir.ui.menu">
       <field name="name">Ý nghĩa</field>
-    </record> -->
+    </record>
 
 
   </data>

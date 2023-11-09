@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 <odoo>
     <data>
+
+
     
-        <record id="event_tag_view_tree_inherit" model="ir.ui.view">
+        <!-- <record id="event_tag_view_tree_inherit" model="ir.ui.view">
             <field name="name">event.tag.view.tree.inherit</field>
             <field name="model">event.tag</field>
             <field name="inherit_id" ref="event.event_tag_view_tree"/>
@@ -13,23 +15,56 @@
                     </tree>
                 </xpath>
             </field>
+        </record> -->
+
+
+        <!-- EVENT.TAG VIEWS -->
+        <record id="event_tag_view_tree_inherit" model="ir.ui.view">
+            <field name="name">event.tag.view.tree.inherit</field>
+            <field name="model">event.tag</field>
+            <field name="inherit_id" ref="event.event_tag_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree"  position="replace">
+                    <tree string="Ý nghĩa">
+                        <field name="sequence" widget="handle"/>
+                        <field name="name"/>
+                        <!-- <field name="category_id"/> -->
+                        <field name="color" widget="color_picker"/>
+                    </tree>
+                </xpath>
+            </field>
         </record>
 
-            <record id="event_tag_action_tree" model="ir.actions.act_window" >
-                <field name="name">Event Tags</field>
-                <field name="res_model">event.tag</field>
-                <field name="view_mode">tree,form</field>
-                <field name="help" type="html">
-                    <p class="o_view_nocontent_smiling_face">
-                        Create an Event Tag
-                    </p><p>
-                        only event tags
-                    </p>
-                </field>
-            </record>
-
-        <record id="menu_event_tags" model="ir.ui.menu">
-            <field name="action" ref="event.event_tag_action_tree"/>
+        <record id="event_tag_view_form_inherit" model="ir.ui.view">
+            <field name="name">event.tag.view.form.inherit</field>
+            <field name="model">event.tag</field>
+            <field name="inherit_id" ref="event.event_tag_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form"  position="replace">
+                    <form string="Ý nghĩa">
+                        <sheet>
+                            <group>
+                                <field name="name"/>
+                                <field name="category_id" widget="many2one"/>
+                                <field name="color" widget="color_picker"/>
+                            </group>
+                        </sheet>
+                    </form>
+                </xpath>
+            </field>
         </record>
+
+        <record model="ir.actions.act_window" id="event.event_tag_category_action_tree">
+            <field name="name">Event Tags</field>
+            <field name="view_mode">tree,form</field>
+            <field name="res_model">event.tag</field>
+
+        </record>
+
+        <!-- <record id="menu_event_category" model="ir.ui.menu">
+            <field name="action" ref="event.event_tag_category_action_tree"/>
+        </record> -->
+
+
     </data>
 </odoo>
