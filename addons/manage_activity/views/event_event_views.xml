@@ -102,9 +102,11 @@
                   </group>
                   <group>
                     <group>
-                      <field name="auto_confirm" string="Tự động duyệt sinh viên"/>                 
+                      <field name="auto_confirm" string="Tự động duyệt sinh viên"/>   
+                      <field name="auto_accept_activity" invisible="1"/>                 
+
                     </group>
-                    <group >
+                    <group invisible="1">
                       <label for="seats_limited" string="Giới hạn tham gia"/>
                       <div>
                         <field name="seats_limited"/>
@@ -131,7 +133,7 @@
                   </group>
                   <group string="">
                     <field  name="department_of_create_user" string="Hoạt động của đơn vị"
-                    attrs="{'readonly': [('created_by_name', '!=', 'Administrator')]}"
+                   readonly="1"
                     groups="manage_user_info.group_hcmut_department_admin"
                     options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>  
                   </group>
@@ -217,6 +219,7 @@
             
             
             <field name="name" string='Tên hoạt động' class="tree_activity_name"/>
+            <field name="department_of_create_user" string='Hoạt động của đơn vị' />
             <field name="stage_id" string='Tình trạng duyệt' invisible="1"/>
             <field name="status_activity" widget='badge' optional="show" string='Tình trạng hoạt động'/>
             <field name="event_type_id" optional="show" string='Nhóm hoạt động' />

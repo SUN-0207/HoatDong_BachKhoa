@@ -6,6 +6,7 @@
     <record model="ir.ui.menu" id="event.event_main_menu" >
       <field name='name'>Quản lý Hoạt động</field>
     </record>
+    
     <!-- Hide default -->
     <record id="make_invisible" model="res.groups">
       <field name="name">Invisible</field>

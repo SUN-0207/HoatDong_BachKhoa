@@ -15,7 +15,7 @@
             <field name="user_id"/>
             <field name="name"/>
             <field name="stage_id" options="{&quot;group_by_tooltip&quot;: {&quot;description&quot;: &quot;Description&quot;}}"/>
-            <field name="department_can_register"/>
+        
             <field name="date_begin_registration"/>
             <field name="date_end_registration"/>
             <field name="date_begin"/>
@@ -28,12 +28,7 @@
             <field name="description"/>
             <field name="attach_file"/>
             <field name="is_for_all_students"/>
-            <field name="is_maximize_department"/>
-            <field name="is_maximize_major"/>
-            <field name="is_maximize_year"/>
-            <field name="department_can_register"/>
-            <field name="major_can_register"/>
-            <field name="year_can_register"/>
+         
             <field name="seats_max"/>
             <field name="seats_limited"/>
             <field name="created_by_name"/>

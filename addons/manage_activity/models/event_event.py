@@ -25,9 +25,10 @@ class EventEvent(models.Model):
   
   user_id = fields.Many2one('res.users', string='User', readonly=True, default=lambda self: self.env.user)
   created_by_name = fields.Char(string="Hoạt động được tạo bởi ", store=True, default = lambda self: self.env.user.name)
-  department_of_create_user = fields.Many2one(related='user_id.manage_department_id', 
-    string='Hoat dong thuoc ve don vi', store=True, default=lambda self: self.env.user.manage_department_id)
- 
+  department_of_create_user = fields.Many2one('user.info.department', 
+    string='Hoat dong thuoc ve don vi', store=True, default=lambda self: self.env.user.manage_department_id if self.env.user.manage_department_id else self.env['user.info.department'].search([('code', '=', 'DTN-HSV')]))
+  
+  
   user_response = fields.Many2one('user.info', domain=[('can_response_event', '=', True)])
   user_response_phone = fields.Char(string="Số điện thoại di động", compute='_get_info', store=True)
   user_response_email = fields.Char(string="Mail", compute='_get_info', store=True)
@@ -52,12 +53,6 @@ class EventEvent(models.Model):
   attach_file = fields.Many2many('ir.attachment', string='Attachments', widget='many2many_binary')
 
   is_for_all_students = fields.Boolean(string="Dành cho toàn bộ sinh viên", default=True)
-  is_maximize_department = fields.Boolean(string="Giới hạn đơn vị tham gia", default=False)
-  is_maximize_major = fields.Boolean(string="Giới hạn chuyên ngành tham gia", default=False)
-  is_maximize_year = fields.Boolean(string="Giới hạn khoá tham gia", default=False)
-  department_can_register = fields.Many2many('user.info.department', string='Department', default=False)
-  major_can_register = fields.Many2many('user.info.major', string='Major')
-  year_can_register = fields.Many2many('user.info.year', string='Years')
 
   auto_accept_activity = fields.Boolean('Tu dong duyet', readonly=True, store=True, compute='_check_auto_accept_activity')
   
@@ -69,15 +64,16 @@ class EventEvent(models.Model):
     action = {
       'name': 'Events',
       'type': 'ir.actions.act_window',
-      'view_mode': 'tree,form',
+      'view_mode': 'tree,kanban,form',
       'res_model': 'event.event',  
       'limit': 15,
       'context': "{'search_default_group_by_stage_id': 1}" 
     }
-    print('[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]',self.env.user.manage_department_id.id)
+   
     if self.env.user.manage_department_id:
+      dtn = self.env['user.info.department'].search([('code', '=', 'DTN-HSV')])
       action.update({
-        'domain': ['|',('department_of_create_user.id','=', self.env.user.manage_department_id.id),('department_of_create_user','=', False)]
+        'domain': ['|',('department_of_create_user.id','=', self.env.user.manage_department_id.id),('department_of_create_user.id','=', dtn.id)]
       })
     return action   
     
@@ -100,6 +96,9 @@ class EventEvent(models.Model):
       print(record.event_type_id.auto_accept_activity)
       if record.event_type_id :
         record.auto_accept_activity = record.event_type_id.auto_accept_activity
+        record.max_social_point = record.event_type_id.max_social_working_day 
+        record.max_tranning_point = record.event_type_id.max_training_point
+
 
   @api.depends('registration_ids')
   def _compute_accept_registration(self):
@@ -275,9 +274,15 @@ class EventEvent(models.Model):
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before create event: ', vals)
     self._validation_ticket_services(vals)
     # Create the record
-    if 'auto_accept_activity' in vals and vals['auto_accept_activity'] == True:
-      vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
-    
+    # if 'auto_accept_activity' in vals and vals['auto_accept_activity'] == True:
+    #   vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
+    if 'event_type_id' in vals and vals['event_type_id'] != False:
+      event_type = self.env['event.type'].browse(vals['event_type_id'])
+      if event_type.is_available and event_type.auto_accept_activity:
+        vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
+        event_type.event_registed = event_type.event_registed + 1
+      else:
+        raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ After create event: ', vals)
     record = super(EventEvent, self).create(vals)
         
@@ -288,6 +293,12 @@ class EventEvent(models.Model):
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)  
     self._validation_ticket_services(vals)
   
+    event_type = self.env['event.type'].browse(self.event_type_id)
+    if event_type.is_available and event_type.auto_accept_activity:
+        vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
+        event_type.event_registed = event_type.event_registed + 1
+    else:
+        raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
     #change_stage
     if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung'   :
       vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Chờ duyệt')]).id
@@ -414,16 +425,7 @@ class EventEvent(models.Model):
             if activity.date_end_registration < current_date:
               raise ValidationError('Ngày kết thúc đăng ký phải từ ngày hôm nay trở đi')
 
-  @api.onchange('is_for_all_students','is_maximize_department')
-  def _change_checkbox(self):
-    for record in self:
-      if record.is_for_all_students == True:
-        record.is_maximize_department = False
-        record.is_maximize_major = False
-        record.is_maximize_year = False
-      if record.is_maximize_department == False:
-        if record.is_maximize_major == True:
-          record.is_maximize_major = False
+ 
 
 
 class SeeInfoWizard(models.TransientModel):
