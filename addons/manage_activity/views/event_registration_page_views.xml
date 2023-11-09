@@ -42,7 +42,7 @@
             <field name="user_current_registed_event" />
             <templates>
               <t t-name="kanban-box">
-                <div t-attf-class="d-flex flex-column py-1 px-4 pt-3 gap-2 oe_kanban_card oe_kanban_global_click">
+                <div t-attf-class="d-flex flex-column justify-content-between py-1 px-4 pt-3 gap-2 oe_kanban_card oe_kanban_global_click event_registration">
 
                   <div class="d-flex flex-row justify-content-between">
                     <div>
@@ -63,76 +63,78 @@
                     </div>
                   </div>
 
-                  <div>
-                    <h5 class="fw-bold">Mô tả hoạt động</h5>
-                    <field name="description"/>
-                  </div>
-
-                  <div class="d-flex flex-row gap-3">
-                    <div>
-                      <h5 class="fw-bold">Đơn vị tổ chức</h5>
+                  <div class="d-flex flex-column justify-content-between" style="height:340px">
+                    <div class="d-flex flex-row gap-3">
+                      <div>
+                        <h5 class="fw-bold">Đơn vị tổ chức</h5>
+                      </div>
+                      <div>
+                        <t t-if="record.department_of_create_user.raw_value != false">
+                          <field name="department_of_create_user"/>
+                        </t>
+                        <t t-else="">
+                          <p style="margin-bottom:0;">Đoàn TN - Hội SV</p>
+                        </t>
+                      </div>
                     </div>
-                    <div>
-                      <t t-if="record.department_of_create_user.raw_value != false">
-                        <field name="department_of_create_user"/>
-                      </t>
-                      <t t-else="">
-                        <p>Đoàn TN - Hội SV</p>
-                      </t>
+  
+                    <div class="d-flex flex-row gap-3">
+                      <h5 class="fw-bold">Đăng ký</h5>
+                      <div>
+                        <t t-esc="luxon.DateTime.fromISO(record.date_begin_registration.raw_value).toFormat('HH:mm')"/>
+                        <span> - </span>
+                        <t t-esc="luxon.DateTime.fromISO(record.date_begin_registration.raw_value).toFormat('dd/MM/yyyy')"/>
+                        <span class="px-1">
+                          <i class="fa fa-arrow-right o_event_fontsize_09" style="padding: 0 8px;"/>
+                        </span>
+                        <t t-esc="luxon.DateTime.fromISO(record.date_end_registration.raw_value).toFormat('HH:mm')"/>
+                        <span> - </span>
+                        <t t-esc="luxon.DateTime.fromISO(record.date_end_registration.raw_value).toFormat('dd/MM/yyyy')"/>
+                      </div>
+                    </div>
+  
+                    <div class="d-flex flex-row gap-3">
+                      <h5 class="fw-bold">Diễn ra</h5>
+                      <div>
+                        <t t-esc="luxon.DateTime.fromISO(record.date_begin.raw_value).toFormat('HH:mm')"/>
+                        <span> - </span>
+                        <t t-esc="luxon.DateTime.fromISO(record.date_begin.raw_value).toFormat('dd/MM/yyyy')"/>
+                        <span class="px-1">
+                          <i class="fa fa-arrow-right o_event_fontsize_09" style="padding: 0 8px;"/>
+                        </span>
+                        <t t-esc="luxon.DateTime.fromISO(record.date_end.raw_value).toFormat('HH:mm')"/>
+                        <span> - </span>
+                        <t t-esc="luxon.DateTime.fromISO(record.date_end.raw_value).toFormat('dd/MM/yyyy')"/>
+                      </div>
+                    </div>
+  
+                    <div class="d-flex flex-row gap-3">
+                      <h5 class="fw-bold">Số ngày CTXH tối đa</h5>
+                      <field name="max_social_point"/>
+                    </div>
+  
+                    <div class="d-flex flex-row gap-3">
+                      <h5 class="fw-bold">Số ĐRL tối đa</h5>
+                      <field name="max_tranning_point"/>
+                    </div>
+
+                    <div class="event_description">
+                      <h5 class="fw-bold">Mô tả hoạt động</h5>
+                      <field t-if="record.description.raw_value != false" name="description" widget="html"/>
                     </div>
                   </div>
-
-                  <div class="d-flex flex-row gap-3">
-                    <h5 class="fw-bold">Thời gian đăng ký</h5>
-                    <div>
-                      <t t-esc="luxon.DateTime.fromISO(record.date_begin_registration.raw_value).toFormat('HH:mm')"/>
-                      <span> - </span>
-                      <t t-esc="luxon.DateTime.fromISO(record.date_begin_registration.raw_value).toFormat('dd/MM/yyyy')"/>
-                      <span class="px-1">
-                        <i class="fa fa-arrow-right o_event_fontsize_09"/>
-                      </span>
-                      <t t-esc="luxon.DateTime.fromISO(record.date_end_registration.raw_value).toFormat('HH:mm')"/>
-                      <span> - </span>
-                      <t t-esc="luxon.DateTime.fromISO(record.date_end_registration.raw_value).toFormat('dd/MM/yyyy')"/>
-                    </div>
-                  </div>
-
-                  <div class="d-flex flex-row gap-3">
-                    <h5 class="fw-bold">Thời gian diễn ra</h5>
-                    <div>
-                      <t t-esc="luxon.DateTime.fromISO(record.date_begin.raw_value).toFormat('HH:mm')"/>
-                      <span> - </span>
-                      <t t-esc="luxon.DateTime.fromISO(record.date_begin.raw_value).toFormat('dd/MM/yyyy')"/>
-                      <span class="px-1">
-                        <i class="fa fa-arrow-right o_event_fontsize_09"/>
-                      </span>
-                      <t t-esc="luxon.DateTime.fromISO(record.date_end.raw_value).toFormat('HH:mm')"/>
-                      <span> - </span>
-                      <t t-esc="luxon.DateTime.fromISO(record.date_end.raw_value).toFormat('dd/MM/yyyy')"/>
-                    </div>
-                  </div>
-
-                  <div class="d-flex flex-row gap-3">
-                    <h5 class="fw-bold">Số ngày CTXH tối đa</h5>
-                    <field name="max_social_point"/>
-                  </div>
-
-                  <div class="d-flex flex-row gap-3">
-                    <h5 class="fw-bold">Số ĐRL tối đa</h5>
-                    <field name="max_tranning_point"/>
-                  </div>
-
+  
                   <div attrs="{'invisible': [('status_activity','!=','open_registration')]}">
-                    <div>
-                      <hr/>
+                    <div class='d-flex flex-column justify-content-between align-item-end register-event-footer'>
+                      <div style="width:100%;height:1px;background-color:#f2f2f2;"></div>
                       <div class="d-flex justify-content-end gap-2">
                         <button name="register_event" type="object" class="btn btn-info btn-md" string="Đăng ký" attrs="{'invisible': [('user_current_registed_event', '=', True)]}"/>
                         <button name="cancel_event_registration" type="object" class="btn btn-danger btn-md" string="Huỷ Đăng ký" confirm="Xác nhận huỷ đăng ký" attrs="{'invisible': [('user_current_registed_event', '=', False)]}"/>
                       </div>
                     </div>
                   </div>
-                </div>
 
+                </div>
               </t>
             </templates>
           </kanban>

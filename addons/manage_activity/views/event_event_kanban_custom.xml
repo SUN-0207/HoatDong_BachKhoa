@@ -9,8 +9,9 @@
                 <xpath expr="//kanban" position="replace">
                     <!-- Replace the entire kanban view -->
                     <kanban records_draggable="false" default_group_by="stage_id" archivable="False" group_edit='False' group_create='False' group_delete='False' quick_create='false'
+                    class="event_custom_kanban"
                     >
-<field name="activity_ids" widget="kanban_activity"></field>
+                    <field name="activity_ids" widget="kanban_activity"></field>
                     <field name="user_id"/>
                     <field name="name"/>
                     <field name="stage_id" options='{"group_by_tooltip": {"description": "Description"}}' />
@@ -40,7 +41,7 @@
                     <field name="stage_name"/>
                     <templates>
                         <!-- t-if="user.manage_department_id == record.department_of_create_user" -->
-                        <t t-name="kanban-box">
+                        <t t-name="kanban-box" t-att-class="event_custom_kanban">
                             <div t-attf-class="d-flex flex-column p-0 oe_kanban_card oe_kanban_global_click event-kanban">
                                 <div class="row">
                                     <!-- <div>
@@ -69,7 +70,7 @@
                                 <div class="row" attrs="{'invisible': [('stage_name','!=', 'Đã duyệt')]}">
                                     <div class="col-4 py-1 px-5 d-flex flex-column justify-content-center pt-3">
                                         <label for="unaccpet_registration">
-                                            <strong>Đăng ký: </strong>
+                                            <strong >Đăng ký: </strong>
                                             <field name="unaccpet_registration"/>
                                         </label>
                                     </div>
@@ -122,7 +123,7 @@
                                         <span> - </span>
                                         <t t-esc="luxon.DateTime.fromISO(record.date_begin_registration.raw_value).toFormat('dd/MM/yyyy')"/>
                                         <span></span>
-                                        <i class="fa fa-arrow-right o_event_fontsize_09" />
+                                        <i class="fa fa-arrow-right o_event_fontsize_09" style="padding: 0 8px;"/>
                                         <span></span>
                                         <t t-esc="luxon.DateTime.fromISO(record.date_end_registration.raw_value).toFormat('HH:mm')"/>
                                         <span> - </span>
@@ -136,7 +137,7 @@
                                         <span> - </span>
                                         <t t-esc="luxon.DateTime.fromISO(record.date_begin.raw_value).toFormat('dd/MM/yyyy')"/>
                                         <span></span>
-                                        <i class="fa fa-arrow-right o_event_fontsize_09" />
+                                        <i class="fa fa-arrow-right o_event_fontsize_09" style="padding: 0 8px;"/>
                                         <span></span>
                                         <t t-esc="luxon.DateTime.fromISO(record.date_end.raw_value).toFormat('HH:mm')"/>
                                         <span> - </span>

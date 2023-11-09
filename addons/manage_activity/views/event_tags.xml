@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+    
+        <record id="event_tag_view_tree_inherit" model="ir.ui.view">
+            <field name="name">event.tag.view.tree.inherit</field>
+            <field name="model">event.tag</field>
+            <field name="inherit_id" ref="event.event_tag_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree"  position="replace">
+                    <tree string="Ý nghĩa" class="event_tag_tree">
+
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+
+            <record id="event_tag_action_tree" model="ir.actions.act_window" >
+                <field name="name">Event Tags</field>
+                <field name="res_model">event.tag</field>
+                <field name="view_mode">tree,form</field>
+                <field name="help" type="html">
+                    <p class="o_view_nocontent_smiling_face">
+                        Create an Event Tag
+                    </p><p>
+                        only event tags
+                    </p>
+                </field>
+            </record>
+
+        <record id="menu_event_tags" model="ir.ui.menu">
+            <field name="action" ref="event.event_tag_action_tree"/>
+        </record>
+    </data>
+</odoo>
