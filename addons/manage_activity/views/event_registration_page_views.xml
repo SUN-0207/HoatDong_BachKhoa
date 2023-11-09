@@ -122,7 +122,11 @@
                     <field name="max_tranning_point"/>
                   </div>
 
-                  <div attrs="{'invisible': [('status_activity','!=','open_registration')]}">
+                  <div class="d-flex justify-content-start">
+                    <button name="see_info_user_response" type="object" class="btn btn-link" string="Xem thông tin liên hệ người phụ trách" />
+                  </div>
+
+                  <div group="manage_user_info.group_hcmut_user" attrs="{'invisible': [('status_activity','!=','open_registration')]}">
                     <div>
                       <hr/>
                       <div class="d-flex justify-content-end gap-2">

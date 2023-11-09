@@ -8,12 +8,12 @@
       <form>
         <group>
           <group>
-            <field name="name"/>
-            <field name="email"/>
+            <field name="name" readonly="True"/>
+            <field name="email" readonly="True"/>
           </group>
           <group>
-            <field name="mssv"/>
-            <field name="phone"/>
+            <field name="mssv" readonly="True"/>
+            <field name="phone" readonly="True"/>
           </group>
         </group>
         <footer>
