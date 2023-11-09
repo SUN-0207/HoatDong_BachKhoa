@@ -27,7 +27,7 @@ class EventEvent(models.Model):
   created_by_name = fields.Char(string="Hoạt động được tạo bởi ", store=True, default = lambda self: self.env.user.name)
   department_of_create_user = fields.Many2one(related='user_id.manage_department_id', 
     string='Hoat dong thuoc ve don vi', store=True, default=lambda self: self.env.user.manage_department_id)
-  
+ 
   user_response = fields.Many2one('user.info', domain=[('can_response_event', '=', True)])
   user_response_phone = fields.Char(string="Số điện thoại di động", compute='_get_info', store=True)
   user_response_email = fields.Char(string="Mail", compute='_get_info', store=True)
@@ -65,15 +65,32 @@ class EventEvent(models.Model):
   unaccpet_registration = fields.Integer(string='Registration Count', compute='_compute_unaccpet_registration')
   duyet_nhanh = fields.Char(string='Duyet nhanh')
   
-  user_current_registed_event = fields.Boolean(string="User hiện tại đã đăng ký", default=False)
+  def open_list_event(self):
+    action = {
+      'name': 'Events',
+      'type': 'ir.actions.act_window',
+      'view_mode': 'tree,form',
+      'res_model': 'event.event',  
+      'limit': 15,
+      'context': "{'search_default_group_by_stage_id': 1}" 
+    }
+    print('[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]',self.env.user.manage_department_id.id)
+    if self.env.user.manage_department_id:
+      action.update({
+        'domain': ['|',('department_of_create_user.id','=', self.env.user.manage_department_id.id),('department_of_create_user','=', False)]
+      })
+    return action   
+    
+
+  # user_current_registed_event = fields.Boolean(string="User hiện tại đã đăng ký", default=False)
   
-  def compute_event_registed_button(self):
-    for event in self:
-      exist_registration = self.env['event.registration'].search([('event_id','=',event.id),('email','=',self.env.user.login)],limit=1)
-      if exist_registration:
-        event.user_current_registed_event = True
-      else:
-        event.user_current_registed_event = False
+  # def compute_event_registed_button(self):
+  #   for event in self:
+  #     exist_registration = self.env['event.registration'].search([('event_id','=',event.id),('email','=',self.env.user.login)],limit=1)
+  #     if exist_registration:
+  #       event.user_current_registed_event = True
+  #     else:
+  #       event.user_current_registed_event = False
         
 
   @api.depends('event_type_id')
@@ -422,11 +439,10 @@ class ResUsers(models.Model):
 class UserDepartmentAdmin(models.Model):
   _inherit = ['user.department.admin']
 
-class ActivityDepartment(models.Model):
-  name = 'activity.department'
+class UserInfoDepartment(models.Model):
   _inherit = 'user.info.department'
 
-  max_num_resgis = fields.Integer('So luong dang ky toi da')
+  max_num_resgis = fields.Integer('Số lượng Đăng ký tối đa')
 
 class UserInfoMajor(models.Model):
   _inherit = 'user.info.major'

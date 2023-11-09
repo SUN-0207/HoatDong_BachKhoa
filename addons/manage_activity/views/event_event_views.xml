@@ -276,13 +276,21 @@
       </field>
   </record>
 
+
+  <record id="events_action" model="ir.actions.server">
+    <field name="name">Event</field>
+    <field name="model_id" ref="model_event_event"/>
+    <field name="state">code</field>
+    <field name="code">action=model.open_list_event()</field>
+  </record>
+
     <!-- Change view to 3 view EVENT.EVENT VIEWS -->
-    <record model="ir.actions.act_window" id="event.action_event_view">
+    <!-- <record model="ir.actions.act_window" id="event.action_event_view">
       <field name="name">Events</field>
       <field name="view_mode">tree,kanban,form</field>
       <field name="search_view_id" ref="event.view_event_search"/>
       <field name="context" eval="{'search_default_group_by_stage_id': 1}" />
-   </record>   
+   </record>    -->
   </data>
 </odoo>
     
