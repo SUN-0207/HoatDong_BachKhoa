@@ -30,10 +30,8 @@ th.o_list_button {
   ////// EVENT REGISTRATION KANBAN
 div.event_registration {
     .event_description {
-        p {
-            height: 120px;
-            overflow: scroll;
-        }
+        height: 130px;
+        overflow: scroll;
     }
 
     button.oe_kanban_action_button {

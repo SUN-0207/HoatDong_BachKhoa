@@ -53,7 +53,7 @@
                       </div>
                     </div>
                     <div>
-                      <span class="fs-6 badge rounded-pill px-3 py-1" t-att-class="{' text-success bg-light border border-success ' : record.status_activity.value === 'Mới',   
+                      <span class="fs-6 badge rounded-pill px-3 py-2" t-att-class="{' text-success bg-light border border-success ' : record.status_activity.value === 'Mới',   
                                                                         ' text-light bg-info' : record.status_activity.value === 'Mở đăng ký',  
                                                                         ' text-light bg-warning' : record.status_activity.value === 'Đóng đăng ký',                                        
                                                                         ' text-light bg-success' : record.status_activity.value === 'Đang diễn ra',                                                     
@@ -63,7 +63,7 @@
                     </div>
                   </div>
 
-                  <div class="d-flex flex-column justify-content-between" style="height:340px">
+                  <div class="d-flex flex-column justify-content-between" style="height:320px">
                     <div class="d-flex flex-row gap-3">
                       <div>
                         <h5 class="fw-bold">Đơn vị tổ chức</h5>
@@ -118,9 +118,9 @@
                       <field name="max_tranning_point"/>
                     </div>
 
-                    <div class="event_description">
+                    <div style="height:153.167px;">
                       <h5 class="fw-bold">Mô tả hoạt động</h5>
-                      <field t-if="record.description.raw_value != false" name="description" widget="html"/>
+                      <field t-if="record.description.raw_value != false" name="description" widget="html" class="event_description"/>
                     </div>
                   </div>
   
