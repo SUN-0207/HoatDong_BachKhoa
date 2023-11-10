@@ -79,6 +79,7 @@ class EventEvent(models.Model):
     
 
   user_current_registed_event = fields.Boolean(string="User hiện tại đã đăng ký", default=False)
+  is_show_for_current_user = fields.Boolean(string="Event user co the dang ky", default=False)
   
   def compute_event_registed_button(self):
     for event in self:
@@ -86,8 +87,21 @@ class EventEvent(models.Model):
       if exist_registration:
         event.user_current_registed_event = True
       else:
-        event.user_current_registed_event = False
-        
+        event.user_current_registed_event = False  
+          
+  def compute_event_is_show(self):
+    self.ensure_one()
+    flag = False
+    for ticket_id in self.event_ticket_ids:
+      if ticket_id.event_department_id.id == self.env.user.user_info_id.user_info_department_id.id or ticket_id.event_department_id.name == "Tất cả":
+        if ticket_id.event_info_major_id.id == self.env.user.user_info_id.user_info_major_id.id or ticket_id.event_info_major_id.name == "Tất cả":
+          if ticket_id.event_info_academy_year.id == self.env.user.user_info_id.user_info_academy_year.id or ticket_id.event_info_academy_year.name == "Tất cả":
+            self.is_show_for_current_user = True
+            flag = True
+            break
+    if not flag:
+      self.is_show_for_current_user = False      
+    
 
   @api.depends('event_type_id')
   def _check_auto_accept_activity(self):
@@ -313,7 +327,7 @@ class EventEvent(models.Model):
    
     return super(EventEvent, self).write(vals)
 
-  @api.depends('stage_id', 'date_begin_registration', 'date_end_registration', 'date_begin', 'date_end')
+  @api.depends('stage_id', '__last_update')
   def _compute_status_activity(self):
         current_datetime = datetime.now()
         for event in self:
@@ -331,6 +345,14 @@ class EventEvent(models.Model):
                     event.status_activity = 'completed'
             else:
                 event.status_activity = False
+                
+  @api.model
+  def search_read(self, domain, fields, offset, limit, order):
+    records = super(EventEvent, self).search_read(domain=domain, fields=fields, offset=offset, limit=limit, order=order)
+    all_events = self.env['event.event'].search([])
+    for event in all_events:
+      event.compute_event_is_show()
+    return records
 
   def see_info_user_response(self):
     self.ensure_one()
@@ -391,9 +413,11 @@ class EventEvent(models.Model):
   
   def cancel_event_registration(self):
     self.ensure_one()
-    resgistration = self.env['event.registration'].search([('event_id','=',self.id),('email','=',self.env.user.login)],limit=1)
-    if resgistration:
-      resgistration.sudo().unlink()
+    registration = self.env['event.registration'].search([('event_id','=',self.id),('email','=',self.env.user.login)],limit=1)
+    if registration.state == "open" or registration.state == "done":
+      raise ValidationError("Liên hệ với người phụ trách để huỷ đăng ký")
+    if registration:
+      registration.sudo().unlink()
       self.compute_event_registed_button()
     return self.notify_success()
 

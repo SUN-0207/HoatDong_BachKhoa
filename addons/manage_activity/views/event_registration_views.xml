@@ -17,7 +17,7 @@
           <field name="phone" optional="show" string="Số điện thoại" />
           <field name="mobile" optional="hide" invisible="1"/>
           <field name="event_id" invisible="context.get('default_event_id')"/>
-          <field name="event_ticket_id" domain="[('event_id', '=', event_id)]" optional="hide"/>
+          <field name="event_ticket_id" domain="[('event_id', '=', event_id)]" optional="hide" invisible="1"/>
           <field name="activity_ids" widget="list_activity" invisible="1"/>
           <field name="state" decoration-info="state in ('draft', 'open')" decoration-success="state == 'done'" decoration-muted="state == 'cancel'" widget="badge" string="Trạng thái"/>
           <field name="company_id" groups="base.group_multi_company" optional="hide" invisible="1"/>
@@ -55,7 +55,7 @@
               <group string="Thông tin tham gia" name="attendee">
                 <field class="o_text_overflow" name="name" string="Họ và tên"/>
                 <field name="email"/>
-                <field name="phone" class="o_force_ltr" widget="phone" options="{'enable_sms': false}" string="Số điện thoại"/>
+                <field name="phone" class="o_force_ltr" string="Số điện thoại"/>
                 <field name="mobile" class="o_force_ltr" widget="phone" invisible="1"/>
               </group>
               <group string="Thông tin sự kiện" name="event">

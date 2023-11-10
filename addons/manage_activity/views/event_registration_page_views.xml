@@ -118,8 +118,8 @@
                       <field t-if="record.description.raw_value != false" name="description" widget="html" class="event_description"/>
                     </div>
                   </div>
-  
-                  <div attrs="{'invisible': [('status_activity','!=','open_registration')]}">
+
+                  <div group="manage_user_info.group_hcmut_user" attrs="{'invisible': [('status_activity','!=','open_registration')]}">
                     <div class='d-flex flex-column justify-content-between align-item-end register-event-footer'>
                       <div style="width:100%;height:1px;background-color:#f2f2f2;"></div>
                       <div class="d-flex justify-content-end gap-2">
@@ -156,7 +156,7 @@
       <field name="view_mode">kanban</field>
       <field name="view_id" ref="event_registration_page_kanban"/>
       <field name="search_view_id" ref="event_registration_page_search" />
-      <field name="domain">[('status_activity','=','open_registration')]</field>
+      <field name="domain">[('status_activity','in',['open_registration','close_registration','inprogress','completed']),('is_show_for_current_user','=','True')]</field>
     </record>
 
   </data>

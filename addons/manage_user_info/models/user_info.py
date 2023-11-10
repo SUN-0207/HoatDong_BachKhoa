@@ -256,10 +256,8 @@ class ResUsers(models.Model):
   def create(self, vals):
     login_email = vals['login']
     pattern = r'^[A-Za-z0-9._%+-]+@hcmut\.edu\.vn$'
-    # print(login_email)
     
-    # # Group ID
-    # group_user_id = self.env['res.groups'].sudo().search([('name','=','User')], limit=1).id
+    # Group ID
     group_department_admin_id = self.env['res.groups'].sudo().search([('name','=','Department Admin')], limit=1).id
     group_super_admin_id = self.env['res.groups'].sudo().search([('name','=','Super Admin')], limit=1).id
     
@@ -278,36 +276,6 @@ class ResUsers(models.Model):
     elif not re.match(pattern, login_email):
         raise AccessDenied(_("Đăng nhập với tài khoản email đuôi là @hcmut.edu.vn"))
     
-    # # Menu ID
-    # discuss_id = self.env.ref('mail.menu_root_discuss').id
-    # link_tracker_id = self.env.ref('utm.menu_link_tracker_root').id
-    # app_id = self.env.ref('base.menu_management').id
-    
-    # print('kaka')
-    # if super_admin:
-    #   vals.update({
-    #     'groups_id': [(6, 0, [group_super_admin_id])],
-    #     'hide_menu_ids': [(6, 0, [discuss_id, link_tracker_id, app_id])],
-    #     'lang': 'vi_VN',
-    #     'tz': 'Asia/Ho_Chi_Minh'
-    #   })
-    # elif department_admin:
-    #   vals.update({
-    #     'groups_id': [(6, 0, [group_department_admin_id])],
-    #     'hide_menu_ids': [(6, 0, [discuss_id, link_tracker_id, app_id])],
-    #     'lang': 'vi_VN',
-    #     'tz': 'Asia/Ho_Chi_Minh',
-    #     'manage_department_id': department_admin.department_id.id
-    #   })
-    # else:  
-    #   if not re.match(pattern, login_email):
-    #     raise AccessDenied(_("Đăng nhập với tài khoản email đuôi là @hcmut.edu.vn"))
-    #   vals.update({
-    #     'groups_id': [(6, 0, [group_user_id])],
-    #     'hide_menu_ids': [(6, 0, [discuss_id, link_tracker_id, app_id])],
-    #     'lang': 'vi_VN',
-    #     'tz': 'Asia/Ho_Chi_Minh'
-    #   })
     print('===================================')
     print('Create')
     print(vals)
@@ -316,12 +284,7 @@ class ResUsers(models.Model):
 
   def write(self, vals):
     res = super(ResUsers, self).write(vals)
-    # email_pattern = r'^[A-Za-z0-9._%+-]+@hcmut\.edu\.vn$'
-    # print(self.login)
-    # super_admin = self.env['user.super.admin'].sudo().search([('email', '=', self.login)], limit=1)
-    # department_admin = self.env['user.department.admin'].sudo().search([('email', '=', self.login)], limit=1)
-    # if not super_admin and not department_admin and not re.match(email_pattern,self.login) and self.login != 'admin' and self.login != 'default':
-    #   raise AccessDenied(_("Đăng nhập với tài khoản email đuôi là @hcmut.edu.vn"))
+
     print('===================================')
     print('Update')
     print(vals)

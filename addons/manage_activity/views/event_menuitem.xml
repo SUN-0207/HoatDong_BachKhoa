@@ -11,23 +11,38 @@
     <record id="make_invisible" model="res.groups">
       <field name="name">Invisible</field>
     </record>
-    <record model="ir.ui.menu" id="event.menu_event_event" >
-      <field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+    
+    <!-- HEADER: EVENTS -->
+    <record model="ir.ui.menu" id="event.menu_event_event">
+      <field name='name'>Quản lý Sự kiện</field>
+      <field name="groups_id" eval="[(6,0,[ref('manage_user_info.group_hcmut_department_admin')])]"/>
+    </record>
+    
+    <menuitem sequence="0" id="event_main_menu" name="Quản lý Hoạt động" action="events_action" parent="event.event_main_menu"/>
+
+    <menuitem id="event_registration_menu" name="Đăng ký Hoạt động" action="event_registration_page_action" parent="event.event_main_menu" groups="manage_user_info.group_hcmut_user"/>
+
+    <!-- HEADER: REPORTING -->
+    <record id="event.menu_reporting_events" model="ir.ui.menu">
+      <field name='name'>Thống kê</field>
     </record>
 
-    <menuitem sequence="0" id="event_main_menu" name="Quản lý Hoạt động" action="events_action" parent="event.event_main_menu"/>
-    
-    <menuitem id="event_registration_menu" name="Đăng ký Hoạt động" action="event_registration_page_action" parent="event.event_main_menu"/>
-
+    <!-- HEADER: CONFIGURATION -->
+    <record model="ir.ui.menu" id="event.menu_event_configuration">
+      <field name='name'>Cấu hình chung</field>
+    </record>
    
     <record model="ir.ui.menu" id="event.menu_event_type">
       <field name='name'>Nhóm hoạt động</field>
     </record>
 
-    <record id="event.menu_event_category" model="ir.ui.menu">
-      <field name="name">Ý nghĩa</field>
+    <record model="ir.ui.menu" id="event.event_stage_menu">
+      <field name='name'>Trạng thái hoạt động</field>
     </record>
 
+    <record model="ir.ui.menu" id="event.menu_event_category">
+      <field name='name'>Ý nghĩa hoạt động</field>
+    </record>
 
   </data>
 </odoo>
