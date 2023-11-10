@@ -7,5 +7,6 @@
         <menuitem id="mail.menu_root_discuss" name="Discuss" web_icon="code_backend_theme,static/src/img/icons/discuss.png"/>
 
         <menuitem id="manage_user_info.manage_base_menu" name="Quản lý Thông tin" web_icon="code_backend_theme,static/src/img/BK_logo.png"/>
+        <menuitem id="event.event_main_menu" name="Quản lý Hoạt động" web_icon="code_backend_theme,static/src/img/event_icon.png"/>
     </data>
 </odoo>

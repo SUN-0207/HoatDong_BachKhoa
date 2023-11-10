@@ -43,8 +43,6 @@ class EventTicket(models.Model):
     def unlink(self):
         # Perform custom logic before deleting the record
         # ...  
-        print('Im done')
-
         # Call the superclass unlink() method to delete the record
         return super(EventTicket, self).unlink()
  

@@ -1,3 +1,11 @@
+.oe_kanban_card, .event_custom_kanban, .event_registration  {
+    font-family: 'Be Vietnam Pro', sans-serif !important;
+
+    h5, span {
+        font-family: 'Be Vietnam Pro', sans-serif !important;
+    }
+}
+
 .o_field_widget.o_field_badge{
     background-color: #ffffff !important;
     width: 100% !important;
@@ -17,3 +25,29 @@ th.o_list_button {
     content: "Duyệt nhanh" !important;
     align-items: center !important;
   }
+
+
+  ////// EVENT REGISTRATION KANBAN
+div.event_registration {
+    .event_description {
+        height: 130px;
+        overflow: scroll;
+    }
+
+    button.oe_kanban_action_button {
+        margin-bottom: 1rem;
+    }
+
+    .o_kanban_record_title {
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 500;
+        }
+    }
+
+    div.register-event-footer {
+        height: 70px;
+    }
+}
+
+

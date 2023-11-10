@@ -102,9 +102,11 @@
                   </group>
                   <group>
                     <group>
-                      <field name="auto_confirm" string="Tự động duyệt sinh viên"/>                 
+                      <field name="auto_confirm" string="Tự động duyệt sinh viên"/>   
+                      <field name="auto_accept_activity" invisible="1"/>                 
+
                     </group>
-                    <group >
+                    <group invisible="1">
                       <label for="seats_limited" string="Giới hạn tham gia"/>
                       <div>
                         <field name="seats_limited"/>
@@ -131,7 +133,7 @@
                   </group>
                   <group string="">
                     <field  name="department_of_create_user" string="Hoạt động của đơn vị"
-                    attrs="{'readonly': [('created_by_name', '!=', 'Administrator')]}"
+                   readonly="1"
                     groups="manage_user_info.group_hcmut_department_admin"
                     options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>  
                   </group>
@@ -217,6 +219,7 @@
             
             
             <field name="name" string='Tên hoạt động' class="tree_activity_name"/>
+            <field name="department_of_create_user" string='Hoạt động của đơn vị' />
             <field name="stage_id" string='Tình trạng duyệt' invisible="1"/>
             <field name="status_activity" widget='badge' optional="show" string='Tình trạng hoạt động'/>
             <field name="event_type_id" optional="show" string='Nhóm hoạt động' />
@@ -241,18 +244,17 @@
       <field name="arch" type="xml">
         <xpath expr="//search" position="replace" >
           <search string="Events">
-            <field name="name" string="Event"/>
-            <field name="stage_id" string="stage_id"/>
-            <field name="department_of_create_user" string="Department"/>
-            <filter string="My Events" name="myevents" help="My Events" domain="[('user_id', '=', uid)]"/>
+            <field name="name" string="Tên hoạt động"/>
+            <field name="stage_id" string='Tình trạng duyệt' />
+            <field name="department_of_create_user" />
             <group expand="0" string="Group By">
-              <filter string="Tinh trang duyet" name="group_by_stage_id" context="{'group_by': 'stage_id'}"/>
+              <filter string="Tình trạng duỵệt" name="group_by_stage_id" context="{'group_by': 'stage_id'}"/>
             </group>
             <searchpanel>
               <field name="status_activity" icon="fa fa-cogs" enable_counters="1" select="multi"/>
               <field groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" name="department_of_create_user" icon="fa fa-building" enable_counters="1" select="multi"/>
               <field name="tag_ids" icon="fa fa-tags" enable_counters="1" select="multi"/>
-              <field name="event_type_id" icon="fa fa-file" enable_counters="1" select="multi"/>
+              <field name="event_type_id" icon="fa fa-file" enable_counters="1" select="multi" string="Nhóm hoạt động"/>
             </searchpanel>
           </search>
         </xpath>
@@ -276,13 +278,21 @@
       </field>
   </record>
 
+
+  <record id="events_action" model="ir.actions.server">
+    <field name="name">Event</field>
+    <field name="model_id" ref="model_event_event"/>
+    <field name="state">code</field>
+    <field name="code">action=model.open_list_event()</field>
+  </record>
+
     <!-- Change view to 3 view EVENT.EVENT VIEWS -->
-    <record model="ir.actions.act_window" id="event.action_event_view">
+    <!-- <record model="ir.actions.act_window" id="event.action_event_view">
       <field name="name">Events</field>
       <field name="view_mode">tree,kanban,form</field>
       <field name="search_view_id" ref="event.view_event_search"/>
       <field name="context" eval="{'search_default_group_by_stage_id': 1}" />
-   </record>   
+   </record>    -->
   </data>
 </odoo>
     
