@@ -2,22 +2,6 @@
 <odoo>
     <data>
 
-
-    
-        <!-- <record id="event_tag_view_tree_inherit" model="ir.ui.view">
-            <field name="name">event.tag.view.tree.inherit</field>
-            <field name="model">event.tag</field>
-            <field name="inherit_id" ref="event.event_tag_view_tree"/>
-            <field name="arch" type="xml">
-                <xpath expr="//tree"  position="replace">
-                    <tree string="Ý nghĩa" class="event_tag_tree">
-
-                    </tree>
-                </xpath>
-            </field>
-        </record> -->
-
-
         <!-- EVENT.TAG VIEWS -->
         <record id="event_tag_view_tree_inherit" model="ir.ui.view">
             <field name="name">event.tag.view.tree.inherit</field>
@@ -28,8 +12,8 @@
                     <tree string="Ý nghĩa">
                         <field name="sequence" widget="handle"/>
                         <field name="name"/>
-                        <!-- <field name="category_id"/> -->
                         <field name="color" widget="color_picker"/>
+                        <!-- <field name="category_id"/> -->
                     </tree>
                 </xpath>
             </field>
@@ -45,7 +29,7 @@
                         <sheet>
                             <group>
                                 <field name="name"/>
-                                <field name="category_id" widget="many2one"/>
+                                <field name="category_id" widget="many2one" readonly="1" invisible="1"/>
                                 <field name="color" widget="color_picker"/>
                             </group>
                         </sheet>
@@ -58,13 +42,12 @@
             <field name="name">Event Tags</field>
             <field name="view_mode">tree,form</field>
             <field name="res_model">event.tag</field>
-
         </record>
 
-        <!-- <record id="menu_event_category" model="ir.ui.menu">
-            <field name="action" ref="event.event_tag_category_action_tree"/>
-        </record> -->
-
+        <record id="default_category" model="event.tag.category">
+            <field name="name">Meaning</field>
+            <field name="sequence">1</field>
+        </record>
 
     </data>
 </odoo>
