@@ -11,12 +11,16 @@
     <record id="make_invisible" model="res.groups">
       <field name="name">Invisible</field>
     </record>
+
+    <record model="ir.ui.menu" id="event.menu_event_event">
+      <field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+    </record>
     
     <!-- HEADER: EVENTS -->
-    <record model="ir.ui.menu" id="event.menu_event_event">
+    <!-- <record model="ir.ui.menu" id="event.menu_event_event">
       <field name='name'>Quản lý Sự kiện</field>
       <field name="groups_id" eval="[(6,0,[ref('manage_user_info.group_hcmut_department_admin')])]"/>
-    </record>
+    </record> -->
     
     <menuitem sequence="0" id="event_main_menu" name="Quản lý Hoạt động" action="events_action" parent="event.event_main_menu"/>
 

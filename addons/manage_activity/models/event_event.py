@@ -297,8 +297,9 @@ class EventEvent(models.Model):
       print(event_type.event_registed)
       print(event_type.is_available)
       print(event_type.auto_accept_activity)
-      if event_type.is_available and event_type.auto_accept_activity:
-        vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
+      if event_type.is_available:
+        if event_type.auto_accept_activity:
+          vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
         event_type.event_registed = event_type.event_registed + 1
       else:
         raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
@@ -312,13 +313,24 @@ class EventEvent(models.Model):
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)  
     self._validation_ticket_services(vals)
   
-    if self.event_type_id or 'event_type_id' in vals:
-      event_type = self.env['event.type'].browse(self.event_type_id)
-      if event_type.is_available and event_type.auto_accept_activity:
-          vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
-          event_type.event_registed = event_type.event_registed + 1
-      else:
-          raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
+    # if self.event_type_id or 'event_type_id' in vals:
+    #   type_id = vals['event_type_id']
+    #   event_type = self.env['event.type'].search([('id', '=', type_id)])
+    #   if self.event_type_id != event_type.id:
+    #     if event_type.is_available:
+    #       if event_type.auto_accept_activity:
+    #         vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
+    #       event_type.event_registed = event_type.event_registed + 1
+    #       self.event_type_id.event_registed = self.event_type_id.event_registed - 1
+    #     else:
+    #       raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
+    #   if event_type ==
+    #   if event_type.is_available and event_type.auto_accept_activity:
+    #       vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
+    #       event_type.event_registed = event_type.event_registed + 1
+    #   else:
+    #       raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
+    
     #change_stage
     if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung'   :
       vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Chờ duyệt')]).id

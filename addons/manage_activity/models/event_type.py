@@ -12,7 +12,7 @@ class EventType(models.Model):
     )
     max_event_registration = fields.Integer(string='Số hoạt động đăng ký tối đa', default=0, required=True)
     event_registed = fields.Integer(string='Số hoạt động đã đăng ký', default=0, readonly=True, store=True)
-    is_available = fields.Boolean(store=True, compute="_check_available")
+    is_available = fields.Boolean(store=True, compute="_check_available", default=True)
     max_social_working_day = fields.Integer(string='Số ngày CTXH tối đa', default=0, required=True)
     max_training_point = fields.Integer(string='ĐRL tối đa', required=True,  default=0)
 
@@ -21,7 +21,7 @@ class EventType(models.Model):
     @api.depends('event_registed')
     def _check_available(self):
         for record in self:
-            if record.event_registed != 0 and record.event_registed > record.max_event_registration:
+            if record.event_registed != 0 and record.limited_registration == 'limited' and record.event_registed >= record.max_event_registration:
                 record.is_available = False
             else:
                 record.is_available = True
