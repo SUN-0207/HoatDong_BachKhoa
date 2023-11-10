@@ -244,8 +244,8 @@
       <field name="arch" type="xml">
         <xpath expr="//search" position="replace" >
           <search string="Events">
-            <field name="name" string="Event"/>
-            <field name="stage_id" />
+            <field name="name" string="Tên hoạt động"/>
+            <field name="stage_id" string='Tình trạng duyệt' />
             <field name="department_of_create_user" />
             <group expand="0" string="Group By">
               <filter string="Tình trạng duỵệt" name="group_by_stage_id" context="{'group_by': 'stage_id'}"/>

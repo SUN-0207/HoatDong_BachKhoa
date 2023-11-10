@@ -34,7 +34,7 @@
             <field name="created_by_name"/>
             <field name="department_of_create_user"/>
             <field name="stage_name"/>
-            <!-- <field name="user_current_registed_event" /> -->
+            <field name="user_current_registed_event" />
             <templates>
               <t t-name="kanban-box">
                 <div t-attf-class="d-flex flex-column py-1 px-4 pt-3 gap-2 oe_kanban_card oe_kanban_global_click">
@@ -121,8 +121,8 @@
                     <div>
                       <hr/>
                       <div class="d-flex justify-content-end gap-2">
-                        <!-- <button name="register_event" type="object" class="btn btn-info btn-md" string="Đăng ký" attrs="{'invisible': [('user_current_registed_event', '=', True)]}"/>
-                        <button name="cancel_event_registration" type="object" class="btn btn-danger btn-md" string="Huỷ Đăng ký" confirm="Xác nhận huỷ đăng ký" attrs="{'invisible': [('user_current_registed_event', '=', False)]}"/> -->
+                        <button name="register_event" type="object" class="btn btn-info btn-md" string="Đăng ký" attrs="{'invisible': [('user_current_registed_event', '=', True)]}"/>
+                        <button name="cancel_event_registration" type="object" class="btn btn-danger btn-md" string="Huỷ Đăng ký" confirm="Xác nhận huỷ đăng ký" attrs="{'invisible': [('user_current_registed_event', '=', False)]}"/>
                       </div>
                     </div>
                   </div>

@@ -78,15 +78,15 @@ class EventEvent(models.Model):
     return action   
     
 
-  # user_current_registed_event = fields.Boolean(string="User hiện tại đã đăng ký", default=False)
+  user_current_registed_event = fields.Boolean(string="User hiện tại đã đăng ký", default=False)
   
-  # def compute_event_registed_button(self):
-  #   for event in self:
-  #     exist_registration = self.env['event.registration'].search([('event_id','=',event.id),('email','=',self.env.user.login)],limit=1)
-  #     if exist_registration:
-  #       event.user_current_registed_event = True
-  #     else:
-  #       event.user_current_registed_event = False
+  def compute_event_registed_button(self):
+    for event in self:
+      exist_registration = self.env['event.registration'].search([('event_id','=',event.id),('email','=',self.env.user.login)],limit=1)
+      if exist_registration:
+        event.user_current_registed_event = True
+      else:
+        event.user_current_registed_event = False
         
 
   @api.depends('event_type_id')
@@ -277,7 +277,12 @@ class EventEvent(models.Model):
     # if 'auto_accept_activity' in vals and vals['auto_accept_activity'] == True:
     #   vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
     if 'event_type_id' in vals and vals['event_type_id'] != False:
-      event_type = self.env['event.type'].browse(vals['event_type_id'])
+      type_id = vals['event_type_id']
+      event_type = self.env['event.type'].search([('id', '=', type_id)])
+      print(event_type)
+      print(event_type.event_registed)
+      print(event_type.is_available)
+      print(event_type.auto_accept_activity)
       if event_type.is_available and event_type.auto_accept_activity:
         vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
         event_type.event_registed = event_type.event_registed + 1

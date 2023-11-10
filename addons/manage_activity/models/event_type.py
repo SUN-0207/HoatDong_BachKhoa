@@ -18,10 +18,10 @@ class EventType(models.Model):
 
     auto_accept_activity = fields.Boolean('Tự động đồng ý hoạt động', default=False)
   
-    @api.onchange('event_registed')
+    @api.depends('event_registed')
     def _check_available(self):
         for record in self:
-            if record.event_registed > record.max_event_registration:
+            if record.event_registed != 0 and record.event_registed > record.max_event_registration:
                 record.is_available = False
             else:
                 record.is_available = True

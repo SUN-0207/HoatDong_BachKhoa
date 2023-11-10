@@ -4,7 +4,6 @@
     <!-- EVENT.TYPE VIEWS -->
     <record model="ir.ui.view" id="view_event_type_form">
         <field name="name">event.type.view.form.inherit</field>
-        <!-- <field name="name">event.type.view.form.inherit.website</field> -->
         <field name="model">event.type</field>
         <field name="inherit_id" ref="event.view_event_type_form"/>
         <field name="arch" type="xml">
@@ -50,6 +49,26 @@
                 </sheet>
             </form>
             </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_event_type_tree">
+        <field name="name">event.type.view.tree.inherit</field>
+        <field name="model">event.type</field>
+        <field name="inherit_id" ref="event.view_event_type_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="replace">
+                <tree string="Event Template">
+                    <field name="sequence" widget="handle" invisible="1"/>
+                    <field name="name"/>
+                    <field name="max_training_point"/>
+                    <field name="max_social_working_day"/>
+
+                    <field name="max_event_registration"/>
+                    <field name="event_registed"/>
+
+                </tree>
+                </xpath>
         </field>
     </record>
 
