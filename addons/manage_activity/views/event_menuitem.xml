@@ -3,17 +3,23 @@
   <data>
 
     <!-- MAIN MENU -->
-    <record model="ir.ui.menu" id="event.event_main_menu">
+    <record model="ir.ui.menu" id="event.event_main_menu" >
       <field name='name'>Quản lý Hoạt động</field>
     </record>
+    
+    <!-- Hide default -->
+    <record id="make_invisible" model="res.groups">
+      <field name="name">Invisible</field>
+    </record>
+    <record model="ir.ui.menu" id="event.menu_event_event" >
+      <field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+    </record>
 
+    <menuitem sequence="0" id="event_main_menu" name="Quản lý Hoạt động" action="events_action" parent="event.event_main_menu"/>
+    
     <menuitem id="event_registration_menu" name="Đăng ký Hoạt động" action="event_registration_page_action" parent="event.event_main_menu"/>
 
-    <!-- HEADER: EVENTS -->
-    <record model="ir.ui.menu" id="event.menu_event_event">
-      <field name='name'>Quản lý Hoạt động</field>
-    </record>
-
+   
     <record model="ir.ui.menu" id="event.menu_event_type">
       <field name='name'>Nhóm hoạt động</field>
     </record>
