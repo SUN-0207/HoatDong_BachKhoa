@@ -76,12 +76,19 @@ class EventEvent(models.Model):
       else:
         event.user_current_registed_event = False  
           
-  # def compute_event_is_show(self):
-  #   for ticket_id in self.event_ticket_ids:
-  #     if ticket_id.event_department_id.id == self.env.user.user_info_id.user_info_department_id.id or ticket_id.event_department_id.name == "Tất cả":
-  #       if ticket_id.event_info_major_id.id == self.env.user.user_info_id.user_info_major_id.id or ticket_id.event_info_major_id.name == "Tất cả":
-  #         if ticket_id.event_info_academy_year.id == self.env.user.user_info_id.user_info_academy_year.id or ticket_id.event_info_academy_year.name == "Tất cả":
-  #           self.is_show_for_current_user = True
+  def compute_event_is_show(self):
+    self.ensure_one()
+    flag = False
+    for ticket_id in self.event_ticket_ids:
+      if ticket_id.event_department_id.id == self.env.user.user_info_id.user_info_department_id.id or ticket_id.event_department_id.name == "Tất cả":
+        if ticket_id.event_info_major_id.id == self.env.user.user_info_id.user_info_major_id.id or ticket_id.event_info_major_id.name == "Tất cả":
+          if ticket_id.event_info_academy_year.id == self.env.user.user_info_id.user_info_academy_year.id or ticket_id.event_info_academy_year.name == "Tất cả":
+            self.is_show_for_current_user = True
+            flag = True
+            break
+    if not flag:
+      self.is_show_for_current_user = False      
+    
 
   @api.depends('event_type_id')
   def _check_auto_accept_activity(self):
@@ -308,8 +315,9 @@ class EventEvent(models.Model):
   @api.model
   def search_read(self, domain, fields, offset, limit, order):
     records = super(EventEvent, self).search_read(domain=domain, fields=fields, offset=offset, limit=limit, order=order)
-    for record in records:
-      self.browse(record['id']).write({'name': record['name']})
+    all_events = self.env['event.event'].search([])
+    for event in all_events:
+      event.compute_event_is_show()
     return records
 
   def see_info_user_response(self):

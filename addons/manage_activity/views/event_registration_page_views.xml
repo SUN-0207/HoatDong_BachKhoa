@@ -163,7 +163,7 @@
       <field name="view_mode">kanban</field>
       <field name="view_id" ref="event_registration_page_kanban"/>
       <field name="search_view_id" ref="event_registration_page_search" />
-      <field name="domain">[('status_activity','=','open_registration')]</field>
+      <field name="domain">[('status_activity','in',['open_registration','close_registration','inprogress','completed']),('is_show_for_current_user','=','True')]</field>
     </record>
 
   </data>
