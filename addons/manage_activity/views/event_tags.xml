@@ -12,7 +12,7 @@
                     <tree string="Ý nghĩa">
                         <field name="sequence" widget="handle"/>
                         <field name="name"/>
-                        <field name="color" widget="color_picker"/>
+                        <field name="color" widget="color_picker" invisible="1"/>
                         <!-- <field name="category_id"/> -->
                     </tree>
                 </xpath>
