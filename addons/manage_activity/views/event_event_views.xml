@@ -96,9 +96,6 @@
                     <group>
                       <field string="All students: " name="is_for_all_students" invisible="1"/>
                     </group>
-                    <!-- <group>
-                      <field string="Giới hạn sinh viên các đơn vị" name="is_maximize_department"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>
-                    </group> -->
                   </group>
                   <group>
                     <group>
@@ -116,12 +113,6 @@
                         </span>
                       </div>
                     </group>
-                      <!-- <group>
-                        <field string="Giới hạn sinh viên các chuyên ngành" name="is_maximize_major"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>
-                      </group>
-                      <group>
-                        <field  string="Giới hạn sinh viên các khóa" name="is_maximize_year"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>         
-                      </group> -->
                   </group> 
 
                   <group string="Quản lý hoạt động" name="right_event_details" >
@@ -301,13 +292,6 @@
     <field name="code">action=model.open_list_event()</field>
   </record>
 
-    <!-- Change view to 3 view EVENT.EVENT VIEWS -->
-    <!-- <record model="ir.actions.act_window" id="event.action_event_view">
-      <field name="name">Events</field>
-      <field name="view_mode">tree,kanban,form</field>
-      <field name="search_view_id" ref="event.view_event_search"/>
-      <field name="context" eval="{'search_default_group_by_stage_id': 1}" />
-   </record>    -->
   </data>
 </odoo>
     

@@ -52,7 +52,7 @@ class EventEvent(models.Model):
   date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
   date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
   
-  max_social_point = fields.Char(string="Số ngày CTXH tối đa")
+  max_social_point = fields.Integer(string="Số ngày CTXH tối đa")
   max_tranning_point = fields.Integer(string="ĐRL tối đa")
 
   description = fields.Text(string="Mô tả hoạt động", widget="html" )
@@ -494,7 +494,14 @@ class EventEvent(models.Model):
         for record in self:
             date_range = record.date_begin.strftime('%d/%m/%Y') + ' \u2192 '+ record.date_end.strftime('%d/%m/%Y')
             record.formatted_date_start_range = date_range
-
+  
+  @api.onchange('max_social_point', 'max_tranning_point')
+  def _onchange_max_points(self):
+        if self.event_type_id:
+            if self.max_social_point and self.max_social_point > self.event_type_id.max_social_working_day:
+                raise ValidationError('Không được nhập quá số ngày CTXH của nhóm hoạt động này')
+            if self.max_tranning_point and self.max_tranning_point > self.event_type_id.max_training_point:
+                raise ValidationError('Không được nhập quá ĐRL của nhóm hoạt động này')
 class SeeInfoWizard(models.TransientModel):
     _name = 'see.info.wizard'
     _description = 'See Info Wizard'
