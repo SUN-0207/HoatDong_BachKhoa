@@ -130,6 +130,7 @@
                     <!-- Hien tai chi cho Adminstrator can them business <field name="department_response" groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin"
                     options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/> -->
                     <field class="oe_inline" name="user_response" string="Người phụ trách" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" /> 
+                   <field name="cooperate_department"  widget="many2many_checkboxes"/>
                   </group>
                   <group string="">
                     <field  name="department_of_create_user" string="Hoạt động của đơn vị"
@@ -216,19 +217,21 @@
             <field name="message_needaction" invisible="1" readonly="1" />
             <field name="activity_exception_decoration" widget="activity_exception" readonly="1" invisible="1"/>
             <field name="stage_name" readonly="1" invisible="1"/>
-            
-            
+            <field name="status_activity" widget='badge' optional="show" string='Tình trạng hoạt động'  invisible="1"/>
+            <field name="event_type_id" optional="show" string='Nhóm hoạt động'  invisible="1" />
+            <field name="stage_id" string='Tình trạng duyệt' invisible="1" />
+            <field name="date_begin_registration" readonly="1" widget="date" optional="show" invisible="1"/>
+            <field name="date_end_registration" readonly="1" widget="date" optional="show" invisible="1"/>
+            <field name="date_begin" readonly="1" widget="date" optional="show" string='Thời gian diễn ra'  invisible="1"/>
+            <field name="date_end" readonly="1" widget="date" optional="show" string='Thời gian kết thúc'  invisible="1"/>
+
+            <!-- Show-->
             <field name="name" string='Tên hoạt động' class="tree_activity_name"/>
+            <field name="event_code"/>
             <field name="department_of_create_user" string='Hoạt động của đơn vị' />
-            <field name="stage_id" string='Tình trạng duyệt' invisible="1"/>
-            <field name="status_activity" widget='badge' optional="show" string='Tình trạng hoạt động'/>
-            <field name="event_type_id" optional="show" string='Nhóm hoạt động' />
-            <field name="date_begin_registration" readonly="1" widget="date" optional="show" />
-            <field name="date_end_registration" readonly="1" widget="date" optional="show" />
-            <field name="date_begin" readonly="1" widget="date" optional="show" string='Thời gian diễn ra'/>
-            <field name="date_end" readonly="1" widget="date" optional="show" string='Thời gian kết thúc'/>
+            <field name="formatted_date_regis_range"/>
+            <field name="formatted_date_start_range"/>
             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" optional="hide"/>
-            
             <button name="confirm_event" type="object" class="btn btn-outline-primary" string="Đồng ý" confirm="Xác nhận đồng ý" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}"  groups="manage_user_info.group_hcmut_super_admin"/>
             <button name="need_update_event" type="object" class="btn btn-warning" string="Bổ sung" confirm="Xác nhận bổ sung" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" groups="manage_user_info.group_hcmut_super_admin"/>
             <button name="refuse_event" type="object" class="btn btn-outline-danger" string="Từ chối" confirm="Xác nhận từ chối" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" groups="manage_user_info.group_hcmut_super_admin"/>

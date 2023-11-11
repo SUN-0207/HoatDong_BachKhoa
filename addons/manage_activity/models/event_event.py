@@ -1,6 +1,7 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 from datetime import datetime, timedelta
+import uuid
 class EventEvent(models.Model):
   _name = 'event.event'
   _inherit = [
@@ -23,12 +24,15 @@ class EventEvent(models.Model):
     compute='_compute_status_activity'
   )
   
+  cooperate_department = fields.Many2many('user.info.department', string="Don vi cong tac")
+
   user_id = fields.Many2one('res.users', string='User', readonly=True, default=lambda self: self.env.user)
   created_by_name = fields.Char(string="Hoạt động được tạo bởi ", store=True, default = lambda self: self.env.user.name)
   department_of_create_user = fields.Many2one('user.info.department', 
     string='Hoạt động thuộc về', store=True, default=lambda self: self.env.user.manage_department_id if self.env.user.manage_department_id else self.env['user.info.department'].search([('code', '=', 'DTN-HSV')]))
   
-  
+  event_code = fields.Char(string='Mã hoạt động', size=8, readonly=True)
+
   user_response = fields.Many2one('user.info', domain=[('can_response_event', '=', True)])
   user_response_phone = fields.Char(string="Số điện thoại di động", compute='_get_info', store=True)
   user_response_email = fields.Char(string="Mail", compute='_get_info', store=True)
@@ -46,6 +50,7 @@ class EventEvent(models.Model):
 
   date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
   date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
+  
   max_social_point = fields.Char(string="Số ngày CTXH tối đa")
   max_tranning_point = fields.Integer(string="ĐRL tối đa")
 
@@ -285,7 +290,8 @@ class EventEvent(models.Model):
   def create(self, vals):
     if not vals:
         vals = {}
-    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before create event: ', vals)
+    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Vals before create event: ', vals)
+    
     self._validation_ticket_services(vals)
     # Create the record
     # if 'auto_accept_activity' in vals and vals['auto_accept_activity'] == True:
@@ -303,7 +309,19 @@ class EventEvent(models.Model):
         event_type.event_registed = event_type.event_registed + 1
       else:
         raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
-    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ After create event: ', vals)
+    
+    #last step when all validate are pass then it will get the new uuid for the event
+    generated_uuid_model = self.env['generated.uuid']
+    while True:
+      new_uuid = str(uuid.uuid4().hex.upper())[:8]
+      existing_uuid = generated_uuid_model.search([('uuid', '=', new_uuid)])
+      if existing_uuid:
+        continue
+      vals['event_code'] = new_uuid
+      generated_uuid_model.create({'uuid': new_uuid})
+      break
+
+    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Vals after create event: ', vals)
     record = super(EventEvent, self).create(vals)
         
     return record
@@ -332,7 +350,7 @@ class EventEvent(models.Model):
     #       raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
     
     #change_stage
-    if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung'   :
+    if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung' and 'is_show_for_current_user' not in vals:
       vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Chờ duyệt')]).id
    
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Update event: ', vals)
@@ -467,8 +485,20 @@ class EventEvent(models.Model):
             if activity.date_end_registration < current_date:
               raise ValidationError('Ngày kết thúc đăng ký phải từ ngày hôm nay trở đi')
 
- 
+  formatted_date_regis_range = fields.Char(string='Thời gian đăng ký', compute='_compute_formatted_date_range', store=True)
+  formatted_date_start_range = fields.Char(string='Thời gian diễn ra', compute='_compute_formatted_date_start_range', store=True)
 
+  @api.depends('date_begin_registration', 'date_end_registration')
+  def _compute_formatted_date_range(self):
+        for record in self:
+            date_range = record.date_begin_registration.strftime('%d/%m/%Y') +  ' \u2192 ' + record.date_end_registration.strftime('%d/%m/%Y')
+            record.formatted_date_regis_range = date_range
+
+  @api.depends('date_begin', 'date_end')
+  def _compute_formatted_date_start_range(self):
+        for record in self:
+            date_range = record.date_begin.strftime('%d/%m/%Y') + ' \u2192 '+ record.date_end.strftime('%d/%m/%Y')
+            record.formatted_date_start_range = date_range
 
 class SeeInfoWizard(models.TransientModel):
     _name = 'see.info.wizard'
