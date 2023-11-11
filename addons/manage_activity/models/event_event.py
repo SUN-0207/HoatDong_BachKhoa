@@ -24,8 +24,8 @@ class EventEvent(models.Model):
     compute='_compute_status_activity'
   )
   
-  cooperate_department = fields.Many2many('user.info.department', string="Don vi cong tac")
-
+  cooperate_department = fields.One2many('department.coop.event', 'event_id', string='Cooperating Departments', store=True)
+  
   user_id = fields.Many2one('res.users', string='User', readonly=True, default=lambda self: self.env.user)
   created_by_name = fields.Char(string="Hoạt động được tạo bởi ", store=True, default = lambda self: self.env.user.name)
   department_of_create_user = fields.Many2one('user.info.department', 
@@ -33,7 +33,8 @@ class EventEvent(models.Model):
   
   event_code = fields.Char(string='Mã hoạt động', size=8, readonly=True)
 
-  user_response = fields.Many2one('user.info', domain=[('can_response_event', '=', True)])
+  search_mssv = fields.Char('Tim MSSV, MSCB')
+  user_response = fields.Many2one('user.info')
   user_response_phone = fields.Char(string="Số điện thoại di động", compute='_get_info', store=True)
   user_response_email = fields.Char(string="Mail", compute='_get_info', store=True)
 
@@ -65,6 +66,7 @@ class EventEvent(models.Model):
   unaccpet_registration = fields.Integer(string='Registration Count', compute='_compute_unaccpet_registration')
   duyet_nhanh = fields.Char(string='Duyệt nhanh')
   
+  
   def open_list_event(self):
     action = {
       'name': 'Quản lý hoạt động',
@@ -74,12 +76,17 @@ class EventEvent(models.Model):
       'limit': 15,
       'context': "{'search_default_group_by_stage_id': 1}" 
     }
-   
     if self.env.user.manage_department_id:
-      dtn = self.env['user.info.department'].search([('code', '=', 'DTN-HSV')])
+      user_department_id = self.env.user.manage_department_id.id
+      all_department_id = self.env['user.info.department'].search([('name', '=', 'Tất cả')]).id
+      coop_event = self.env['department.coop.event'].search([('event_department_id', 'in', [user_department_id, all_department_id] )]).event_id
       action.update({
-        'domain': ['|',('department_of_create_user.id','=', self.env.user.manage_department_id.id),('department_of_create_user.id','=', dtn.id)]
-      })
+          'domain': [ '|',
+                      ('id','in', coop_event.ids),
+                      ('department_of_create_user', '=', user_department_id )
+                    ]
+        })
+     
     return action   
     
 
@@ -130,11 +137,6 @@ class EventEvent(models.Model):
     for activity in self:
       filtered_registrations = activity.registration_ids.filtered(lambda r: r.state == 'draft')
       activity.unaccpet_registration = len(filtered_registrations)
-
-  # @api.onchange('is_for_all_students')
-  # def check_tickets(self):
-  #   if len(self.event_ticket_ids) != 0 and self.is_for_all_students == True:
-  #      raise ValidationError('Khong the chuyen ve Tất cả sinh vien vi dang co gioi han sinh vien')
 
   @api.model
   def default_get(self, fields_list):
@@ -331,23 +333,17 @@ class EventEvent(models.Model):
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)  
     self._validation_ticket_services(vals)
   
-    # if self.event_type_id or 'event_type_id' in vals:
-    #   type_id = vals['event_type_id']
-    #   event_type = self.env['event.type'].search([('id', '=', type_id)])
-    #   if self.event_type_id != event_type.id:
-    #     if event_type.is_available:
-    #       if event_type.auto_accept_activity:
-    #         vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
-    #       event_type.event_registed = event_type.event_registed + 1
-    #       self.event_type_id.event_registed = self.event_type_id.event_registed - 1
-    #     else:
-    #       raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
-    #   if event_type ==
-    #   if event_type.is_available and event_type.auto_accept_activity:
-    #       vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
-    #       event_type.event_registed = event_type.event_registed + 1
-    #   else:
-    #       raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
+    if 'event_type_id' in vals:
+      type_id = vals['event_type_id']
+      event_type = self.env['event.type'].search([('id', '=', type_id)])
+      if self.event_type_id != event_type.id:
+        if event_type.is_available:
+          if event_type.auto_accept_activity:
+            vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
+          event_type.event_registed = event_type.event_registed + 1
+          self.event_type_id.event_registed = self.event_type_id.event_registed - 1
+        else:
+          raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
     
     #change_stage
     if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung' and 'is_show_for_current_user' not in vals:
@@ -361,7 +357,6 @@ class EventEvent(models.Model):
   def _compute_status_activity(self):
         current_datetime = datetime.now()
         for event in self:
-            print('^^^^^^^^6', event.stage_id.name)
             if event.stage_id.name == 'Đã duyệt':
                 if current_datetime < event.date_begin_registration:
                     event.status_activity = 'new'
@@ -513,9 +508,14 @@ class ResUsers(models.Model):
 class UserDepartmentAdmin(models.Model):
   _inherit = ['user.department.admin']
 
+class DepartmentCoopEvent(models.Model):
+  _name = 'department.coop.event'
+
+  event_id = fields.Many2one('event.event')
+  event_department_id = fields.Many2one('user.info.department', string='Đơn vị')
+
 class UserInfoDepartment(models.Model):
   _inherit = 'user.info.department'
-
   max_num_resgis = fields.Integer('Số lượng Đăng ký tối đa')
 
 class UserInfoMajor(models.Model):
