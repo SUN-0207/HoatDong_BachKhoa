@@ -82,66 +82,57 @@
                     <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
                     <field attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  name="date_end" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'date_begin'}"/>
                   </div>
-                  
-                
                 </group>
+
                 <group string="Thiết lập hoạt động">
                   <group>
-                    <group>
                     <field name="max_social_point"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" class="mini-field"/>
-                    </group>
-                    <group>
-                      <field name="max_tranning_point"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" class="mini-field"/>
-                    </group>
-                    <group>
-                      <field string="All students: " name="is_for_all_students" invisible="1"/>
-                    </group>
-                    <!-- <group>
-                      <field string="Giới hạn sinh viên các đơn vị" name="is_maximize_department"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>
-                    </group> -->
                   </group>
                   <group>
-                    <group>
-                      <field name="auto_confirm" string="Tự động duyệt sinh viên"/>   
-                      <field name="auto_accept_activity" invisible="1"/>                 
+                    <field name="max_tranning_point"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" class="mini-field"/>
+                  </group>
 
-                    </group>
-                    <group invisible="1">
-                      <label for="seats_limited" string="Giới hạn tham gia"/>
-                      <div>
-                        <field name="seats_limited"/>
-                        <span attrs="{'invisible': [('seats_limited', '=', False)], 'required': [('seats_limited', '=', False)]}">
-                          <field name="seats_max" class="oe_inline o_input_9ch mini-field"/> 
-                          <span style="margin-left:5px;">người</span>
-                        </span>
-                      </div>
-                    </group>
-                      <!-- <group>
-                        <field string="Giới hạn sinh viên các chuyên ngành" name="is_maximize_major"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>
-                      </group>
-                      <group>
-                        <field  string="Giới hạn sinh viên các khóa" name="is_maximize_year"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>         
-                      </group> -->
+                  <group>
+                    <field string="All students: " name="is_for_all_students" invisible="1"/>
+                  </group>
+                  <group invisible="1">
+                    <label for="seats_limited" string="Giới hạn tham gia"/>
+                    <div>
+                      <field name="seats_limited"/>
+                      <span attrs="{'invisible': [('seats_limited', '=', False)], 'required': [('seats_limited', '=', False)]}">
+                        <field name="seats_max" class="oe_inline o_input_9ch mini-field"/> 
+                        <span style="margin-left:5px;">người</span>
+                      </span>
+                    </div>
                   </group> 
+                </group>
 
-                  <group string="Quản lý hoạt động" name="right_event_details" >
-                    <field name="organizer_id" invisible="1"/>
-                      <field name="auto_accept_activity"  invisible="1" />
-                    <!-- Hien tai chi cho Adminstrator can them business <field name="department_response" groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin"
-                    options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/> -->
+                
+                <group string="Quản lý hoạt động" name="right_event_details" >
+                  <field name="organizer_id" invisible="1"/>
+                  <field name="auto_accept_activity"  invisible="1" />
+
+                  <group>
                     <field class="oe_inline" name="user_response" string="Người phụ trách" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" /> 
                   </group>
-                  <group string="">
+
+                  <group>
+                    <field name="auto_confirm" string="Tự động duyệt sinh viên"/>   
+                    <field name="auto_accept_activity" invisible="1"/>                 
+                  </group>
+
+                  <div class="o_row ">
+                    <button nolabel="1" name="see_info_user_response" type="object" class=" btn btn-link" string="Xem thông tin liên hệ người phụ trách" style="padding-left:0 !important;"/>
+                  </div>
+
+                  <group string="" invisible="1">
                     <field  name="department_of_create_user" string="Hoạt động của đơn vị"
                    readonly="1"
                     groups="manage_user_info.group_hcmut_department_admin"
                     options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>  
                   </group>
-                  <div class="o_row ">
-                    <button nolabel="1" name="see_info_user_response" type="object" class=" btn btn-link" string="Xem thông tin liên hệ người phụ trách" />
-                  </div>
-                  
                 </group>
+
                   <notebook>
                     <page string="Giới hạn tham gia" name="tickets" >
                       <field name="event_ticket_ids" 
