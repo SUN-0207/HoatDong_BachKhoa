@@ -33,6 +33,7 @@
             'manage_activity/static/src/scss/list.scss',
             'manage_activity/static/src/scss/event_form.scss',
             'manage_activity/static/src/scss/event_tree.scss',
+            'manage_activity/static/src/scss/event_wizard.scss',
         ],
     },
     'license': 'LGPL-3',
