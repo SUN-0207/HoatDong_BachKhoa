@@ -28,7 +28,7 @@
               </group>
                 
               <group string="Thông tin hoạt động">
-                  <field name="description" widget="html" class="border-input" readonly="1"/>
+                <field t-if="record.description.raw_value != false" name="description" widget="html" readonly="1"/>
                   
                   <field name="status_activity"  attrs="{'readonly': [('stage_name', '!=', 'Đã duyệt')]}" invisible="1"/>
   
