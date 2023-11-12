@@ -41,8 +41,8 @@
 
                 <div class="d-flex flex-row justify-content-between" style="margin-top:3rem;margin-bottom:4rem;">
                   <div class="event-name-group">         
-                      <field class="fs-1 event-name-field" name="name" placeholder=" " widget="event_name"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"/>
-                      <label for="name" attrs="{'invisible': [('stage_name', '=', 'Đã duyệt')]}">Tên hoạt động</label>
+                      <field class="fs-1 event-name-field" name="name" placeholder=" " widget="event_name" />
+                      <label for="name">Tên hoạt động</label>
                       <script type="text/javascript" src="/manage_activity/static/src/js/event_name.js"></script>
                   </div>
                   <div class="col-4 text-end px-3">
@@ -54,16 +54,16 @@
                 <group>
                   <group>
                     <field name="active" invisible="1"/>
-                    <field name="event_type_id" attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  string="Nhóm hoạt động"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                    <field name="event_type_id" string="Nhóm hoạt động"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                   </group>
                   
                   <group>
-                    <field name="tag_ids" attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  string="Ý nghĩa hoạt động" widget="many2many_tags" options="{'color_field': 'color', 'no_quick_create': True,'no_create_edit':True,'no_open': True,}"/>
+                    <field name="tag_ids" string="Ý nghĩa hoạt động" widget="many2many_tags" options="{'color_field': 'color', 'no_quick_create': True,'no_create_edit':True,'no_open': True,}"/>
                   </group>
                 </group>
                 
                 <group string="Thông tin hoạt động">
-                  <field name="description" widget="html" class="border-input" attrs="{'readonly': [('stage_name', '!=', 'Đã duyệt')]}" invisible="1"/>
+                  <field name="description" widget="html" class="border-input"/>
                   
                   <field name="status_activity"  attrs="{'readonly': [('stage_name', '!=', 'Đã duyệt')]}" invisible="1"/>
 
@@ -96,10 +96,13 @@
                     <group>
                       <field string="All students: " name="is_for_all_students" invisible="1"/>
                     </group>
+                    <!-- <group>
+                      <field string="Giới hạn sinh viên các đơn vị" name="is_maximize_department"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>
+                    </group> -->
                   </group>
                   <group>
                     <group>
-                      <field name="auto_confirm" string="Tự động duyệt sinh viên" attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" />   
+                      <field name="auto_confirm" string="Tự động duyệt sinh viên"/>   
                       <field name="auto_accept_activity" invisible="1"/>                 
 
                     </group>
@@ -113,29 +116,31 @@
                         </span>
                       </div>
                     </group>
+                      <!-- <group>
+                        <field string="Giới hạn sinh viên các chuyên ngành" name="is_maximize_major"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>
+                      </group>
+                      <group>
+                        <field  string="Giới hạn sinh viên các khóa" name="is_maximize_year"  attrs="{'invisible': [('is_for_all_students', '=', True)]}"/>         
+                      </group> -->
                   </group> 
 
                   <group string="Quản lý hoạt động" name="right_event_details" >
                     <field name="organizer_id" invisible="1"/>
                       <field name="auto_accept_activity"  invisible="1" />
-                   
-                      <field  name="search_mssv"  attrs="{'invisible': [('stage_name', '=', 'Đã duyệt')]}" />
-                      <field  name="user_response" string="Người phụ trách" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" 
-                        domain="[('student_id', 'like', search_mssv)]"
-                      /> 
-                   
+                    <!-- Hien tai chi cho Adminstrator can them business <field name="department_response" groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin"
+                    options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/> -->
+                    <field class="oe_inline" name="user_response" string="Người phụ trách" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" /> 
                   </group>
                   <group string="">
                     <field  name="department_of_create_user" string="Hoạt động của đơn vị"
-                    invisible="1" 
+                   readonly="1"
                     groups="manage_user_info.group_hcmut_department_admin"
                     options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>  
-                 
                   </group>
                   <div class="o_row ">
                     <button nolabel="1" name="see_info_user_response" type="object" class=" btn btn-link" string="Xem thông tin liên hệ người phụ trách" />
                   </div>
-                 
+                  
                 </group>
                   <notebook>
                     <page string="Giới hạn tham gia" name="tickets" >
@@ -147,18 +152,8 @@
                             'form_view_ref': 'event.event_event_ticket_view_form_from_event',
                             'kanban_view_ref': 'event.event_event_ticket_view_kanban_from_event'}" mode="tree"/> 
                     </page>
-                    <page string="Đơn vị cộng tác" name="cooperate_department">
-                      <field name="cooperate_department" attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" >
-                        <tree string="Đơn vị cộng tác"  create="1" editable="bottom"
-                        default_order="event_department_id asc" >
-                          <control >
-                            <create string="Thêm giới hạn đơn vị cong tac" />
-                          </control>
-                          <field name="event_department_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
+                
 
-                        </tree>
-                      </field>  
-                    </page>
                     <page string="Communication" name="event_communication" invisible="1">
                         <field name="event_mail_ids">
                             <tree string="Communication" editable="bottom">
@@ -190,7 +185,8 @@
                     </page>
                 </notebook>
                 <group string="Minh chứng">
-                  <field  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  string="Đính kèm tệp" name="attach_file" widget="many2many_binary" />
+
+                  <field  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  string="Giấy tờ liên quan" name="attach_file" widget="many2many_binary" />
                 </group>
             </sheet>
          
@@ -198,6 +194,17 @@
         </xpath>  
       </field>
     </record>
+
+    <record id="action_event_form" model="ir.actions.act_window">
+      <field name="name">View Event Form</field>
+      <field name="res_model">event.event</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="manage_activity.event_event_form_inherit"></field>
+      <field name="context">{'form_view_type': 'event_form'}</field>
+      <!-- <field name="act_window_id" ref="action_event_view"></field> -->
+    </record>
+
+
 
     <record id="event_event_tree_inherit" model="ir.ui.view">
       <field name="name">event.event.tree.inherit</field>
@@ -220,21 +227,19 @@
             <field name="message_needaction" invisible="1" readonly="1" />
             <field name="activity_exception_decoration" widget="activity_exception" readonly="1" invisible="1"/>
             <field name="stage_name" readonly="1" invisible="1"/>
-            <field name="status_activity" widget='badge' optional="show" string='Tình trạng hoạt động'  invisible="1"/>
-            <field name="event_type_id" optional="show" string='Nhóm hoạt động'  invisible="1" />
-            <field name="stage_id" string='Tình trạng duyệt' invisible="1" />
-            <field name="date_begin_registration" readonly="1" widget="date" optional="show" invisible="1"/>
-            <field name="date_end_registration" readonly="1" widget="date" optional="show" invisible="1"/>
-            <field name="date_begin" readonly="1" widget="date" optional="show" string='Thời gian diễn ra'  invisible="1"/>
-            <field name="date_end" readonly="1" widget="date" optional="show" string='Thời gian kết thúc'  invisible="1"/>
-
-            <!-- Show-->
+            
+            
             <field name="name" string='Tên hoạt động' class="tree_activity_name"/>
-            <field name="event_code"/>
             <field name="department_of_create_user" string='Hoạt động của đơn vị' />
-            <field name="formatted_date_regis_range"/>
-            <field name="formatted_date_start_range"/>
+            <field name="stage_id" string='Tình trạng duyệt' invisible="1"/>
+            <field name="status_activity" widget='badge' optional="show" string='Tình trạng hoạt động'/>
+            <field name="event_type_id" optional="show" string='Nhóm hoạt động' />
+            <field name="date_begin_registration" readonly="1" widget="date" optional="show" />
+            <field name="date_end_registration" readonly="1" widget="date" optional="show" />
+            <field name="date_begin" readonly="1" widget="date" optional="show" string='Thời gian diễn ra'/>
+            <field name="date_end" readonly="1" widget="date" optional="show" string='Thời gian kết thúc'/>
             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" optional="hide"/>
+            
             <button name="confirm_event" type="object" class="btn btn-outline-primary" string="Đồng ý" confirm="Xác nhận đồng ý" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}"  groups="manage_user_info.group_hcmut_super_admin"/>
             <button name="need_update_event" type="object" class="btn btn-warning" string="Bổ sung" confirm="Xác nhận bổ sung" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" groups="manage_user_info.group_hcmut_super_admin"/>
             <button name="refuse_event" type="object" class="btn btn-outline-danger" string="Từ chối" confirm="Xác nhận từ chối" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" groups="manage_user_info.group_hcmut_super_admin"/>
@@ -292,6 +297,13 @@
     <field name="code">action=model.open_list_event()</field>
   </record>
 
+    <!-- Change view to 3 view EVENT.EVENT VIEWS -->
+    <!-- <record model="ir.actions.act_window" id="event.action_event_view">
+      <field name="name">Events</field>
+      <field name="view_mode">tree,kanban,form</field>
+      <field name="search_view_id" ref="event.view_event_search"/>
+      <field name="context" eval="{'search_default_group_by_stage_id': 1}" />
+   </record>    -->
   </data>
 </odoo>
     

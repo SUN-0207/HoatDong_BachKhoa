@@ -85,11 +85,11 @@ class EventEvent(models.Model):
     self.ensure_one()
 
     context = self.env.context
-    form_view_type = context.get('form_view_type', 'event_wizard')
+    form_view_type = context.get('form_view_type', 'event_form')
 
     # view_id = self.env.ref('manage_activity.event_event_form_inherit').id
     
-    if form_view_type == 'event_wizard':
+    if form_view_type == 'event_form':
       view_id = self.env.ref('manage_activity.event_detail_wizard_form').id
     else:
       view_id = self.env.ref('manage_activity.event_event_form_inherit').id
