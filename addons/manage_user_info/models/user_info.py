@@ -141,7 +141,7 @@ class UserInfo(models.Model):
   @api.model
   def create(self, vals):
     vals['states'] = 'draft'
-    if 'image_1920' in vals:
+    if 'image_1920' in vals and vals['image_1920'] != False:
       self.env.user.sudo().write({
                 'avatar_1920': vals['image_1920'],
                 'image_1024': vals['image_1920'],
@@ -154,9 +154,9 @@ class UserInfo(models.Model):
                 'avatar_1024': vals['image_1920'],
                 'avatar_1920': vals['image_1920'],
             })
-    vals['avatar_128'] = vals['image_1920']
-    super(UserInfo, self).create(vals)
-    super(UserInfo, self).refresh()
+      vals['avatar_128'] = vals['image_1920']
+    return super(UserInfo, self).create(vals)
+    # super(UserInfo, self).refresh()
 
   def write(self, vals):
     if not self.env.user.sudo().has_group('manage_user_info.group_hcmut_department_admin') and self.env.user.id != self.user_id.id:
@@ -180,14 +180,14 @@ class UserInfo(models.Model):
             })
       vals['avatar_128'] = vals['image_1920']
 
-    super(UserInfo, self).write(vals)
-    super(UserInfo, self).refresh()
-  
-  @api.onchange('avatar')
+    return super(UserInfo, self).write(vals)
+    # super(UserInfo, self).refresh()
+    
+  @api.onchange('image_1920')
   def _check_limit_image_size(self):
     # check the file size here before updating the record
-    if self.avatar:
-      file_size = len(self.avatar)
+    if self.image_1920:
+      file_size = len(self.image_1920)
       if file_size > 5 * 1024 * 1024:
         raise UserError(_('Hình ảnh tải lên không vượt quá 5MB'))
 
@@ -210,11 +210,14 @@ class UserInfo(models.Model):
     view_id = self.env.ref('manage_user_info.user_info_view_form') 
     
     current_user_info = self.env['user.info'].search([('user_id', '=', self.env.uid)],limit=1)
-    
+    print(current_user_info)
     if not current_user_info:
+      print("======================================")
       current_user_info = self.env['user.info'].sudo().create({
         'user_id': self.env.uid
       })
+      
+    print(current_user_info)
       
     return {
         'name': 'Personal Information',
