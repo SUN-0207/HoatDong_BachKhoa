@@ -23,12 +23,10 @@
         <form >
           <header >
             <button name="button_draft" type="object" class="btn btn-primary" string="Bản nháp" groups="manage_user_info.group_hcmut_department_admin,manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" />
-            <button name="button_done" type="object" class="btn btn-primary" string="Hoàn tất" groups="manage_user_info.group_hcmut_department_admin,manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" />
-            <field name="can_response_event" invisible="1"/>
-            <button name="update_can_response_event" type="object" class="btn btn-primary" string="Co quyen quan ly hoat dong" groups="manage_user_info.group_hcmut_department_admin,manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" />
-            <button name="remove_can_response_event" type="object" class="btn btn-primary" string="Huy quyen quan ly hoat dong" groups="manage_user_info.group_hcmut_department_admin,manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" />
-            
-            <field name="states" widget="statusbar" statusbar_visible="draft,done" />
+            <button name="button_done" type="object" class="btn btn-primary" string="Hoàn tất" groups="manage_user_info.group_hcmut_department_admin,manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" />   
+            <field name="states" widget="statusbar" groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" />
+            <field name="states" invisible="1" />
+          
           </header>
           <sheet>
             <div class="user-info-remind" groups="manage_user_info.group_hcmut_user">

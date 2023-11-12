@@ -1,6 +1,7 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 from datetime import datetime, timedelta
+import uuid
 class EventEvent(models.Model):
   _name = 'event.event'
   _inherit = [
@@ -23,13 +24,17 @@ class EventEvent(models.Model):
     compute='_compute_status_activity'
   )
   
+  cooperate_department = fields.One2many('department.coop.event', 'event_id', string='Cooperating Departments', store=True)
+  
   user_id = fields.Many2one('res.users', string='User', readonly=True, default=lambda self: self.env.user)
   created_by_name = fields.Char(string="Hoạt động được tạo bởi ", store=True, default = lambda self: self.env.user.name)
   department_of_create_user = fields.Many2one('user.info.department', 
     string='Hoạt động thuộc về', store=True, default=lambda self: self.env.user.manage_department_id if self.env.user.manage_department_id else self.env['user.info.department'].search([('code', '=', 'DTN-HSV')]))
   
-  
-  user_response = fields.Many2one('user.info', domain=[('can_response_event', '=', True)])
+  event_code = fields.Char(string='Mã hoạt động', size=8, readonly=True)
+
+  search_mssv = fields.Char('Tim MSSV, MSCB')
+  user_response = fields.Many2one('user.info')
   user_response_phone = fields.Char(string="Số điện thoại di động", compute='_get_info', store=True)
   user_response_email = fields.Char(string="Mail", compute='_get_info', store=True)
 
@@ -46,7 +51,8 @@ class EventEvent(models.Model):
 
   date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
   date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
-  max_social_point = fields.Char(string="Số ngày CTXH tối đa")
+  
+  max_social_point = fields.Integer(string="Số ngày CTXH tối đa")
   max_tranning_point = fields.Integer(string="ĐRL tối đa")
 
   description = fields.Text(string="Mô tả hoạt động", widget="html" )
@@ -60,6 +66,7 @@ class EventEvent(models.Model):
   unaccpet_registration = fields.Integer(string='Registration Count', compute='_compute_unaccpet_registration')
   duyet_nhanh = fields.Char(string='Duyệt nhanh')
   
+  
   def open_list_event(self):
     action = {
       'name': 'Quản lý hoạt động',
@@ -69,17 +76,46 @@ class EventEvent(models.Model):
       'limit': 15,
       'context': "{'search_default_group_by_stage_id': 1}" 
     }
-   
     if self.env.user.manage_department_id:
-      dtn = self.env['user.info.department'].search([('code', '=', 'DTN-HSV')])
+      user_department_id = self.env.user.manage_department_id.id
+      all_department_id = self.env['user.info.department'].search([('name', '=', 'Tất cả')]).id
+      coop_event = self.env['department.coop.event'].search([('event_department_id', 'in', [user_department_id, all_department_id] )]).event_id
       action.update({
-        'domain': ['|',('department_of_create_user.id','=', self.env.user.manage_department_id.id),('department_of_create_user.id','=', dtn.id)]
-      })
+          'domain': [ '|',
+                      ('id','in', coop_event.ids),
+                      ('department_of_create_user', '=', user_department_id )
+                    ]
+        })
+     
     return action   
     
 
   user_current_registed_event = fields.Boolean(string="User hiện tại đã đăng ký", default=False)
   is_show_for_current_user = fields.Boolean(string="Event user co the dang ky", default=False)
+
+  def open_event_detail(self):
+    self.ensure_one()
+
+    # context = self.env.context
+    # form_view_type = context.get('form_view_type', 'event_form')
+
+    # # view_id = self.env.ref('manage_activity.event_event_form_inherit').id
+    
+    # if form_view_type == 'event_form':
+    #   view_id = self.env.ref('manage_activity.event_detail_wizard_form').id
+    # else:
+    #   view_id = self.env.ref('manage_activity.event_event_form_inherit').id
+
+    return {
+        'name': 'Thông tin hoạt động',
+        'view_mode': 'form',
+        'view_id': self.env.ref('manage_activity.event_detail_wizard_form').id,
+        'view_type': 'form',
+        'res_model': 'event.event',
+        'res_id': self.id,
+        'type': 'ir.actions.act_window',
+        'target': 'new'
+    }
   
   def compute_event_registed_button(self):
     self.ensure_one()
@@ -125,11 +161,6 @@ class EventEvent(models.Model):
     for activity in self:
       filtered_registrations = activity.registration_ids.filtered(lambda r: r.state == 'draft')
       activity.unaccpet_registration = len(filtered_registrations)
-
-  # @api.onchange('is_for_all_students')
-  # def check_tickets(self):
-  #   if len(self.event_ticket_ids) != 0 and self.is_for_all_students == True:
-  #      raise ValidationError('Khong the chuyen ve Tất cả sinh vien vi dang co gioi han sinh vien')
 
   @api.model
   def default_get(self, fields_list):
@@ -285,7 +316,8 @@ class EventEvent(models.Model):
   def create(self, vals):
     if not vals:
         vals = {}
-    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before create event: ', vals)
+    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Vals before create event: ', vals)
+    
     self._validation_ticket_services(vals)
     # Create the record
     # if 'auto_accept_activity' in vals and vals['auto_accept_activity'] == True:
@@ -303,7 +335,19 @@ class EventEvent(models.Model):
         event_type.event_registed = event_type.event_registed + 1
       else:
         raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
-    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ After create event: ', vals)
+    
+    #last step when all validate are pass then it will get the new uuid for the event
+    generated_uuid_model = self.env['generated.uuid']
+    while True:
+      new_uuid = str(uuid.uuid4().hex.upper())[:8]
+      existing_uuid = generated_uuid_model.search([('uuid', '=', new_uuid)])
+      if existing_uuid:
+        continue
+      vals['event_code'] = new_uuid
+      generated_uuid_model.create({'uuid': new_uuid})
+      break
+
+    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Vals after create event: ', vals)
     record = super(EventEvent, self).create(vals)
         
     return record
@@ -313,26 +357,20 @@ class EventEvent(models.Model):
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)  
     self._validation_ticket_services(vals)
   
-    # if self.event_type_id or 'event_type_id' in vals:
-    #   type_id = vals['event_type_id']
-    #   event_type = self.env['event.type'].search([('id', '=', type_id)])
-    #   if self.event_type_id != event_type.id:
-    #     if event_type.is_available:
-    #       if event_type.auto_accept_activity:
-    #         vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
-    #       event_type.event_registed = event_type.event_registed + 1
-    #       self.event_type_id.event_registed = self.event_type_id.event_registed - 1
-    #     else:
-    #       raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
-    #   if event_type ==
-    #   if event_type.is_available and event_type.auto_accept_activity:
-    #       vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
-    #       event_type.event_registed = event_type.event_registed + 1
-    #   else:
-    #       raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
+    if 'event_type_id' in vals:
+      type_id = vals['event_type_id']
+      event_type = self.env['event.type'].search([('id', '=', type_id)])
+      if self.event_type_id != event_type.id:
+        if event_type.is_available:
+          if event_type.auto_accept_activity:
+            vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
+          event_type.event_registed = event_type.event_registed + 1
+          self.event_type_id.event_registed = self.event_type_id.event_registed - 1
+        else:
+          raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
     
     #change_stage
-    if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung'   :
+    if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung' and 'is_show_for_current_user' not in vals:
       vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Chờ duyệt')]).id
    
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Update event: ', vals)
@@ -343,7 +381,6 @@ class EventEvent(models.Model):
   def _compute_status_activity(self):
         current_datetime = datetime.now()
         for event in self:
-            print('^^^^^^^^6', event.stage_id.name)
             if event.stage_id.name == 'Đã duyệt':
                 if current_datetime < event.date_begin_registration:
                     event.status_activity = 'new'
@@ -482,9 +519,28 @@ class EventEvent(models.Model):
             if activity.date_end_registration < current_date:
               raise ValidationError('Ngày kết thúc đăng ký phải từ ngày hôm nay trở đi')
 
- 
+  formatted_date_regis_range = fields.Char(string='Thời gian đăng ký', compute='_compute_formatted_date_range', store=True)
+  formatted_date_start_range = fields.Char(string='Thời gian diễn ra', compute='_compute_formatted_date_start_range', store=True)
 
+  @api.depends('date_begin_registration', 'date_end_registration')
+  def _compute_formatted_date_range(self):
+        for record in self:
+            date_range = record.date_begin_registration.strftime('%d/%m/%Y') +  ' \u2192 ' + record.date_end_registration.strftime('%d/%m/%Y')
+            record.formatted_date_regis_range = date_range
 
+  @api.depends('date_begin', 'date_end')
+  def _compute_formatted_date_start_range(self):
+        for record in self:
+            date_range = record.date_begin.strftime('%d/%m/%Y') + ' \u2192 '+ record.date_end.strftime('%d/%m/%Y')
+            record.formatted_date_start_range = date_range
+  
+  @api.onchange('max_social_point', 'max_tranning_point')
+  def _onchange_max_points(self):
+        if self.event_type_id:
+            if self.max_social_point and self.max_social_point > self.event_type_id.max_social_working_day:
+                raise ValidationError('Không được nhập quá số ngày CTXH của nhóm hoạt động này')
+            if self.max_tranning_point and self.max_tranning_point > self.event_type_id.max_training_point:
+                raise ValidationError('Không được nhập quá ĐRL của nhóm hoạt động này')
 class SeeInfoWizard(models.TransientModel):
     _name = 'see.info.wizard'
     _description = 'See Info Wizard'
@@ -498,9 +554,14 @@ class ResUsers(models.Model):
 class UserDepartmentAdmin(models.Model):
   _inherit = ['user.department.admin']
 
+class DepartmentCoopEvent(models.Model):
+  _name = 'department.coop.event'
+
+  event_id = fields.Many2one('event.event')
+  event_department_id = fields.Many2one('user.info.department', string='Đơn vị')
+
 class UserInfoDepartment(models.Model):
   _inherit = 'user.info.department'
-
   max_num_resgis = fields.Integer('Số lượng Đăng ký tối đa')
 
 class UserInfoMajor(models.Model):

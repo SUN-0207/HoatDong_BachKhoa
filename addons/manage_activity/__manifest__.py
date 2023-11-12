@@ -15,10 +15,12 @@
     "data": [
         'security/ir.model.access.csv',
         'data/event_data.xml',
+        'views/event_attendees_views.xml',
         'views/event_type_views.xml',
         'views/event_ticket_views.xml',
         'views/event_event_kanban_custom.xml',
         'views/event_event_views.xml',
+        'wizard/event_detailed_wizard.xml',
         'views/event_registration_page_views.xml',
         'views/event_registration_views.xml',
         'wizard/event_registration_wizard_views.xml',
