@@ -29,15 +29,10 @@ class EventTicket(models.Model):
 
     @api.model
     def create(self, vals):
-            #Check dieu kien o day
-            print(self)
-            print('Create tickets: ', vals)
             event_registration = super(EventTicket, self).create(vals)
             return event_registration
 
-    def write(self, vals):      
-        print('Update tickets: ', vals)
-   
+    def write(self, vals):         
         return super(EventTicket, self).write(vals)
 
     def unlink(self):
