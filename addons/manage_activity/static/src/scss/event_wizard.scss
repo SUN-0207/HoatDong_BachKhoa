@@ -17,8 +17,8 @@ header {
     }
 
     .readonly_group {
-        div.o_group {
-            height: 30px;
+        div.o_cell {
+            height: 30px !important;
         }
     }
 
@@ -26,6 +26,12 @@ header {
         div.o_form_sheet {
             padding-top: 0px !important;
         }
+    }
+
+    // group string
+    div.o_horizontol_separator {
+        margin: 0 !important;
+        margin-bottom: .5rem !important;
     }
 
 }
