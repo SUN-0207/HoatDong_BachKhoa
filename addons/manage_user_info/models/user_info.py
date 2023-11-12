@@ -1,5 +1,5 @@
 from odoo import models, fields,api, _, Command
-from odoo.exceptions import AccessDenied, ValidationError
+from odoo.exceptions import AccessDenied, ValidationError, UserError
 import re
 from . import common_constants
 class UserInfo(models.Model):
@@ -26,18 +26,22 @@ class UserInfo(models.Model):
   sur_name = fields.Char('Họ và tên lót', compute='_compute_name_parts', inverse='_inverse_name', store=True)
   email= fields.Char(related='user_id.email', string="Email")
   avatar = fields.Binary(string='Ảnh chân dung')
+  avatar_128 = fields.Binary(string="Ảnh chân dung")
+  image_1920 = fields.Binary(string="Ảnh chân dung", widget="image")
 
   phone_number = fields.Char(string="Số điện thoại di động")
   gender = fields.Selection([('male', 'Nam'),('female', 'Nữ')],string='Giới tính')
   birth_date = fields.Date(string="Ngày sinh")
   nation = fields.Char(string="Nation")
   personal_email = fields.Char(string="Email cá nhân")
-  religion = fields.Char(string="Tôn giáo")
+  religion = fields.Many2one('user.religion', string="Tôn giáo")
 
-  ethnicity = fields.Char(string='Dân tộc')
+  ethnicity = fields.Many2one('user.ethnicity', string='Dân tộc')
   national_id = fields.Char(string="Số CMND/CCCD")
   national_id_date = fields.Date(string="Ngày cấp")
-  national_id_place = fields.Selection(selection='_get_national_id_place_options', string='Nơi cấp')
+  # national_id_place = fields.Selection(selection='_get_national_id_place_options', string='Nơi cấp')
+  national_id_place = fields.Many2one('user.national.place', 'Nơi cấp')
+
 
   joined_communist_party = fields.Boolean(default=False, string="Đã kết nạp Đảng")
   re_date_communist_party= fields.Date(string="Ngày vào Đảng (dự bị)")
@@ -71,6 +75,7 @@ class UserInfo(models.Model):
     domain=lambda self: self._compute_user_info_class_domain(),
     store=True
   )
+
 
   @api.depends('user_info_major_id')
   def _compute_user_info_department(self):
@@ -136,7 +141,22 @@ class UserInfo(models.Model):
   @api.model
   def create(self, vals):
     vals['states'] = 'draft'
-    return super(UserInfo, self).create(vals)
+    if 'image_1920' in vals:
+      self.env.user.sudo().write({
+                'avatar_1920': vals['image_1920'],
+                'image_1024': vals['image_1920'],
+                'image_512': vals['image_1920'],
+                'image_256': vals['image_1920'],
+                'image_128': vals['image_1920'],
+                'avatar_128': vals['image_1920'],
+                'avatar_256': vals['image_1920'],
+                'avatar_512': vals['image_1920'],
+                'avatar_1024': vals['image_1920'],
+                'avatar_1920': vals['image_1920'],
+            })
+    vals['avatar_128'] = vals['image_1920']
+    super(UserInfo, self).create(vals)
+    super(UserInfo, self).refresh()
 
   def write(self, vals):
     if not self.env.user.sudo().has_group('manage_user_info.group_hcmut_department_admin') and self.env.user.id != self.user_id.id:
@@ -145,7 +165,31 @@ class UserInfo(models.Model):
       raise AccessDenied(_("Bạn không có quyền truy cập vào thông tin này"))
     if 'states' not in vals:
       vals['states'] = 'done'
-    return super(UserInfo, self).write(vals)
+    if 'image_1920' in vals:
+      self.env.user.sudo().write({
+                'avatar_1920': vals['image_1920'],
+                'image_1024': vals['image_1920'],
+                'image_512': vals['image_1920'],
+                'image_256': vals['image_1920'],
+                'image_128': vals['image_1920'],
+                'avatar_128': vals['image_1920'],
+                'avatar_256': vals['image_1920'],
+                'avatar_512': vals['image_1920'],
+                'avatar_1024': vals['image_1920'],
+                'avatar_1920': vals['image_1920'],
+            })
+      vals['avatar_128'] = vals['image_1920']
+
+    super(UserInfo, self).write(vals)
+    super(UserInfo, self).refresh()
+  
+  @api.onchange('avatar')
+  def _check_limit_image_size(self):
+    # check the file size here before updating the record
+    if self.avatar:
+      file_size = len(self.avatar)
+      if file_size > 5 * 1024 * 1024:
+        raise UserError(_('Hình ảnh tải lên không vượt quá 5MB'))
 
   @api.onchange('phone_number', 'national_id')
   def _validate_number_char_field(self):
@@ -221,6 +265,7 @@ class UserInfo(models.Model):
             if user.first_name:
                 name_parts.append(user.first_name)
             user.name = " ".join(name_parts)
+            self.env.user.write({'name': user.name})
         else:
             user.name = False
   
