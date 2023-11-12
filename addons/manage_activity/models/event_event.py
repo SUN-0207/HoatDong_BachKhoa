@@ -80,6 +80,30 @@ class EventEvent(models.Model):
 
   user_current_registed_event = fields.Boolean(string="User hiện tại đã đăng ký", default=False)
   is_show_for_current_user = fields.Boolean(string="Event user co the dang ky", default=False)
+
+  def open_event_detail(self):
+    self.ensure_one()
+
+    # context = self.env.context
+    # form_view_type = context.get('form_view_type', 'event_wizard')
+
+    # view_id = self.env.ref('manage_activity.event_event_form_inherit').id
+    
+    # if form_view_type == 'event_wizard':
+    #   view_id = self.env.ref('manage_activity.event_detail_wizard_form').id
+    # else:
+    #   view_id = self.env.ref('manage_activity.event_event_form_inherit').id
+
+    # return {
+    #     'name': 'Thông tin hoạt động',
+    #     'view_mode': 'form',
+    #     'view_id': view_id,
+    #     'view_type': 'form',
+    #     'res_model': 'event.event',
+    #     'res_id': self.id,
+    #     'type': 'ir.actions.act_window',
+    #     'target': 'new'
+    # }
   
   def compute_event_registed_button(self):
     for event in self:
