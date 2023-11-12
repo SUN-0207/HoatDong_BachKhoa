@@ -1,2 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_event_event,access_event_event,model_event_event,base.group_user,1,1,1,1
+access_event_registration_wizard,access.event.registration.wizard,model_event_registration_wizard,base.group_user,1,1,1,1
+access_see_info_wizard,access.see.info.wizard,model_see_info_wizard,base.group_user,1,1,1,1
+access_event_event,access.event.event,model_event_event,manage_user_info.group_hcmut_user,1,1,0,0
+access_see_info_wizard,access.see.info.wizard,model_see_info_wizard,base.group_user,1,1,1,1
+access_generated_uuid,access_generated_uuid,model_generated_uuid,base.group_user,1,1,1,1
+access_department_coop_event,access_department_coop_event,model_department_coop_event,base.group_user,1,1,1,1

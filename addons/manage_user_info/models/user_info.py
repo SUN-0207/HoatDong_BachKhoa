@@ -1,5 +1,5 @@
 from odoo import models, fields,api, _, Command
-from odoo.exceptions import AccessDenied, ValidationError
+from odoo.exceptions import AccessDenied, ValidationError, UserError
 import re
 from . import common_constants
 class UserInfo(models.Model):
@@ -18,6 +18,7 @@ class UserInfo(models.Model):
     default='draft',
   )
 
+  can_response_event = fields.Boolean('Co quyen giam sat hoat dong',store=True, default=False)
   user_id = fields.Many2one('res.users', string='User',ondelete='cascade', readonly=True)
   
   name = fields.Char(compute='_compute_name_parts', string="Name", store=True)
@@ -25,18 +26,22 @@ class UserInfo(models.Model):
   sur_name = fields.Char('Họ và tên lót', compute='_compute_name_parts', inverse='_inverse_name', store=True)
   email= fields.Char(related='user_id.email', string="Email")
   avatar = fields.Binary(string='Ảnh chân dung')
+  avatar_128 = fields.Binary(string="Ảnh chân dung")
+  image_1920 = fields.Binary(string="Ảnh chân dung", widget="image")
 
   phone_number = fields.Char(string="Số điện thoại di động")
   gender = fields.Selection([('male', 'Nam'),('female', 'Nữ')],string='Giới tính')
   birth_date = fields.Date(string="Ngày sinh")
   nation = fields.Char(string="Nation")
   personal_email = fields.Char(string="Email cá nhân")
-  religion = fields.Char(string="Tôn giáo")
+  religion = fields.Many2one('user.religion', string="Tôn giáo")
 
-  ethnicity = fields.Char(string='Dân tộc')
+  ethnicity = fields.Many2one('user.ethnicity', string='Dân tộc')
   national_id = fields.Char(string="Số CMND/CCCD")
   national_id_date = fields.Date(string="Ngày cấp")
-  national_id_place = fields.Selection(selection='_get_national_id_place_options', string='Nơi cấp')
+  # national_id_place = fields.Selection(selection='_get_national_id_place_options', string='Nơi cấp')
+  national_id_place = fields.Many2one('user.national.place', 'Nơi cấp')
+
 
   joined_communist_party = fields.Boolean(default=False, string="Đã kết nạp Đảng")
   re_date_communist_party= fields.Date(string="Ngày vào Đảng (dự bị)")
@@ -63,13 +68,14 @@ class UserInfo(models.Model):
   ward_id_permanent = fields.Many2one('user.ward.info', 'Phường/Xã', domain="[('district_id', '=', district_id_permanent)]")
 
   user_info_department_id = fields.Many2one('user.info.department', string='Đơn vị', readonly=True, store=True, compute='_compute_user_info_department')
-  user_info_major_id = fields.Many2one('user.info.major',string='Ngành', store=True)
+  user_info_major_id = fields.Many2one('user.info.major',string='Ngành', store=True, domain="[('show_student_form', '=', True)]")
   user_info_academy_year = fields.Many2one('user.info.year', string='Niên khoá', store=True, compute="_compute_user_info_academy_year")
   student_id = fields.Char(string="MSSV")
   user_info_class_id = fields.Many2one('user.info.class',string='Lớp', 
     domain=lambda self: self._compute_user_info_class_domain(),
     store=True
   )
+
 
   @api.depends('user_info_major_id')
   def _compute_user_info_department(self):
@@ -126,10 +132,31 @@ class UserInfo(models.Model):
   def button_done(self):
     self.write({'states': 'done'})
 
+  def update_can_response_event(self):
+    self.write({'can_response_event': True})
+    
+  def remove_can_response_event(self):
+     self.write({'can_response_event': False})
+
   @api.model
   def create(self, vals):
     vals['states'] = 'draft'
-    return super(UserInfo, self).create(vals)
+    if 'image_1920' in vals:
+      self.env.user.sudo().write({
+                'avatar_1920': vals['image_1920'],
+                'image_1024': vals['image_1920'],
+                'image_512': vals['image_1920'],
+                'image_256': vals['image_1920'],
+                'image_128': vals['image_1920'],
+                'avatar_128': vals['image_1920'],
+                'avatar_256': vals['image_1920'],
+                'avatar_512': vals['image_1920'],
+                'avatar_1024': vals['image_1920'],
+                'avatar_1920': vals['image_1920'],
+            })
+    vals['avatar_128'] = vals['image_1920']
+    super(UserInfo, self).create(vals)
+    super(UserInfo, self).refresh()
 
   def write(self, vals):
     if not self.env.user.sudo().has_group('manage_user_info.group_hcmut_department_admin') and self.env.user.id != self.user_id.id:
@@ -138,7 +165,31 @@ class UserInfo(models.Model):
       raise AccessDenied(_("Bạn không có quyền truy cập vào thông tin này"))
     if 'states' not in vals:
       vals['states'] = 'done'
-    return super(UserInfo, self).write(vals)
+    if 'image_1920' in vals:
+      self.env.user.sudo().write({
+                'avatar_1920': vals['image_1920'],
+                'image_1024': vals['image_1920'],
+                'image_512': vals['image_1920'],
+                'image_256': vals['image_1920'],
+                'image_128': vals['image_1920'],
+                'avatar_128': vals['image_1920'],
+                'avatar_256': vals['image_1920'],
+                'avatar_512': vals['image_1920'],
+                'avatar_1024': vals['image_1920'],
+                'avatar_1920': vals['image_1920'],
+            })
+      vals['avatar_128'] = vals['image_1920']
+
+    super(UserInfo, self).write(vals)
+    super(UserInfo, self).refresh()
+  
+  @api.onchange('avatar')
+  def _check_limit_image_size(self):
+    # check the file size here before updating the record
+    if self.avatar:
+      file_size = len(self.avatar)
+      if file_size > 5 * 1024 * 1024:
+        raise UserError(_('Hình ảnh tải lên không vượt quá 5MB'))
 
   @api.onchange('phone_number', 'national_id')
   def _validate_number_char_field(self):
@@ -214,6 +265,7 @@ class UserInfo(models.Model):
             if user.first_name:
                 name_parts.append(user.first_name)
             user.name = " ".join(name_parts)
+            self.env.user.write({'name': user.name})
         else:
             user.name = False
   
@@ -249,10 +301,8 @@ class ResUsers(models.Model):
   def create(self, vals):
     login_email = vals['login']
     pattern = r'^[A-Za-z0-9._%+-]+@hcmut\.edu\.vn$'
-    # print(login_email)
     
-    # # Group ID
-    # group_user_id = self.env['res.groups'].sudo().search([('name','=','User')], limit=1).id
+    # Group ID
     group_department_admin_id = self.env['res.groups'].sudo().search([('name','=','Department Admin')], limit=1).id
     group_super_admin_id = self.env['res.groups'].sudo().search([('name','=','Super Admin')], limit=1).id
     
@@ -271,36 +321,6 @@ class ResUsers(models.Model):
     elif not re.match(pattern, login_email):
         raise AccessDenied(_("Đăng nhập với tài khoản email đuôi là @hcmut.edu.vn"))
     
-    # # Menu ID
-    # discuss_id = self.env.ref('mail.menu_root_discuss').id
-    # link_tracker_id = self.env.ref('utm.menu_link_tracker_root').id
-    # app_id = self.env.ref('base.menu_management').id
-    
-    # print('kaka')
-    # if super_admin:
-    #   vals.update({
-    #     'groups_id': [(6, 0, [group_super_admin_id])],
-    #     'hide_menu_ids': [(6, 0, [discuss_id, link_tracker_id, app_id])],
-    #     'lang': 'vi_VN',
-    #     'tz': 'Asia/Ho_Chi_Minh'
-    #   })
-    # elif department_admin:
-    #   vals.update({
-    #     'groups_id': [(6, 0, [group_department_admin_id])],
-    #     'hide_menu_ids': [(6, 0, [discuss_id, link_tracker_id, app_id])],
-    #     'lang': 'vi_VN',
-    #     'tz': 'Asia/Ho_Chi_Minh',
-    #     'manage_department_id': department_admin.department_id.id
-    #   })
-    # else:  
-    #   if not re.match(pattern, login_email):
-    #     raise AccessDenied(_("Đăng nhập với tài khoản email đuôi là @hcmut.edu.vn"))
-    #   vals.update({
-    #     'groups_id': [(6, 0, [group_user_id])],
-    #     'hide_menu_ids': [(6, 0, [discuss_id, link_tracker_id, app_id])],
-    #     'lang': 'vi_VN',
-    #     'tz': 'Asia/Ho_Chi_Minh'
-    #   })
     print('===================================')
     print('Create')
     print(vals)
@@ -309,12 +329,7 @@ class ResUsers(models.Model):
 
   def write(self, vals):
     res = super(ResUsers, self).write(vals)
-    # email_pattern = r'^[A-Za-z0-9._%+-]+@hcmut\.edu\.vn$'
-    # print(self.login)
-    # super_admin = self.env['user.super.admin'].sudo().search([('email', '=', self.login)], limit=1)
-    # department_admin = self.env['user.department.admin'].sudo().search([('email', '=', self.login)], limit=1)
-    # if not super_admin and not department_admin and not re.match(email_pattern,self.login) and self.login != 'admin' and self.login != 'default':
-    #   raise AccessDenied(_("Đăng nhập với tài khoản email đuôi là @hcmut.edu.vn"))
+
     print('===================================')
     print('Update')
     print(vals)

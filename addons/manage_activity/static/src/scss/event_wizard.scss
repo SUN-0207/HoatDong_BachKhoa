@@ -1,0 +1,37 @@
+header {
+    font-family: 'Be Vietnam Pro', sans-serif !important;
+}
+
+.event_detail_wizard {
+    font-family: 'Be Vietnam Pro', sans-serif !important;
+
+    .event-name-field {
+        font-family: 'Be Vietnam Pro', sans-serif !important;
+    }
+    span.badge {
+        padding: .2rem .8rem;
+    }
+
+    .o_field_tags {
+        gap: .5rem;
+    }
+
+    .readonly_group {
+        div.o_cell {
+            height: 30px !important;
+        }
+    }
+
+    div.o_form_sheet_bg {
+        div.o_form_sheet {
+            padding-top: 0px !important;
+        }
+    }
+
+    // group string
+    div.o_horizontol_separator {
+        margin: 0 !important;
+        margin-bottom: .5rem !important;
+    }
+
+}

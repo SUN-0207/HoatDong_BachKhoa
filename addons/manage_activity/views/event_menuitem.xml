@@ -1,14 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+  <data>
 
-  <!-- MAIN MENU -->
-  <record model="ir.ui.menu" id="event.event_main_menu">
-    <field name='name'>Quản lý Hoạt động</field>
-  </record>
+    <!-- MAIN MENU -->
+    <record model="ir.ui.menu" id="event.event_main_menu" >
+      <field name='name'>Quản lý Hoạt động</field>
+    </record>
+    
+    <!-- Hide default -->
+    <!-- <record id="make_invisible" model="res.groups">
+      <field name="name">Invisible</field>
+    </record>
 
-  <!-- HEADER: EVENTS -->
-  <record model="ir.ui.menu" id="event.menu_event_event">
-    <field name='name'>Quản lý Hoạt động</field>
-  </record>
+    <record model="ir.ui.menu" id="event.menu_event_event">
+      <field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+    </record> -->
+    
+    <!-- HEADER: Quản lý Hoạt động -->
+    <record model="ir.ui.menu" id="event.menu_event_event">
+      <field name='name'>Quản lý Hoạt động</field>
+      <field name="groups_id" eval="[(6,0,[ref('manage_user_info.group_hcmut_department_admin')])]"/>
+      <field name="action" ref="manage_activity.events_action"/>
+    </record>
+    
+    <!-- <menuitem sequence="0" id="event_main_menu" name="Quản lý Hoạt động" action="events_action" parent="event.event_main_menu"/> -->
 
+    <menuitem id="event_registration_menu" name="Đăng ký Hoạt động" action="event_can_registration_page_action" parent="event.event_main_menu" groups="manage_user_info.group_hcmut_user"/>
+
+    <menuitem id="event_registration_history_menu" name="Lịch sử Đăng ký" action="event_registration_history_action" groups="manage_user_info.group_hcmut_user"/>
+
+    <!-- HEADER: Thống kê -->
+    <record id="event.menu_reporting_events" model="ir.ui.menu">
+      <field name='name'>Thống kê</field>
+      <field name="groups_id" eval="[(6,0,[ref('manage_user_info.group_hcmut_department_admin')])]"/>
+    </record>
+
+    <!-- HEADER: Cấu hình chung -->
+    <record model="ir.ui.menu" id="event.menu_event_configuration">
+      <field name='name'>Cấu hình chung</field>
+    </record>
+   
+    <record model="ir.ui.menu" id="event.menu_event_type">
+      <field name='name'>Nhóm hoạt động</field>
+    </record>
+
+    <record model="ir.ui.menu" id="event.event_stage_menu">
+      <field name='name'>Trạng thái hoạt động</field>
+    </record>
+
+    <record model="ir.ui.menu" id="event.menu_event_category">
+      <field name='name'>Ý nghĩa hoạt động</field>
+    </record>
+
+  </data>
 </odoo>
