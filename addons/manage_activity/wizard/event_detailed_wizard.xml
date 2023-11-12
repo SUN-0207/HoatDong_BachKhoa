@@ -33,20 +33,20 @@
                   <field name="status_activity"  attrs="{'readonly': [('stage_name', '!=', 'Đã duyệt')]}" invisible="1"/>
   
                   <label for="date_begin" string="Thời gian mở đăng ký"/>
-                  <div class="o_row">
+                  <group class="o_row">
                     <field name="date_begin_registration" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'date_end_registration'}"
                       attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"                    />
                     <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
                     <field name="date_end_registration" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'date_begin'}" 
                     attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  />
-                  </div>
+                  </group>
   
                   <label for="date_begin" string="Thời gian diễn ra"/>
-                  <div class="o_row">
+                  <group class="o_row">
                     <field attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  name="date_begin" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'date_end'}"/>
                     <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
                     <field attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  name="date_end" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'date_begin'}"/>
-                  </div>
+                  </group>
               </group>
   
               <group string="Thiết lập hoạt động">
