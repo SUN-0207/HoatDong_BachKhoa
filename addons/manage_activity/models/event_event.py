@@ -91,6 +91,10 @@ class EventEvent(models.Model):
     
 
   user_current_registed_event = fields.Boolean(string="User hiện tại đã đăng ký", default=False)
+  user_current_state_registration_event = fields.Selection([
+        ('draft', 'Đã đăng ký'), ('cancel', 'Từ chối'),
+        ('open', 'Chấp nhận'), ('done', 'Đã tham gia')],
+        string='Trạng thái', default='draft', readonly=True, tracking=True)
   is_show_for_current_user = fields.Boolean(string="Event user co the dang ky", default=False)
 
   def open_event_detail(self):
@@ -409,7 +413,7 @@ class EventEvent(models.Model):
       raise ValidationError("Hãy cập nhật thông tin cá nhân để đăng ký hoạt động!!!")
     self.search_read()
     return {
-      'name': "Đăng ký sự kiện",
+      'name': "Đăng ký Hoạt động",
       'type': "ir.actions.act_window",
       'res_model': 'event.event',
       'view_mode': 'kanban',
@@ -417,7 +421,22 @@ class EventEvent(models.Model):
       'view_id': self.env.ref('manage_activity.event_registration_page_kanban').id,
       'domain': [('status_activity','=','open_registration'),('is_show_for_current_user','=','True')]
     }
-
+    
+  def open_event_registration_history(self):
+      event_registrations = self.env['event.registration'].search([('email','=',self.env.user.login)])
+      event_ids = []
+      for registration in event_registrations:
+        registration.event_id.user_current_state_registration_event = registration.state
+        event_ids.append(registration.event_id.id)
+      return {
+          'name': "Lịch sử Đăng ký",
+          'type': "ir.actions.act_window",
+          'res_model': 'event.event',
+          'view_mode': 'tree',
+          'view_id': self.env.ref('manage_activity.event_registration_history').id,
+          'domain': [('id','in',event_ids)]
+      }
+    
   def see_info_user_response(self):
     self.ensure_one()
     return {

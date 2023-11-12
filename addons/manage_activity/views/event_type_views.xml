@@ -32,18 +32,6 @@
                        
                         <field name="max_event_registration" attrs="{'invisible': [('limited_registration', '!=', 'limited')]}"/>
                        </group>
-                       <group>
-                        <field name="event_registed" />
-                        <field name="is_available" invisible="1" />
-                        <label for="has_seats_limitation" string="Số lượng sinh viên đăng ký tối đa"/>
-                        <div>
-                           <field name="has_seats_limitation"/>
-                           <span attrs="{'invisible': [('has_seats_limitation', '=', False)], 'required': [('has_seats_limitation', '=', False)]}">
-                               <field name="seats_max" class="oe_inline o_input_9ch"/>
-                               sinh viên
-                           </span>
-                        </div>
-                       </group>
                    </group>
                   
                 </sheet>

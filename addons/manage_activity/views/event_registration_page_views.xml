@@ -27,7 +27,6 @@
             <field name="description"/>
             <field name="attach_file"/>
             <field name="is_for_all_students"/>
-
             <field name="seats_max"/>
             <field name="seats_limited"/>
             <field name="created_by_name"/>
@@ -62,9 +61,9 @@
                       <div>
                         <h5 class="fw-bold">Nhóm hoạt động</h5>
                       </div>
-                      <field name="event_type_id" string="Nhóm hoạt động"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                      <field name="event_type_id" string="Nhóm hoạt động" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                     </div>
-                    
+
                     <div class="d-flex flex-row gap-3">
                       <div>
                         <h5 class="fw-bold">Đơn vị tổ chức</h5>
@@ -146,8 +145,7 @@
       <field name="mode">primary</field>
       <field name="arch" type="xml">
         <xpath expr="//search" position="replace">
-          <search string="Events">
-          </search>
+          <search string="Events"/>
         </xpath>
       </field>
     </record>
@@ -158,15 +156,6 @@
       <field name="state">code</field>
       <field name="code">action=model.open_list_event_can_register()</field>
     </record>
-
-    <!-- <record id='event_registration_page_action' model='ir.actions.act_window'>
-      <field name="name">Đăng ký sự kiện</field>
-      <field name="res_model">event.event</field>
-      <field name="view_mode">kanban</field>
-      <field name="view_id" ref="event_registration_page_kanban"/>
-      <field name="search_view_id" ref="event_registration_page_search" />
-      <field name="domain">[('status_activity','=','open_registration'),('is_show_for_current_user','=','True')]</field>
-    </record> -->
 
   </data>
 

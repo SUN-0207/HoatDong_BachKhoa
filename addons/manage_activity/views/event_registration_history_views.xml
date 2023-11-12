@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <data>
+
+    <record id="event_registration_history" model="ir.ui.view">
+      <field name="name">event.registration.history</field>
+      <field name="model">event.event</field>
+      <field name="inherit_id" ref="event.view_event_tree" />
+      <field name="mode">primary</field>
+      <field name="arch" type="xml">
+        <xpath expr="//tree" position="replace">
+          <tree string="Lịch sử Đăng ký">
+            <field name="address_id" readonly="1" invisible="1"/>
+            <field name="organizer_id" readonly="1" optional="hide" invisible="1"/>
+            <field name="user_id" readonly="1" widget="many2one_avatar_user" invisible="1"/>
+            <field name="company_id" groups="base.group_multi_company" readonly="1" optional="show" invisible="1" />
+            <field name="seats_expected" string="Expected Attendees" sum="Total" readonly="1" invisible="1"/>
+            <field name="seats_used" sum="Total" readonly="1" invisible="1"/>
+            <field name="seats_max" string="Maximum Seats" sum="Total" readonly="1" optional="hide" invisible="1"/>
+            <field name="seats_reserved" sum="Total" readonly="1" optional="hide" invisible="1"/>
+            <field name="seats_unconfirmed" string="Unconfirmed Seats" sum="Total" readonly="1" optional="hide" invisible="1"/>
+            <field name="message_needaction" invisible="1" readonly="1" />
+            <field name="activity_exception_decoration" widget="activity_exception" readonly="1" invisible="1"/>
+            <field name="stage_name" readonly="1" invisible="1"/>
+            <field name="status_activity" widget='badge' string='Tình trạng hoạt động' />
+            <field name="event_type_id" string='Nhóm hoạt động' />
+            <field name="stage_id" string='Tình trạng duyệt' invisible="1" />
+            <field name="date_begin_registration" readonly="1" widget="date" optional="show" invisible="1"/>
+            <field name="date_end_registration" readonly="1" widget="date" optional="show" invisible="1"/>
+            <field name="date_begin" readonly="1" widget="date" optional="show" string='Thời gian diễn ra' invisible="1"/>
+            <field name="date_end" readonly="1" widget="date" optional="show" string='Thời gian kết thúc' invisible="1"/>
+
+            <!-- Show-->
+            <field name="name" string='Tên hoạt động' class="tree_activity_name"/>
+            <field name="event_code" invisible="1"/>
+            <field name="department_of_create_user" string='Hoạt động của đơn vị' />
+            <field name="formatted_date_regis_range"/>
+            <field name="formatted_date_start_range"/>
+            <field name="user_current_state_registration_event" widget="badge"/>
+            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" invisible="1" optional="hide"/>
+          </tree>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="event_registration_history_action" model="ir.actions.server">
+      <field name="name">Lịch sử Đăng ký</field>
+      <field name="model_id" ref="model_event_event"/>
+      <field name="state">code</field>
+      <field name="code">action=model.open_event_registration_history()</field>
+    </record>
+
+  </data>
+
+
+</odoo>
