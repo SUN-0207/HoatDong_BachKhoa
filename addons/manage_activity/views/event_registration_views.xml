@@ -9,9 +9,14 @@
     <field name="arch" type="xml">
       <xpath expr="//tree" position="replace">
         <tree string="Registration" multi_edit="1" sample="1" expand="1" default_order="create_date desc" class="o_event_registration_view_tree">
+          <header>
+            <button name="multi_confirmation" string="Duyệt hàng loạt" type="object" class="btn btn-danger btn-md"/>
+          </header>
           <field name="active" invisible="1"/>
+          <field name="sequence_number" />
           <field name="create_date" optional="show" string="Ngày đăng ký"/>
           <field name="name" string="Họ và tên"/>
+          <field name="user_department_id"/>
           <field name="partner_id" optional="hide" invisible="1"/>
           <field name="email" optional="show"/>
           <field name="phone" optional="show" string="Số điện thoại" />
@@ -19,7 +24,8 @@
           <field name="event_id" invisible="context.get('default_event_id')"/>
           <field name="event_ticket_id" domain="[('event_id', '=', event_id)]" optional="hide" invisible="1"/>
           <field name="activity_ids" widget="list_activity" invisible="1"/>
-          <field name="state" decoration-info="state in ('draft', 'open')" decoration-success="state == 'done'" decoration-muted="state == 'cancel'" widget="badge" string="Trạng thái"/>
+          <field name="state" invisible="1" decoration-info="state in ('draft', 'open')" decoration-success="state == 'done'" decoration-muted="state == 'cancel'" widget="badge" string="Trạng thái"/>
+          <field name="state_temp" widget="badge"/>
           <field name="company_id" groups="base.group_multi_company" optional="hide" invisible="1"/>
           <field name="message_needaction" invisible="1"/>
           <button name="action_confirm" string="Xác nhận" type="object" icon="fa-check" attrs="{'invisible': ['|', ('active', '=', False), ('state', '!=', 'draft')]}"/>
@@ -78,7 +84,20 @@
             <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
           </div>
         </form>
+      </xpath>
+    </field>
+  </record>
 
+  <record model="ir.ui.view" id="view_event_registration_graph_inherit">
+    <field name="name">event.registration.graph.inherit</field>
+    <field name="model">event.registration</field>
+    <field name="inherit_id" ref="event.view_event_registration_graph" />
+    <field name="priority" eval="10"/>
+    <field name="arch" type="xml">
+      <xpath expr="//graph" position="replace">
+        <graph string="Đăng ký" type="bar">
+          <field name="user_department_id" />
+        </graph>
       </xpath>
     </field>
   </record>
