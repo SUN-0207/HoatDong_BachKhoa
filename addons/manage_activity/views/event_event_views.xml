@@ -199,6 +199,16 @@
       </field>
     </record>
 
+    <record id="action_event_form" model="ir.actions.act_window">
+      <field name="name">View Event Form</field>
+      <field name="res_model">event.event</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="manage_activity.event_event_form_inherit"></field>
+      <field name="context">{'form_view_type': 'event_form'}</field>
+    </record>
+
+
+
     <record id="event_event_tree_inherit" model="ir.ui.view">
       <field name="name">event.event.tree.inherit</field>
       <field name="model">event.event</field>

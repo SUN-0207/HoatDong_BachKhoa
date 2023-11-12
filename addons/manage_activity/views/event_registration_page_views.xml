@@ -58,7 +58,14 @@
                     </div>
                   </div>
 
-                  <div class="d-flex flex-column justify-content-between" style="height:320px">
+                  <div class="d-flex flex-column justify-content-between" style="height:180px">
+                    <div class="d-flex flex-row gap-3">
+                      <div>
+                        <h5 class="fw-bold">Nhóm hoạt động</h5>
+                      </div>
+                      <field name="event_type_id" string="Nhóm hoạt động"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                    </div>
+                    
                     <div class="d-flex flex-row gap-3">
                       <div>
                         <h5 class="fw-bold">Đơn vị tổ chức</h5>
@@ -112,17 +119,13 @@
                       <h5 class="fw-bold">Số ĐRL tối đa</h5>
                       <field name="max_tranning_point"/>
                     </div>
-
-                    <div style="height:153.167px;">
-                      <h5 class="fw-bold">Mô tả hoạt động</h5>
-                      <field t-if="record.description.raw_value != false" name="description" widget="html" class="event_description"/>
-                    </div>
                   </div>
 
                   <div group="manage_user_info.group_hcmut_user" attrs="{'invisible': [('status_activity','!=','open_registration')]}">
                     <div class='d-flex flex-column justify-content-between align-item-end register-event-footer'>
                       <div style="width:100%;height:1px;background-color:#f2f2f2;"></div>
-                      <div class="d-flex justify-content-end gap-2">
+                      <div class="d-flex justify-content-between gap-2">
+                        <button name="open_event_detail" type="object" class="btn btn-link ps-0" style="padding-left: 0 !important;" string="Xem chi tiết hoạt động"/>
                         <button name="register_event" type="object" class="btn btn-info btn-md" string="Đăng ký" attrs="{'invisible': [('user_current_registed_event', '=', True)]}"/>
                         <button name="cancel_event_registration" type="object" class="btn btn-danger btn-md" string="Huỷ Đăng ký" confirm="Xác nhận huỷ đăng ký" attrs="{'invisible': [('user_current_registed_event', '=', False)]}"/>
                       </div>
