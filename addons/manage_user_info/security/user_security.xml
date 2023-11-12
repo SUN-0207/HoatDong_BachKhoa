@@ -4,19 +4,19 @@
   <record id="group_hcmut_user" model="res.groups">
     <field name="name">User</field>
     <field name="category_id" ref="base.module_category_hcmut"/>
-    <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    <field name="implied_ids" eval="[(4, ref('base.group_user')),(4, ref('event.group_event_registration_desk'))]"/>
   </record>
 
   <record id="group_hcmut_department_admin" model="res.groups">
     <field name="name">Department Admin</field>
     <field name="category_id" ref="base.module_category_hcmut"/>
-    <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    <field name="implied_ids" eval="[(4, ref('base.group_user')),(4, ref('event.group_event_user'))]"/>
   </record>
 
   <record id="group_hcmut_super_admin" model="res.groups">
     <field name="name">Super Admin</field>
     <field name="category_id" ref="base.module_category_hcmut"/>
-    <field name="implied_ids" eval="[(4, ref('group_hcmut_department_admin'))]"/>
+    <field name="implied_ids" eval="[(4, ref('group_hcmut_department_admin')),(4, ref('event.group_event_manager'))]"/>
   </record>
 
   <record id="group_hcmut_technical_admin" model="res.groups">

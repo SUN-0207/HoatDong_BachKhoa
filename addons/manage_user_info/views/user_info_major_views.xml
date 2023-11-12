@@ -17,6 +17,8 @@
           <group>
             <field name="name" />
             <field name="department_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+          <field name="show_student_form" invisible="1" />            
+
           </group>
           <notebook>
             <page name="classes" string="Lớp">
@@ -40,6 +42,8 @@
         <tree >
           <field name="name"/>
           <field name="department_id" widget="many2one" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
+          <field name="show_student_form" invisible="1"/>            
+
         </tree>
       </field>
     </record>

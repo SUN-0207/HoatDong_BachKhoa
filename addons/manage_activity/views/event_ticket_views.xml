@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+    <!-- EVENT.TICKET -->
+    <record id="event_event_ticket_view_tree_from_event_inherit" model="ir.ui.view">
+        <field name="name">event.event.ticket.view.tree.from.event.inherit</field>
+        <field name="model">event.event.ticket</field>
+        <field name="priority" eval="20"/>
+        <field name="inherit_id" ref="event.event_event_ticket_view_tree_from_event"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="replace">
+                <tree string="Tickets" 
+                    create="1" editable="bottom"  
+                    default_order="event_department_id asc" expand="1"
+                >
+                    <control >
+                        <create string="Thêm giới hạn đơn vị" />
+                    </control>
+                    <field name="name" invisible="1"/>
+                    <field name="description" optional="hide" invisible="1"/>
+                    <field name="start_sale_datetime" optional="show" invisible="1"/>
+                    <field name="end_sale_datetime" optional="show" invisible="1"/>
+                    <field name="event_department_id"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                    <field name="event_info_major_id"  
+                        domain="['|',('department_id', '=', event_department_id),('show_student_form', '=', False) ]"
+                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                    <field name="event_info_academy_year"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                    <field name="seats_max"   width="105px" string="Giới hạn sinh viên (0 là không giới hạn)" />
+                    <field name="seats_reserved"  invisible="1" optional="hide" sum="Total" width="105px" string="Confirmed"/>
+                    <field name="seats_unconfirmed" invisible="1" optional="hide" sum="Total" width="110px" string="Unconfirmed"/>
+                </tree>
+
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Neu khong add = tree duoc moi dung toi cai form nay-->
+    <record id="event_event_ticket_view_form_from_event_inherit" model="ir.ui.view">
+        <field name="name">event.event.ticket.view.form.from.event</field>
+        <field name="model">event.event.ticket</field>
+        <field name="priority" eval="20"/>
+        <field name="inherit_id" ref="event.event_event_ticket_view_form_from_event"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="replace">
+            <form string="Ticket">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"  invisible="1"/>
+                            <field name="description"  invisible="1"/>
+                            <field name="start_sale_datetime" invisible="1"/>
+                            <field name="end_sale_datetime" invisible="1"/>
+                            <field name="event_department_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                            <field name="event_info_major_id" 
+                                domain="['|',('department_id', '=', event_department_id),('show_student_form', '=', False) ]"
+                                options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                            <field name="event_info_academy_year" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                        </group><group>
+                            <field name="seats_max" invisible="1"/>
+                            <field name="seats_reserved" invisible="1"/>
+                            <field name="seats_unconfirmed" invisible="1"/>
+                        </group>
+                  
+                    </group>
+                </sheet>
+            </form>
+        </xpath>
+        </field>
+    </record>
+
+</data></odoo>
