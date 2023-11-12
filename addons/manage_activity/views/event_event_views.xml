@@ -201,7 +201,6 @@
       <field name="view_mode">form</field>
       <field name="view_id" ref="manage_activity.event_event_form_inherit"></field>
       <field name="context">{'form_view_type': 'event_form'}</field>
-      <!-- <field name="act_window_id" ref="action_event_view"></field> -->
     </record>
 
 

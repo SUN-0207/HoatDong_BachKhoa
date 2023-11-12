@@ -84,20 +84,20 @@ class EventEvent(models.Model):
   def open_event_detail(self):
     self.ensure_one()
 
-    context = self.env.context
-    form_view_type = context.get('form_view_type', 'event_form')
+    # context = self.env.context
+    # form_view_type = context.get('form_view_type', 'event_form')
 
-    # view_id = self.env.ref('manage_activity.event_event_form_inherit').id
+    # # view_id = self.env.ref('manage_activity.event_event_form_inherit').id
     
-    if form_view_type == 'event_form':
-      view_id = self.env.ref('manage_activity.event_detail_wizard_form').id
-    else:
-      view_id = self.env.ref('manage_activity.event_event_form_inherit').id
+    # if form_view_type == 'event_form':
+    #   view_id = self.env.ref('manage_activity.event_detail_wizard_form').id
+    # else:
+    #   view_id = self.env.ref('manage_activity.event_event_form_inherit').id
 
     return {
         'name': 'Thông tin hoạt động',
         'view_mode': 'form',
-        'view_id': view_id,
+        'view_id': self.env.ref('manage_activity.event_detail_wizard_form').id,
         'view_type': 'form',
         'res_model': 'event.event',
         'res_id': self.id,
