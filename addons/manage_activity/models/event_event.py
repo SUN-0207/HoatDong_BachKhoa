@@ -118,12 +118,12 @@ class EventEvent(models.Model):
     }
   
   def compute_event_registed_button(self):
-    for event in self:
-      exist_registration = self.env['event.registration'].search([('event_id','=',event.id),('email','=',self.env.user.login)],limit=1)
-      if exist_registration:
-        event.user_current_registed_event = True
-      else:
-        event.user_current_registed_event = False  
+    self.ensure_one()
+    exist_registration = self.env['event.registration'].search([('event_id','=',self.id),('email','=',self.env.user.login)],limit=1)
+    if exist_registration:
+      self.user_current_registed_event = True
+    else:
+      self.user_current_registed_event = False  
           
   def compute_event_is_show(self):
     self.ensure_one()
@@ -396,12 +396,27 @@ class EventEvent(models.Model):
                 event.status_activity = False
                 
   @api.model
-  def search_read(self, domain, fields, offset, limit, order):
+  def search_read(self, domain=None, fields=None, offset=0, limit=None, order=0):
     records = super(EventEvent, self).search_read(domain=domain, fields=fields, offset=offset, limit=limit, order=order)
     all_events = self.env['event.event'].search([])
     for event in all_events:
       event.compute_event_is_show()
+      event.compute_event_registed_button()
     return records
+  
+  def open_list_event_can_register(self):
+    if not self.env.user.user_info_id.student_id:
+      raise ValidationError("Hãy cập nhật thông tin cá nhân để đăng ký hoạt động!!!")
+    self.search_read()
+    return {
+      'name': "Đăng ký sự kiện",
+      'type': "ir.actions.act_window",
+      'res_model': 'event.event',
+      'view_mode': 'kanban',
+      'search_view_id': self.env.ref('manage_activity.event_registration_page_search').id,
+      'view_id': self.env.ref('manage_activity.event_registration_page_kanban').id,
+      'domain': [('status_activity','=','open_registration'),('is_show_for_current_user','=','True')]
+    }
 
   def see_info_user_response(self):
     self.ensure_one()
@@ -467,7 +482,7 @@ class EventEvent(models.Model):
       raise ValidationError("Liên hệ với người phụ trách để huỷ đăng ký")
     if registration:
       registration.sudo().unlink()
-      self.compute_event_registed_button()
+    self.compute_event_registed_button()
     return self.notify_success()
 
   def notify_success(self, mess= None):

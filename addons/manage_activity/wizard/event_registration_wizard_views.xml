@@ -8,12 +8,16 @@
       <form>
         <group>
           <group>
-            <field name="name" readonly="True"/>
+            <field name="name" readonly="True" />
             <field name="email" readonly="True"/>
           </group>
           <group>
             <field name="mssv" readonly="True"/>
             <field name="phone" readonly="True"/>
+          </group>
+          <group>
+            <field name="department" readonly="True" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+            <field name="major" readonly="True" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
           </group>
         </group>
         <footer>

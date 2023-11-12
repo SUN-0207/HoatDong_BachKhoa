@@ -25,8 +25,7 @@
     
     <!-- <menuitem sequence="0" id="event_main_menu" name="Quản lý Hoạt động" action="events_action" parent="event.event_main_menu"/> -->
 
-    <!-- <menuitem id="event_registration_menu" name="Đăng ký Hoạt động" action="event_registration_page_action" parent="event.event_main_menu" groups="manage_user_info.group_hcmut_user"/> -->
-    <menuitem id="event_registration_menu" name="Đăng ký Hoạt động" action="event_registration_page_action" parent="event.event_main_menu"/>
+    <menuitem id="event_registration_menu" name="Đăng ký Hoạt động" action="event_can_registration_page_action" parent="event.event_main_menu" groups="manage_user_info.group_hcmut_user"/>
 
     <!-- HEADER: Thống kê -->
     <record id="event.menu_reporting_events" model="ir.ui.menu">
