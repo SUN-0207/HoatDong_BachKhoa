@@ -3,7 +3,7 @@
     
     <record model="ir.actions.act_window" id="event.act_event_registration_from_event">
         <field name="name">Sinh viên tham gia</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
      </record>
 
     <record model="ir.actions.act_window" id="event.event_registration_action">
