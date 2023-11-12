@@ -25,6 +25,8 @@ class UserInfo(models.Model):
   sur_name = fields.Char('Họ và tên lót', compute='_compute_name_parts', inverse='_inverse_name', store=True)
   email= fields.Char(related='user_id.email', string="Email")
   avatar = fields.Binary(string='Ảnh chân dung')
+  avatar_128 = fields.Binary(string="Ảnh chân dung")
+  image_1920 = fields.Binary(string="Ảnh chân dung", widget="image")
 
   phone_number = fields.Char(string="Số điện thoại di động")
   gender = fields.Selection([('male', 'Nam'),('female', 'Nữ')],string='Giới tính')
@@ -132,12 +134,47 @@ class UserInfo(models.Model):
   @api.model
   def create(self, vals):
     vals['states'] = 'draft'
-    return super(UserInfo, self).create(vals)
+    if 'image_1920' in vals:
+      self.env.user.sudo().write({
+                'avatar_1920': vals['image_1920'],
+                'image_1024': vals['image_1920'],
+                'image_512': vals['image_1920'],
+                'image_256': vals['image_1920'],
+                'image_128': vals['image_1920'],
+                'avatar_128': vals['image_1920'],
+                'avatar_256': vals['image_1920'],
+                'avatar_512': vals['image_1920'],
+                'avatar_1024': vals['image_1920'],
+                'avatar_1920': vals['image_1920'],
+            })
+    vals['avatar_128'] = vals['image_1920']
+    super(UserInfo, self).create(vals)
+    super(UserInfo, self).refresh()
 
   def write(self, vals):
+    if not self.env.user.sudo().has_group('manage_user_info.group_hcmut_department_admin') and self.env.user.id != self.user_id.id:
+      print(self.env.user.id)
+      print(self.user_id.id)
+      raise AccessDenied(_("Bạn không có quyền truy cập vào thông tin này"))
     if 'states' not in vals:
       vals['states'] = 'done'
-    return super(UserInfo, self).write(vals)
+    if 'image_1920' in vals:
+      self.env.user.sudo().write({
+                'avatar_1920': vals['image_1920'],
+                'image_1024': vals['image_1920'],
+                'image_512': vals['image_1920'],
+                'image_256': vals['image_1920'],
+                'image_128': vals['image_1920'],
+                'avatar_128': vals['image_1920'],
+                'avatar_256': vals['image_1920'],
+                'avatar_512': vals['image_1920'],
+                'avatar_1024': vals['image_1920'],
+                'avatar_1920': vals['image_1920'],
+            })
+      vals['avatar_128'] = vals['image_1920']
+
+    super(UserInfo, self).write(vals)
+    super(UserInfo, self).refresh()
   
   @api.onchange('avatar')
   def _check_limit_image_size(self):
@@ -221,6 +258,7 @@ class UserInfo(models.Model):
             if user.first_name:
                 name_parts.append(user.first_name)
             user.name = " ".join(name_parts)
+            self.env.user.write({'name': user.name})
         else:
             user.name = False
   
