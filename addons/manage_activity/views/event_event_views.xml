@@ -260,15 +260,15 @@
       <field name="arch" type="xml">
         <xpath expr="//search" position="replace" >
           <search string="Events">
-            <field name="name" string="Tên hoạt động"/>
-            <field name="stage_id" string='Tình trạng duyệt' />
-            <field name="department_of_create_user" />
+            <field groups="manage_user_info.group_hcmut_department_admin" name="name" string="Tên hoạt động"/>
+            <field groups="manage_user_info.group_hcmut_department_admin" name="stage_id" string='Tình trạng duyệt' />
+            <field groups="manage_user_info.group_hcmut_department_admin" name="department_of_create_user" />
             <group expand="0" string="Group By">
-              <filter string="Tình trạng duỵệt" name="group_by_stage_id" context="{'group_by': 'stage_id'}"/>
+              <filter groups="manage_user_info.group_hcmut_department_admin" string="Tình trạng duỵệt" name="group_by_stage_id" context="{'group_by': 'stage_id'}"/>
             </group>
-            <searchpanel>
+            <searchpanel groups="manage_user_info.group_hcmut_department_admin">
               <field name="status_activity" icon="fa fa-cogs" enable_counters="1" select="multi"/>
-              <field groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" name="department_of_create_user" icon="fa fa-building" enable_counters="1" select="multi"/>
+              <field groups="manage_user_info.group_hcmut_super_admin" name="department_of_create_user" icon="fa fa-building" enable_counters="1" select="multi"/>
               <field name="tag_ids" icon="fa fa-tags" enable_counters="1" select="multi"/>
               <field name="event_type_id" icon="fa fa-file" enable_counters="1" select="multi" string="Nhóm hoạt động"/>
             </searchpanel>

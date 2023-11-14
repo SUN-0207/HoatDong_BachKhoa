@@ -35,7 +35,7 @@
     </record>
 
     <record model="ir.rule" id="user_info_rule">
-      <field name="name">Can only see your info</field>
+      <field name="name">Giới hạn thông tin được xem</field>
       <field name="model_id" ref="model_user_info"/>
       <field name="groups" eval="[(4, ref('manage_user_info.group_hcmut_user'))]"/>
       <field name="domain_force">[('user_id', '=', user.id)]</field>
