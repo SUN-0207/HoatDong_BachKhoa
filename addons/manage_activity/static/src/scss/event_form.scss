@@ -18,8 +18,7 @@
 
     div.oe_add {
         button.o_attach {
-            margin-left: 5px;
-            margin-top: 10px;
+            margin: 0px !important;
         }
     }
 
@@ -75,6 +74,10 @@
             border-radius: 0 !important;
             border-bottom: 2px solid #4a9bff !important;
         }
+    }
+
+    label[for="auto_confirm"] {
+        width: 14rem !important;
     }
 
     #description {
