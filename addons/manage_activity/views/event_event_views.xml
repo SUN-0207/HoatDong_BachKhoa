@@ -63,7 +63,7 @@
                 </group>
                 
                 <group string="Thông tin hoạt động">
-                  <field name="description" widget="html" class="border-input" attrs="{'readonly': [('stage_name', '!=', 'Đã duyệt')]}" invisible="1"/>
+                  <field name="description" widget="html" class="border-input" attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" invisible="0"/>
                   
                   <field name="status_activity"  attrs="{'readonly': [('stage_name', '!=', 'Đã duyệt')]}" invisible="1"/>
 
