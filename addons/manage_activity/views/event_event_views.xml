@@ -262,11 +262,11 @@
           <search string="Events">
             <field name="name" string="Tên hoạt động"/>
             <field name="stage_id" string='Tình trạng duyệt' />
-            <field name="department_of_create_user" />
+            <field name="department_of_create_user" string='Đơn vị' />
             <group expand="0" string="Group By">
-              <filter string="Tình trạng duỵệt" name="group_by_stage_id" context="{'group_by': 'stage_id'}"/>
+              <filter string="Tình trạng duỵệt" name="group_by_stage_id" context="{'group_by': 'stage_id'}"  groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin,manage_user_info.group_hcmut_department_admin"/>
             </group>
-            <searchpanel>
+            <searchpanel groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin,manage_user_info.group_hcmut_department_admin">
               <field name="status_activity" icon="fa fa-cogs" enable_counters="1" select="multi"/>
               <field groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" name="department_of_create_user" icon="fa fa-building" enable_counters="1" select="multi"/>
               <field name="tag_ids" icon="fa fa-tags" enable_counters="1" select="multi"/>
