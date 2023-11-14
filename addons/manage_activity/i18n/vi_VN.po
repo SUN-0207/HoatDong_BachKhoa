@@ -1,0 +1,1109 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* manage_activity
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-14 00:12+0000\n"
+"PO-Revision-Date: 2023-11-14 00:12+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_detail_wizard_form
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid ""
+"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" "
+"title=\"Arrow\"/>"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid ""
+"<span class=\"o_stat_text\">\n"
+"                            Registration statistics\n"
+"                        </span>"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "<span style=\"margin-left:5px;\">người</span>"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_page_kanban
+msgid "<span> - </span>"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+msgid "<strong>Chấp nhận: </strong>"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+msgid "<strong>Diễn ra:  </strong>"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+msgid "<strong>Hoạt động chung</strong>"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+msgid "<strong>Hoạt động của đơn vị: </strong>"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+msgid "<strong>Nhóm hoạt động:</strong>"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+msgid "<strong>Số ngày CTXH tối đa: </strong>"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+msgid "<strong>Số ĐRL tối đa: </strong>"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+msgid "<strong>Tối đa: </strong>"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+msgid "<strong>Ý nghĩa hoạt động: </strong>"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+msgid "<strong>Đăng ký: </strong>"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+msgid "<strong>Đối tượng tham gia: </strong>"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Add some internal notes (to do lists, contact info, ...)"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "All students:"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__attach_file
+msgid "Attachments"
+msgstr "Tập tin (chỉ nhận PDF)"
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Attendees"
+msgstr "Sinh viên tham gia"
+
+#. module: manage_activity
+#. odoo-python
+#: code:addons/manage_activity/models/event_stage.py:0
+#: model:event.stage,legend_blocked:manage_activity.event_stage_accept
+#: model:event.stage,legend_blocked:manage_activity.event_stage_cancel
+#: model:event.stage,legend_blocked:manage_activity.event_stage_create
+#: model:event.stage,legend_blocked:manage_activity.event_stage_need_update
+#, python-format
+msgid "Blocked"
+msgstr ""
+
+#. module: manage_activity
+#: model:event.stage,name:manage_activity.event_stage_need_update
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+msgid "Bổ sung"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_tag__category_id
+msgid "Category"
+msgstr "Danh mục"
+
+#. module: manage_activity
+#: model:ir.model.fields.selection,name:manage_activity.selection__event_event__user_current_state_registration_event__open
+#: model:ir.model.fields.selection,name:manage_activity.selection__event_registration__state_temp__open
+msgid "Chấp nhận"
+msgstr ""
+
+#. module: manage_activity
+#: model:event.stage,description:manage_activity.event_stage_create
+#: model:event.stage,name:manage_activity.event_stage_create
+msgid "Chờ duyệt"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.view_form_see_info_wizard
+msgid "Close"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Communication"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_ticket_view_tree_from_event_inherit
+msgid "Confirmed"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__cooperate_department
+msgid "Cooperating Departments"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_department_coop_event__create_uid
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration_wizard__create_uid
+#: model:ir.model.fields,field_description:manage_activity.field_generated_uuid__create_uid
+#: model:ir.model.fields,field_description:manage_activity.field_see_info_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_department_coop_event__create_date
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration_wizard__create_date
+#: model:ir.model.fields,field_description:manage_activity.field_generated_uuid__create_date
+#: model:ir.model.fields,field_description:manage_activity.field_see_info_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_department_coop_event__display_name
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration_wizard__display_name
+#: model:ir.model.fields,field_description:manage_activity.field_generated_uuid__display_name
+#: model:ir.model.fields,field_description:manage_activity.field_see_info_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_page_kanban
+msgid "Diễn ra"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_tree_inherit
+msgid "Duyệt hàng loạt"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__duyet_nhanh
+msgid "Duyệt nhanh"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__is_for_all_students
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+msgid "Dành cho toàn bộ sinh viên"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration_wizard__email
+msgid "Email"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_stage__pipe_end
+msgid "End Stage"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.actions.server,name:manage_activity.events_action
+#: model:ir.model,name:manage_activity.model_event_event
+#: model:ir.model.fields,field_description:manage_activity.field_department_coop_event__event_id
+msgid "Event"
+msgstr "Sự kiện"
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_event_registration
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_form_inherit
+msgid "Event Registration"
+msgstr "Đăng ký Sự kiện"
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_event_stage
+msgid "Event Stage"
+msgstr "Trạng thái hoạt động"
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_event_tag
+msgid "Event Tag"
+msgstr "Ý nghĩa hoạt động"
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_event_tag_category
+msgid "Event Tag Category"
+msgstr "Ý nghĩa hoạt động"
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_event_type
+#: model_terms:ir.ui.view,arch_db:manage_activity.view_event_type_tree
+msgid "Event Template"
+msgstr "Nhóm hoạt động"
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_event_type_ticket
+msgid "Event Template Ticket"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__is_show_for_current_user
+msgid "Event user co the dang ky"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_search_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_page_search
+msgid "Events"
+msgstr "Hoạt động"
+
+#. module: manage_activity
+#: model:ir.model.fields,help:manage_activity.field_event_stage__pipe_end
+msgid ""
+"Events will automatically be moved into this stage when they are finished. "
+"The event moved into this stage will automatically be set as green."
+msgstr ""
+"Sự kiện sẽ được chuyển tự động sang giai đoạn này khi kết thúc. Sự kiện được"
+" chuyển sang giai đoạn này sẽ được đặt tự động thành màu xanh."
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_history
+msgid "Expected Attendees"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_stage__fold
+msgid "Folded in Kanban"
+msgstr "Đóng trong Kanban"
+
+#. module: manage_activity
+#: model:event.stage,description:manage_activity.event_stage_cancel
+msgid "Fully ended"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields.selection,name:manage_activity.selection__event_type__limited_registration__limited
+msgid "Giới hạn"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_ticket_view_tree_from_event_inherit
+msgid "Giới hạn sinh viên (0 là không giới hạn)"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+msgid "Giới hạn sinh viên tham gia"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_type__limited_registration
+msgid "Giới hạn số hoạt động"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Giới hạn tham gia"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_stage__legend_done
+msgid "Green Kanban Label"
+msgstr "Nhãn kanban xanh"
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_stage__legend_normal
+msgid "Grey Kanban Label"
+msgstr "Nhãn kanban xám"
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_search_inherit
+msgid "Group By"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_history
+msgid "Hoạt động của đơn vị"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__department_of_create_user
+msgid "Hoạt động thuộc về"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__created_by_name
+msgid "Hoạt động được tạo bởi "
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_tree_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_wizard_form
+msgid "Huỷ"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_page_kanban
+msgid "Huỷ Đăng ký"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_form_inherit
+msgid "Huỷ đăng ký"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration_wizard__name
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_form_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_tree_inherit
+msgid "Họ và tên"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_department_coop_event__id
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration_wizard__id
+#: model:ir.model.fields,field_description:manage_activity.field_generated_uuid__id
+#: model:ir.model.fields,field_description:manage_activity.field_see_info_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: manage_activity
+#. odoo-python
+#: code:addons/manage_activity/models/event_stage.py:0
+#: model:event.stage,legend_normal:manage_activity.event_stage_accept
+#: model:event.stage,legend_normal:manage_activity.event_stage_cancel
+#: model:event.stage,legend_normal:manage_activity.event_stage_create
+#: model:event.stage,legend_normal:manage_activity.event_stage_need_update
+#, python-format
+msgid "In Progress"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_type__is_available
+msgid "Is Available"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_form_inherit
+msgid "Không chấp nhận"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields.selection,name:manage_activity.selection__event_type__limited_registration__unlimited
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+msgid "Không giới hạn"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_department_coop_event____last_update
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration_wizard____last_update
+#: model:ir.model.fields,field_description:manage_activity.field_generated_uuid____last_update
+#: model:ir.model.fields,field_description:manage_activity.field_see_info_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_department_coop_event__write_uid
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration_wizard__write_uid
+#: model:ir.model.fields,field_description:manage_activity.field_generated_uuid__write_uid
+#: model:ir.model.fields,field_description:manage_activity.field_see_info_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_department_coop_event__write_date
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration_wizard__write_date
+#: model:ir.model.fields,field_description:manage_activity.field_generated_uuid__write_date
+#: model:ir.model.fields,field_description:manage_activity.field_see_info_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.actions.server,name:manage_activity.event_registration_history_action
+#: model:ir.ui.menu,name:manage_activity.event_registration_history_menu
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_history
+msgid "Lịch sử Đăng ký"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration_wizard__mssv
+msgid "MSSV"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__user_response_email
+#: model:ir.model.fields,field_description:manage_activity.field_see_info_wizard__user_response_email
+msgid "Mail"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_form_inherit
+msgid "Marketing"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_history
+msgid "Maximum Seats"
+msgstr ""
+
+#. module: manage_activity
+#: model:event.tag.category,name:manage_activity.default_category
+msgid "Meaning"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Minh chứng"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__event_code
+msgid "Mã hoạt động"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__description
+msgid "Mô tả hoạt động"
+msgstr "Mô tả"
+
+#. module: manage_activity
+#: model:ir.model.fields.selection,name:manage_activity.selection__event_event__status_activity__new
+msgid "Mới"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields.selection,name:manage_activity.selection__event_event__status_activity__open_registration
+msgid "Mở đăng ký"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event_ticket__event_info_major_id
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration_wizard__major
+#: model:ir.model.fields,field_description:manage_activity.field_event_type_ticket__event_info_major_id
+msgid "Ngành"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__date_begin_registration
+msgid "Ngày bắt đầu đăng ký"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__date_end_registration
+msgid "Ngày kết thúc đăng ký"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_tree_inherit
+msgid "Ngày đăng ký"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Người phụ trách"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.actions.act_window,name:manage_activity.action_event_type
+#: model:ir.model.fields,field_description:manage_activity.field_event_type__name
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_detail_wizard_form
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_search_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_history
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_page_kanban
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_type_view_search
+#: model_terms:ir.ui.view,arch_db:manage_activity.view_event_type_form
+msgid "Nhóm hoạt động"
+msgstr "Nhóm hoạt động"
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event_ticket__event_info_academy_year
+#: model:ir.model.fields,field_description:manage_activity.field_event_type_ticket__event_info_academy_year
+msgid "Niên khoá"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Note"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Notes"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,help:manage_activity.field_event_stage__legend_blocked
+msgid ""
+"Override the default value displayed for the blocked state for kanban "
+"selection."
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,help:manage_activity.field_event_stage__legend_done
+msgid ""
+"Override the default value displayed for the done state for kanban "
+"selection."
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,help:manage_activity.field_event_stage__legend_normal
+msgid ""
+"Override the default value displayed for the normal state for kanban "
+"selection."
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+msgid "Quản lý hoạt động"
+msgstr ""
+
+#. module: manage_activity
+#. odoo-python
+#: code:addons/manage_activity/models/event_stage.py:0
+#: model:event.stage,legend_done:manage_activity.event_stage_accept
+#: model:event.stage,legend_done:manage_activity.event_stage_cancel
+#: model:event.stage,legend_done:manage_activity.event_stage_create
+#: model:event.stage,legend_done:manage_activity.event_stage_need_update
+#, python-format
+msgid "Ready for Next Stage"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_stage__legend_blocked
+msgid "Red Kanban Label"
+msgstr "Nhãn kanban đỏ"
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_form_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_tree_inherit
+msgid "Registration"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__accept_registration
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__unaccpet_registration
+msgid "Registration Count"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.view_form_see_info_wizard
+msgid "See Info"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_see_info_wizard
+msgid "See Info Wizard"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_stage__sequence
+msgid "Sequence"
+msgstr "Trình tự"
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_stage__name
+msgid "Stage Name"
+msgstr "Tên giai đoạn"
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_stage__description
+msgid "Stage description"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_type__event_registed
+msgid "Số hoạt động đã đăng ký"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_type__max_event_registration
+msgid "Số hoạt động đăng ký tối đa"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_user_info_department__max_num_resgis
+msgid "Số lượng Đăng ký tối đa"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__max_social_point
+#: model:ir.model.fields,field_description:manage_activity.field_event_type__max_social_working_day
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_page_kanban
+msgid "Số ngày CTXH tối đa"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration__sequence_number
+msgid "Số thứ tự"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_page_kanban
+msgid "Số ĐRL tối đa"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration_wizard__phone
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_form_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_tree_inherit
+msgid "Số điện thoại"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__user_response_phone
+#: model:ir.model.fields,field_description:manage_activity.field_see_info_wizard__user_response_phone
+msgid "Số điện thoại di động"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_form_inherit
+msgid "Sự kiện"
+msgstr "Quản lý hoạt động"
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_tree_inherit
+msgid "Tham gia"
+msgstr ""
+
+#. module: manage_activity
+#: model:event.stage,description:manage_activity.event_stage_accept
+msgid "The event has been publicly announced"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_detail_wizard_form
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Thiết lập hoạt động"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_ticket_view_tree_from_event_inherit
+msgid "Thêm giới hạn đơn vị"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Thêm giới hạn đơn vị cong tac"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration__user_info_id
+msgid "Thông tin"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_detail_wizard_form
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Thông tin hoạt động"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_form_inherit
+msgid "Thông tin sự kiện"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_form_inherit
+msgid "Thông tin tham gia"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__formatted_date_start_range
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_detail_wizard_form
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_history
+msgid "Thời gian diễn ra"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_history
+msgid "Thời gian kết thúc"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_detail_wizard_form
+msgid "Thời gian mở đăng ký"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__formatted_date_regis_range
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_form_inherit
+msgid "Thời gian đăng ký"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_ticket_view_form_from_event_inherit
+msgid "Ticket"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Ticket Instructions"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_ticket_view_tree_from_event_inherit
+msgid "Tickets"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__search_mssv
+msgid "Tim MSSV, MSCB"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_ticket_view_tree_from_event_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_history
+msgid "Total"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Total Registrations for this Event"
+msgstr "Tổng số đăng ký cho sự kiện này"
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__user_current_state_registration_event
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration__state_temp
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_tree_inherit
+msgid "Trạng thái"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__name
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_search_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_history
+msgid "Tên hoạt động"
+msgstr "Tên hoạt động"
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.view_event_type_form
+msgid "Tên nhóm hoạt động"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__stage_name
+msgid "Tên tình trạng duyệt"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_search_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_history
+msgid "Tình trạng duyệt"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_search_inherit
+msgid "Tình trạng duỵệt"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__status_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_history
+msgid "Tình trạng hoạt động"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Tạo bởi"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields.selection,name:manage_activity.selection__event_event__user_current_state_registration_event__cancel
+#: model:ir.model.fields.selection,name:manage_activity.selection__event_registration__state_temp__cancel
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+msgid "Từ chối"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.view_event_type_form
+msgid "Tự động duyệt sinh viên"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__auto_accept_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_type__auto_accept_activity
+msgid "Tự động đồng ý hoạt động"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_generated_uuid__uuid
+msgid "UUID"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_ticket_view_tree_from_event_inherit
+msgid "Unconfirmed"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_history
+msgid "Unconfirmed Seats"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_res_users
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__user_id
+msgid "User"
+msgstr "Người dùng"
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_user_department_admin
+msgid "User Department Admin"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_user_info
+msgid "User Info"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_user_info_year
+msgid "User Info Academy Year"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_user_info_department
+msgid "User Info Department"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_user_info_major
+msgid "User Info Major"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__user_response
+msgid "User Response"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__user_current_registed_event
+msgid "User hiện tại đã đăng ký"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.actions.act_window,name:manage_activity.action_event_form
+msgid "View Event Form"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_page_kanban
+msgid "Xem chi tiết hoạt động"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Xem thông tin liên hệ người phụ trách"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+msgid "Xem thông tin đầy đủ"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_form_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_tree_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_wizard_form
+msgid "Xác nhận"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+msgid "Xác nhận bổ sung"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_page_kanban
+msgid "Xác nhận huỷ đăng ký"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+msgid "Xác nhận từ chối"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+msgid "Xác nhận đồng ý"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_department_coop_event
+msgid "department.coop.event"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "e.g. How to get to your event, door closing time, ..."
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.actions.act_window,name:manage_activity.action_event_form_wizard
+msgid "event detail"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_event_registration_wizard
+msgid "event.registration.wizard"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model,name:manage_activity.model_generated_uuid
+msgid "generated.uuid"
+msgstr ""
+
+#. module: manage_activity
+#: model:event.stage,description:manage_activity.event_stage_need_update
+msgid "need_update"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_tag_view_form_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_tag_view_tree_inherit
+msgid "Ý nghĩa"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_detail_wizard_form
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Ý nghĩa hoạt động"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_event_event__max_tranning_point
+#: model:ir.model.fields,field_description:manage_activity.field_event_type__max_training_point
+msgid "ĐRL tối đa"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields.selection,name:manage_activity.selection__event_event__status_activity__inprogress
+msgid "Đang diễn ra"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_page_kanban
+msgid "Đoàn TN - Hội SV"
+msgstr ""
+
+#. module: manage_activity
+#: model:event.stage,name:manage_activity.event_stage_accept
+msgid "Đã duyệt"
+msgstr ""
+
+#. module: manage_activity
+#: model:event.stage,name:manage_activity.event_stage_cancel
+msgid "Đã huỷ"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields.selection,name:manage_activity.selection__event_event__status_activity__completed
+msgid "Đã kết thúc"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields.selection,name:manage_activity.selection__event_event__user_current_state_registration_event__done
+#: model:ir.model.fields.selection,name:manage_activity.selection__event_registration__state_temp__done
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_form_inherit
+msgid "Đã tham gia"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields.selection,name:manage_activity.selection__event_event__user_current_state_registration_event__draft
+msgid "Đã đăng ký"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Đính kèm tệp"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields.selection,name:manage_activity.selection__event_event__status_activity__close_registration
+msgid "Đóng đăng ký"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields.selection,name:manage_activity.selection__event_registration__state_temp__draft
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_page_kanban
+#: model_terms:ir.ui.view,arch_db:manage_activity.view_event_registration_graph_inherit
+msgid "Đăng ký"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.ui.menu,name:manage_activity.event_registration_menu
+msgid "Đăng ký Hoạt động"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.actions.server,name:manage_activity.event_can_registration_page_action
+msgid "Đăng ký Sự kiện"
+msgstr ""
+
+#. module: manage_activity
+#: model:ir.model.fields,field_description:manage_activity.field_department_coop_event__event_department_id
+#: model:ir.model.fields,field_description:manage_activity.field_event_event_ticket__event_department_id
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration__user_department_id
+#: model:ir.model.fields,field_description:manage_activity.field_event_registration_wizard__department
+#: model:ir.model.fields,field_description:manage_activity.field_event_type_ticket__event_department_id
+msgid "Đơn vị"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
+msgid "Đơn vị cộng tác"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_page_kanban
+msgid "Đơn vị tổ chức"
+msgstr ""
+
+#. module: manage_activity
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_kanban_inherit
+#: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
+msgid "Đồng ý"
+msgstr ""
