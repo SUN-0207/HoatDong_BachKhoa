@@ -92,7 +92,7 @@ class UserInfo(models.Model):
     year = ""
     if self.student_id :
       if not self.student_id.isdigit() or not re.match(pattern, self.student_id):
-            raise ValidationError(_('Invalid student ID. Student ID must be a 7-digit number.'))
+            raise ValidationError(_('MSSV không hợp lệ. MSSV chỉ chấp nhận số và có độ dài là 7. Vui lòng kiểm tra lại! '))
       year_prefix = self.student_id[:2]
       year = str(int(year_prefix) + 2000)
       if self.user_info_class_id and self.user_info_class_id.year_id.name != year:
@@ -196,15 +196,15 @@ class UserInfo(models.Model):
         pattern = r'^0?\d{10}$'
         national_id_pattern = r'^\d{9}$|^\d{12}$'
         if self.phone_number and not re.match(pattern, self.phone_number):
-            raise ValidationError(_('Invalid phone'))
+            raise ValidationError(_('Số điện thoại không hợp lệ. Vui lòng kiểm tra lại! '))
         if self.national_id and not re.match(national_id_pattern, self.national_id):
-            raise ValidationError(_('Invalid nation id'))
+            raise ValidationError(_('Số CMND/CCCDi không hợp lệ. Vui lòng kiểm tra lại! '))
 
   @api.onchange('personal_email')
   def _validate_email(self):
     pattern = r".*@gmail\.com$"
     if self.personal_email and not re.match(pattern, self.personal_email):
-      raise ValidationError(_('Invalid personal email'))
+      raise ValidationError(_('Email cá nhân không hợp lệ. Vui lòng kiểm tra lại! '))
 
   def open_current_user_info(self):
     view_id = self.env.ref('manage_user_info.user_info_view_form') 

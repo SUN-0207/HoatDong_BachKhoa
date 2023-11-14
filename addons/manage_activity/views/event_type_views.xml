@@ -46,7 +46,7 @@
         <field name="inherit_id" ref="event.view_event_type_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//tree" position="replace">
-                <tree string="Event Template">
+                <tree string="Quản lý hoạt động">
                     <field name="sequence" widget="handle" invisible="1"/>
                     <field name="name"/>
                     <field name="max_training_point"/>
