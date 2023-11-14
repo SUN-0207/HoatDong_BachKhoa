@@ -260,7 +260,7 @@ msgstr "Ý nghĩa hoạt động"
 #: model:ir.model,name:manage_activity.model_event_type
 #: model_terms:ir.ui.view,arch_db:manage_activity.view_event_type_tree
 msgid "Event Template"
-msgstr Nhóm hoạt động""
+msgstr "Nhóm hoạt động"
 
 #. module: manage_activity
 #: model:ir.model,name:manage_activity.model_event_type_ticket
@@ -541,7 +541,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:manage_activity.event_type_view_search
 #: model_terms:ir.ui.view,arch_db:manage_activity.view_event_type_form
 msgid "Nhóm hoạt động"
-msgstr "Event Template"
+msgstr "Nhóm hoạt động"
 
 #. module: manage_activity
 #: model:ir.model.fields,field_description:manage_activity.field_event_event_ticket__event_info_academy_year
@@ -687,7 +687,7 @@ msgstr ""
 #. module: manage_activity
 #: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_form_inherit
 msgid "Sự kiện"
-msgstr ""
+msgstr "Quản lý hoạt động"
 
 #. module: manage_activity
 #: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_view_tree_inherit
@@ -791,7 +791,7 @@ msgstr ""
 #. module: manage_activity
 #: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
 msgid "Total Registrations for this Event"
-msgstr ""
+msgstr "Tổng số đăng ký cho sự kiện này"
 
 #. module: manage_activity
 #: model:ir.model.fields,field_description:manage_activity.field_event_event__user_current_state_registration_event
@@ -807,7 +807,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:manage_activity.event_event_tree_inherit
 #: model_terms:ir.ui.view,arch_db:manage_activity.event_registration_history
 msgid "Tên hoạt động"
-msgstr "Sự kiện"
+msgstr "Tên hoạt động"
 
 #. module: manage_activity
 #: model_terms:ir.ui.view,arch_db:manage_activity.view_event_type_form

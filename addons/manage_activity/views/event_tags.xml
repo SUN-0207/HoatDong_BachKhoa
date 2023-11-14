@@ -9,7 +9,7 @@
             <field name="inherit_id" ref="event.event_tag_view_tree"/>
             <field name="arch" type="xml">
                 <xpath expr="//tree"  position="replace">
-                    <tree string="Ý nghĩa">
+                    <tree string="Ý nghĩa hoạt động">
                         <field name="sequence" widget="handle"/>
                         <field name="name"/>
                         <field name="color" widget="color_picker" invisible="1"/>
@@ -25,7 +25,7 @@
             <field name="inherit_id" ref="event.event_tag_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//form"  position="replace">
-                    <form string="Ý nghĩa">
+                    <form string="Ý nghĩa hoạt động">
                         <sheet>
                             <group>
                                 <field name="name"/>
@@ -39,13 +39,13 @@
         </record>
 
         <record model="ir.actions.act_window" id="event.event_tag_category_action_tree">
-            <field name="name">Event Tags</field>
+            <field name="name">Ý nghĩa hoạt động</field>
             <field name="view_mode">tree,form</field>
             <field name="res_model">event.tag</field>
         </record>
 
         <record id="default_category" model="event.tag.category">
-            <field name="name">Meaning</field>
+            <field name="name">Ý nghĩa hoạt động</field>
             <field name="sequence">1</field>
         </record>
 
