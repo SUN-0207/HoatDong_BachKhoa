@@ -167,6 +167,18 @@
             height: 55px !important;
         }
     }
+
+    // notebook margin
+    .table-responsive {
+        margin: 0 22px 10px 22px;
+
+        td {
+            div input {
+                margin: 0 !important;
+                padding: 0 8px !important;
+            }
+        }
+    }
 }
 
 button.o_colorlist_item_color_1 {
