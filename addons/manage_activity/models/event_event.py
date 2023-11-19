@@ -52,8 +52,8 @@ class EventEvent(models.Model):
   date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
   date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
   
-  max_social_point = fields.Integer(string="Số ngày CTXH tối đa")
-  max_tranning_point = fields.Integer(string="ĐRL tối đa")
+  max_social_point = fields.Integer(string="Số ngày CTXH tối đa", required=True)
+  max_tranning_point = fields.Integer(string="ĐRL tối đa", required=True)
 
   description = fields.Text(string="Mô tả hoạt động", widget="html", required=True)
   attach_file = fields.Many2many('ir.attachment', string='Attachments', widget='many2many_binary')
@@ -66,6 +66,7 @@ class EventEvent(models.Model):
   unaccpet_registration = fields.Integer(string='Registration Count', compute='_compute_unaccpet_registration')
   duyet_nhanh = fields.Char(string='Duyệt nhanh')
   
+  auto_confirm = fields.Boolean('Tự động duyệt sinh viên', default=True, help=False)
   
   def open_list_event(self):
     action = {
