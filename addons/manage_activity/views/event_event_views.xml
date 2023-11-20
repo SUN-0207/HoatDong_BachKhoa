@@ -46,8 +46,8 @@
                       <script type="text/javascript" src="/manage_activity/static/src/js/event_name.js"></script>
                   </div>
                   <div class="col-4 text-end px-3">
-                    <label for="created_by_name" string="Tạo bởi"/> 
-                    <field name="created_by_name" readonly="1" />
+                    <!-- <label for="created_by_name" string="Tạo bởi"/>  -->
+                    <field name="created_by_name" readonly="1" invisible="1" />
                   </div>
                 </div>
               
@@ -67,7 +67,7 @@
                   
                   <field name="status_activity"  attrs="{'readonly': [('stage_name', '!=', 'Đã duyệt')]}" invisible="1"/>
 
-                  <label for="date_begin" string="Đăng ký"/>
+                  <label for="date_begin_registration" string="Đăng ký"/>
                   <div class="o_row">
                     <field name="date_begin_registration" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'date_end_registration'}"
                       attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"                    />
@@ -261,6 +261,7 @@
         <xpath expr="//search" position="replace" >
           <search string="Events">
             <field name="name" string="Tên hoạt động"/>
+            <field name="event_code" string='Mã hoạt động' />
             <field name="stage_id" string='Tình trạng duyệt' groups="manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin,manage_user_info.group_hcmut_department_admin"/>
             <field name="department_of_create_user" string='Đơn vị' />
             <group expand="0" string="Group By">
