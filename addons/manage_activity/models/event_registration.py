@@ -14,6 +14,8 @@ class EventRegistration(models.Model):
     
     sequence_number = fields.Integer(string='Số thứ tự', store=True)
     
+    can_action_on_registration = fields.Boolean(default=False)
+    
     @api.depends('state')
     def _compute_state(self):
       for registration in self:
@@ -21,11 +23,26 @@ class EventRegistration(models.Model):
         
     def multi_confirmation(self):
       for registration in self:
+        if not registration.can_action_on_registration:
+          raise ValidationError("Yêu cầu quyền duyệt từ Quản trị viên")
         if registration.state != 'draft':
           raise ValidationError("Chỉ áp dụng đối với sinh viên có trạng thái là ĐĂNG KÝ")
         registration.sudo().action_confirm()
       print("Success")
-
+      
+    @api.model
+    def search_read(self, domain=None, fields=None, offset=0, limit=None, order=0):
+      records = super(EventRegistration, self).search_read(domain=domain, fields=fields, offset=offset, limit=limit, order=order)
+      if records:
+        for record in records: 
+          event_id = record['event_id'][0]
+          if self.env.user.has_group('manage_user_info.group_hcmut_super_admin') or self.env['event.event'].sudo().search([('id', '=', event_id),('created_by_name', '=', self.env.user.name)]):
+            record['can_action_on_registration'] = True
+          else:
+            record['can_action_on_registration'] = False
+      print(records)
+      return records
+      
     @api.model
     def create(self,vals):
       print("Create Registration", vals)

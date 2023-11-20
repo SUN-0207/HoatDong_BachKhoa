@@ -6,6 +6,13 @@
       <field name="model">user.info</field>
       <field name="arch" type="xml">
         <search position="inside">
+          <field name="name"/>
+          <field name="student_id"/>
+          <field name="user_info_department_id"/>
+          <field name="user_info_major_id"/>
+          <field name="user_info_academy_year"/>
+          <field name="user_info_class_id"/>
+
           <searchpanel>
             <field name="user_info_department_id" icon="fa fa-building" enable_counters="1" select="multi"/>
             <field name="user_info_major_id" icon="fa fa-graduation-cap" enable_counters="1" select="multi"/>

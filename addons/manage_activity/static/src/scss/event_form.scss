@@ -167,6 +167,29 @@
             height: 55px !important;
         }
     }
+
+    // notebook margin
+    .table-responsive {
+        margin: 0 22px 10px 22px;
+
+        td {
+            div input {
+                margin: 0 !important;
+                padding: 0 8px !important;
+            }
+        }
+    }
+}
+
+label[for="name"]::after,
+label[for="date_begin_registration"]::after,
+label[for="date_begin"]::after,
+label[for="max_social_point"]::after,
+label[for="max_tranning_point"]::after,
+label[for="description"]::after
+{
+    content:" *";
+    color: red;
 }
 
 button.o_colorlist_item_color_1 {
