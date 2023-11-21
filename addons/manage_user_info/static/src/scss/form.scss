@@ -74,3 +74,46 @@ label.o_form_label[for="user_info_class_id"]
 {
     font-weight:700 !important;
 }
+
+.user_info_view {
+
+    @media (max-width: 992px) {
+        .row {
+            --gutter-x: 0 !important;
+        }
+    }
+
+    @media (max-width: 768px) {
+
+    }
+
+
+    @media (max-width: 576px) {
+        div.o_cell.o_wrap_label {
+            height: 30px !important;
+        }
+
+        .form-column-3 {
+            .o_horizontal_separator {
+                height: 48px;
+            }
+
+            .o_wrap_field_boolean {
+                flex-direction: column;
+            }
+        }
+
+    }
+
+    @media (max-width: 480px) {
+
+    }
+    
+    @media (max-width: 400px) {
+        .form-column-3 {
+            .o_horizontal_separator {
+                height: 72px;
+            }
+        }
+    }
+}

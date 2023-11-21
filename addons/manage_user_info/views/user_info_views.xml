@@ -27,7 +27,7 @@
       <field name="name">user.info.form</field>
       <field name="model">user.info</field>
       <field name="arch" type="xml">
-        <form >
+        <form class="user_info_view">
           <header >
             <button name="button_draft" type="object" class="btn btn-primary" string="Bản nháp" groups="manage_user_info.group_hcmut_department_admin,manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" />
             <button name="button_done" type="object" class="btn btn-primary" string="Hoàn tất" groups="manage_user_info.group_hcmut_department_admin,manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" />   
