@@ -15,12 +15,12 @@
           </header>
           <field name="active" invisible="1"/>
           <field name="sequence_number" />
-          <field name="create_date" optional="show" string="Ngày đăng ký"/>
+          <field name="create_date"  string="Ngày đăng ký"/>
           <field name="name" string="Họ và tên"/>
           <field name="user_department_id"/>
           <field name="partner_id" optional="hide" invisible="1"/>
-          <field name="email" optional="show"/>
-          <field name="phone" optional="show" string="Số điện thoại" />
+          <field name="email" />
+          <field name="phone" string="Số điện thoại" />
           <field name="mobile" optional="hide" invisible="1"/>
           <field name="event_id" invisible="context.get('default_event_id')"/>
           <field name="event_ticket_id" domain="[('event_id', '=', event_id)]" optional="hide" invisible="1"/>

@@ -133,11 +133,11 @@
           <field name="sur_name"/>
           <field name="first_name"/>
           <field name="email" />
-          <field name="student_id" optional="show"/>
-          <field name="phone_number" optional="hide"/>
-          <field name="user_info_department_id" optional="hide"/>
-          <field name="user_info_major_id" optional="hide"/>
-          <field name="user_info_class_id" optional="hide" />
+          <field name="student_id" />
+          <field name="phone_number" />
+          <field name="user_info_department_id" />
+          <field name="user_info_major_id" />
+          <field name="user_info_class_id" />
         </tree>
       </field>
     </record>

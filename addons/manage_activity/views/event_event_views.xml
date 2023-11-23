@@ -237,6 +237,7 @@
             <field name="date_end_registration" readonly="1" widget="date" optional="show" invisible="1"/>
             <field name="date_begin" readonly="1" widget="date" optional="show" string='Thời gian diễn ra'  invisible="1"/>
             <field name="date_end" readonly="1" widget="date" optional="show" string='Thời gian kết thúc'  invisible="1"/>
+            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" invisible="1"/>
 
             <!-- Show-->
             <field name="name" string='Tên hoạt động' class="tree_activity_name"/>
@@ -244,7 +245,6 @@
             <field name="department_of_create_user" string='Hoạt động của đơn vị' />
             <field name="formatted_date_regis_range"/>
             <field name="formatted_date_start_range"/>
-            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" optional="hide"/>
             <button name="confirm_event" type="object" class="btn btn-outline-primary" string="Đồng ý" confirm="Xác nhận đồng ý" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}"  groups="manage_user_info.group_hcmut_super_admin"/>
             <button name="need_update_event" type="object" class="btn btn-warning" string="Bổ sung" confirm="Xác nhận bổ sung" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" groups="manage_user_info.group_hcmut_super_admin"/>
             <button name="refuse_event" type="object" class="btn btn-outline-danger" string="Từ chối" confirm="Xác nhận từ chối" attrs="{'invisible': [('stage_name','!=','Chờ duyệt')]}" groups="manage_user_info.group_hcmut_super_admin"/>
