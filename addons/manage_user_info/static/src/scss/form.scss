@@ -119,9 +119,25 @@ label.o_form_label[for="user_info_class_id"]
 
     }
 
-    @media (max-width: 432px) {
+    @media (max-width: 433px) {
+        div.avatar_name {
+            display: flex;
+            flex-direction: column;
+
+            div.user-name {
+                width: 100% !important;
+            }
+
+            div.avatar {
+                width: 10rem;
+                label {
+                    width: 100%;
+                }
+            }
+        }
+
         img[name="image_1920"] {
-            margin-top: 2rem;
+            margin-top: .5rem;
         }
     }
     
@@ -132,14 +148,6 @@ label.o_form_label[for="user_info_class_id"]
             }
         }
 
-        div.avatar_name {
-            display: flex;
-            flex-direction: column;
-
-            div.user-name {
-                width: 100% !important;
-            }
-        }
     }
 }
 
