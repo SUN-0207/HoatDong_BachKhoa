@@ -27,7 +27,7 @@
       <field name="name">user.info.form</field>
       <field name="model">user.info</field>
       <field name="arch" type="xml">
-        <form >
+        <form class="user_info_view">
           <header >
             <button name="button_draft" type="object" class="btn btn-primary" string="Bản nháp" groups="manage_user_info.group_hcmut_department_admin,manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" />
             <button name="button_done" type="object" class="btn btn-primary" string="Hoàn tất" groups="manage_user_info.group_hcmut_department_admin,manage_user_info.group_hcmut_super_admin,manage_user_info.group_hcmut_technical_admin" />   
@@ -44,7 +44,7 @@
               </p>
             </div>
             <group string="Thông tin cơ bản" class="form-column">
-              <group>
+              <group class="avatar_name">
                 <group class="avatar">
                   <!-- <field name="avatar" widget="image" options="{'size': (128, 192)}" class="oe_avatar"/> -->
                   <field name="avatar_128" on_change="1" modifiers="{&quot;invisible&quot;: true, &quot;readonly&quot;: true}"/>
