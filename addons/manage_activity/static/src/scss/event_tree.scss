@@ -14,7 +14,7 @@
 
     button[name="need_update_event"] {
         font-weight: 500 !important;
-        background-color: white;
+        color: white;
         background-color: #f1b44c !important;
         border: solid 2px #f1b44c !important;
         transition: all 150ms ease-in-out;
@@ -43,4 +43,17 @@
     .fa-arrow-right {
         padding: 0 8px;
     }
+}
+
+.user_activity_tree {
+    button[name="confirm_event"], button[name="need_update_event"], button[name="refuse_event"] {
+        padding: .2rem 1rem !important;
+        border-radius: .5rem !important;
+    }
+}
+
+button.o_btn_cancel_registration {
+    border: none;
+    border-radius: .5rem !important;
+    padding: .1rem .6rem;
 }

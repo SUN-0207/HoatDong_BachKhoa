@@ -38,7 +38,7 @@
             <field name="formatted_date_regis_range"/>
             <field name="formatted_date_start_range"/>
             <field name="user_current_state_registration_event" widget="badge"/>
-            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" invisible="1" optional="hide"/>
+            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" invisible="1" />
           </tree>
         </xpath>
       </field>

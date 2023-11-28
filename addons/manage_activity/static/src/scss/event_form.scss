@@ -35,7 +35,7 @@
         }
     }
 
-    .o_field_many2many_tags {
+    .o_field_many2many_tags, .o_readonly_modifier {
         div.o_field_tags {
             padding-left: .5rem;
             align-items: center;
@@ -48,6 +48,10 @@
 
             &:focus-within {
                 border: 2px solid #4a9bff !important;
+            }
+
+            .o_tag_badge_text {
+                color: black;
             }
         }
 
@@ -178,6 +182,13 @@
                 padding: 0 8px !important;
             }
         }
+    }
+
+}
+
+div.daterangepicker {
+    th.month {
+        color: white !important;
     }
 }
 
