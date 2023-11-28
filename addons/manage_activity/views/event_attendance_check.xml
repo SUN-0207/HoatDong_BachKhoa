@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="event_attendance_check_tree_view" model="ir.ui.view">
+        <field name="name">event_attendace_check.view.tree</field>
+        <field name="model">event.attendance.check</field>
+        <field name="arch" type="xml">
+          <tree string="Diem danh hoat dong"  class="o_event_registration_view_tree">
+              <!-- <button name="attendace" string="Diem danh" type="object" class="btn btn-primary"  /> -->
+              <field name="event_id" invisible="1" />
+              <field name="user_info_name" />
+              <field name="user_info_mssv" />
+              <field name="create_date"/>
+            </tree>
+        </field>
+      </record>
+
+      <record id="event_attendance_check_form_view" model='ir.ui.view'> 
+        <field name="name">event_attendace_check.view.form</field>
+        <field name="model">event.attendance.check</field>
+        <field  name="arch" type="xml">
+            <form string="Dien MSSV de diem danh">
+              <field name="user_info_mssv" />
+            </form>
+        </field>
+      </record>
+     
+</odoo>

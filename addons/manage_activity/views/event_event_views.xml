@@ -31,6 +31,11 @@
                             help="Total Registrations for this Event">
                         <field name="seats_expected" widget="statinfo" string="Attendees"/>
                     </button>
+                    <button name="%(act_event_attendance_check_from_event)d" type="action" class="oe_stat_button" icon="fa-check-square-o">
+                        <span class="o_stat_text">
+                          Diem danh 
+                        </span>
+                    </button>
                 </div>
                 <field name="active" invisible="1"/>
                 <field name="company_id" invisible="1"/>
@@ -99,12 +104,14 @@
                   </group>
                   <group>
                     <group>
-                      <field name="auto_confirm" string="Tự động duyệt sinh viên" attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" />   
+                      <field name="min_attendance_check" class="mini-field"/>
                       <field name="auto_accept_activity" invisible="1"/>                 
-
+                    </group>
+                    <group>
+                      <field name="auto_confirm" string="Tự động duyệt sinh viên" attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" />   
                     </group>
                     <group invisible="1">
-                      <label for="seats_limited" string="Giới hạn tham gia"/>
+                      <label for="seats_limited" string="Giới hạn tham gia" />
                       <div>
                         <field name="seats_limited"/>
                         <span attrs="{'invisible': [('seats_limited', '=', False)], 'required': [('seats_limited', '=', False)]}">

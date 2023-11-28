@@ -5,3 +5,4 @@ access_event_event,access.event.event,model_event_event,manage_user_info.group_h
 access_see_info_wizard,access.see.info.wizard,model_see_info_wizard,base.group_user,1,1,1,1
 access_generated_uuid,access_generated_uuid,model_generated_uuid,base.group_user,1,1,1,1
 access_department_coop_event,access_department_coop_event,model_department_coop_event,base.group_user,1,1,1,1
+access_event_attendance_check,access_event_attendace_check,model_event_attendance_check,base.group_user,1,1,1,0

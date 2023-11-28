@@ -26,6 +26,7 @@
         'views/event_registration_history_views.xml',
         'wizard/event_registration_wizard_views.xml',
         'views/event_tags.xml',
+        'views/event_attendance_check.xml',
         'views/event_menuitem.xml'
     ],
     'assets': {

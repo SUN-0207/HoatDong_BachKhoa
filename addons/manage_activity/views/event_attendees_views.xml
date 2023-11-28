@@ -30,5 +30,10 @@
         <field name='name'>Sinh viên tham gia</field>
      </record>
 
+     <record model="ir.actions.act_window" id="act_event_attendance_check_from_event">
+        <field name="res_model">event.attendance.check</field>
+        <field name="name">Hoat dong ABC / Lich su diem danh cua hoat dong</field>
+         <field name="view_mode">tree,form</field>
+     </record>
      
 </data></odoo>
