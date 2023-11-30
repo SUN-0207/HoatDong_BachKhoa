@@ -192,6 +192,50 @@ div.daterangepicker {
     }
 }
 
+.o_field_statusbar {
+    margin: 0 1rem;
+}
+
+//RESPONSIVE EDIT
+.o_event_form_view {
+    @media (max-width: 992px) {
+        div.o_notebook_headers {
+            ul.nav-tabs {
+                margin: 0 1.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            div.event-name-field {
+                width: 45rem !important;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .o_form_sheet {
+                min-width: unset !important;
+            }
+
+            div.event-name-field {
+                width: 40rem !important;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            div.event-name-field {
+                width: 35rem !important;
+            }
+        }
+
+        @media (max-width: 400px) {
+            div.event-name-field {
+                width: 30rem !important;
+            }
+        }
+    }
+}
+
+
 label[for="name"]::after,
 label[for="date_begin_registration"]::after,
 label[for="date_begin"]::after,
