@@ -58,7 +58,7 @@ class EventRegistration(models.Model):
       print("Before Update Registration", vals)
       if('time_check_attendace' in vals):
         if(vals['time_check_attendace'] >= self.event_id.min_attendance_check):
-          vals['state_temp'] = 'done'
+          vals['state'] = 'done'
       print("After Update Registration", vals)
         
       return super(EventRegistration, self).write(vals)
@@ -69,9 +69,8 @@ class EventRegistration(models.Model):
         
         AttendanceCheckRecord = self.env['event.attendance.check']
         new_record = AttendanceCheckRecord.create({
-            'user_info_id': self.user_info_id.id,
-            'event_id': self.event_id.id
+            'event_id': self.event_id.id,
+            'registration_id': self.id,
+            'time_check': self.time_check_attendace
         })
-
-        print("created: ", new_record)
           

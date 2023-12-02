@@ -32,14 +32,14 @@
                             help="Total Registrations for this Event">
                         <field name="seats_expected" widget="statinfo" string="Attendees"/>
                     </button>
-                    <button name="%(act_event_attendance_check_from_event)d" type="action" class="oe_stat_button" icon="fa-check-square-o">
+                    <button name="%(act_event_attendance_check_from_event)d" type="action" class="oe_stat_button" icon="fa-check-square-o" context="{'active_id': active_id}">
                         <span class="o_stat_text">
-                          Diem danh 
+                          Điểm danh  
                         </span>
                     </button>
-                    <button name="%(act_event_attendance_check_history_from_event)d" type="action" class="oe_stat_button" icon="fa-history">
+                    <button name="%(act_event_attendance_check_history_from_event)d" type="action" class="oe_stat_button" icon="fa-history" context="{'active_id': active_id}">
                       <span class="o_stat_text">
-                      Lich su diem danh 
+                        Lịch sử điểm danh
                       </span>
                   </button>  
                 </div>
