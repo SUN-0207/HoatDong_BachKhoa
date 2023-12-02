@@ -31,9 +31,17 @@
      </record>
 
      <record model="ir.actions.act_window" id="act_event_attendance_check_from_event">
-        <field name="res_model">event.attendance.check</field>
-        <field name="name">Hoat dong ABC / Lich su diem danh cua hoat dong</field>
+        <field name="res_model">event.registration</field>
+        <field name="name">Điểm danh hoạt động</field>
          <field name="view_mode">tree,form</field>
+         <field name="view_id" ref="event_attendance_check_tree_view"/>
      </record>
+   
+     <record model="ir.actions.act_window" id="act_event_attendance_check_history_from_event">
+         <field name="res_model">event.attendance.check</field>
+         <field name="name">Lich su Điểm danh hoạt động</field>
+         <field name="view_mode">tree,form</field>
+         <!-- <field name="view_id" ref="event_attendance_check_history_tree_view"/> -->
+      </record>
      
 </data></odoo>

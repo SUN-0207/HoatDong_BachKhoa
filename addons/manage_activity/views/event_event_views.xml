@@ -16,7 +16,8 @@
             </header>
             <sheet>
                 <div class="oe_button_box" name="button_box" groups="base.group_user">
-                    <button name="%(event.event_registration_action_stats_from_event)d"
+                  
+                  <button name="%(event.event_registration_action_stats_from_event)d"
                             type="action" class="oe_stat_button" icon="fa-line-chart"
                             invisible="1">
                         <span class="o_stat_text">
@@ -36,6 +37,11 @@
                           Diem danh 
                         </span>
                     </button>
+                    <button name="%(act_event_attendance_check_history_from_event)d" type="action" class="oe_stat_button" icon="fa-history">
+                      <span class="o_stat_text">
+                      Lich su diem danh 
+                      </span>
+                  </button>  
                 </div>
                 <field name="active" invisible="1"/>
                 <field name="company_id" invisible="1"/>

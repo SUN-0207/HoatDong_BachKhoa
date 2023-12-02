@@ -5,8 +5,11 @@ class EventRegistration(models.Model):
     _inherit = ['event.registration']
               
     user_info_id = fields.Many2one('user.info', string='Thông tin')
+    user_info_name = fields.Char(related='user_info_id.name')
+    user_info_mssv = fields.Char(string='MSSV', related='user_info_id.student_id')
     user_department_id = fields.Many2one('user.info.department', string='Đơn vị', related='user_info_id.user_info_department_id',readonly=True, store=True)
     
+    time_check_attendace = fields.Integer('So lan diem danh', default=0)
     state_temp = fields.Selection([
         ('draft', 'Đăng ký'), ('cancel', 'Từ chối'),
         ('open', 'Chấp nhận'), ('done', 'Đã tham gia')],
@@ -52,7 +55,23 @@ class EventRegistration(models.Model):
     
     @api.model
     def write(self,vals):
-      print("Update Registration", vals)
+      print("Before Update Registration", vals)
+      if('time_check_attendace' in vals):
+        if(vals['time_check_attendace'] >= self.event_id.min_attendance_check):
+          vals['state_temp'] = 'done'
+      print("After Update Registration", vals)
+        
       return super(EventRegistration, self).write(vals)
     
+    def attendace(self):
+        self.time_check_attendace += 1
+        self.write({'time_check_attendace': self.time_check_attendace})
+        
+        AttendanceCheckRecord = self.env['event.attendance.check']
+        new_record = AttendanceCheckRecord.create({
+            'user_info_id': self.user_info_id.id,
+            'event_id': self.event_id.id
+        })
+
+        print("created: ", new_record)
           

@@ -2,14 +2,28 @@
 <odoo>
     <record id="event_attendance_check_tree_view" model="ir.ui.view">
         <field name="name">event_attendace_check.view.tree</field>
-        <field name="model">event.attendance.check</field>
+        <field name="model">event.registration</field>
         <field name="arch" type="xml">
           <tree string="Diem danh hoat dong"  class="o_event_registration_view_tree">
-              <!-- <button name="attendace" string="Diem danh" type="object" class="btn btn-primary"  /> -->
+              <field name="event_id" invisible="1" />
+              <field name="time_check_attendace" />
+              <field name="user_info_name" />
+              <field name="user_info_mssv" />
+              <field name="write_date" string="Lan diem danh gan nhat"/>
+              <button name="attendace" string="diem danh" type="object" class="btn btn-success"/>
+            </tree>
+        </field>
+      </record>
+
+      <record id="event_attendance_check_history_tree_view" model="ir.ui.view">
+        <field name="name">event_attendace_check_history.view.tree</field>
+        <field name="model">event.attendance.check</field>
+        <field name="arch" type="xml">
+          <tree string="Lich su Diem danh hoat dong"  class="o_event_registration_view_tree">
               <field name="event_id" invisible="1" />
               <field name="user_info_name" />
               <field name="user_info_mssv" />
-              <field name="create_date"/>
+              <field name="create_date" string="Lan diem danh"/>
             </tree>
         </field>
       </record>
