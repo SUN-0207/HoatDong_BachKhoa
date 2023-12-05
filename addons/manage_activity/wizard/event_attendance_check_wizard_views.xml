@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="event_attendance_check_wizard_form" model="ir.ui.view">
+    <field name="name">event.attendace.check.wizard.form</field>
+    <field name="model">event.attendance.check.wizard</field>
+    <field name="arch" type="xml">
+      <form>
+        <field name="mssv" string="MSSV"/>
+      </form>
+    </field>
+  </record>
+
+</odoo>

@@ -38,5 +38,16 @@
             </form>
         </field>
       </record>
+
+      <record id="event_attendance_check_inherit_js_class" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit</field>
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="manage_activity.event_attendance_check_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="js_class">button_in_tree</attribute>
+            </xpath>
+        </field>
+      </record>
      
 </odoo>

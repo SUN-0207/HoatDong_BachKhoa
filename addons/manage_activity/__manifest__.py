@@ -26,12 +26,15 @@
         'views/event_registration_views.xml',
         'views/event_registration_history_views.xml',
         'wizard/event_registration_wizard_views.xml',
+        'wizard/event_attendance_check_wizard_views.xml',
         'views/event_tags.xml',
         'views/event_menuitem.xml'
     ],
     'assets': {
        'web.assets_backend': [
             'manage_activity/static/src/js/event_name.js',
+            'manage_activity/static/src/js/attendance_modal.js',
+            'manage_activity/static/src/xml/attendance_button.xml',
             'manage_activity/static/src/scss/kanban.scss',
             'manage_activity/static/src/scss/list.scss',
             'manage_activity/static/src/scss/event_form.scss',
