@@ -40,7 +40,7 @@
       </record>
 
       <record id="event_attendance_check_inherit_js_class" model="ir.ui.view">
-        <field name="name">sale.order.tree.inherit</field>
+        <field name="name">event.registration.check.tree.inherit</field>
         <field name="model">event.registration</field>
         <field name="inherit_id" ref="manage_activity.event_attendance_check_tree_view"/>
         <field name="arch" type="xml">

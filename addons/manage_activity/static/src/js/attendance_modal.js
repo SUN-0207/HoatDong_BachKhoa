@@ -7,6 +7,9 @@ export class SaleListController extends ListController {
        super.setup();
    }
    OnTestClick() {
+      console.log(this)
+      console.log(this.event_id)
+
        this.actionService.doAction({
           type: 'ir.actions.act_window',
           res_model: 'event.attendance.check.wizard',
@@ -16,6 +19,9 @@ export class SaleListController extends ListController {
           views: [[false, 'form']],
           target: 'new',
           res_id: false,
+          context: {
+            event_id: event_id
+          }
       });
    }
 }
