@@ -4,13 +4,13 @@
         <field name="name">event_attendace_check.view.tree</field>
         <field name="model">event.registration</field>
         <field name="arch" type="xml">
-          <tree string="Diem danh hoat dong"  class="o_event_registration_view_tree">
+          <tree string="Diem danh hoat dong"  class="diem_danh_tree" create="0" edit="0" delete="0" > 
               <field name="event_id" invisible="1" />
               <field name="time_check_attendace" string="Số lần điểm danh" />
               <field name="user_info_name" string="Họ tên" />
               <field name="user_info_mssv" string="MSSV" />
               <field name="write_date" string="Lần điểm danh gần nhất"/>
-              <button name="attendace" string="Điểm danh" type="object" class="btn btn-success"/>
+              <button name="attendace" string="Điểm danh" type="object" class="btn btn-outline-primary"/>
             </tree>
         </field>
       </record>

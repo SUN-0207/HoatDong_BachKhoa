@@ -5,15 +5,15 @@
     <field name="name">event.attendace.check.wizard.form</field>
     <field name="model">event.attendance.check.wizard</field>
     <field name="arch" type="xml">
-      <form>
+      <form class="diemdanh-wizard">
         <group>
+          <field name="event_id" invisible="1"/>
           <field name="mssv" string="MSSV"/>
-          <!-- <field name="name" /> -->
-
+          <field name="name_student" />
         </group>
         <footer>
           <button string="Điểm danh" name="attendance_check" type="object" default_focus="1" class="btn-primary"/>
-          <button string="Huỷ" class="btn-default" special="cancel"/>
+          <button string="Đóng cửa sổ" name="close_wizard" type="object" class="btn-default"/>
         </footer>
       </form>
     </field>

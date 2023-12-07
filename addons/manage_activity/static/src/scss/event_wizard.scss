@@ -35,3 +35,24 @@ header {
     }
 
 }
+
+.diem_danh_tree {
+    button[name="attendace"] {
+        margin-left: 24% !important;
+        font-weight: 500 !important;
+        background: #7BA94F;
+        border: solid 2px #7BA94F !important;
+        color: white !important;
+        transition: all 150ms ease-in-out;
+    }
+
+    button[name="attendace"]:hover {
+        background-color: white;
+        color: #7BA94F !important;
+    }
+}
+
+// Tam thoi xoa cai dau X cua may cai wizzard
+.btn-close {
+    visibility: hidden;
+}

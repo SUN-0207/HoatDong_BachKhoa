@@ -8,9 +8,9 @@ export class SaleListController extends ListController {
    }
    OnTestClick() {
       console.log(this)
-      console.log(this.event_id)
+      console.log(this.props.context.active_id)
 
-       this.actionService.doAction({
+      this.actionService.doAction({
           type: 'ir.actions.act_window',
           res_model: 'event.attendance.check.wizard',
           name:'Điểm danh sinh viên tham gia',
@@ -20,7 +20,8 @@ export class SaleListController extends ListController {
           target: 'new',
           res_id: false,
           context: {
-            event_id: event_id
+            'default_event_id': this.props.context.active_id,
+            'default_num_a': this.props.context.active_id,
           }
       });
    }
