@@ -1,0 +1,42 @@
+@media (max-width: 767px) {
+    .o_search_panel {
+        display: none;
+    }
+
+    .o_list_renderer {
+        margin: 0;
+        overflow: scroll !important;
+    }
+
+    .o_control_panel {
+        .o_cp_top {
+            display: flex;
+            justify-content: space-between;
+        }
+    
+        .o_searchview .o_searchview_input {
+            width: 100% !important;
+        }
+
+        .o_cp_bottom {
+            margin-top: 1rem;
+        }
+    }
+    
+}
+
+@media (max-width: 700px) {
+    
+}
+
+@media (max-width: 576px) {
+    
+}
+
+@media (max-width: 478px) {
+    div.o_cp_button_left {
+        .o_list_buttons {
+            margin: .8rem 0;
+        }
+    }
+}
