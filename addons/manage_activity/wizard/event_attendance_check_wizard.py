@@ -11,33 +11,30 @@ class EventAttendanceCheckWizard(models.TransientModel):
          
     @api.depends('mssv')
     def find_name(self):
-        for record in self:
-            if record.mssv:
-                record.name_student = ""
-                res = (self.env['event.registration'].search([('event_id','=', self.event_id.id)]))
-                for regis in res:
-                    if regis.user_info_mssv == record.mssv:
-                        record.name_student = regis.user_info_name
+        self.ensure_one()
+        if self.mssv:
+            registration = self.env['event.registration'].search([('event_id','=', self.event_id.id),('user_info_mssv','=', self.mssv)],limit=1)
+            if registration:
+                self.name_student = registration.user_info_name
+                self.attendance_check()
             else:
-                record.name_student = "Sinh viên chưa đăng ký hoạt động này!"
-
-
+                self.name_student = "Sinh viên chưa đăng ký hoạt động này!"
+        else:
+            self.name_student = "Sinh viên chưa đăng ký hoạt động này!"
 
     def attendance_check(self):
         self.ensure_one()
-        res = (self.env['event.registration'].search([('event_id','=', self.event_id.id)]))
-        print(self.mssv)
-        for regis in res:
-            if(regis.user_info_mssv == self.mssv):
-                regis.write({'time_check_attendace': regis.time_check_attendace + 1})
-                self.env['event.attendance.check'].create({
-                    'event_id': self.event_id.id,
-                    'registration_id': regis.id,
-                    'time_check': regis.time_check_attendace
-                })
-                self.mssv = ""
-                return self.notify_success()
-        return self.notify_fail()      
+        registration = self.env['event.registration'].search([('event_id','=', self.event_id.id),('user_info_mssv','=', self.mssv)],limit=1)
+        if registration:
+            registration.write({'time_check_attendace': registration.time_check_attendace + 1})
+            self.env['event.attendance.check'].create({
+                'event_id': self.event_id.id,
+                'registration_id': registration.id,
+                'time_check': registration.time_check_attendace
+            })
+            self.mssv = ""
+        else:
+            self.name_student = "Sinh viên chưa đăng ký hoạt động này!"
 
     def close_wizard(self):
         return {
