@@ -31,7 +31,6 @@ class EventRegistration(models.Model):
         if registration.state != 'draft':
           raise ValidationError("Chỉ áp dụng đối với sinh viên có trạng thái là ĐĂNG KÝ")
         registration.sudo().action_confirm()
-      print("Success")
       
     @api.model
     def search_read(self, domain=None, fields=None, offset=0, limit=None, order=0):
@@ -43,23 +42,19 @@ class EventRegistration(models.Model):
             record['can_action_on_registration'] = True
           else:
             record['can_action_on_registration'] = False
-      print(records)
       return records
       
     @api.model
     def create(self,vals):
-      print("Create Registration", vals)
       current_event_registration_count = self.search_count([('event_id','=',vals['event_id'])])
       vals['sequence_number'] = current_event_registration_count + 1
       return super(EventRegistration, self).create(vals)
     
     @api.model
     def write(self,vals):
-      print("Before Update Registration", vals)
       if('time_check_attendace' in vals):
         if(vals['time_check_attendace'] >= self.event_id.min_attendance_check):
           vals['state'] = 'done'
-      print("After Update Registration", vals)
         
       return super(EventRegistration, self).write(vals)
     

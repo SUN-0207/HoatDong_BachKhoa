@@ -160,8 +160,6 @@ class UserInfo(models.Model):
 
   def write(self, vals):
     if not self.env.user.sudo().has_group('manage_user_info.group_hcmut_department_admin') and self.env.user.id != self.user_id.id:
-      print(self.env.user.id)
-      print(self.user_id.id)
       raise AccessDenied(_("Bạn không có quyền truy cập vào thông tin này"))
     if 'states' not in vals:
       vals['states'] = 'done'
@@ -210,14 +208,10 @@ class UserInfo(models.Model):
     view_id = self.env.ref('manage_user_info.user_info_view_form') 
     
     current_user_info = self.env['user.info'].search([('user_id', '=', self.env.uid)],limit=1)
-    print(current_user_info)
     if not current_user_info:
-      print("======================================")
       current_user_info = self.env['user.info'].sudo().create({
         'user_id': self.env.uid
       })
-      
-    print(current_user_info)
       
     return {
         'name': 'Personal Information',
@@ -324,20 +318,11 @@ class ResUsers(models.Model):
     elif not re.match(pattern, login_email):
         raise AccessDenied(_("Đăng nhập với tài khoản email đuôi là @hcmut.edu.vn"))
     
-    print('===================================')
-    print('Create')
-    print(vals)
-    print('===================================')
     return super(ResUsers, self).create(vals)
 
   def write(self, vals):
     res = super(ResUsers, self).write(vals)
 
-    print('===================================')
-    print('Update')
-    print(vals)
-    print('===================================')
-    
     for user in self:
       for menu in user.hide_menu_ids:
           menu.write({
