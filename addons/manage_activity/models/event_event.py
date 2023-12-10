@@ -67,7 +67,8 @@ class EventEvent(models.Model):
   duyet_nhanh = fields.Char(string='Duyệt nhanh')
   
   auto_confirm = fields.Boolean('Tự động duyệt sinh viên', default=True, help=False)
-  
+  min_attendance_check = fields.Integer('Số lần điểm danh tối thiểu', default=1, required=True)
+
   def open_list_event(self):
     action = {
       'name': 'Quản lý hoạt động',
@@ -147,8 +148,6 @@ class EventEvent(models.Model):
   @api.depends('event_type_id')
   def _check_auto_accept_activity(self):
     for record in self:
-      print(record.event_type_id)
-      print(record.event_type_id.auto_accept_activity)
       if record.event_type_id :
         record.auto_accept_activity = record.event_type_id.auto_accept_activity
         record.max_social_point = record.event_type_id.max_social_working_day 
@@ -238,11 +237,6 @@ class EventEvent(models.Model):
               ticket_id[2].update({'event_department_id': exist_info.event_department_id.id})
               ticket_id[2].update({'event_info_major_id': exist_info.event_info_major_id.id})
 
-    print(ticket_new)
-    print(ticket_update)
-    print(ticket_deleted)
-    print(ticket_existed)
-
     exist_ticket_info = []
     # Get the exist info of ticket 
     for exist in ticket_existed:
@@ -321,8 +315,6 @@ class EventEvent(models.Model):
   def create(self, vals):
     if not vals:
         vals = {}
-    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Vals before create event: ', vals)
-    
     self._validation_ticket_services(vals)
     # Create the record
     # if 'auto_accept_activity' in vals and vals['auto_accept_activity'] == True:
@@ -330,10 +322,6 @@ class EventEvent(models.Model):
     if 'event_type_id' in vals and vals['event_type_id'] != False:
       type_id = vals['event_type_id']
       event_type = self.env['event.type'].search([('id', '=', type_id)])
-      print(event_type)
-      print(event_type.event_registed)
-      print(event_type.is_available)
-      print(event_type.auto_accept_activity)
       if event_type.is_available:
         if event_type.auto_accept_activity:
           vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Đã duyệt')]).id
@@ -352,14 +340,12 @@ class EventEvent(models.Model):
       generated_uuid_model.create({'uuid': new_uuid})
       break
 
-    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Vals after create event: ', vals)
     record = super(EventEvent, self).create(vals)
         
     return record
     
   def write(self, vals):
     self.ensure_one()
-    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Before update event: ', vals)  
     self._validation_ticket_services(vals)
   
     if 'event_type_id' in vals:
@@ -377,8 +363,6 @@ class EventEvent(models.Model):
     #change_stage
     if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung' and 'is_show_for_current_user' not in vals:
       vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Chờ duyệt')]).id
-   
-    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Update event: ', vals)
    
     return super(EventEvent, self).write(vals)
 

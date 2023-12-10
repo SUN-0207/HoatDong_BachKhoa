@@ -5,8 +5,11 @@ class EventRegistration(models.Model):
     _inherit = ['event.registration']
               
     user_info_id = fields.Many2one('user.info', string='Thông tin')
+    user_info_name = fields.Char(related='user_info_id.name')
+    user_info_mssv = fields.Char(string='MSSV', related='user_info_id.student_id')
     user_department_id = fields.Many2one('user.info.department', string='Đơn vị', related='user_info_id.user_info_department_id',readonly=True, store=True)
     
+    time_check_attendace = fields.Integer('So lan diem danh', default=0)
     state_temp = fields.Selection([
         ('draft', 'Đăng ký'), ('cancel', 'Từ chối'),
         ('open', 'Chấp nhận'), ('done', 'Đã tham gia')],
@@ -28,7 +31,6 @@ class EventRegistration(models.Model):
         if registration.state != 'draft':
           raise ValidationError("Chỉ áp dụng đối với sinh viên có trạng thái là ĐĂNG KÝ")
         registration.sudo().action_confirm()
-      print("Success")
       
     @api.model
     def search_read(self, domain=None, fields=None, offset=0, limit=None, order=0):
@@ -40,19 +42,40 @@ class EventRegistration(models.Model):
             record['can_action_on_registration'] = True
           else:
             record['can_action_on_registration'] = False
-      print(records)
       return records
       
     @api.model
     def create(self,vals):
-      print("Create Registration", vals)
       current_event_registration_count = self.search_count([('event_id','=',vals['event_id'])])
       vals['sequence_number'] = current_event_registration_count + 1
       return super(EventRegistration, self).create(vals)
     
     @api.model
     def write(self,vals):
-      print("Update Registration", vals)
+      if('time_check_attendace' in vals):
+        if(vals['time_check_attendace'] >= self.event_id.min_attendance_check):
+          vals['state'] = 'done'
+        
       return super(EventRegistration, self).write(vals)
     
+    def attendace(self):
+        self.time_check_attendace += 1
+        self.write({'time_check_attendace': self.time_check_attendace})
+        
+        AttendanceCheckRecord = self.env['event.attendance.check']
+        new_record = AttendanceCheckRecord.create({
+            'event_id': self.event_id.id,
+            'registration_id': self.id,
+            'time_check': self.time_check_attendace
+        })
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Thành công',
+                'message': 'Điểm danh thành công',
+                'type': 'success',
+                'sticky': False,
+            },
+        }
           
