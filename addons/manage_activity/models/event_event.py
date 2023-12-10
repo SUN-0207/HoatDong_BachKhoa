@@ -67,7 +67,8 @@ class EventEvent(models.Model):
   duyet_nhanh = fields.Char(string='Duyệt nhanh')
   
   auto_confirm = fields.Boolean('Tự động duyệt sinh viên', default=True, help=False)
-  
+  min_attendance_check = fields.Integer('Số lần điểm danh tối thiểu', default=1, required=True)
+
   def open_list_event(self):
     action = {
       'name': 'Quản lý hoạt động',
