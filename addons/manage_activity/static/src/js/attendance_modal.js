@@ -8,7 +8,6 @@ export class SaleListController extends ListController {
    }
    OnTestClick() {
       console.log(this)
-      console.log(this.props.context.active_id)
 
       this.actionService.doAction({
           type: 'ir.actions.act_window',
@@ -31,3 +30,4 @@ registry.category("views").add("button_in_tree", {
    Controller: SaleListController,
    buttonTemplate: "button_sale.ListView.Buttons",
 });
+

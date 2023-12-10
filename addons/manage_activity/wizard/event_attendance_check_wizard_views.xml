@@ -8,12 +8,12 @@
       <form class="diemdanh-wizard">
         <group>
           <field name="event_id" invisible="1"/>
+          <field name="name_student" string="Thông báo"/>
           <field name="mssv" string="MSSV"/>
-          <field name="name_student" />
         </group>
         <footer class="d-flex justify-content-end">
-          <button string="Điểm danh" name="attendance_check" type="object" default_focus="1" class="btn-primary" invisible="1" />
-          <button string="Đóng cửa sổ" name="close_wizard" type="object" class="btn btn-primary"/>
+          <button string="Điểm danh" name="attendance_check" type="object" default_focus="1" class="btn-primary" id="submit"  />
+          <button string="Đóng cửa sổ" name="close_wizard" type="object" class="btn btn-primary" default_focus="0" />
         </footer>
       </form>
     </field>
