@@ -28,7 +28,6 @@ class EventRegistration(models.Model):
         if registration.state != 'draft':
           raise ValidationError("Chỉ áp dụng đối với sinh viên có trạng thái là ĐĂNG KÝ")
         registration.sudo().action_confirm()
-      print("Success")
       
     @api.model
     def search_read(self, domain=None, fields=None, offset=0, limit=None, order=0):

@@ -10,5 +10,4 @@ class IrHttp(models.AbstractModel):
     @classmethod
     def _get_translation_frontend_modules_name(cls):
         modules = super()._get_translation_frontend_modules_name()
-        print("Have insert")
         return modules + ["web_save_discard_button"]

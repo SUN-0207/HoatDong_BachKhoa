@@ -20,12 +20,10 @@ class UserSuperAdmin(models.Model):
   
   def write(self,vals):
     res = super(UserSuperAdmin, self).write(vals)
-    print('update')
     return res
   
   def unlink(self):
     for admin in self:
-      print(admin)
       user = self.env['res.users'].search([('login','=',admin.email)],limit=1)
       if user:
         user.unlink()
