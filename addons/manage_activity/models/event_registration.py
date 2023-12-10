@@ -73,4 +73,14 @@ class EventRegistration(models.Model):
             'registration_id': self.id,
             'time_check': self.time_check_attendace
         })
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Thành công',
+                'message': 'Điểm danh thành công',
+                'type': 'success',
+                'sticky': False,
+            },
+        }
           
