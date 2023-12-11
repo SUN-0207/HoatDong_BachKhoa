@@ -37,8 +37,34 @@ header {
 }
 
 .diem_danh_tree {
+    th{
+        background-color: #ffffff;
+    }
+    th:nth-child(2) ~ *,
+    th.o_list_number_th{
+        z-index: -10 !important;
+    }
+    th.o_list_button::after {
+        content: "Điểm danh";
+        position: absolute !important;
+        top: 25% !important;
+        left: 30% !important;
+    }
+
+    .o_list_button{
+        width: 100px  !important;
+        position: sticky;
+        left: 0;
+        z-index: 1 !important;
+        background-color: #ffffff;
+    }
+    .o_list_view .o_data_cell:nth-child(2){
+        position: sticky !important;
+        z-index: 0 !important;
+    }
+
     button[name="attendace"] {
-        margin-left: 24% !important;
+        margin-left: 40% !important;
         font-weight: 500 !important;
         background: #7BA94F;
         border: solid 2px #7BA94F !important;
@@ -52,7 +78,3 @@ header {
     }
 }
 
-// Tam thoi xoa cai dau X cua may cai wizzard
-.btn-close {
-    visibility: hidden;
-}

@@ -162,25 +162,6 @@
                                 <div class="row">
                                     <field name="event_ticket_ids" invisible="1" />
                                     <div class="col-12 py-1 px-5 flex-row justify-content-center">
-                                        <span>
-                                            <strong>Đối tượng tham gia: </strong>
-                                            <t t-if="record.is_for_all_students.raw_value === false">
-                                                Giới hạn sinh viên tham gia
-                                            </t >
-                                            <t t-if="record.is_for_all_students.raw_value === true">
-                                                    Dành cho toàn bộ sinh viên
-                                            </t>
-
-                                        </span>
-                                        <!--
-                                                  <t t-if="record.event_ticket_ids">
-                                                    <ul>
-                                                        <t t-foreach="record.event_ticket_ids.raw_value" t-as="ticket_id">
-                                                             <t t-set="ticket" t-value="env['event.event.ticket'].browse(ticket_id) if ticket_id else None"/> 
-                                                        </t>
-                                                    </ul>
-                                                 </t>
-                                                -->
                                     </div>
                                 </div>
 

@@ -29,8 +29,9 @@
                             context="{'search_default_expected': True}"
                             class="oe_stat_button"
                             icon="fa-users"
-                            help="Total Registrations for this Event">
-                        <field name="seats_expected" widget="statinfo" string="Attendees"/>
+                            help="Total Registrations for this Event"
+                            string="Người tham gia">
+                        <field name="seats_expected" widget="statinfo"  string="Người tham gia"/>
                     </button>
                     <button name="%(act_event_attendance_check_from_event)d" type="action" class="oe_stat_button" icon="fa-check-square-o" context="{'active_id': active_id}">
                         <span class="o_stat_text">

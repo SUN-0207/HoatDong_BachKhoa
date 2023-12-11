@@ -5,7 +5,19 @@
     <field name="name">Thông tin Đơn vị</field>
     <field name="res_model">user.info.department</field>
     <field name="view_mode">tree,form</field>
+    <field name="context">{'search_default_available_pick':1}</field>
     <field name="limit">15</field>
+  </record>
+
+  <record id="user_info_search" model="ir.ui.view">
+    <field name="name">user.info.department</field>
+    <field name="model">user.info.department</field>
+    <field name="arch" type="xml">
+      <search position="inside">
+        <field name="name"/>
+        <filter name="available_pick" string="Khả dụng" domain="[('show_student_form','=',True)]"  />
+      </search>
+    </field>
   </record>
 
   <data>
@@ -38,10 +50,10 @@
       <field name="name">user.info.department.tree</field>
       <field name="model">user.info.department</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree >
           <field name="name"/>
           <field name="code"/>
-          <field name="show_student_form" invisible="1"/>            
+          <field name="show_student_form" />            
           <field name="major_count"/>
         </tree>
       </field>
