@@ -12,7 +12,7 @@
               <field name="user_info_name" string="Họ và tên" />
               <field name="user_info_mssv" string="MSSV" />
               <field name="write_date" string="Lần tương tác gần nhất" />
-              <button invisible="1" name="attendace" string="Xóa lần điểm danh gần nhất" type="object" class="btn btn-outline-danger" attrs="{'invisible': [('can_action_on_registration','=',False)]}" />
+              <button name="delele_latest_check" string="Xóa lần điểm danh gần nhất" type="object" class="btn btn-outline-danger" attrs="{'invisible': [('can_action_on_registration','=',False)]}" />
             </tree>
         </field>
       </record>
@@ -23,10 +23,12 @@
         <field name="arch" type="xml">
           <tree string="Lich su Diem danh hoat dong"  class="o_event_registration_view_tree">
               <field name="event_id" invisible="1" />
-              <field name="time_check" />
-              <field name="user_info_name" string="Họ tên"/>
+              <field name="type_action" class="action_check"/>
+              <field name="time_check" string="Lần thứ" class="times_check"/>
+              <field name="user_info_name" string="Họ và tên"/>
               <field name="user_info_mssv"  string="MSSV" />
-              <field name="create_date" string="Điểm danh lúc" />
+              <field name="create_date" string="Thao tác lúc" />
+              <field name="create_uid" string="Thao tác bởi" />
             </tree>
         </field>
       </record>

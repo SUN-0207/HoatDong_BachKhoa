@@ -11,3 +11,4 @@ class EventAttendanceCheck(models.Model):
     user_info_mssv = fields.Char(related='registration_id.user_info_mssv')
 
     time_check = fields.Integer(string='Điểm danh lần thứ')
+    type_action = fields.Char(string="Hành động")
