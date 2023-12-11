@@ -545,6 +545,15 @@ class EventEvent(models.Model):
                 raise ValidationError('Không được nhập quá số ngày CTXH của nhóm hoạt động này')
             if self.max_tranning_point and self.max_tranning_point > self.event_type_id.max_training_point:
                 raise ValidationError('Không được nhập quá ĐRL của nhóm hoạt động này')
+
+  @api.onchange('attach_file')
+  def onchange_attach_file(self):
+        for attachment in self.attach_file:
+            if attachment.mimetype not in ['image/jpeg', 'image/png', 'application/pdf']:
+                raise ValidationError("Chỉ nhận file hình ảnh và PDF")
+
+            if attachment.file_size > 1048576:  # 1MB = 1,048,576 bytes
+                raise ValidationError("Chỉ nhận file nhỏ hơn 1MB")
 class SeeInfoWizard(models.TransientModel):
     _name = 'see.info.wizard'
     _description = 'See Info Wizard'

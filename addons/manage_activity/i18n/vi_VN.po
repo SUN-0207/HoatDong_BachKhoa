@@ -110,7 +110,7 @@ msgstr ""
 #. module: manage_activity
 #: model:ir.model.fields,field_description:manage_activity.field_event_event__attach_file
 msgid "Attachments"
-msgstr "Tập tin (chỉ nhận PDF)"
+msgstr "Chỉ nhận file hình ảnh và PDF"
 
 #. module: manage_activity
 #: model_terms:ir.ui.view,arch_db:manage_activity.event_event_form_inherit
