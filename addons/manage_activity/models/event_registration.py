@@ -55,10 +55,24 @@ class EventRegistration(models.Model):
       if('time_check_attendace' in vals):
         if(vals['time_check_attendace'] >= self.event_id.min_attendance_check):
           vals['state'] = 'done'
-        
+          vals['state_temp'] = 'done'
+        else:
+          vals['state'] = 'open'
+          vals['state_temp'] = 'open'
       return super(EventRegistration, self).write(vals)
     
+    def action_set_done(self):
+      self.write({'state': 'done'})
+      self.time_check_attendace = self.event_id.min_attendance_check
+      self.env['event.attendance.check'].create({
+            'event_id': self.event_id.id,
+            'registration_id': self.id,
+            'time_check': self.time_check_attendace,
+            'type_action': 'Xác nhận tham gia '
+        })
+
     def attendace(self):
+        self.ensure_one()
         self.time_check_attendace += 1
         self.write({'time_check_attendace': self.time_check_attendace})
         
@@ -66,16 +80,27 @@ class EventRegistration(models.Model):
         new_record = AttendanceCheckRecord.create({
             'event_id': self.event_id.id,
             'registration_id': self.id,
-            'time_check': self.time_check_attendace
+            'time_check': self.time_check_attendace,
+            'type_action': 'Điểm danh '
         })
-        return {
-            'type': 'ir.actions.client',
-            'tag': 'display_notification',
-            'params': {
-                'title': 'Thành công',
-                'message': 'Điểm danh thành công',
-                'type': 'success',
-                'sticky': False,
-            },
-        }
+      
+
+    def delele_latest_check(self):
+        self.ensure_one()
+        latest_check = self.env['event.attendance.check'].search([
+            ('registration_id', '=', self.id),
+            ('time_check', '=', self.time_check_attendace)
+        ], order='id desc', limit=1)
+       
+        if latest_check:
+            # latest_check.unlink() track lich su thi khong nen unlink
+            self.env['event.attendance.check'].create({
+              'event_id': self.event_id.id,
+              'registration_id': self.id,
+              'time_check': self.time_check_attendace,
+              'type_action': 'Xóa điểm danh '
+              })
+            self.time_check_attendace -= 1
+            self.write({'time_check_attendace': self.time_check_attendace})
+
           
