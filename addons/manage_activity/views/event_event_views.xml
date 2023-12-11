@@ -204,7 +204,7 @@
                     </page>
                 </notebook>
                 <group string="Minh chứng">
-                  <field  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  string="Đính kèm tệp" name="attach_file" widget="many2many_binary" />
+                  <field  string="Đính kèm tệp" name="attach_file" widget="many2many_binary" />
                 </group>
             </sheet>
          
