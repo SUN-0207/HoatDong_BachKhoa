@@ -98,8 +98,31 @@
 
                 <field string="All students: " name="is_for_all_students" invisible="1"/>
 
-                <group string="Thiết lập hoạt động">
-                  <group>
+                <group string="Thiết lập hoạt động" class="custom_event_group_container">
+                  <div class="custom_event_group">
+                    <div>
+                      <label for="max_social_point">Số ngày CTXH tối đa</label>
+                      <field name="max_social_point"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" class="mini-field"/>
+                    </div>
+
+                    <div>
+                      <label for="max_tranning_point">ĐRL tối đa</label>
+                      <field name="max_tranning_point"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" class="mini-field"/>
+                    </div>
+
+                    <div>
+                      <label for="min_attendance_check">Số lần điểm danh tối thiểu</label>
+                      <field name="min_attendance_check" class="mini-field"/>
+                    </div>
+
+                    <div>
+                      <label for="auto_confirm">Tự động duyệt</label>
+                      <field name="auto_confirm" attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" style="width:1rem;"/>   
+                    </div>
+                  </div>
+                  <field name="auto_accept_activity" invisible="1"/>                 
+                  <field name="seats_max" class="oe_inline o_input_9ch mini-field" invisible="1"/> 
+                  <!-- <group>
                     <group>
                     <field name="max_social_point"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" class="mini-field"/>
                     </group>
@@ -125,9 +148,9 @@
                         </span>
                       </div>
                     </group>
-                  </group>
-                 
+                  </group> -->
                 </group>
+
                 <group>
                   <group string="Quản lý hoạt động" name="right_event_details" >
                     <field name="organizer_id" invisible="1"/>
@@ -144,7 +167,7 @@
                  
                   </group>
                   <div class="o_row ">
-                    <button nolabel="1" name="see_info_user_response" type="object" class=" btn btn-link" string="Xem thông tin liên hệ người phụ trách" />
+                    <button nolabel="1" name="see_info_user_response" type="object" class="btn btn-link" string="Xem thông tin liên hệ người phụ trách" style="padding-left:0px!important;"/>
                   </div>
                 </group>
                   <notebook>
