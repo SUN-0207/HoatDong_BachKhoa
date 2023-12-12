@@ -63,8 +63,8 @@
 
     .mini-field {
 
-        #seats_max, #max_social_point, #max_tranning_point {
-            width: 5rem !important;
+        #max_social_point, #max_tranning_point, #min_attendance_check {
+            width: 4rem !important;
             border: none !important;
             border-bottom: 2px solid #dbdbdb !important;
             border-radius: 0 !important;
@@ -73,7 +73,7 @@
             padding-left: 0;
         }
 
-        #seats_max:focus, #max_social_point:focus, #max_tranning_point:focus {
+        #max_social_point:focus, #max_tranning_point:focus, #min_attendance_check:focus {
             outline: none;
             border-radius: 0 !important;
             border-bottom: 2px solid #4a9bff !important;
@@ -99,10 +99,10 @@
     div.event-name-group {
         display: flex !important;
         position: relative;
-        height: 45px;
+        width: 100%;
 
         .o_field_widget {
-            width: 55rem;
+            width: 100%;
         }
 
         & + .event-name-group {
@@ -157,7 +157,13 @@
             box-shadow: 0 2px 0 0 rgb(0, 167, 0);
         }
           
-        
+        button[name='see_info_user_response'] {
+            padding-left: 0 !important;
+        }
+
+        .o_wrap_label > label[for='auto_confirm'] {
+            width:10rem;
+        }
     }
 
     // Attendees btn
@@ -183,6 +189,25 @@
             }
         }
     }
+
+    div[name='auto_confirm'] {
+        width: 1rem;
+        .form-check-input {
+            width: 1rem;
+        }
+    }
+
+    .auto_confirm {
+        div.o_wrap_label {
+            width: 10rem;
+        }
+    }
+
+    // .min_attendance_check {
+    //     div.o_wrap_label {
+    //         width: 15rem !important;
+    //     }
+    // }
 
 }
 
