@@ -61,6 +61,21 @@ button.o_btn_cancel_registration {
 .times_check{
     width: 50px !important;
 }
+
+// FIXED COLUMN WIDTH
+.user_activity_tree[data-id="name"] {
+    max-width: 200px;
+}
+
+.user_activity_tree {
+    .tree_activity_name {
+        max-width: 250px !important;
+    }
+
+    .event_of_department {
+        max-width: 200px;
+    }
+  
 .action_check{
     width: 100px !important;
 }
