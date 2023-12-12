@@ -118,7 +118,11 @@
                       <field name="max_tranning_point"/>
                     </div>
                   </div>
-
+                  
+                  <div class="d-flex flex-row gap-3">
+                    <button nolabel="1" name="see_info_user_response" type="object" class=" btn btn-link" string="Xem thông tin liên hệ người phụ trách" />
+                  </div>
+               
                   <div group="manage_user_info.group_hcmut_user" attrs="{'invisible': [('status_activity','!=','open_registration')]}">
                     <div class='d-flex flex-column justify-content-between align-item-end register-event-footer'>
                       <div style="width:100%;height:1px;background-color:#f2f2f2;"></div>
