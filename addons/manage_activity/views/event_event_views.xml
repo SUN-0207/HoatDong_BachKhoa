@@ -112,7 +112,7 @@
 
                     <div>
                       <label for="min_attendance_check">Số lần điểm danh tối thiểu</label>
-                      <field name="min_attendance_check" class="mini-field"/>
+                      <field name="min_attendance_check" attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" class="mini-field"/>
                     </div>
 
                     <div>
