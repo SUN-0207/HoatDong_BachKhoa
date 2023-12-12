@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+      <record id="event_attendance_check_search_view" model="ir.ui.view">
+        <field name="name">event.registration.attendance.search</field>
+        <field name="model">event.registration</field>
+        <field name="arch" type="xml">
+          <search string="Search Event Attendance">
+            <field name="name" string="Họ và tên"/>
+            <field name="time_check_attendace" string="Số lần" />
+         </search>
+        </field>
+      </record>
+
+
       <record id="event_attendance_check_tree_view" model="ir.ui.view">
         <field name="name">event_attendace_check.view.tree</field>
         <field name="model">event.registration</field>
