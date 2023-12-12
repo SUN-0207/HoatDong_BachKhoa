@@ -1,12 +1,12 @@
 
 // Tam thoi add bang scss cho head tile in grid
-th.o_list_button {
+// th.o_list_button {
   
-    &::before {
-      content: "Thao tác "; // Set the content of the pseudo-element to the header name
-     // Position the pseudo-element absolutely within the <th> element
-     position: absolute !important;
-     top: 34% !important;
-     left: 30% !important;
-    }
-  }
+//     &::before {
+//       content: "Thao tác "; // Set the content of the pseudo-element to the header name
+//      // Position the pseudo-element absolutely within the <th> element
+//      position: absolute !important;
+//      top: 34% !important;
+//      left: 30% !important;
+//     }
+//   }

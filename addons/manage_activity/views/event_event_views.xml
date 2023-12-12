@@ -29,8 +29,9 @@
                             context="{'search_default_expected': True}"
                             class="oe_stat_button"
                             icon="fa-users"
-                            help="Total Registrations for this Event">
-                        <field name="seats_expected" widget="statinfo" string="Attendees"/>
+                            help="Total Registrations for this Event"
+                            string="Người tham gia">
+                        <field name="seats_expected" widget="statinfo"  string="Người tham gia"/>
                     </button>
                     <button name="%(act_event_attendance_check_from_event)d" type="action" class="oe_stat_button" icon="fa-check-square-o" context="{'active_id': active_id}">
                         <span class="o_stat_text">
@@ -50,13 +51,14 @@
                 <field name="legend_done" invisible="1"/>
                 <widget name="web_ribbon" text="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
 
-                <div class="d-flex flex-row justify-content-between" style="margin-top:3rem;margin-bottom:4rem;">
-                  <div class="event-name-group">         
-                      <field class="fs-1 event-name-field" name="name" placeholder=" " widget="event_name"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"/>
+                <div class="d-flex flex-row justify-content-between" style="margin-top:3rem;margin-bottom:2rem;">
+                  <div class="event-name-group">
                       <label for="name" attrs="{'invisible': [('stage_name', '=', 'Đã duyệt')]}">Tên hoạt động</label>
+                      <field class="fs-1 event-name-field" name="name" placeholder="Tên hoạt động" widget="event_name"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"/>
+                      <!-- <label for="name" attrs="{'invisible': [('stage_name', '=', 'Đã duyệt')]}">Tên hoạt động</label> -->
                       <script type="text/javascript" src="/manage_activity/static/src/js/event_name.js"></script>
                   </div>
-                  <div class="col-4 text-end px-3">
+                  <div class="text-end" style="width:0px; padding:0 !important;">
                     <!-- <label for="created_by_name" string="Tạo bởi"/>  -->
                     <field name="created_by_name" readonly="1" invisible="1" />
                   </div>
@@ -93,28 +95,49 @@
                     <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
                     <field attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  name="date_end" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'date_begin'}"/>
                   </div>
-                  
-                
                 </group>
-                <group string="Thiết lập hoạt động">
-                  <group>
+
+                <field string="All students: " name="is_for_all_students" invisible="1"/>
+
+                <group string="Thiết lập hoạt động" class="custom_event_group_container">
+                  <div class="custom_event_group">
+                    <div>
+                      <label for="max_social_point">Số ngày CTXH tối đa</label>
+                      <field name="max_social_point"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" class="mini-field"/>
+                    </div>
+
+                    <div>
+                      <label for="max_tranning_point">ĐRL tối đa</label>
+                      <field name="max_tranning_point"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" class="mini-field"/>
+                    </div>
+
+                    <div>
+                      <label for="min_attendance_check">Số lần điểm danh tối thiểu</label>
+                      <field name="min_attendance_check" attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" class="mini-field"/>
+                    </div>
+
+                    <div>
+                      <label for="auto_confirm">Tự động duyệt</label>
+                      <field name="auto_confirm" attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" style="width:1rem;"/>   
+                    </div>
+                  </div>
+                  <field name="auto_accept_activity" invisible="1"/>                 
+                  <field name="seats_max" class="oe_inline o_input_9ch mini-field" invisible="1"/> 
+                  <!-- <group>
                     <group>
                     <field name="max_social_point"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" class="mini-field"/>
                     </group>
                     <group>
                       <field name="max_tranning_point"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" class="mini-field"/>
                     </group>
-                    <group>
-                      <field string="All students: " name="is_for_all_students" invisible="1"/>
-                    </group>
                   </group>
                   <group>
-                    <group>
+                    <group class="min_attendance_check">
                       <field name="min_attendance_check" class="mini-field"/>
                       <field name="auto_accept_activity" invisible="1"/>                 
                     </group>
-                    <group>
-                      <field name="auto_confirm" string="Tự động duyệt sinh viên" attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" />   
+                    <group class="auto_confirm">
+                      <field name="auto_confirm" string="Tự động duyệt" attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}" style="width:1rem;"/>   
                     </group>
                     <group invisible="1">
                       <label for="seats_limited" string="Giới hạn tham gia" />
@@ -126,8 +149,10 @@
                         </span>
                       </div>
                     </group>
-                  </group> 
+                  </group> -->
+                </group>
 
+                <group>
                   <group string="Quản lý hoạt động" name="right_event_details" >
                     <field name="organizer_id" invisible="1"/>
                       <field name="auto_accept_activity"  invisible="1" />
@@ -139,16 +164,12 @@
                    
                   </group>
                   <group string="">
-                    <field  name="department_of_create_user" string="Hoạt động của đơn vị"
-                    invisible="1" 
-                    groups="manage_user_info.group_hcmut_department_admin"
-                    options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>  
+                    
                  
                   </group>
                   <div class="o_row ">
-                    <button nolabel="1" name="see_info_user_response" type="object" class=" btn btn-link" string="Xem thông tin liên hệ người phụ trách" />
+                    <button nolabel="1" name="see_info_user_response" type="object" class="btn btn-link" string="Xem thông tin liên hệ người phụ trách" style="padding-left:0px!important;"/>
                   </div>
-                 
                 </group>
                   <notebook>
                     <page string="Giới hạn tham gia" name="tickets" >
@@ -203,7 +224,7 @@
                     </page>
                 </notebook>
                 <group string="Minh chứng">
-                  <field  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"  string="Đính kèm tệp" name="attach_file" widget="many2many_binary" />
+                  <field  string="Đính kèm tệp" name="attach_file" widget="many2many_binary" />
                 </group>
             </sheet>
          
@@ -255,7 +276,7 @@
             <!-- Show-->
             <field name="name" string='Tên hoạt động' class="tree_activity_name"/>
             <field name="event_code"/>
-            <field name="department_of_create_user" string='Hoạt động của đơn vị' />
+            <field name="department_of_create_user" string='Hoạt động của đơn vị' class="event_of_department"/>
             <field name="formatted_date_regis_range"/>
             <field name="formatted_date_start_range"/>
 

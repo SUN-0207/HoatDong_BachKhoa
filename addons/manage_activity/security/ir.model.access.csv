@@ -7,3 +7,6 @@ access_generated_uuid,access_generated_uuid,model_generated_uuid,base.group_user
 access_department_coop_event,access_department_coop_event,model_department_coop_event,base.group_user,1,1,1,1
 access_event_attendance_check,access_event_attendace_check,model_event_attendance_check,base.group_user,1,1,1,0
 access_event_attendance_check_wizard,access_event_attendace_check_wizard,model_event_attendance_check_wizard,base.group_user,1,1,1,1
+access_event_tag_category,access.event.tag.category,model_event_tag_category,base.group_user,1,1,1,1
+access_event_tag,access.event.tag,model_event_tag,base.group_user,1,1,1,1
+access_event_type,access.event.type,model_event_type,base.group_user,1,1,1,1
