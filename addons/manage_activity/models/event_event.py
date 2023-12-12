@@ -157,7 +157,7 @@ class EventEvent(models.Model):
   @api.depends('registration_ids')
   def _compute_accept_registration(self):
     for activity in self:
-      filtered_registrations = activity.registration_ids.filtered(lambda r: r.state == 'open')
+      filtered_registrations = activity.registration_ids.filtered(lambda r: (r.state == 'open' or r.state == 'done'))
       activity.accept_registration = len(filtered_registrations)
   
   @api.depends('registration_ids')
