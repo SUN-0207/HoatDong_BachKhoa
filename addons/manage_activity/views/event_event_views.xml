@@ -275,7 +275,7 @@
             <!-- Show-->
             <field name="name" string='Tên hoạt động' class="tree_activity_name"/>
             <field name="event_code"/>
-            <field name="department_of_create_user" string='Hoạt động của đơn vị' />
+            <field name="department_of_create_user" string='Hoạt động của đơn vị' class="event_of_department"/>
             <field name="formatted_date_regis_range"/>
             <field name="formatted_date_start_range"/>
 
