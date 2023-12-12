@@ -7,8 +7,6 @@ export class SaleListController extends ListController {
        super.setup();
    }
    OnTestClick() {
-      console.log(this)
-
       this.actionService.doAction({
           type: 'ir.actions.act_window',
           res_model: 'event.attendance.check.wizard',
