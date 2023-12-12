@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+      <record id="event_attendance_check_search_view" model="ir.ui.view">
+        <field name="name">event.registration.attendance.search</field>
+        <field name="model">event.registration</field>
+        <field name="arch" type="xml">
+          <search string="Search Event Attendance">
+            <field name="name" string="Họ và tên"/>
+            <field name="time_check_attendace" string="Số lần" />
+         </search>
+        </field>
+      </record>
+
+
       <record id="event_attendance_check_tree_view" model="ir.ui.view">
         <field name="name">event_attendace_check.view.tree</field>
         <field name="model">event.registration</field>
@@ -7,12 +19,12 @@
           <tree string="Diem danh hoat dong"  class="diem_danh_tree" create="0" edit="0" delete="0" > 
             <field name="event_id" invisible="1" />
             <field name="can_action_on_registration" invisible="1" />
-              <button name="attendace" type="object" class="btn btn-outline-primary" attrs="{'invisible': [('can_action_on_registration','=',False)]}" icon="fa-check"/>
+              <button name="attendace" title="Điểm danh" type="object" class="btn btn-outline-primary" attrs="{'invisible': [('can_action_on_registration','=',False)]}" icon="fa-check"/>
+              <button name="delele_latest_check" icon="fa-times" title="Xóa lần điểm danh gần nhất" type="object" class="btn btn-outline-danger" attrs="{'invisible': [('can_action_on_registration','=',False)]}" />
               <field name="time_check_attendace" string="Số lần" class="times_check"/>
               <field name="user_info_name" string="Họ và tên" />
               <field name="user_info_mssv" string="MSSV" />
               <field name="write_date" string="Lần tương tác gần nhất" />
-              <button invisible="1" name="attendace" string="Xóa lần điểm danh gần nhất" type="object" class="btn btn-outline-danger" attrs="{'invisible': [('can_action_on_registration','=',False)]}" />
             </tree>
         </field>
       </record>
@@ -23,10 +35,12 @@
         <field name="arch" type="xml">
           <tree string="Lich su Diem danh hoat dong"  class="o_event_registration_view_tree">
               <field name="event_id" invisible="1" />
-              <field name="time_check" />
-              <field name="user_info_name" string="Họ tên"/>
+              <field name="type_action" class="action_check"/>
+              <field name="time_check" string="Lần thứ" class="times_check"/>
+              <field name="user_info_name" string="Họ và tên"/>
               <field name="user_info_mssv"  string="MSSV" />
-              <field name="create_date" string="Điểm danh lúc" />
+              <field name="create_date" string="Thao tác lúc" />
+              <field name="create_uid" string="Thao tác bởi" />
             </tree>
         </field>
       </record>

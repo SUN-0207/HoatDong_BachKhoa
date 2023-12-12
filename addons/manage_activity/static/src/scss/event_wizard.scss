@@ -44,15 +44,17 @@ header {
     th.o_list_number_th{
         z-index: -10 !important;
     }
-    th.o_list_button::after {
-        content: "Điểm danh";
-        position: absolute !important;
-        top: 25% !important;
-        left: 30% !important;
-    }
+    // th.o_list_button:first-child
+    //     {
+    //     content: "Điểm danh";
+    //     position: absolute !important;
+    //     top: 25% !important;
+    //     left: 30% !important;
+    // }
 
-    .o_list_button{
-        width: 100px  !important;
+    .o_list_button
+    {
+        width: 170px  !important;
         position: sticky;
         left: 0;
         z-index: 1 !important;
@@ -76,5 +78,20 @@ header {
         background-color: white;
         color: #7BA94F !important;
     }
+
+    button[name="delele_latest_check"] {
+        font-weight: 500 !important;
+        background-color: #cf4137;
+        border: solid 2px #cf4137 !important;
+        color: white !important;
+        transition: all 150ms ease-in-out;
+    }
+
+    button[name="delele_latest_check"]:hover {
+        background-color: white;
+        color: #cf4137 !important;
+        border: solid 2px #cf4137 !important;
+    }
+    
 }
 
