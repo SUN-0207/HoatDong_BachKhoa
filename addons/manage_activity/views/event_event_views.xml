@@ -52,9 +52,10 @@
                 <widget name="web_ribbon" text="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
 
                 <div class="d-flex flex-row justify-content-between" style="margin-top:3rem;margin-bottom:2rem;">
-                  <div class="event-name-group">         
-                      <field class="fs-1 event-name-field" name="name" placeholder=" " widget="event_name"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"/>
+                  <div class="event-name-group">
                       <label for="name" attrs="{'invisible': [('stage_name', '=', 'Đã duyệt')]}">Tên hoạt động</label>
+                      <field class="fs-1 event-name-field" name="name" placeholder="Tên hoạt động" widget="event_name"  attrs="{'readonly': [('stage_name', '=', 'Đã duyệt')]}"/>
+                      <!-- <label for="name" attrs="{'invisible': [('stage_name', '=', 'Đã duyệt')]}">Tên hoạt động</label> -->
                       <script type="text/javascript" src="/manage_activity/static/src/js/event_name.js"></script>
                   </div>
                   <div class="text-end" style="width:0px; padding:0 !important;">

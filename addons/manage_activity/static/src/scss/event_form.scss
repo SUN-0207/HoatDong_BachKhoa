@@ -128,31 +128,39 @@
             margin-top: 30px;
         }
 
+        // ---------- temp turn off transformation ----------
+        flex-direction: column;
         label {
-            position: absolute;
-            left: 0;
-            top: 0px;
-            color: #999 !important;
-            // background-color: #fff;
-            background-color: none;
-            z-index: 10;
-            transition: transform 150ms ease-out, font-size 150ms ease-out, font-color 150ms ease-out;
-            font-size: 2rem;
-        }
-
-        &:focus-within label {
-            transform: translateY(-90%) !important;
             font-size: medium !important;
             margin-bottom: 5px;
             color: #023e8a !important; 
         }
 
-        div.has_name + label{
-            transform: translateY(-90%) !important;
-            font-size: medium !important;
-            margin-bottom: 5px;
-            color: #023e8a !important;
-        }
+        // label {
+        //     position: absolute;
+        //     left: 0;
+        //     top: 0px;
+        //     color: #999 !important;
+        //     // background-color: #fff;
+        //     background-color: none;
+        //     z-index: 10;
+        //     transition: transform 150ms ease-out, font-size 150ms ease-out, font-color 150ms ease-out;
+        //     font-size: 2rem;
+        // }
+
+        // &:focus-within label {
+        //     transform: translateY(-90%) !important;
+        //     font-size: medium !important;
+        //     margin-bottom: 5px;
+        //     color: #023e8a !important; 
+        // }
+
+        // div.has_name + label{
+        //     transform: translateY(-90%) !important;
+        //     font-size: medium !important;
+        //     margin-bottom: 5px;
+        //     color: #023e8a !important;
+        // }
 
         .o_input {
             border: none !important;
