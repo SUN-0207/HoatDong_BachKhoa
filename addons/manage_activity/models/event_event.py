@@ -425,7 +425,7 @@ class EventEvent(models.Model):
   def see_info_user_response(self):
     self.ensure_one()
     return {
-        'name': self.user_response.name,
+        'name': "Thông tin người phụ trách",
         'type': 'ir.actions.act_window',
         'res_model': 'see.info.wizard',
         'view_mode': 'form',
@@ -433,8 +433,8 @@ class EventEvent(models.Model):
         'view_id': self.env.ref('manage_activity.view_form_see_info_wizard').id,
         'target': 'new',
         'context': {
-            'default_user_response_phone': self.user_response.phone_number,
-            'default_user_response_email': self.user_response.user_id.email,
+            'default_user_response_phone': self.user_response_phone,
+            'default_user_response_email': self.user_response_email,
         },
     }
 

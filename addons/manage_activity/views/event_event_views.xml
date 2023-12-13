@@ -323,8 +323,8 @@
                   <field name="user_response_phone"/>
                   <field name="user_response_email"/>
               </group>
-              <footer>
-                  <button string="Close" class="btn-secondary" special="cancel"/>
+              <footer class="d-flex justify-content-end">
+                  <button string="Đóng" class="btn-secondary" special="cancel"/>
               </footer>
           </form>
       </field>
