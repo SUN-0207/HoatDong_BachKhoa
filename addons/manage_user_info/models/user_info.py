@@ -90,21 +90,17 @@ class UserInfo(models.Model):
     pattern = r'^0?\d{7}$'
     domain = [('is_year_active', '=', True)]
     year = ""
+    
     if self.student_id :
       if not self.student_id.isdigit() or not re.match(pattern, self.student_id):
             raise ValidationError(_('MSSV không hợp lệ. MSSV chỉ chấp nhận số và có độ dài là 7. Vui lòng kiểm tra lại! '))
       year_prefix = self.student_id[:2]
       year = str(int(year_prefix) + 2000)
-      if self.user_info_class_id and self.user_info_class_id.year_id.name != year:
-        self.user_info_class_id = self.env['user.info.class']
+      
       self.user_info_academy_year = self.env['user.info.year'].search([('name', '=', year)], limit=1)
-    if self.user_info_major_id:
-        domain.append(('major_id', '=', self.user_info_major_id.id))
-    if self.user_info_academy_year:
-      if self.user_info_academy_year.is_enable:
-        domain.append(('year_id', '=', self.user_info_academy_year.id))
-      else:
-        domain = [('year_id', '=', 0)]
+
+    domain.append(('is_year_active','=', True))
+    domain.append(('major_id', 'in', self.user_info_department_id.major_ids.ids))
     
     self.user_info_class_id = False
     return {
