@@ -14,12 +14,12 @@ class EventRegistration(models.Model):
         ('draft', 'Đăng ký'), ('cancel', 'Từ chối'),
         ('open', 'Chấp nhận'), ('done', 'Đã tham gia')],
         string='Trạng thái', default='draft', readonly=True, tracking=True, compute='_compute_state')
+ 
+    sequence_number = fields.Integer(string='Số thứ tự', store=True, exportable=False)
     
-    sequence_number = fields.Integer(string='Số thứ tự', store=True)
-    
-    can_action_on_registration = fields.Boolean(default=False)
-    ctxh_max = fields.Float(related='event_id.max_social_point')
-    drl_max = fields.Integer(related='event_id.max_tranning_point')
+    can_action_on_registration = fields.Boolean(default=False, exportable=False)
+    ctxh_max = fields.Float(related='event_id.max_social_point', exportable=False)
+    drl_max = fields.Integer(related='event_id.max_tranning_point', exportable=False)
 
     ctxh = fields.Float(compute='_compute_ctxh', store=True, digits=(16, 1))
     drl = fields.Integer(compute='_compute_drl', store=True, string="ĐRL")
