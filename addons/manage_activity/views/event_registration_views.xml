@@ -8,7 +8,7 @@
     <field name="priority" eval="10"/>
     <field name="arch" type="xml">
       <xpath expr="//tree" position="replace">
-        <tree string="Registration" multi_edit="1" sample="1" expand="1" default_order="sequence_number asc" class="o_event_registration_view_tree">
+        <tree string="Registration" multi_edit="1" sample="1" expand="1" default_order="sequence_number asc" class="o_event_registration_view_tree" >
           <field name="can_action_on_registration" invisible="1"/>
           <header>
             <button name="multi_confirmation" string="Duyệt hàng loạt" type="object" class="btn btn-danger btn-md" />
@@ -21,6 +21,10 @@
           <field name="partner_id" optional="hide" invisible="1"/>
           <field name="email" />
           <field name="phone" string="Số điện thoại" />
+          
+          <field name="drl" string="ĐRL" />
+          <field name="ctxh" string="CTXH" />
+          <button type="object" icon="fa-edit" name="edit_ctxh_drl" />
           <field name="mobile" optional="hide" invisible="1"/>
           <field name="event_id" invisible="context.get('default_event_id')"/>
           <field name="event_ticket_id" domain="[('event_id', '=', event_id)]" optional="hide" invisible="1"/>

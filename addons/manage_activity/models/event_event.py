@@ -52,7 +52,7 @@ class EventEvent(models.Model):
   date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
   date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
   
-  max_social_point = fields.Integer(string="Số ngày CTXH tối đa", required=True)
+  max_social_point = fields.Float(string="Số ngày CTXH tối đa", required=True, digits=(16, 1))
   max_tranning_point = fields.Integer(string="ĐRL tối đa", required=True)
 
   description = fields.Text(string="Mô tả hoạt động", widget="html", required=True)

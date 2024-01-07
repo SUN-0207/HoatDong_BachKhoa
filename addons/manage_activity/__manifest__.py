@@ -27,6 +27,7 @@
         'views/event_registration_history_views.xml',
         'wizard/event_registration_wizard_views.xml',
         'wizard/event_attendance_check_wizard_views.xml',
+        'wizard/event_point_edit_wizard_view.xml',
         'views/event_tags.xml',
         'views/event_menuitem.xml'
     ],

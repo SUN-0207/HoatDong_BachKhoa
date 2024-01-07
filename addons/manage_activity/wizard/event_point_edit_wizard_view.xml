@@ -1,0 +1,28 @@
+<odoo>
+  <record id="event_point_edit_wizard_form" model="ir.ui.view"> 
+    <field name="name">event.point.edit.wizard.form</field>
+    <field name="model">event.point.edit.wizard</field>
+    <field name="arch" type="xml">
+      <form>
+        <group>
+          <group>
+            <field name="regis_id" invisible="1" />
+            <field name="event_name" readonly="1" string="Hoạt động"/>
+            <field name="sv_name" readonly="1" string="Sinh viên"/>
+          </group>
+          <group>
+            <field name="drl" string="ĐRL" />
+            <field name="ctxh" string="CTXH" />
+          </group>
+        </group>
+        <footer>
+          <button string="Cập nhật" name="confirm_edit" type="object" default_focus="1" class="btn-primary"/>
+          <button string="Huỷ" class="btn-default" special="cancel"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+
+
+
+</odoo>

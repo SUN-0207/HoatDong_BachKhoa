@@ -18,7 +18,37 @@ class EventRegistration(models.Model):
     sequence_number = fields.Integer(string='Số thứ tự', store=True)
     
     can_action_on_registration = fields.Boolean(default=False)
-    
+    ctxh_max = fields.Float(related='event_id.max_social_point')
+    drl_max = fields.Integer(related='event_id.max_tranning_point')
+
+    ctxh = fields.Float(compute='_compute_ctxh', store=True, digits=(16, 1))
+    drl = fields.Integer(compute='_compute_drl', store=True, string="ĐRL", digits=(16, 1))
+
+    @api.depends('ctxh_max')
+    def _compute_ctxh(self):
+        for record in self:
+            record.ctxh = record.ctxh_max
+
+    @api.depends('drl_max')
+    def _compute_drl(self):
+        for record in self:
+            record.drl = record.drl_max
+
+    def edit_ctxh_drl(self):
+      return {
+        'name': 'Cập nhật',
+        'type': 'ir.actions.act_window',
+        'view_mode': 'form',
+        'res_model': 'event.point.edit.wizard',
+        'view_id': False,
+        'target': 'new',
+        'context': {
+            'default_regis_id': self.id,
+            'default_ctxh':  self.ctxh,
+            'default_drl': self.drl
+        }
+      }
+
     @api.depends('state')
     def _compute_state(self):
       for registration in self:
@@ -52,6 +82,16 @@ class EventRegistration(models.Model):
     
     @api.model
     def write(self,vals):
+      if('ctxh' in vals):
+        if(vals['ctxh'] < 0 ):
+          raise ValidationError('CTXH cập nhật phải là số dương')
+        if(vals['ctxh'] > self.ctxh_max):
+          raise ValidationError('Không thể cập nhật số ngày CTXH lớn hơn CTXH tối đa của hoạt động đã thiết lập!')
+      if('drl' in vals):
+        if(vals['drl'] < 0 ):
+          raise ValidationError('ĐRL cập nhật phải là số dương')
+        if(vals['drl'] > self.drl_max):
+          raise ValidationError('Không thể cập nhật ĐRL lớn hơn ĐRL tối đa của hoạt động đã thiết lập!')    
       if('time_check_attendace' in vals):
         if(vals['time_check_attendace'] >= self.event_id.min_attendance_check):
           vals['state'] = 'done'
