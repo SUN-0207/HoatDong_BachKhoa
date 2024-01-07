@@ -48,7 +48,6 @@ class EventEvent(models.Model):
               record.user_response_phone = False
               record.user_response_email = False
 
-
   date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
   date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
   
@@ -68,6 +67,12 @@ class EventEvent(models.Model):
   
   auto_confirm = fields.Boolean('Tự động duyệt sinh viên', default=True, help=False)
   min_attendance_check = fields.Integer('Số lần điểm danh tối thiểu', default=1, required=True)
+
+  def unlink(self):
+    registrations = self.env['event.registration'].search([('event_id', 'in', self.ids)])
+    print('Xoa cac dang ky: ',registrations)
+    registrations.unlink()
+    return super(EventEvent, self).unlink()
 
   def open_list_event(self):
     action = {
