@@ -111,7 +111,6 @@ class EventEvent(models.Model):
      
     return action   
     
-
   user_current_registed_event = fields.Boolean(string="User hiện tại đã đăng ký", default=False)
   user_current_state_registration_event = fields.Selection([
         ('draft', 'Đã đăng ký'), ('cancel', 'Từ chối'),
@@ -381,7 +380,7 @@ class EventEvent(models.Model):
           raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
     
     #change_stage
-    if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung' and 'is_show_for_current_user' not in vals:
+    if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung' and 'is_show_for_current_user' not in vals and 'user_current_registed_event' not in vals:
       vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Chờ duyệt')]).id
    
     return super(EventEvent, self).write(vals)
