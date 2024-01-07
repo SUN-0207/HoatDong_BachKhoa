@@ -69,10 +69,25 @@ class EventEvent(models.Model):
   min_attendance_check = fields.Integer('Số lần điểm danh tối thiểu', default=1, required=True)
 
   def unlink(self):
-    registrations = self.env['event.registration'].search([('event_id', 'in', self.ids)])
-    print('Xoa cac dang ky: ',registrations)
-    registrations.unlink()
-    return super(EventEvent, self).unlink()
+    return self.action_confirm_event_deletion()
+  
+  def action_confirm_event_deletion(self):
+        if self._context.get('confirm_delete', True):
+            registrations = self.env['event.registration'].search([('event_id', 'in', self.ids)])
+            if registrations:
+              print('Xoa cac dang ky: ',registrations)
+              registrations.unlink()
+            
+            return super(EventEvent, self).unlink()
+        else:
+            return {
+                'name': 'Xác nhận',
+                'type': 'ir.actions.act_window',
+                'views': [(False, 'form')],
+                'res_model': 'event.event',
+                'target': 'new',
+                'context': {'confirm_delete': False},
+            }
 
   def open_list_event(self):
     action = {

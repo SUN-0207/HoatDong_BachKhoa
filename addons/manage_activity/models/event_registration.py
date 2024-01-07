@@ -22,7 +22,7 @@ class EventRegistration(models.Model):
     drl_max = fields.Integer(related='event_id.max_tranning_point')
 
     ctxh = fields.Float(compute='_compute_ctxh', store=True, digits=(16, 1))
-    drl = fields.Integer(compute='_compute_drl', store=True, string="ĐRL", digits=(16, 1))
+    drl = fields.Integer(compute='_compute_drl', store=True, string="ĐRL")
 
     @api.depends('ctxh_max')
     def _compute_ctxh(self):
