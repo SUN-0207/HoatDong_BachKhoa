@@ -48,11 +48,10 @@ class EventEvent(models.Model):
               record.user_response_phone = False
               record.user_response_email = False
 
-
   date_begin_registration = fields.Datetime(string='Ngày bắt đầu đăng ký', required=True, tracking=True)
   date_end_registration = fields.Datetime(string='Ngày kết thúc đăng ký', required=True, tracking=True)
   
-  max_social_point = fields.Integer(string="Số ngày CTXH tối đa", required=True)
+  max_social_point = fields.Float(string="Số ngày CTXH tối đa", required=True, digits=(16, 1))
   max_tranning_point = fields.Integer(string="ĐRL tối đa", required=True)
 
   description = fields.Text(string="Mô tả hoạt động", widget="html", required=True)
@@ -68,6 +67,27 @@ class EventEvent(models.Model):
   
   auto_confirm = fields.Boolean('Tự động duyệt sinh viên', default=True, help=False)
   min_attendance_check = fields.Integer('Số lần điểm danh tối thiểu', default=1, required=True)
+
+  def unlink(self):
+    return self.action_confirm_event_deletion()
+  
+  def action_confirm_event_deletion(self):
+        if self._context.get('confirm_delete', True):
+            registrations = self.env['event.registration'].search([('event_id', 'in', self.ids)])
+            if registrations:
+              print('Xoa cac dang ky: ',registrations)
+              registrations.unlink()
+            
+            return super(EventEvent, self).unlink()
+        else:
+            return {
+                'name': 'Xác nhận',
+                'type': 'ir.actions.act_window',
+                'views': [(False, 'form')],
+                'res_model': 'event.event',
+                'target': 'new',
+                'context': {'confirm_delete': False},
+            }
 
   def open_list_event(self):
     action = {
@@ -91,7 +111,6 @@ class EventEvent(models.Model):
      
     return action   
     
-
   user_current_registed_event = fields.Boolean(string="User hiện tại đã đăng ký", default=False)
   user_current_state_registration_event = fields.Selection([
         ('draft', 'Đã đăng ký'), ('cancel', 'Từ chối'),
@@ -361,7 +380,7 @@ class EventEvent(models.Model):
           raise ValidationError('Đã vượt quá giới hạn của nhóm hoạt động này')
     
     #change_stage
-    if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung' and 'is_show_for_current_user' not in vals:
+    if 'stage_id' not in vals and self.stage_id.name == 'Bổ sung' and 'is_show_for_current_user' not in vals and 'user_current_registed_event' not in vals:
       vals['stage_id'] = self.env['event.stage'].search([('name', '=', 'Chờ duyệt')]).id
    
     return super(EventEvent, self).write(vals)
