@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <template id="my_account_link" name="Link to frontend portal" inherit_id="portal.user_dropdown">
+            
+            <xpath expr="//a[@id='o_backend_user_dropdown_link']" position="replace">
+                <a groups="base.group_user" href="/web" role="menuitem" class="dropdown-item ps-3" id="o_backend_user_dropdown_link">
+                    <i class="fa fa-fw fa-th me-1 small text-muted"/> Quản lý thông tin
+                </a>
+            </xpath>
+
+            <xpath expr="//div[@id='o_logout_divider']" position="attributes">
+                <attribute name="style">display:none;</attribute>
+            </xpath>
+            <xpath expr="//a[@href='/my/home']" position="replace"/>
+        </template>
+    </data>
+</odoo>
