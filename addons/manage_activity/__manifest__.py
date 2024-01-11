@@ -11,9 +11,11 @@
         'web',
         'manage_user_info', 
         'event', 
+        'portal'
     ],
     "data": [
         'security/ir.model.access.csv',
+        'views/portal/portal_overider.xml',
         'data/event_data.xml',
         'views/event_attendance_check.xml',
         'views/event_attendees_views.xml',
