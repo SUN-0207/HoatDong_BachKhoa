@@ -40,7 +40,7 @@ class UserInfo(models.Model):
   national_id = fields.Char(string="Số CMND/CCCD")
   national_id_date = fields.Date(string="Ngày cấp")
   # national_id_place = fields.Selection(selection='_get_national_id_place_options', string='Nơi cấp')
-  national_id_place = fields.Many2one('user.national.place', 'Nơi cấp')
+  # national_id_place = fields.Many2one('user.national.place', 'Nơi cấp')
 
 
   joined_communist_party = fields.Boolean(default=False, string="Đã kết nạp Đảng")
@@ -55,17 +55,17 @@ class UserInfo(models.Model):
   joined_student_association = fields.Boolean(default=False, string="Đã kết nạp Hội")
   date_at_student_association = fields.Date(string="Ngày kết nạp Hội")
   
-  native_address = fields.Char(string="Native Address")
-  native_address_specific = fields.Char(string="Địa chỉ cụ thể")
-  province_id_native = fields.Many2one('user.province.info', 'Tỉnh/Thành phố')
-  district_id_native = fields.Many2one('user.district.info', 'Quận/Huyện', domain="[('province_id', '=', province_id_native)]")
-  ward_id_native = fields.Many2one('user.ward.info', 'Phường/Xã', domain="[('district_id', '=', district_id_native)]")
+  # native_address = fields.Char(string="Native Address")
+  # native_address_specific = fields.Char(string="Địa chỉ cụ thể")
+  # province_id_native = fields.Many2one('user.province.info', 'Tỉnh/Thành phố')
+  # district_id_native = fields.Many2one('user.district.info', 'Quận/Huyện', domain="[('province_id', '=', province_id_native)]")
+  # ward_id_native = fields.Many2one('user.ward.info', 'Phường/Xã', domain="[('district_id', '=', district_id_native)]")
   
-  permanent_address = fields.Char(string="Permanent Address")
-  permanent_address_specific = fields.Char(string="Địa chỉ cụ thể")
-  province_id_permanent = fields.Many2one('user.province.info', 'Tỉnh/Thành phố')
-  district_id_permanent = fields.Many2one('user.district.info', 'Quận/Huyện', domain="[('province_id', '=', province_id_permanent)]")
-  ward_id_permanent = fields.Many2one('user.ward.info', 'Phường/Xã', domain="[('district_id', '=', district_id_permanent)]")
+  # permanent_address = fields.Char(string="Permanent Address")
+  # permanent_address_specific = fields.Char(string="Địa chỉ cụ thể")
+  # province_id_permanent = fields.Many2one('user.province.info', 'Tỉnh/Thành phố')
+  # district_id_permanent = fields.Many2one('user.district.info', 'Quận/Huyện', domain="[('province_id', '=', province_id_permanent)]")
+  # ward_id_permanent = fields.Many2one('user.ward.info', 'Phường/Xã', domain="[('district_id', '=', district_id_permanent)]")
 
   user_info_department_id = fields.Many2one('user.info.department', string='Đơn vị', readonly=True, store=True, compute='_compute_user_info_department')
   user_info_major_id = fields.Many2one('user.info.major',string='Ngành', store=True, domain="[('show_student_form', '=', True)]")

@@ -85,21 +85,21 @@
               <group string="Thông tin CMND/CCCD">
                 <field name="national_id" required="1" placeholder="Vui lòng điền"/>
                 <field name="national_id_date" placeholder="Theo định dạng dd/mm/yyyy" />
-                <field name="national_id_place" placeholder="Vui lòng điền" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                <!-- <field name="national_id_place" placeholder="Vui lòng điền" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/> -->
               </group>
 
-              <group string="Địa chỉ Tạm trú">
+              <!-- <group string="Địa chỉ Tạm trú">
                 <field name="province_id_native" placeholder="Vui lòng chọn" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="district_id_native" placeholder="Vui lòng chọn" domain="[('province_id', '=', province_id_native)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
                 <field name="ward_id_native" domain="[('district_id', '=', district_id_native)]" placeholder="Vui lòng chọn" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
                 <field name="native_address_specific" placeholder="Số nhà, Tên đường"/>
               </group>
-              <group string="Địa chỉ Thường trú">
+              <group string="Địa chỉ Thường trú"
                 <field name="province_id_permanent" placeholder="Vui lòng chọn" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="district_id_permanent" domain="[('province_id', '=', province_id_permanent)]" placeholder="Vui lòng chọn" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
                 <field name="ward_id_permanent" domain="[('district_id', '=', district_id_permanent)]" placeholder="Vui lòng chọn" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" />
                 <field name="permanent_address_specific" placeholder="Số nhà, Tên đường"/>
-              </group>
+              </group> -->
             </group>
 
             <group class="form-column">
