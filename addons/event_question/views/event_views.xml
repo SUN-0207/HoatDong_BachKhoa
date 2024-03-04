@@ -1,27 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- this part is used to create question for EVENT TEMPLATE -->
-    <!-- <record id="event_question_view" model="ir.ui.view">
-        <field name="name">event.type.view.form.inherit.question</field>
-        <field name="model">event.type</field>
-        <field name="inherit_id" ref="website_event.event_type_view_form"/>
-        <field name="arch" type="xml">
-            <page name="event_type_communication" position="after">
-                <page string="Questions">
-                     <field name="question_ids" class="w-100">
-                         <tree sample="1">
-                             <field name="title"/>
-                             <field name="is_mandatory_answer"/>
-                             <field name="once_per_order"/>
-                             <field name="question_type" />
-                             <field name="answer_ids" widget = "many2many_tags"/>
-                         </tree>
-                     </field>
-                </page>
-            </page>
-        </field>
-    </record> -->
-
     <record id="event_question_view_form" model="ir.ui.view">
         <field name="name">event.question.view.form</field>
         <field name="model">event.event</field>
@@ -38,7 +16,6 @@
                                 <field name="sequence" widget="handle" />
                                 <field name="title"/>
                                 <field name="is_mandatory_answer"/>
-                                <!-- <field name="once_per_order"/> -->
                                 <field name="question_type" string="Type" />
                                 <field name="answer_ids" widget="many2many_tags"
                                     attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}" />

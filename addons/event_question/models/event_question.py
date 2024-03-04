@@ -18,23 +18,6 @@ class EventQuestion(models.Model):
     sequence = fields.Integer(default=10)
     is_mandatory_answer = fields.Boolean('Mandatory Answer')
 
-    @api.constrains('event_type_id', 'event_id')
-    def _constrains_event(self):
-        if any(question.event_type_id and question.event_id for question in self):
-            raise UserError(_('Question cannot belong to both the event category and itself.'))
-
-    def write(self, vals):
-        """ We add a check to prevent changing the question_type of a question that already has answers.
-        Indeed, it would mess up the event.registration.answer (answer type not matching the question type). """
-
-        if 'question_type' in vals:
-            questions_new_type = self.filtered(lambda question: question.question_type != vals['question_type'])
-            if questions_new_type:
-                answer_count = self.env['event.registration.answer'].search_count([('question_id', 'in', questions_new_type.ids)])
-                if answer_count > 0:
-                    raise UserError(_("You cannot change the question type of a question that already has answers!"))
-        return super(EventQuestion, self).write(vals)
-
     @api.ondelete(at_uninstall=False)
     def _unlink_except_answered_question(self):
         if self.env['event.registration.answer'].search_count([('question_id', 'in', self.ids)]):

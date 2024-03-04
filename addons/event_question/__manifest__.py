@@ -1,7 +1,7 @@
 {
     "name": "Event Questions",
     "description": """Event custom questions""",
-    "summary": "Manage Activity's addon module",
+    "summary": "Event custom question addon module",
     "version": "16.0.2",
     'author': 'TST',
     'website': "https://www.odoo.com",
@@ -22,6 +22,7 @@
     ],
     'assets': {
        'web.assets_backend': [
+            'event_question/static/src/scss/styles.scss'
         ],
     },
     'license': 'LGPL-3',

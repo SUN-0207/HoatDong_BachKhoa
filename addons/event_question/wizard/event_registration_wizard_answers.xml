@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <data>
     <record id="event_registration_wizard_answer_view" model="ir.ui.view">
         <field name="name">event.registration.wizard.answer.view</field>
         <field name="model">event.registration.wizard.answer</field>
@@ -11,15 +12,23 @@
                     </h3>
                     <group>
                         <field name="question_type" invisible="1"/>
+                        <field name="multiple_choices" invisible="1"/>
                     </group>
                     
-                    <field name="value_text_box" attrs="{'invisible': [('question_type', '!=', 'text_box')]}" placeholder="Nhap cau tra loi"/>
+                    <field  name="value_text_box" 
+                            attrs="{'invisible': [('question_type', '!=', 'text_box')]}"
+                            placeholder="Nhap cau tra loi"
+                            class="custom_answer_textbox"
+                    />
+
+                    <field  name="multiple_choices" 
+                            attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}"
+                            widget="radio"
+                    />
                     
                 </sheet>
-                <footer>
-                    <!-- <button string="Xác nhận" name="" type="object" default_focus="1" class="btn-primary"/> -->
-                </footer>
             </form>
         </field>
     </record>
+    </data>
 </odoo>

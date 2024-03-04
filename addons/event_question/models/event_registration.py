@@ -24,6 +24,8 @@ class EventRegistrationAnswer(models.Model):
     value_answer_id = fields.Many2one('event.question.answer', string="Suggested answer")
     value_text_box = fields.Text('Text answer')
 
+    question_title = fields.Char(related='question_id.title', readonly=True)
+
     _sql_constraints = [
         ('value_check', "CHECK(value_answer_id IS NOT NULL OR COALESCE(value_text_box, '') <> '')", "There must be a suggested value or a text value.")
     ]
@@ -36,3 +38,8 @@ class EventRegistrationAnswer(models.Model):
              )
             for reg in self
         ]
+    
+    def close_wizard(self):
+        return {
+            'type': 'ir.actions.act_window_close'
+        }
