@@ -11,8 +11,9 @@
                         <field name="question_title" class="flex-grow-1"/>
                     </h3>
                     <group>
+                        <field name="question_id" invisible="1"/>
                         <field name="question_type" invisible="1"/>
-                        <field name="multiple_choices" invisible="1"/>
+                        <!-- <field name="multiple_choices" invisible="1"/> -->
                     </group>
                     
                     <field  name="value_text_box" 
@@ -21,11 +22,14 @@
                             class="custom_answer_textbox"
                     />
 
-                    <field  name="multiple_choices" 
+                    <field  name="multiple_choices_selection" 
                             attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}"
                             widget="radio"
                     />
                     
+                    <!-- <footer>
+                        <button name="action_save" type="object" string="XAc nhan" class="btn btn-primary"/>
+                    </footer> -->
                 </sheet>
             </form>
         </field>

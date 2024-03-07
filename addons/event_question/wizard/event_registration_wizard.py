@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models, api
 from odoo.exceptions import UserError, ValidationError
 
 class EventRegistrationWizard(models.TransientModel):
@@ -16,17 +16,26 @@ class EventRegistrationWizard(models.TransientModel):
             questions = event.question_ids
             question_answers = []
             for question in questions:
-                question_answers.append((0, 0, {
-                    'wizard_id': self.id,
-                    'question_id': question.id,  # Link the answer to the question
-                    'question_title': question.title,
-                    'question_type': question.question_type,
-                    'multiple_choices': question.answer_ids
-                }))
+                print("question id: ", question.id)
+                print("question title: ", question.title)
+                choices = []
+                for choice in question.answer_ids:
+                  choices.append((choice.id, choice.name))
+                question_answer = {
+                  'wizard_id': self.id,
+                  'question_id': question.id,
+                  'question_title': question.title,
+                  'question_type': question.question_type,
+                  # 'multiple_choices_selection': choices[0][0]
+                }
+
+                self.env['event.registration.wizard.answer'].create(question_answer)
+                question_answers.append((0,0,question_answer))
             
             res['question_answer_ids'] = question_answers
         return res
 
+    #override the register_event(): added answers from attendee
     def register_event(self):
       self.ensure_one()
       event_id = self.env.context['active_id']
@@ -66,7 +75,6 @@ class EventRegistrationWizard(models.TransientModel):
                   'event_ticket_id': ticket_id.id,
                   'phone': self.phone,
                   'user_info_id': self.env.user.user_info_id.id
-                #   'registration_answer_ids': '',
                 })
 
                 registration_id = self.env['event.registration'].search([('event_id','=',event_id), ('user_info_id','=',self.env.user.user_info_id.id)], limit=1)
@@ -80,6 +88,7 @@ class EventRegistrationWizard(models.TransientModel):
                         'value_text_box': answer.value_text_box,
                         'registration_id': registration_id.id
                     })
+                    print("questionid: ", answer.question_id.id)
 
                 if current_event.auto_confirm:
                   registration.sudo().action_confirm()
@@ -109,25 +118,15 @@ class EventRegistrationWizardAnswer(models.TransientModel):
     wizard_id = fields.Many2one('event.registration.wizard', string="Wizard")
     
     question_id = fields.Many2one('event.question', string="Question")  # to link to the question
+    
     question_title = fields.Char(related="question_id.title", readonly=True)
     question_type = fields.Selection(related="question_id.question_type", readonly=True)
-    multiple_choices = fields.One2many('event.question.answer', related="question_id.answer_ids")
+    # multiple_choices = fields.One2many('event.question.answer', related="question_id.answer_ids")
+    multiple_choices_selection = fields.Selection(selection=[], string="selection!!")
 
-    multiple_choices_selection =fields.Selection(string="selection!!", selection="_get_suggested_answers")
-
-    def _get_suggested_answers(self):
-        question = self.question_id
-        return [(answer.name, answer.name) for answer in question.answer_ids]
-
-    def _turn_one2many_into_selection(self):
-        # print("_turn_one2many_into_selection(): ", self.multiple_choices)
-        # question = self.env['event.question'].search([('id','=',self.question_id.id)],limit=1)
-        options = []
-        for choice in self.multiple_choices:
-            options.append((choice.id, choice.name))
-        return options
-
-    # multiple_choices_selection = fields.Selection(_turn_one2many_into_selection, string="Selction !!")
+    def _compute_suggested_answers(self):
+        choices = self.env['event.question.answer'].search([('question_id','=',self.question_id.id)])
+        return [(choice.id, choice.name) for choice in choices]
 
     value_answer_id = fields.Many2one('event.question.answer', string="Suggested answer")
     value_text_box = fields.Text(string="Text answer")
