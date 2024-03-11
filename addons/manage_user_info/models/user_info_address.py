@@ -1,5 +1,7 @@
 import requests
 from odoo import models, fields, api
+from vietnam_provinces.enums import ProvinceEnum, DistrictEnum
+from vietnam_provinces.enums.wards import WardEnum
 
 import logging
 
@@ -40,47 +42,48 @@ class UserWardInfo(models.Model):
   @api.model
   def import_location_data(self):
     _logger.info("Starting import_location_data function")
-    response = requests.get("https://provinces.open-api.vn/api/p/")
-    response.raise_for_status()
-    province_datas = response.json()
     
-    for province_data in province_datas:
-      response = requests.get(f"https://provinces.open-api.vn/api/p/{province_data['code']}?depth=3")
-      response.raise_for_status()
-      data = response.json()
+    # Get all provinces
+    provinces_data = ProvinceEnum.__members__.values()
+    
+    for province_data in provinces_data:
+      existing_province = self.env['user.province.info'].search([('code', '=', province_data.value.code)], limit=1)
       
-      province_code = province_data['code']
-      existing_province = self.env['user.province.info'].search([('code', '=', province_code)], limit=1)
-      
-      if not existing_province:      
+      if not existing_province:
         # Create Province
         province = self.env['user.province.info'].create({
-            'name': province_data['name'],
-            'code': province_data['code'],
-            'division_type': province_data['division_type'],
-            'codename': province_data['codename'],
-            'phone_code': province_data['phone_code'],
+            'name': province_data.value.name,
+            'code': province_data.value.code,
+            'division_type': province_data.value.division_type.value,
+            'codename': province_data.value.codename,
+            'phone_code': province_data.value.phone_code,
         })
         
-        # Create Districts
-        for district_data in data['districts']:
-            district = self.env['user.district.info'].create({
-                'name': district_data['name'],
-                'code': district_data['code'],
-                'division_type': district_data['division_type'],
-                'codename': district_data['codename'],
-                'province_id': province.id,
-            })
+        # Get districts of the province
+        districts_data = DistrictEnum.__members__.values()
+        
+        for district_data in districts_data:
+          if district_data.value.province_code == province_data.value.code:
+              district = self.env['user.district.info'].create({
+                  'name': district_data.value.name,
+                  'code': district_data.value.code,
+                  'division_type': district_data.value.division_type.value,
+                  'codename': district_data.value.codename,
+                  'province_id': province.id,
+              })
+              
+              # Get wards of the district
+              wards_data = [ward for ward in WardEnum if ward.value.district_code == district_data.value.code]
 
-            # Create Wards
-            for ward_data in district_data['wards']:
-                self.env['user.ward.info'].create({
-                    'name': ward_data['name'],
-                    'code': ward_data['code'],
-                    'division_type': ward_data['division_type'],
-                    'codename': ward_data['codename'],
-                    'district_id': district.id,
-                })
+              for ward_data in wards_data:
+                  if ward_data.value.district_code == district_data.value.code:
+                      self.env['user.ward.info'].create({
+                          'name': ward_data.value.name,
+                          'code': ward_data.value.code,
+                          'division_type': ward_data.value.division_type.value,
+                          'codename': ward_data.value.codename,
+                          'district_id': district.id,
+                      })
     
     _logger.info("Finished import_location_data function")
 
@@ -94,39 +97,14 @@ class UserNationalPlace(models.Model):
 
   @api.model
   def init(self):
-    response = requests.get("https://provinces.open-api.vn/api/p/")
-    response.raise_for_status()
-    province_datas = response.json()
+    # Get all provinces
+    provinces_data = ProvinceEnum.__members__.values()
     
-    province_datas.append({'name': 'Cục Cảnh sát quản lí hành chính về trật tự xã hội', 'codename':'ccs'})
-    
-    for province_data in province_datas:
-      codename = province_data['codename']
-      existing_province = self.env['user.national.place'].search([('codename', '=', codename)], limit=1)
-      
-      if not existing_province:      
-        province = self.env['user.national.place'].create({
-            'name': province_data['name'],
-            'codename': province_data['codename'],
-        })
+    for province_data in provinces_data:
+        existing_province = self.env['user.national.place'].search([('codename', '=', province_data.value.codename)], limit=1)
 
-  # @api.model
-  # def init(self):
-  #   national_places = []
-  #   national_places.append({'name': 'Cục Cảnh sát quản lí hành chính về trật tự xã hội', 'codename':'ccs'})
-
-  #   provinces = self.env['user.province.info'].search([])
-  #   for province in provinces:
-  #     national_places.append({'name': province['name'], 'codename': province['codename']})
-
-  #   for place in national_places:
-  #     codename = place['codename']
-  #     existing_place = self.env['user.national.place'].search([('codename', '=', codename)], limit=1)
-  #     if not existing_place:
-  #       try:
-  #         self.env['user.national.place'].create({
-  #           'name': place['name'],
-  #           'codename': place['codename']
-  #         })
-  #       except Exception as e:
-  #         pass
+        if not existing_province:
+            province = self.env['user.national.place'].create({
+                'name': province_data.value.name,
+                'codename': province_data.value.code,
+            })
