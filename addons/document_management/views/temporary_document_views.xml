@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="temporary_document_view_form" model="ir.ui.view">
+            <field name="name">temporary.document.view.form</field>
+            <field name="model">temporary.document</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="description" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="temporary_document_view_tree" model="ir.ui.view">
+            <field name="name">temporary.document.view.tree</field>
+            <field name="model">temporary.document</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name" />
+                    <field name="description" />
+                    <button name="get_document_url" string="Download Document" type="object" class="btn-primary"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_temporary_document" model="ir.actions.act_window">
+            <field name="name">Temporary Document</field>
+            <field name="res_model">temporary.document</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>
