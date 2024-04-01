@@ -16,17 +16,11 @@ class EventRegistrationWizard(models.TransientModel):
             questions = event.question_ids
             question_answers = []
             for question in questions:
-                print("question id: ", question.id)
-                print("question title: ", question.title)
-                choices = []
-                for choice in question.answer_ids:
-                  choices.append((choice.id, choice.name))
                 question_answer = {
                   'wizard_id': self.id,
                   'question_id': question.id,
                   'question_title': question.title,
                   'question_type': question.question_type,
-                  # 'multiple_choices_selection': choices[0][0]
                 }
 
                 self.env['event.registration.wizard.answer'].create(question_answer)
@@ -84,7 +78,7 @@ class EventRegistrationWizard(models.TransientModel):
                         'question_id': answer.question_id.id,
                         'event_id': event_id,
                         'question_type': answer.question_type,
-                        'value_answer_id': answer.value_answer_id,
+                        'value_answer_id': answer.value_answer_id.id,
                         'value_text_box': answer.value_text_box,
                         'registration_id': registration_id.id
                     })
@@ -117,19 +111,20 @@ class EventRegistrationWizardAnswer(models.TransientModel):
 
     wizard_id = fields.Many2one('event.registration.wizard', string="Wizard")
     
-    question_id = fields.Many2one('event.question', string="Question")  # to link to the question
+    question_id = fields.Many2one('event.question', string="Câu hỏi")  # to link to the question
     
     question_title = fields.Char(related="question_id.title", readonly=True)
     question_type = fields.Selection(related="question_id.question_type", readonly=True)
-    # multiple_choices = fields.One2many('event.question.answer', related="question_id.answer_ids")
-    multiple_choices_selection = fields.Selection(selection=[], string="selection!!")
+    # multiple_choices_selection = fields.Many2one('event.question.answer', string='Selections')
 
-    def _compute_suggested_answers(self):
-        choices = self.env['event.question.answer'].search([('question_id','=',self.question_id.id)])
-        return [(choice.id, choice.name) for choice in choices]
+    value_answer_id = fields.Many2one('event.question.answer', string="Câu trả lời trắc nghiệm")
+    value_text_box = fields.Text(string="Câu trả lời textbox")
+    isAnswered = fields.Boolean(compute='_compute_answered', required=True)
 
-    value_answer_id = fields.Many2one('event.question.answer', string="Suggested answer")
-    value_text_box = fields.Text(string="Text answer")
+    @api.depends('value_answer_id', 'value_text_box')
+    def _compute_answered(self):
+      for record in self:
+        record.isAnswered = bool(record.value_answer_id or record.value_text_box)
 
     def action_save(self):
         self.ensure_one()

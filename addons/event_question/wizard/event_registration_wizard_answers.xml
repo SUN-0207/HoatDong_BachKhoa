@@ -22,9 +22,10 @@
                             class="custom_answer_textbox"
                     />
 
-                    <field  name="multiple_choices_selection" 
+                    <field  name="value_answer_id"
                             attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}"
-                            widget="radio"
+                            domain="[('question_id','=',question_id)]"
+                            options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
                     />
                     
                     <!-- <footer>

@@ -7,46 +7,44 @@
         <field name="arch" type="xml">
             <data>
                 <page name="cooperate_department" position="after">
-                    <page string="Questions" name="questions">
-                        <field name="question_ids" string="Question" nolabel="1">
+                    <page string="Câu hỏi" name="questions">
+                        <field name="question_ids" string="Câu hỏi" nolabel="1">
                             <tree>
-                                <!-- <control>
+                                <control>
                                     <create string="Thêm câu hỏi bổ sung" />
-                                </control> -->
+                                </control>
                                 <field name="sequence" widget="handle" />
-                                <field name="title"/>
-                                <field name="is_mandatory_answer"/>
-                                <field name="question_type" string="Type" />
-                                <field name="answer_ids" widget="many2many_tags"
+                                <field name="title" string="Câu hỏi"/>
+                                <field name="question_type" string="Loại"/>
+                                <field name="answer_ids" widget="many2many_tags" string="Các lựa chọn (nếu có)"
                                     attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}" />
                                 <!-- <button name="action_view_question_answers" type="object" class="fa fa-bar-chart p-0" title="Answer Breakdown" /> -->
                             </tree>
                             <!-- Need to repeat the whole tree form here to be able to create answers properly
                                 Without this, the sub-fields of answer_ids are unknown to the web framework.
                                 We need this because we create questions and answers when the event type changes. -->
-                            <form string="Question">
+                            <form string="Câu hỏi">
                                 <sheet>
                                     <h1 class="d-flex"><field name="title" placeholder='e.g. "Do you have any diet restrictions?"' class="flex-grow-1"/></h1>
                                     <group>
-                                        <group>
-                                            <field name="is_mandatory_answer"/>
-                                            <field name="question_type" widget="radio" options="{'horizontal': true}"/>
+                                        <group>     
+                                            <field name="question_type" widget="radio" string="Loại câu hỏi" options="{'horizontal': true}"/>
                                         </group>
                                         <group>
                                             <!-- <field name="once_per_order"/> -->
                                         </group>
                                     </group>
                                     <notebook attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}">
-                                        <page string="Answers" name="answers">
+                                        <page string="Câu trả lời trắc nghiệm" name="answers">
                                             <field name="answer_ids">
-                                                <tree editable="bottom" create="1">
+                                                <tree editable="bottom" create="1" class="simple_choices">
                                                     <control>
                                                         <create string="Thêm câu trả lời" />
                                                     </control>
                                                     <!-- 'display_name' is necessary for the many2many_tags to work on the event view -->
+                                                    <field name="name" string="Lựa chọn"/>
+                                                    <field name="sequence" widget="handle" invisible="1"/>
                                                     <field name="display_name" invisible="1" />
-                                                    <field name="sequence" widget="handle" />
-                                                    <field name="name"/>
                                                 </tree>
                                             </field>
                                         </page>

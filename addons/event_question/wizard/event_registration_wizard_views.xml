@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-  <record id="event_registration_wizard__form_inherit" model="ir.ui.view">
+  <record id="event_registration_wizard_form_inherit" model="ir.ui.view">
     <field name="name">event.registration.wizard.form.inherit</field>
     <field name="model">event.registration.wizard</field>
     <field name="inherit_id" ref="manage_activity.event_registration_wizard_form"/>
@@ -22,18 +22,16 @@
                 <field name="major" readonly="True" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
               </group>
 
-              <!-- <group> -->
-                <field name="question_answer_ids">
-                    <tree create="0" delete="0">
-                        <field name="question_id" invisible="1"/>
-                        <field name="question_type" invisible="1"/>
-                        <field name="question_title"/>
-                        <!-- <field name="value_answer_id" domain="[('question_id', '=', parent.question_id)]" attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}" /> -->
-                        <field name="value_answer_id" domain="[('question_id', '=', parent.question_id)]" invisible="1" />
-                        <field name="value_text_box" attrs="{'invisible': [('question_type', '!=', 'text_box')]}" invisible="1"/>
-                    </tree>
-                </field>
-              <!-- </group> -->
+              <field name="question_answer_ids">
+                <tree create="0" delete="0">
+                    <field name="question_id" invisible="1"/>
+                    <field name="question_type" invisible="1"/>
+                    <field name="question_title"/>
+                    <!-- <field name="value_answer_id" domain="[('question_id', '=', parent.question_id)]" attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}" /> -->
+                    <field name="value_answer_id" domain="[('question_id', '=', parent.question_id)]"/>
+                    <field name="value_text_box" attrs="{'invisible': [('question_type', '!=', 'text_box')]}"/>
+                </tree>
+              </field>
             </group>
             <footer>
               <button string="Xác nhận" name="register_event" type="object" default_focus="1" class="btn-primary"/>
