@@ -16,5 +16,29 @@
             sequence="10"
         />
 
+        <menuitem
+            id="document_menu"
+            name="Van ban di"
+            action="action_document_list"
+            parent="document_management_menu"
+            sequence="10"
+        />
+ 
+        <menuitem
+            id="document_type_menu"
+            name="Loai van ban"
+            action="action_document_type"
+            parent="document_management_menu"
+            sequence="10"
+        />
+
+        <menuitem
+            id="document_number_book"
+            name="So van ban"
+            action="action_document_number_book"
+            parent="document_management_menu"
+            sequence="10"
+        />
+
     </data>
 </odoo>

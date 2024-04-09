@@ -9,7 +9,11 @@
     "depends": ['base','base_setup'],
     "data": [
         'security/ir.model.access.csv',
+        'data/document_data.xml',
         'views/temporary_document_views.xml',
+        'views/document_views.xml',
+        'views/document_type_views.xml',
+        'views/document_number_book_views.xml',
         'views/document_management_menuitem.xml'
     ],
     'license': 'LGPL-3',

@@ -9,8 +9,14 @@
                 <form string="">
                     <sheet>
                         <group>
-                            <field name="name" />
-                            <field name="description" />
+                            <field name="name" string="Tên văn bản"/>
+                            <field name="description" string="Mô tả"/>
+                            <field name="purpose" string="Mục đích"/>
+                            <field name="require" string="Yêu cầu"/>
+                            <field name="time" string="Thời gian"/>
+                            <field name="place" string="Địa điểm"/>
+                            <field name="object_participant" string="Đối tượng tham gia"/>
+                            <field name="content" string="Nội dung"/>
                         </group>
                     </sheet>
                 </form>
@@ -23,7 +29,6 @@
             <field name="arch" type="xml">
                 <tree string="">
                     <field name="name" />
-                    <field name="description" />
                     <button name="get_document_url" string="Download Document" type="object" class="btn-primary"/>
                 </tree>
             </field>
