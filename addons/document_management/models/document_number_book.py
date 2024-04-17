@@ -1,15 +1,16 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 class DocumentNumberBook(models.Model):
     _name = 'document.number.book'
     _description = 'Document Number Book'
     
-    type_id = fields.Many2one('document.type', string='The loai')
+    type_id = fields.Many2one('document.type', string='Thể loại')
     number_format_type = fields.Selection(
-        string='The thuc',
-        selection=[('DTN', 'Van ban Doan'), ('HSV', 'Van ban Hoi')]
+        string='Thể thức',
+        selection=[('DTN', 'Văn bản Đoàn'), ('HSV', 'Văn bản Hội')]
     )
-    current_number_document = fields.Integer(string='So luong van ban hien tai', default=0)
-    current_symbol_number = fields.Char(string='So ki hieu hien tai')
+    current_number_document = fields.Integer(string='Số lượng văn bản hiện tại', default=0)
+    current_symbol_number = fields.Char(string='Số kí hiệu hiện tại')
     
     user_id = fields.Many2one('res.users', string='User', readonly=True)
+    

@@ -9,8 +9,8 @@
                 <form string="">
                     <sheet>
                         <group>
-                            <field name="name" string="Tên văn bản" />
-                            <field name="short_name" string="Tên viet tat" />
+                            <field name="name" />
+                            <field name="short_name" />
                         </group>
                     </sheet>
                 </form>
@@ -23,7 +23,7 @@
             <field name="arch" type="xml">
                 <tree string="">
                     <field name="name" />
-                    <field name="short_name" string="Tên viet tat" />
+                    <field name="short_name" />
                 </tree>
             </field>
         </record>

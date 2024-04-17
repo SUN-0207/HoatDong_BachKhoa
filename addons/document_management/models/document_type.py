@@ -4,6 +4,5 @@ class DocumentType(models.Model):
     _name = 'document.type'
     _description = 'Document Type'
     
-    name = fields.Char(string='Ten')
-    short_name = fields.Char(string='Viet tat')
-    
+    name = fields.Char(string='Tên')
+    short_name = fields.Char(string='Viết tắt')

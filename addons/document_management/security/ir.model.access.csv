@@ -1,5 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_temporary_document,temporary.document,model_temporary_document,base.group_user,1,1,1,0
-access_document,document,model_document,base.group_user,1,1,1,0
-access_document_type,document.type,model_document_type,base.group_user,1,1,1,0
-access_document_number_book,document.number_book,model_document_number_book,base.group_user,1,1,1,0
+access_temporary_document,temporary.document,model_temporary_document,manage_user_info.group_hcmut_department_admin,1,1,1,1
+access_document,document,model_document,manage_user_info.group_hcmut_department_admin,1,1,1,1
+access_document_read,document.read,model_document_read,manage_user_info.group_hcmut_department_admin,1,1,1,0
+access_document_type,document.type,model_document_type,manage_user_info.group_hcmut_department_admin,1,1,1,1
+access_document_number_book,document.number.book,model_document_number_book,manage_user_info.group_hcmut_department_admin,1,1,0,0
+access_document_reset_number_book_wizard,document.reset.number.book.wizard,model_document_reset_number_book_wizard,manage_user_info.group_hcmut_department_admin,1,1,1,1

@@ -4,40 +4,53 @@
 
         <menuitem
             id="document_management_menu"
-            name="Document Management"
+            name="Quản lý văn bản"
             sequence="10"
+            groups="manage_user_info.group_hcmut_department_admin"
         />
         
-        <menuitem
+        <!-- <menuitem
             id="temporary_document_menu"
             name="Temporary Document"
             action="action_temporary_document"
             parent="document_management_menu"
             sequence="10"
-        />
+        /> -->
 
         <menuitem
             id="document_menu"
-            name="Van ban di"
+            name="Văn bản đi"
             action="action_document_list"
             parent="document_management_menu"
             sequence="10"
+            groups="manage_user_info.group_hcmut_department_admin"
+        />
+
+        <menuitem
+            id="income_document_menu"
+            name="Văn bản đến"
+            action="action_income_document_list"
+            parent="document_management_menu"
+            sequence="10"
+            groups="manage_user_info.group_hcmut_department_admin"
         />
  
         <menuitem
             id="document_type_menu"
-            name="Loai van ban"
+            name="Loại văn bản"
             action="action_document_type"
             parent="document_management_menu"
             sequence="10"
+            groups="manage_user_info.group_hcmut_super_admin"
         />
 
         <menuitem
             id="document_number_book"
-            name="So van ban"
+            name="Sổ văn bản"
             action="action_document_number_book"
             parent="document_management_menu"
-            sequence="10"
+            sequence="15"
+            groups="manage_user_info.group_hcmut_department_admin"
         />
 
     </data>

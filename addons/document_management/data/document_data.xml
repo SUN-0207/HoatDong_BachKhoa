@@ -7,7 +7,14 @@
             <field name="model_id" ref="model_document"/>
             <field name="state">code</field>
             <field name="code">action=model.open_document_list()</field>
-          </record>
+        </record>
+
+        <record id="action_income_document_list" model="ir.actions.server">
+            <field name="name">Document</field>
+            <field name="model_id" ref="model_document"/>
+            <field name="state">code</field>
+            <field name="code">action=model.open_income_document_list()</field>
+        </record>
 
     </data>
 </odoo>

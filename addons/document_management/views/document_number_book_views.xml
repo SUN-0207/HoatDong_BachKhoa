@@ -16,11 +16,22 @@
         </record>
 
         <record id="action_document_number_book" model="ir.actions.act_window">
-            <field name="name">Document Number Book</field>
+            <field name="name">Sổ văn bản</field>
             <field name="res_model">document.number.book</field>
             <field name="domain">[('user_id.id', '=', uid)]</field>
             <field name="view_mode">tree</field>
         </record>
+        
+        <record id="document_reset_number_book_inherit_js_class" model="ir.ui.view">
+            <field name="name">document.number.book.view.tree.inherit</field>
+            <field name="model">document.number.book</field>
+            <field name="inherit_id" ref="document_management.document_number_book_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="js_class">button_reset_document</attribute>
+                </xpath>
+            </field>
+          </record>
 
     </data>
 </odoo>

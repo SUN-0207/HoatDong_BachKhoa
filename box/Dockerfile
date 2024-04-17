@@ -1,5 +1,7 @@
 # Use the novobidevops/odoo:15 image as the base image
 FROM novobidevops/odoo:15
+# FROM novobidevops/odoo-arm:15
+
 
 # Install additional packages
 RUN apt-get update && \
