@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="event_registration_view_form_question" model="ir.ui.view">
+        <field name="name">event.registration.view.form.question</field>
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="manage_activity.event_registration_view_form_inherit" />
+        <field name="arch" type="xml">
+            <sheet position="inside">
+                <notebook>
+                    <page string="Câu hỏi" name="questions">
+                        <field name="registration_answer_ids" widget="one2many">
+                            <tree create="0" delete="0" edit="0">
+                                <field name="event_id" invisible="1" />
+                                <field name="question_id" domain="[('event_id', '=', event_id)]" options="{'no_create': True}" />
+                                <field name="question_type" string="Type" invisible="1"/>
+                                <field name="value_answer_id"
+                                    attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}"
+                                    domain="[('question_id', '=', question_id)]"
+                                    options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                                    string="Câu trả lời trắc nghiệm"
+                                    />
+                                <field  name="value_text_box" 
+                                        attrs="{'invisible': [('question_type', '!=', 'text_box')]}"
+                                        string="Câu trả lời textbox"
+                                        />
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+        </field>
+    </record>
+
+    <record id="event_registration_view_tree_question" model="ir.ui.view">
+        <field name="name">event.registration.view.tree.questions</field>
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="manage_activity.event_registration_view_tree_inherit"/>
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="registration_answer_ids" string="Selected Answers" widget="many2many_tags" optional="hide" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="registration_answer_view" model="ir.ui.view">
+        <field name="name">event.registration.wizard.answer</field>
+        <field name="model">event.registration.answer</field>
+        <field name="arch" type="xml">
+            
+            <form string="Câu trả lời">
+                <field name="event_id" invisible="1"/>
+                <field name="registration_id" invisible="1"/>
+                <field name="partner_id" invisible="1"/>
+                <field name="question_id" invisible="1"/>
+                <field name="question_type" invisible="1"/>
+
+                <h3><field name="question_title" readonly="1"/></h3>
+                <field name="value_text_box" attrs="{'invisible': [('question_type', '!=', 'text_box')]}" readonly="1"/>
+                <field name="value_answer_id" attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}" readonly="1" />
+
+                <footer />
+            </form>    
+        </field>
+    </record>
+</odoo>
