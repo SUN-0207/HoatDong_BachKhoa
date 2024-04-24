@@ -14,7 +14,7 @@
                         <field name="symbol_number_format_type" />
                         <field name="symbol_number" />
                         <field name="department_ids" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}" widget="many2many_checkboxes" />
-                        <field name="attach_file" widget="many2many_binary" />
+                        <field name="attach_file" widget="many2many_binary"/>
                     </group>
                     <notebook>
                         <page string="Đơn vị đã đọc">
@@ -58,13 +58,13 @@
                     <field name="type_id" />
                     <field name="symbol_number_format_type" />
                     <field name="symbol_number" />
-                    <field name="attach_file" widget="many2many_binary" />
+                    <field name="attach_file" widget="many2many_binary"/>
                     <field name="is_public" invisible="1" />
                     <field name="user_id" widget="many2one_avatar_user" string="Đơn vị ban hành" attrs="{'invisible': [('can_action_on_document','=',True)]}" />
                     <field name="is_read_document" invisible="1" />
                     <field name="can_action_on_document" invisible="1" />
-                    <field name="state_read_document" widget="badge" attrs="{'invisible': [('can_action_on_document','=',True)]}" />
-                    <button name="mask_as_read_document" string="Đánh dấu đã dọc" type="object" class="btn-primary" attrs="{'invisible': ['|',('is_read_document', '=', True),('can_action_on_document','=',True)]}" />
+                    <field name="state_read_document" widget="badge" attrs="{'invisible': [('can_action_on_document','=',True)]}"/>
+                    <button name="mask_as_read_document" string="Đánh dấu đã dọc" type="object" class="btn-primary" attrs="{'invisible': ['|',('is_read_document', '=', True),('can_action_on_document','=',True)]}" confirm="Đánh dấu đã đọc"/>
                 </tree>
             </field>
         </record>
