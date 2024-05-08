@@ -6,7 +6,7 @@ services:
     #   image: novobidevops/odoo:[odoo_version]
     # Available [odoo_version]: 10, 11, 12, 13, 14, 15
 
-    image: hr:16
+    image: hr:15
     # build: ./box
 
     # If developer want to use their own Docker environment, Do the following actions : 

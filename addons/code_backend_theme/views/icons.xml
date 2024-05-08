@@ -9,5 +9,6 @@
         <menuitem id="manage_user_info.manage_base_menu" name="Quản lý Thông tin" web_icon="code_backend_theme,static/src/img/user_icon.png"/>
         <menuitem id="event.event_main_menu" name="Quản lý Hoạt động" web_icon="code_backend_theme,static/src/img/event_icon.png"/>
         <menuitem id="manage_activity.event_registration_history_menu" name="Lịch sử Đăng ký" web_icon="code_backend_theme,static/src/img/event_history.png"/>
+        <menuitem id="document_management.document_management_menu" name="Quản lý văn bản" web_icon="code_backend_theme,static/src/img/file.png"/>
     </data>
 </odoo>
