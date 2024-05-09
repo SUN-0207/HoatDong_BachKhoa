@@ -117,7 +117,7 @@ class Document(models.Model):
                     
     @api.model
     def search_read(self, domain=None, fields=None, offset=0, limit=None, order=0):
-        documents = super(Document, self).sudo().search_read(domain=domain, fields=fields, offset=offset, limit=limit, order=order)
+        documents = super(Document, self).search_read(domain=domain, fields=fields, offset=offset, limit=limit, order=order)
         
         for document in documents:
             user_id = document['user_id'][0]
