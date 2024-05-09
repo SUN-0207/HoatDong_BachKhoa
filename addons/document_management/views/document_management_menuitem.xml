@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <menuitem
+            id="document_management_menu"
+            name="Quản lý văn bản"
+            sequence="10"
+            groups="manage_user_info.group_hcmut_department_admin"
+        />
+        
+        <!-- <menuitem
+            id="temporary_document_menu"
+            name="Temporary Document"
+            action="action_temporary_document"
+            parent="document_management_menu"
+            sequence="10"
+        /> -->
+
+        <menuitem
+            id="document_menu"
+            name="Văn bản đi"
+            action="action_document_list"
+            parent="document_management_menu"
+            sequence="10"
+            groups="manage_user_info.group_hcmut_department_admin"
+        />
+
+        <menuitem
+            id="income_document_menu"
+            name="Văn bản đến"
+            action="action_income_document_list"
+            parent="document_management_menu"
+            sequence="10"
+            groups="manage_user_info.group_hcmut_department_admin"
+        />
+ 
+        <menuitem
+            id="document_type_menu"
+            name="Loại văn bản"
+            action="action_document_type"
+            parent="document_management_menu"
+            sequence="10"
+            groups="manage_user_info.group_hcmut_super_admin"
+        />
+
+        <menuitem
+            id="document_number_book"
+            name="Sổ văn bản"
+            action="action_document_number_book"
+            parent="document_management_menu"
+            sequence="15"
+            groups="manage_user_info.group_hcmut_department_admin"
+        />
+
+    </data>
+</odoo>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="event_question_view_form" model="ir.ui.view">
+        <field name="name">event.question.view.form</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="manage_activity.event_event_form_inherit"/>
+        <field name="arch" type="xml">
+            <data>
+                <page name="cooperate_department" position="after">
+                    <page string="Câu hỏi" name="questions">
+                        <field name="question_ids" string="Câu hỏi" nolabel="1">
+                            <tree>
+                                <control>
+                                    <create string="Thêm câu hỏi bổ sung" />
+                                </control>
+                                <field name="sequence" widget="handle" />
+                                <field name="title" string="Câu hỏi"/>
+                                <field name="question_type" string="Loại"/>
+                                <field name="answer_ids" widget="many2many_tags" string="Các lựa chọn (nếu có)"
+                                    attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}" />
+                                <!-- <button name="action_view_question_answers" type="object" class="fa fa-bar-chart p-0" title="Answer Breakdown" /> -->
+                            </tree>
+                            <!-- Need to repeat the whole tree form here to be able to create answers properly
+                                Without this, the sub-fields of answer_ids are unknown to the web framework.
+                                We need this because we create questions and answers when the event type changes. -->
+                            <form string="Câu hỏi">
+                                <sheet>
+                                    <h1 class="d-flex"><field name="title" placeholder='e.g. "Do you have any diet restrictions?"' class="flex-grow-1"/></h1>
+                                    <group>
+                                        <group>     
+                                            <field name="question_type" widget="radio" string="Loại câu hỏi" options="{'horizontal': true}"/>
+                                        </group>
+                                        <group>
+                                            <!-- <field name="once_per_order"/> -->
+                                        </group>
+                                    </group>
+                                    <notebook attrs="{'invisible': [('question_type', '!=', 'simple_choice')]}">
+                                        <page string="Câu trả lời trắc nghiệm" name="answers">
+                                            <field name="answer_ids">
+                                                <tree editable="bottom" create="1" class="simple_choices">
+                                                    <control>
+                                                        <create string="Thêm câu trả lời" />
+                                                    </control>
+                                                    <!-- 'display_name' is necessary for the many2many_tags to work on the event view -->
+                                                    <field name="name" string="Lựa chọn"/>
+                                                    <field name="sequence" widget="handle" invisible="1"/>
+                                                    <field name="display_name" invisible="1" />
+                                                </tree>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+                </page>
+        </data>
+        </field>
+    </record>
+</odoo>
