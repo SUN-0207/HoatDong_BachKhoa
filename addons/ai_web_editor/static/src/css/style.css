@@ -1,0 +1,66 @@
+.openai input[type=radio] {
+    outline-color: transparent; 
+}
+.openai .error {
+    border-color: #f50000 !important;
+}
+.openai .content{
+    display: block;
+    width: 96%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1.08333333rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: white;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin-right: 0;
+    margin-left: 0;
+    height: 150px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.openai .generated_content{
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1.08333333rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: white;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin-right: 0;
+    margin-left: 0;
+    min-height: 250px;
+    height: 250px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.openai .copy-button{
+    background-color: white;
+    color: white;
+    padding: 10px;
+    width: auto;
+    height: auto;
+    position: absolute;
+    right: 40px;
+    top: 30px;
+}
+
+.openai .copy-button i{
+    color: #6c757d;
+}
