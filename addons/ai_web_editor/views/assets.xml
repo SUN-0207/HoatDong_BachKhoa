@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="ai_web_editor_assets" inherit_id="web.layout" name="freeze list header asssets">
+        <xpath expr="." position="inside">
+            <link type="text/css" rel="stylesheet" href="/ai_web_editor/static/src/css/style.css" />
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <form t-name="wysiwyg.widgets.openai.generate.content" action="#">
+        <div class="mb-3 row openai">
+            <div class="col-md-12">
+                <label>Nhập mô tả:</label>
+                <div contenteditable="true" id="content" class="content">
+                </div>
+            </div>
+            <!-- <div class="col-md-3">
+                <label>Options:</label>
+                <br/>
+                <input type="radio" id="text_mail" value="Write a Mail for: \n\n" class="text_options" checked="checked"/>
+                <label>Email</label>
+                <br/>
+                <input type="radio" id="text_desc" value="Description For: \n\n" class="text_options"/>
+                <label>Description</label>
+                <br/>
+                <input type="radio" id="text_list" value="Fort in list format: \n\n" class="text_options"/>
+                <label>List</label>
+                <br/>
+                <input type="radio" id="text_summary" value="Write Summary For: \n\n" class="text_options"/>
+                <label>summary</label>
+                <br/>
+                <input type="radio" id="text_grammar_correction" value="Correct this to standard English: \n\n" class="text_options"/>
+                <label>Grammar Correction</label>
+                <br/>
+                <input type="radio" id="text_translate_to_english" value="Translate this into English: \n\n" class="text_options"/>
+                <label>Translate to English</label>
+                
+            </div> -->
+            <!-- <div class="col-md-3">
+                <label>Lenght:</label>
+                <br/>
+                <input type="radio" id="short_text" value="100" class="text_length"/>
+                <label>Short Text</label>
+                <br/>
+                <input type="radio" id="medium_text" value="700" class="text_length" checked="checked"/>
+                <label>Medium Text</label>
+                <br/>
+                <input type="radio" id="long_text" value="2048" class="text_length"/>
+                <label>Long Text</label>
+            </div> -->
+        </div>
+        <div class="mb-3 row openai" style="position: relative;">
+            <div class="col-md-12">
+                <label>Nội dung gợi ý:</label>
+                <div contenteditable="true" id="generated_content" class="generated_content">
+                </div>
+                <div class="input-group-append">
+                    <button class="btn copy-button btn-outline-secondary" data-clipboard-target="div#generated_content" ata-clipboard-action="copy" type="button" id="copy-button">
+                        <i class="fa fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</templates>

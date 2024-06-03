@@ -58,7 +58,6 @@
                     <field name="type_id" />
                     <field name="symbol_number_format_type" />
                     <field name="symbol_number" />
-                    <field name="attach_file" widget="many2many_binary"/>
                     <field name="is_public" invisible="1" />
                     <field name="user_id" widget="many2one_avatar_user" string="Đơn vị ban hành" attrs="{'invisible': [('can_action_on_document','=',True)]}" />
                     <field name="is_read_document" invisible="1" />
