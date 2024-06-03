@@ -9,13 +9,14 @@
             groups="manage_user_info.group_hcmut_department_admin"
         />
         
-        <!-- <menuitem
+        <menuitem
             id="temporary_document_menu"
-            name="Temporary Document"
+            name="Tạo văn bản"
             action="action_temporary_document"
             parent="document_management_menu"
             sequence="10"
-        /> -->
+            groups="manage_user_info.group_hcmut_super_admin"
+        />
 
         <menuitem
             id="document_menu"

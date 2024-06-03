@@ -9,14 +9,14 @@
                 <form string="">
                     <sheet>
                         <group>
-                            <field name="name" string="Tên văn bản"/>
-                            <field name="description" string="Mô tả"/>
-                            <field name="purpose" string="Mục đích"/>
-                            <field name="require" string="Yêu cầu"/>
-                            <field name="time" string="Thời gian"/>
-                            <field name="place" string="Địa điểm"/>
-                            <field name="object_participant" string="Đối tượng tham gia"/>
-                            <field name="content" string="Nội dung"/>
+                            <field name="name" string="Tên văn bản" widget="html" />
+                            <field name="description" string="Mô tả" widget="html" />
+                            <field name="purpose" string="Mục đích" widget="html" />
+                            <field name="require" string="Yêu cầu" widget="html" />
+                            <field name="time" string="Thời gian" widget="html" />
+                            <field name="place" string="Địa điểm" widget="html" />
+                            <field name="object_participant" string="Đối tượng tham gia" widget="html" />
+                            <field name="content" string="Nội dung" widget="html" />
                         </group>
                     </sheet>
                 </form>
@@ -28,7 +28,7 @@
             <field name="model">temporary.document</field>
             <field name="arch" type="xml">
                 <tree string="">
-                    <field name="name" />
+                    <field name="name" widget="html" />
                     <button name="get_document_url" string="Download Document" type="object" class="btn-primary"/>
                 </tree>
             </field>
